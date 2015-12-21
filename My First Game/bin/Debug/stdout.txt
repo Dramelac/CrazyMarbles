@@ -1,0 +1,5 @@
+info : fichier texture : fling_uv.png
+texture Nb : 1info : fichier texture : tex.png
+texture Nb : 2info : fichier texture : skybox.jpg
+texture Nb : 3info : fichier texture : robot.png
+texture Nb : 4

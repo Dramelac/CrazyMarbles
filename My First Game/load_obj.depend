@@ -1,0 +1,429 @@
+# depslib dependency file v1.0
+1339090201 source:c:\anton\projetsccpp\load_obj\main.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<iostream>
+	<math.h>
+	"obj.h"
+	"get_pixel.h"
+	"collision.h"
+	"geometry.h"
+
+1255800449 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1255800464 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_config.h
+	"SDL_platform.h"
+	<stdarg.h>
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_platform.h
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\begin_code.h
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\close_code.h
+
+1255800449 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_endian.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_active.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keysym.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_keysym.h
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800449 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1305920576 source:c:\anton\projetsccpp\load_obj\sdlglutils.cpp
+	"sdlglutils.h"
+	<SDL.h>
+	<GL/glu.h>
+	<SDL_image.h>
+	<cstring>
+	<cstdlib>
+
+1305920576 c:\anton\projetsccpp\load_obj\sdlglutils.h
+	<GL/gl.h>
+	<SDL.h>
+
+1305730734 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1337526697 source:c:\anton\projetsccpp\load_obj\load_objects.c
+	"load_objects.h"
+	"defines.h"
+
+1322418876 c:\anton\projetsccpp\load_obj\load_objects.h
+	<gl/gl.h>
+	<gl/glu.h>
+	"defines.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1337526812 c:\anton\projetsccpp\load_obj\defines.h
+
+1339090201 source:c:\anton\projetsccpp\load_obj\obj.cpp
+	<iostream>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"obj.h"
+	"defines.h"
+	"sdlglutils.h"
+	"geometry.h"
+
+1339090201 c:\anton\projetsccpp\load_obj\obj.h
+	<GL/gl.h>
+	<GL/glu.h>
+	"defines.h"
+	"collision.h"
+	"geometry.h"
+
+1337625465 source:c:\anton\projetsccpp\load_obj\get_pixel.cpp
+	"get_pixel.h"
+	<SDL.h>
+
+1337625482 c:\anton\projetsccpp\load_obj\get_pixel.h
+	<SDL.h>
+
+1339009969 source:c:\anton\projetsccpp\load_obj\collision.cpp
+	<GL/GL.h>
+	<GL/glu.h>
+	<iostream>
+	"collision.h"
+
+1339090249 c:\anton\projetsccpp\load_obj\collision.h
+	<GL/GL.h>
+	<GL/glu.h>
+	"geometry.h"
+
+1339090837 c:\anton\projetsccpp\load_obj\geometry.h
+
+1366551349 source:c:\anton\projetsccpp\avion\main.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<iostream>
+	<math.h>
+	"obj.h"
+	"get_pixel.h"
+	"collision.h"
+	"geometry.h"
+
+1339090201 c:\anton\projetsccpp\avion\obj.h
+	<GL/gl.h>
+	<GL/glu.h>
+	"defines.h"
+	"collision.h"
+	"geometry.h"
+
+1337526812 c:\anton\projetsccpp\avion\defines.h
+
+1339090249 c:\anton\projetsccpp\avion\collision.h
+	<GL/GL.h>
+	<GL/glu.h>
+	"geometry.h"
+
+1365440681 c:\anton\projetsccpp\avion\geometry.h
+
+1337625482 c:\anton\projetsccpp\avion\get_pixel.h
+	<SDL.h>
+
+1339090201 source:c:\anton\projetsccpp\avion\obj.cpp
+	<iostream>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"obj.h"
+	"defines.h"
+	"sdlglutils.h"
+	"geometry.h"
+
+1305920576 c:\anton\projetsccpp\avion\sdlglutils.h
+	<GL/gl.h>
+	<SDL.h>
+
+1305920576 source:c:\anton\projetsccpp\avion\sdlglutils.cpp
+	"sdlglutils.h"
+	<SDL.h>
+	<GL/glu.h>
+	<SDL_image.h>
+	<cstring>
+	<cstdlib>
+
+1337625465 source:c:\anton\projetsccpp\avion\get_pixel.cpp
+	"get_pixel.h"
+	<SDL.h>
+
+1366650481 source:c:\anton\projetsccpp\fps\obj.cpp
+	<iostream>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"obj.h"
+	"defines.h"
+	"sdlglutils.h"
+	"geometry.h"
+	"randspawn.h"
+
+1366660252 c:\anton\projetsccpp\fps\obj.h
+	<GL/gl.h>
+	<GL/glu.h>
+	"defines.h"
+	"collision.h"
+	"geometry.h"
+	"randspawn.h"
+
+1337526812 c:\anton\projetsccpp\fps\defines.h
+
+1339090249 c:\anton\projetsccpp\fps\collision.h
+	<GL/GL.h>
+	<GL/glu.h>
+	"geometry.h"
+
+1366559191 c:\anton\projetsccpp\fps\geometry.h
+
+1305920576 c:\anton\projetsccpp\fps\sdlglutils.h
+	<GL/gl.h>
+	<SDL.h>
+
+1305920576 source:c:\anton\projetsccpp\fps\sdlglutils.cpp
+	"sdlglutils.h"
+	<SDL.h>
+	<GL/glu.h>
+	<SDL_image.h>
+	<cstring>
+	<cstdlib>
+
+1337625465 source:c:\anton\projetsccpp\fps\get_pixel.cpp
+	"get_pixel.h"
+	<SDL.h>
+
+1337625482 c:\anton\projetsccpp\fps\get_pixel.h
+	<SDL.h>
+
+1366661131 source:c:\anton\projetsccpp\fps\main.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<iostream>
+	<math.h>
+	<time.h>
+	"obj.h"
+	"get_pixel.h"
+	"collision.h"
+	"geometry.h"
+	"randspawn.h"
+	"sound.h"
+
+1366651252 source:c:\anton\projetsccpp\fps\randspawn.cpp
+	"randspawn.h"
+
+1366650590 c:\anton\projetsccpp\fps\randspawn.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"geometry.h"
+
+1366650418 c:\anton\projetsccpp\fps\main.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<iostream>
+	<math.h>
+	<time.h>
+	"obj.h"
+	"get_pixel.h"
+	"collision.h"
+	"geometry.h"
+	"randspawn.h"
+
+1366659702 source:c:\anton\projetsccpp\fps\sound.cpp
+	<SDL_mixer.h>
+	"sound.h"
+
+1366655409 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_mixer.h
+	"SDL_types.h"
+	"SDL_rwops.h"
+	"SDL_audio.h"
+	"SDL_endian.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1255800450 c:\program files (x86)\codeblocks\sdl-1.2.14\include\sdl_types.h
+	"SDL_stdinc.h"
+
+1366655937 c:\anton\projetsccpp\fps\sound.h
+	<SDL_mixer.h>
+
