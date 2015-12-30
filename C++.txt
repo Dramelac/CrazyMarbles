@@ -1,0 +1,18 @@
+Crée un moteur 3D:
+http://loulou.developpez.com/tutoriels/moteur3d/
+
+tuto 3D IRRLICHT:
+http://khayyam.developpez.com/articles/3d/irrlicht/
+    
+    octree :
+    https://fr.wikipedia.org/wiki/Octree
+
+    download :
+    http://irrlicht.sourceforge.net/
+
+openclassroom tuto irrlicht:
+https://openclassrooms.com/courses/3d-temps-reel-avec-irrlicht
+
+GTKradiant:
+(level design)
+http://icculus.org/gtkradiant/

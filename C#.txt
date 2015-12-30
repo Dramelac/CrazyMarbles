@@ -1,0 +1,11 @@
+XNA :
+(2D)
+http://dotnet-france.com/Cours/XNA.html
+
+Mono:
+(Linux)
+http://dotnet-france.com/Cours/Mono.html
+
+C# 3D:
+(info forum)
+http://www.developpez.net/forums/d601497/dotnet/langages/csharp/faire-3d-csharp/
