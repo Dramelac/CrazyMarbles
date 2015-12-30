@@ -17,3 +17,5 @@ GTKradiant:
 (level design)
 http://icculus.org/gtkradiant/
 
+example irrlicht :
+http://irrlicht.sourceforge.net/docu/example001.html
