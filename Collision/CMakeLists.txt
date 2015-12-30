@@ -1,0 +1,34 @@
+cmake_minimum_required(VERSION 3.3)
+project(collision)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -lopengl32 -lm")
+set(PROJECT_BINARY_DIR test)
+
+IF(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
+    SET(CMAKE_BUILD_TYPE RelWithDebInfo)
+ENDIF(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
+
+IF(CMAKE_CXX_FLAGS_DEBUG)
+    SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/debug)
+ELSE(CMAKE_CXX_FLAGS_DEBUG)
+    SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/release)
+ENDIF(CMAKE_CXX_FLAGS_DEBUG)
+
+FIND_PACKAGE(X11)
+
+INCLUDE_DIRECTORIES(
+        "C:/irrlicht-1.8.3/include"
+        ${X11_INCLUDE_DIR}
+        ${PROJECT_SOURCE_DIR}
+)
+
+FILE(GLOB SRCS src/*.cpp)
+FILE(GLOB HDRS include/*.h)
+
+set(SOURCE_FILES main.cpp)
+add_executable(collision ${SRCS} ${HDRS} ${SOURCE_FILES} )
+
+TARGET_LINK_LIBRARIES(collision
+        ${X11_LIBRARIES}
+        "C:/irrlicht-1.8.3/lib/Win32-gcc/libIrrlicht.a"
+        )
