@@ -1,1 +1,2 @@
 my first 3d game : https://www.youtube.com/watch?v=a3MACw5hB2Q
+isometric : http://www.gamedev.net/blog/33/entry-2250273-isometric-map-in-sfml?pg=1

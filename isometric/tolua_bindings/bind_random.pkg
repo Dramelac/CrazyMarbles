@@ -1,0 +1,120 @@
+// TOLUA package file for core_random.h
+
+
+$#include "../random/random_global.h"
+$#include "../random/random_gen.h"
+$#include "../random/cont_random.h"
+
+
+unsigned int randInt();
+
+void setSeed(unsigned int Seed);
+
+void setSeedTime();
+
+unsigned int randTarget(unsigned int Target);
+
+double rand01();
+
+unsigned int randRange(unsigned int Low, unsigned int High);
+
+unsigned int diceRoll(unsigned int Dice, unsigned int Sides);
+
+namespace random_gen
+{
+    class CBasePRNG
+    {
+        public:
+        CBasePRNG(){};
+        virtual ~CBasePRNG(){};
+
+        virtual unsigned int get()=0;
+        virtual void setSeed(unsigned int s)=0;
+
+        void setSeedTime();
+
+        unsigned int getTarget(unsigned int t);
+
+        unsigned int getRange(unsigned int low, unsigned int high);
+
+        double get01();
+    };
+
+
+    class LCG : public CBasePRNG
+    {
+        LCG();
+        ~LCG();
+    };
+
+    class KISS : public CBasePRNG
+    {
+        KISS();
+        ~KISS();
+    };
+
+    class Xorshift : public CBasePRNG
+    {
+        Xorshift();
+        ~Xorshift();
+    };
+
+    class MWC256 : public CBasePRNG
+    {
+        MWC256();
+        ~MWC256();
+    };
+
+    class CMWC4096 : public CBasePRNG
+    {
+        CMWC4096();
+        ~CMWC4096();
+    };
+    
+    
+    
+    // Continuous generators
+    class CContinuousRandomSequence
+  {
+    public:
+    CContinuousRandomSequence();
+    CContinuousRandomSequence(double freq, double amp, int interptype);
+    void setSampleRate(double rate);
+    void setFrequency(double freq);
+    void setAmplitude(double amp);
+    void setInterpType(int interp);
+    void reset();
+    double getValue();
+    enum EInterpTypes
+    {
+        NONE,
+        LINEAR,
+        CUBIC,
+        QUINTIC
+    };
+
+  };
+
+class CContinuousRandomSequenceGradient
+{
+    public:
+    CContinuousRandomSequenceGradient();
+    CContinuousRandomSequenceGradient(double freq, double amp, int interptype);
+    void setSampleRate(double rate);
+    void setFrequency(double freq);
+    void setAmplitude(double amp);
+    void setInterpType(int interp);
+    void reset();
+    double getValue();
+    enum EInterpTypes
+    {
+        NONE,
+        LINEAR,
+        CUBIC,
+        QUINTIC
+    };
+
+
+};
+
+};

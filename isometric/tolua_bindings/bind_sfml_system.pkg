@@ -1,0 +1,60 @@
+/* SFML System Bindings. */
+$#include "SFML/System.hpp"
+
+
+namespace sf
+{
+// Clock.hpp
+	class Clock
+	{
+		public:
+		Clock();
+		~Clock();
+		
+		unsigned int GetElapsedTime() const;
+		void Reset();
+	};
+
+	// Vector2 and Vector3; partial binds, exclude operators
+	class Vector2f
+	{
+		Vector2f();
+		Vector2f(float,float);
+		~Vector2f();
+		
+		float x,y;
+	};
+	
+	class Vector3f
+	{
+		Vector3f();
+		Vector3f(float,float,float);
+		~Vector3f();
+		
+		float x,y,z;
+	};
+	
+	class Vector2i
+	{
+		Vector2i();
+		Vector2i(int,int);
+		~Vector2i();
+		
+		int x,y;
+	};
+	
+	class Vector3i
+	{
+		Vector3i();
+		Vector3i(int,int,int);
+		~Vector3i();
+		
+		int x,y,z;
+	};
+
+
+
+
+
+
+};

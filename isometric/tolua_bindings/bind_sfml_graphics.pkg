@@ -1,0 +1,356 @@
+/*  Binding for SFML Graphics module */
+
+$#include <SFML/Graphics.hpp>
+
+namespace sf
+{
+	class Color
+	{
+		Color();
+		Color(unsigned char red, unsigned char green, unsigned char blu, unsigned char alpha=255);
+		
+		unsigned char r,g,b,a;
+		
+		static const sf::Color Black;
+		static const sf::Color White;
+		static const sf::Color Red;
+		static const sf::Color Green;
+		static const sf::Color Blue;
+		static const sf::Color Yellow;
+		static const sf::Color Magenta;
+		static const sf::Color Cyan;
+	};
+	
+	// Blend Modes
+	namespace Blend
+	{
+		enum Mode
+		{
+			Alpha,
+			Add,
+			Multiply,
+			None
+		};
+	};
+	
+	// Drawable
+	// Note: After processing, edit SetBlendMode and GetBlendMode to cast to enum sf::Blend::Mode
+	class Drawable
+	{		
+		void SetPosition(float x, float y);
+		void SetPosition(const sf::Vector2f &position);
+		void SetX(float x);
+		void SetY(float y);
+		void SetScale(float sx, float sy);
+		void SetScale(const sf::Vector2f &scale);
+		void SetScaleX(float s);
+		void SetScaleY(float s);
+		void SetOrigin(float x, float y);
+		void SetOrigin(const sf::Vector2f &origin);
+		void SetRotation(float angle);
+		void SetColor(const sf::Color &color);
+		void SetBlendMode(sf::Blend::Mode mode);
+		const sf::Vector2f& GetPosition() const;
+		const sf::Vector2f& GetScale() const;
+		const sf::Vector2f& GetOrigin() const;
+		float GetRotation() const;
+		const sf::Color &GetColor() const;
+		int GetBlendMode() const;
+		void Move(float ox, float oy);
+		void Move(const sf::Vector2f &o);
+		void Scale(float sx, float sy);
+		void Scale(const sf::Vector2f &s);
+		void Rotate(float angle);
+		sf::Vector2f TransformToLocal(const sf::Vector2f &point) const;
+		sf::Vector2f TransformToGlobal(const sf::Vector2f &point) const;
+	};
+	
+	// Glyph
+	class Glyph
+	{
+		Glyph();
+		
+		int Advance;
+		sf::IntRect Bounds;
+		sf::IntRect SubRect;
+	};
+	
+	
+	// Font
+	class Font
+	{
+		Font();
+		Font(const sf::Font &copy);
+		~Font();
+		bool LoadFromFile(const std::string &filename);
+		const sf::Glyph &GetGlyph(unsigned int codepoint, unsigned int charsize, bool bold) const;
+		int GetKerning(unsigned int first, unsigned int second, unsigned int charsize) const;
+		int GetLineSpacing(unsigned int charsize) const;
+		const sf::Image &GetImage(unsigned int charsize) const;
+		static const sf::Font &GetDefaultFont();
+	};
+	
+	// Image
+	class Image
+	{
+		Image();
+		Image(const sf::Image &copy);
+		~Image();
+		
+		bool LoadFromFile(const std::string &filename);
+		bool SaveToFile(const std::string &filename);
+		bool Create(unsigned int width, unsigned int height, const sf::Color &color=sf::Color(0,0,0));
+		void CreateMaskFromColor(const sf::Color &color, unsigned char alpha=0);
+		void Copy(const sf::Image &source, unsigned int destx, unsigned int desty, const sf::IntRect &sourcerect=sf::IntRect(0,0,0,0), bool applyalpha=false);
+		void CopyScreen(sf::RenderWindow &window, const sf::IntRect &sourceRect=sf::IntRect(0,0,0,0));
+		void SetPixel(unsigned int x, unsigned int y, const sf::Color &color);
+		sf::Color GetPixel(unsigned int x, unsigned int y) const;
+		void Bind() const;
+		void SetSmooth(bool);
+		bool IsSmooth() const;
+		unsigned int GetWidth() const;
+		unsigned int GetHeight() const;
+		sf::FloatRect GetTexCoords(const sf::IntRect &rectangle) const;
+	};
+	
+	// Matrix3
+	class Matrix3
+	{
+		Matrix3();
+		Matrix3(float a00, float a01, float a02, float a10, float a11, float a12, float a20, float a21, float a22);
+		~Matrix3();
+		
+		sf::Vector2f Transform(const sf::Vector2f &point) const;
+		sf::Matrix3 GetInverse() const;
+		static sf::Matrix3 Transformation(const sf::Vector2f &origin, const sf::Vector2f &trans, float rot, const sf::Vector2f &scale);
+		static sf::Matrix3 Projection(const sf::Vector2f &center, const sf::Vector2f &size, float rot);
+		static const sf::Matrix3 Identity;
+	};
+	
+	// Vector2i
+	
+	
+	// Rects
+	class IntRect
+	{
+		IntRect();
+		IntRect(int left, int top, int width, int height);
+		IntRect(const sf::Vector2i &position, const sf::Vector2i &size);
+		IntRect(const sf::IntRect &rectangle);
+		~IntRect();
+		
+		bool Contains(int x, int y) const;
+		bool Contains(const sf::Vector2i &point) const;
+		bool Intersects(const sf::IntRect &rect) const;
+		bool Intersects(const sf::IntRect &rect, sf::IntRect &intersection) const;
+		
+		int Left,Top,Width,Height;
+	};
+	
+	class FloatRect
+	{
+		FloatRect();
+		FloatRect(float left, float top, float width, float height);
+		FloatRect(const sf::Vector2f &position, const sf::Vector2f &size);
+		FloatRect(const sf::FloatRect &rectangle);
+		~FloatRect();
+		
+		bool Contains(int x, int y) const;
+		bool Contains(const sf::Vector2f &point) const;
+		bool Intersects(const sf::FloatRect &rect) const;
+		bool Intersects(const sf::FloatRect &rect, sf::FloatRect &intersection) const;
+		
+		float Left,Top,Width,Height;
+	};
+	
+	
+	// RenderTarget
+	class RenderTarget
+	{
+		void Clear(const sf::Color &color=sf::Color(0,0,0,255));
+		void Draw(const sf::Drawable &object);
+		void Draw(const sf::Drawable &object, const sf::Shader &shader);
+		virtual unsigned int GetWidth();
+		virtual unsigned int GetHeight();
+		void SetView(const sf::View &view);
+		const sf::View &GetView() const;
+		const sf::View &GetView() const;
+		const sf::View &GetDefaultView() const;
+		sf::IntRect GetViewport(const sf::View &view) const;
+		sf::Vector2f ConvertCoords(unsigned int x, unsigned int y) const;
+		sf::Vector2f ConvertCoords(unsigned int x, unsigned int y, const sf::View &view) const;
+		void SaveGLStates();
+		void RestoreGLStates();
+	};
+	
+	// Render Image
+	class RenderImage : public sf::RenderTarget
+	{
+		RenderImage();
+		~RenderImage();
+		
+		bool Create(unsigned int width, unsigned int height, bool depth=false);
+		void SetSmooth(bool);
+		bool IsSmooth() const;
+		bool SetActive(bool active=true);
+		void Display();
+		const sf::Image &GetImage() const;
+	};
+	
+	// Render Window
+	class RenderWindow : public sf::Window, sf::RenderTarget
+	{
+		RenderWindow();
+		RenderWindow(sf::VideoMode mode, const std::string &title, unsigned long style=sf::Style::Default, const sf::ContextSettings &settings=sf::ContextSettings());
+		~RenderWindow();
+		
+		void Create(sf::VideoMode mode, const std::string &title, unsigned long style=sf::Style::Default, const sf::ContextSettings &settings=sf::ContextSettings());
+		void Clear(const sf::Color &color=sf::Color(0,0,0,255));
+		void Draw(const sf::Drawable &object);
+		void Draw(const sf::Drawable &object, const sf::Shader &shader);
+		virtual unsigned int GetWidth();
+		virtual unsigned int GetHeight();
+		void SetView(const sf::View &view);
+		const sf::View &GetView() const;
+		const sf::View &GetView() const;
+		const sf::View &GetDefaultView() const;
+		sf::IntRect GetViewport(const sf::View &view) const;
+		sf::Vector2f ConvertCoords(unsigned int x, unsigned int y) const;
+		sf::Vector2f ConvertCoords(unsigned int x, unsigned int y, const sf::View &view) const;
+		void SaveGLStates();
+		void RestoreGLStates();
+	};
+	
+	// Shader
+	class Shader
+	{
+		Shader();
+		Shader(const sf::Shader &copy);
+		~Shader();
+		
+		bool LoadFromFile(const std::string &filename);
+		bool LoadFromMemory(const std::string &shader);
+		void SetParameter(const std::string &name, float x);
+		void SetParameter(const std::string &name, float x, float y);
+		void SetParameter(const std::string &name, float x, float y, float z);
+		void SetParameter(const std::string &name, float x, float y, float z, float w);
+		void SetParameter(const std::string &name, const sf::Vector2f &vector);
+		void SetParameter(const std::string &name, const sf::Vector3f &vector);
+		void SetTexture(const std::string &name, const sf::Image &texture);
+		void SetCurrentTexture(const std::string &name);
+		void Bind() const;
+		void Unbind() const;
+		static bool IsAvailable();
+	};
+	
+	// Shape
+	class Shape : public sf::Drawable
+	{
+		Shape();
+		~Shape();
+		
+		void AddPoint(float x, float y, const sf::Color &color=sf::Color(255,255,255), const Color &outline=sf::Color(0,0,0));
+		void AddPoint(const sf::Vector2f &pos, const sf::Color &color=sf::Color(255,255,255), const Color &outline=sf::Color(0,0,0));
+		unsigned int GetPointsCount() const;
+		void EnableFill(bool enable);
+		void EnableOutline(bool enable);
+		void SetPointPosition(unsigned int index, float x, float y);
+		void SetPointPosition(unsigned int index, const sf::Vector2f &pos);
+		void SetPointColor(unsigned int index, const sf::Color &color);
+		void SetPointOutlineColor(unsigned int index, const sf::Color &color);
+		void SetOutlineThickness(float thickness);
+		const sf::Vector2f &GetPointPosition(unsigned int index) const;
+		const sf::Color &GetPointColor(unsigned int index) const;
+		const sf::Color &GetPointOutlineColor(unsigned int index) const;
+		float GetOutlineThickness() const;
+	};
+	
+	// Sprite
+	class Sprite : public sf::Drawable
+	{
+		Sprite();
+		Sprite(const sf::Image &img, const sf::Vector2f &pos=sf::Vector2f(0,0), const sf::Vector2f &scale=sf::Vector2f(1,1), float rotation=0.0f, const sf::Color &color=sf::Color(255,255,255,255));
+		~Sprite();
+		
+		void SetImage(const sf::Image &img, bool adjust=false);
+		void SetSubRect(const sf::IntRect &rect);
+		void Resize(float w, float h);
+		void FlipX(bool flipped);
+		void FlipY(bool flipped);
+		const sf::Image * GetImage() const;
+		const sf::IntRect &GetSubRect() const;
+		sf::Vector2f GetSize() const;
+		sf::Color GetPixel(unsigned int x, unsigned int y);
+	};
+	
+	// Text styles
+	namespace Text
+	{
+		enum Style
+		{
+			Regular=0,
+			Bold=1,
+			Italic=2,
+			Underlined=4
+		};
+	};
+	
+	// String
+	// Note: This is incomplete. All the locales, etc... hard to bind. Damned SFML and their exposing std:: garbage in the API
+	class String
+	{
+		String();
+		String(char ansichar);
+		String(wchar_t widchar);
+		String(unsigned int utf32char);
+		String(const char *ansistring);
+		String(const std::string &ansistring);
+		~String();
+		
+		std::string ToAnsiString() const;
+	};
+	
+	class Text : public sf::Drawable
+	{
+		Text();
+		Text(const sf::String &s, const sf::Font &font=sf::Font::GetDefaultFont(), unsigned int characterSize=30);
+		~Text();
+		
+		void SetString(const sf::String &s);
+		void SetFont(const sf::Font &font);
+		void SetCharacterSize(unsigned int size);
+		void SetStyle(unsigned long style);
+		const sf::String &GetString() const;
+		const sf::Font &GetFont() const;
+		unsigned int GetCharacterSize() const;
+		unsigned long GetStyle() const;
+		sf::Vector2f GetCharacterPos(int index) const;
+		sf::FloatRect GetRect() const;
+	};
+	
+	class View
+	{
+		View();
+		View(const sf::FloatRect &rectangle);
+		View(const sf::Vector2f &center, const sf::Vector2f &size);
+		~View();
+		
+		void SetCenter(float x, float y);
+		void SetCenter(const sf::Vector2f &center);
+		void SetSize(float width, float height);
+		void SetSize(const sf::Vector2f &size);
+		void SetRotation(float angle);
+		void SetViewport(const sf::FloatRect &vp);
+		const sf::Vector2f &GetCenter() const;
+		const sf::Vector2f &GetSize() const;
+		float GetRotation() const;
+		const sf::FloatRect &GetViewport() const;
+		void Move(float x, float y);
+		void Move(const sf::Vector2f &move);
+		void Rotate(float angle);
+		void Zoom(float factor);
+		const sf::Matrix3 &GetMatrix() const;
+		const sf::Matrix3 &GetInverseMatrix() const;
+	};
+
+};
