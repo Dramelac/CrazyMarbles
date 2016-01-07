@@ -31,7 +31,8 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 # Add directory containing FindSFML.cmake to module path
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/;${CMAKE_MODULE_PATH}")
+#set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/;${CMAKE_MODULE_PATH}")
+set(CMAKE_MODULE_PATH "/usr/local/share/SFML/cmake/Modules" ${CMAKE_MODULE_PATH})
 
 # Make sure that FindSFML.cmake searches for the static libraries
 if(SFML_STATIC_LIBS)
@@ -39,7 +40,7 @@ if(SFML_STATIC_LIBS)
 endif()
 
 # Find SFML
-find_package(SFML 2 COMPONENTS graphics window system)
+FIND_PACKAGE(SFML 2 COMPONENTS system window graphics audio REQUIRED)
 
 # Output an error if SFML wasn't found
 if(SFML_FOUND)
@@ -69,7 +70,7 @@ install(TARGETS citybuilder
 # Install game assets
 install(DIRECTORY media/
 		DESTINATION media/)
-		
+
 # Install config files
 install(FILES city_cfg.dat city_map.dat LICENSE README.md
 		DESTINATION .)

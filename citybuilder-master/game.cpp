@@ -53,15 +53,15 @@ void Game::loadTiles()
 
 void Game::loadTextures()
 {
-    texmgr.loadTexture("grass",         "media/grass.png");
-    texmgr.loadTexture("forest",        "media/forest.png");
-    texmgr.loadTexture("water",         "media/water.png");
-    texmgr.loadTexture("residential",   "media/residential.png");
-    texmgr.loadTexture("commercial",    "media/commercial.png");
-    texmgr.loadTexture("industrial",    "media/industrial.png");
-    texmgr.loadTexture("road",          "media/road.png");
+    texmgr.loadTexture("grass", "media/grass.png");
+    texmgr.loadTexture("forest", "media/forest.png");
+    texmgr.loadTexture("water", "media/water.png");
+    texmgr.loadTexture("residential", "media/residential.png");
+    texmgr.loadTexture("commercial", "media/commercial.png");
+    texmgr.loadTexture("industrial", "media/industrial.png");
+    texmgr.loadTexture("road", "media/road.png");
 
-    texmgr.loadTexture("background",    "media/background.png");
+    texmgr.loadTexture("background", "media/background.png");
 }
 
 void Game::loadFonts()

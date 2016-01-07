@@ -53,21 +53,21 @@ void Game::loadTiles()
 
 void Game::loadTextures()
 {
-    texmgr.loadTexture("grass",         "media/grass.png");
-    texmgr.loadTexture("forest",        "media/forest.png");
-    texmgr.loadTexture("water",         "media/water.png");
-    texmgr.loadTexture("residential",   "media/residential.png");
-    texmgr.loadTexture("commercial",    "media/commercial.png");
-    texmgr.loadTexture("industrial",    "media/industrial.png");
-    texmgr.loadTexture("road",          "media/road.png");
+    texmgr.loadTexture("grass",         "/home/mathieu/Documents/repository/CrazyMarbles/citybuilder-master/Part 10 - Putting it All Together/media/grass.png");
+    texmgr.loadTexture("forest",        "/home/mathieu/Documents/repository/CrazyMarbles/citybuilder-master/Part 10 - Putting it All Together/media/forest.png");
+    texmgr.loadTexture("water",         "/home/mathieu/Documents/repository/CrazyMarbles/citybuilder-master/Part 10 - Putting it All Together/media/water.png");
+    texmgr.loadTexture("residential",   "/home/mathieu/Documents/repository/CrazyMarbles/citybuilder-master/Part 10 - Putting it All Together/media/residential.png");
+    texmgr.loadTexture("commercial",    "/home/mathieu/Documents/repository/CrazyMarbles/citybuilder-master/Part 10 - Putting it All Together/media/commercial.png");
+    texmgr.loadTexture("industrial",    "/home/mathieu/Documents/repository/CrazyMarbles/citybuilder-master/Part 10 - Putting it All Together/media/industrial.png");
+    texmgr.loadTexture("road",          "/home/mathieu/Documents/repository/CrazyMarbles/citybuilder-master/Part 10 - Putting it All Together/media/road.png");
 
-    texmgr.loadTexture("background",    "media/background.png");
+    texmgr.loadTexture("background",    "/home/mathieu/Documents/repository/CrazyMarbles/citybuilder-master/Part 10 - Putting it All Together/media/background.png");
 }
 
 void Game::loadFonts()
 {
     sf::Font font;
-    font.loadFromFile("media/font.ttf");
+    font.loadFromFile("/home/mathieu/Documents/repository/CrazyMarbles/citybuilder-master/Part 10 - Putting it All Together/media/font.ttf");
     this->fonts["main_font"] = font;
 
     return;

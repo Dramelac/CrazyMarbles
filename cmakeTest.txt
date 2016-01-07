@@ -10,7 +10,15 @@ endif()
 
 SET(EXECUTABLE_OUTPUT bin/${CMAKE_BUILD_TYPE})
 
-ADD_EXECUTABLE(citybuilder main.cpp game.cpp)
+# Add the source files
+file(GLOB CITYBUILDER_SRC
+		"*.h"
+		"*.cpp"
+		)
+
+add_executable(citybuilder ${CITYBUILDER_SRC})
+
+
 set(CMAKE_MODULE_PATH "/usr/local/share/SFML/cmake/Modules" ${CMAKE_MODULE_PATH})
 if(SFML_CMAKE_DIR)
 	string(REPLACE "FindSFML.cmake" "" SFML_CMAKE_DIR ${SFML_CMAKE_DIR})
@@ -18,5 +26,18 @@ if(SFML_CMAKE_DIR)
 endif()
 FIND_PACKAGE(SFML 2 COMPONENTS system window graphics audio REQUIRED)
 INCLUDE_DIRECTORIES(${SFML_INCLUDE_DIR})
-TARGET_LINK_LIBRARIES(citybuilder ${SFML_LIBRARIES})
+TARGET_LINK_LIBRARIES(citybuilder ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 
+
+
+# Install executable
+install(TARGETS citybuilder
+		RUNTIME DESTINATION .)
+
+# Install game assets
+install(DIRECTORY media/
+		DESTINATION media/)
+
+# Install config files
+install(FILES city_cfg.dat city_map.dat LICENSE README.md
+		DESTINATION .)

@@ -64,3 +64,4 @@ Game::~Game()
 {
     while(!this->states.empty()) popState();
 }
+
