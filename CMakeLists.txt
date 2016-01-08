@@ -1,7 +1,16 @@
-cmake_minimum_required(VERSION 3.3)
-project(CrazyMarbles)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.3)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+PROJECT(BasePropre)
 
-set(SOURCE_FILES main.cpp)
-add_executable(CrazyMarbles ${SOURCE_FILES})
+SET(EXECUTABLE_OUTPUT bin/${CMAKE_BUILD_TYPE})
+
+ADD_EXECUTABLE(BasePropre main.cpp)
+set(CMAKE_MODULE_PATH "/usr/local/share/SFML/cmake/Modules" ${CMAKE_MODULE_PATH})
+if(SFML_CMAKE_DIR)
+    string(REPLACE "FindSFML.cmake" "" SFML_CMAKE_DIR ${SFML_CMAKE_DIR})
+    set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${SFML_CMAKE_DIR}")
+endif()
+FIND_PACKAGE(SFML 2 COMPONENTS system window graphics audio REQUIRED)
+INCLUDE_DIRECTORIES(${SFML_INCLUDE_DIR})
+TARGET_LINK_LIBRARIES(BasePropre ${SFML_LIBRARIES})
+
