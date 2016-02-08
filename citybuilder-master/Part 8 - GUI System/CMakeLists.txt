@@ -6,7 +6,7 @@ project(citybuilder)
 set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build (Debug or Release)" FORCE)
 set(SFML_STATIC_LIBS FALSE CACHE BOOL "Choose whether SFML is linked statically or shared.")
 set(CITYBUILDER_STATIC_STD_LIBS FALSE CACHE BOOL "Use statically linked standard/runtime libraries? This option must match the one used for SFML.")
-
+set(CMAKE_MODULE_PATH "/usr/local/share/SFML/cmake/Modules" ${CMAKE_MODULE_PATH})
 # Make sure that the runtime library gets link statically
 if(CITYBUILDER_STATIC_STD_LIBS)
 	if(NOT SFML_STATIC_LIBS)
