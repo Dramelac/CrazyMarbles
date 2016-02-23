@@ -14,9 +14,11 @@ private:
     int largeur;
     int hauteur;
 public:
-
-
     Board(int hauteur, int largeur);
+    ~Board();
+
+    int getLargeur() const;
+    int getHauteur() const;
 };
 
 

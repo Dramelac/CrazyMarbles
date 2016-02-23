@@ -19,8 +19,12 @@ private:
     const unsigned int hauteur;
     int speed;
 
+    Texture tile;
+    Sprite spriteTile;
+
     void updateGameBoard();
     void eventChecker();
+    void checkPos();
 public:
     Game(const int x, const int y);
     void gameLoop();

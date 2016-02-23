@@ -4,6 +4,8 @@
 
 #include "Cell.hpp"
 
+Cell::Cell() : value(0) { }
+
 int Cell::getValue() const {
     return value;
 }
@@ -11,3 +13,4 @@ int Cell::getValue() const {
 void Cell::setValue(int value) {
     Cell::value = value;
 }
+
