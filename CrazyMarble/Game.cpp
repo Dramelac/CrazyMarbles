@@ -25,36 +25,41 @@ Game::Game(int x, int y):largeur(1000),hauteur(800),board(Board(x,y)), debug(tru
 
 
 void Game::updateGameBoard() {
+    VertexArray quad(Quads, 4);
+
+    unsigned int width = tile.getSize().x;
+    unsigned int height = tile.getSize().y;
+
+    quad[0].texCoords = sf::Vector2f(0, 0);
+    quad[1].texCoords = sf::Vector2f(width, 0);
+    quad[2].texCoords = sf::Vector2f(width, height);
+    quad[3].texCoords = sf::Vector2f(0, height);
+    quad.resize(width * height * 4);
+
+
 
     for (int row = 0; row < board.getLargeur(); row++)
     {
-        /*
-        RectangleShape temp = circle;
-        temp.setFillColor(Color::Green);
-        temp.setOutlineColor(Color::Blue);
-        temp.setOutlineThickness(4);
-        temp.setRotation(45);
-         */
-        Sprite temp;
-        temp.setTexture(tile);
-        temp.setRotation(45);
+        //Sprite temp;
+        //temp.setTexture(tile);
+        //temp.setRotation(45);
 
         for (int column = 0; column < board.getHauteur(); column++)
         {
             //Sprite texture = board.getMap().map[row][column];
-            //Sprite texture;
-            //texture.setTexture(tile);
 
-            //double width = tile.getSize().x*1.5;//La largeur
-            //double height = tile.getSize().x*1.5;//La hauteur
-            int width = tile.getSize().x-19;
-            int height = tile.getSize().y-19;
-            //float x = (column * width) / 2;
-            //float y = row * height + ((column % 2) * (height / 2));
-            int x = (largeur/2 - (row * width)) + column * width;
-            int y =  row * width + column * height;
-            temp.setPosition(Vector2f(x, y));
-            windows.draw(temp);
+
+            int x = (largeur/2 - (row * (width/2))) + column * (width/2);
+            int y =  row * (width/2) + column * (height/2);
+
+            //temp.setPosition(Vector2f(x, y));
+            quad[0].position = sf::Vector2f(x+width/2, y);
+            quad[1].position = sf::Vector2f(x+width, y+height/4);
+            quad[2].position = sf::Vector2f(x+width/2, y+height/2);
+            quad[3].position = sf::Vector2f(x, y+height/4);
+
+
+            windows.draw(quad, &tile);
             //windows.display();
             //int yolo;
             //std::cin >> yolo;
