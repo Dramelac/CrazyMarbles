@@ -12,7 +12,7 @@ Game::Game(int x, int y):largeur(1000),hauteur(800),board(Board(x,y)), debug(tru
 
     circle.setFillColor(Color::Blue);
     circle.setRadius(15);
-    circle.setPosition(Vector2f(largeur / 2 - (circle.getRadius() / 2), hauteur / 2 - (circle.getRadius() / 2)));
+    circle.setPosition(Vector2f(largeur / 2 - (circle.getRadius() / 2), 100));
 
     speed = 2;
 
@@ -49,8 +49,8 @@ void Game::updateGameBoard() {
             //Sprite texture = board.getMap().map[row][column];
 
 
-            int x = (largeur/2 - (row * (width/2))) + column * (width/2);
-            int y =  row * (width/2) + column * (height/2);
+            int x = (largeur/2 - (row * (width/2))) + column * (width/2) - width/2;
+            int y =  row * (width/(2*2)) + column * (height/(2*2)) + 50;
 
             //temp.setPosition(Vector2f(x, y));
             quad[0].position = sf::Vector2f(x+width/2, y);
