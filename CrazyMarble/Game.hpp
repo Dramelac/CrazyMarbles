@@ -14,13 +14,14 @@ class Game {
 private:
     Board board;
     RenderWindow windows;
-    RectangleShape rectTest;
+    CircleShape circle;
     const unsigned int largeur;
     const unsigned int hauteur;
     int speed;
 
     Texture tile;
     Sprite spriteTile;
+    bool debug;
 
     void updateGameBoard();
     void eventChecker();
