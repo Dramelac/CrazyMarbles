@@ -5,26 +5,41 @@
 #include <iostream>
 #include "Game.hpp"
 
-Game::Game(int x, int y):largeur(1000),hauteur(800),board(Board(x,y)), debug(true){
+Game::Game(unsigned int x, unsigned int y):largeur(1000),hauteur(800),board(Board(x,y)){
+
     windows.create(VideoMode(largeur,hauteur), "Crazy Marbles");
     windows.setPosition(Vector2i(250,50));
     windows.setFramerateLimit(30);
 
     circle.setFillColor(Color::Blue);
-    circle.setRadius(15);
+    circle.setRadius(5);
     circle.setPosition(Vector2f(largeur / 2 - (circle.getRadius() / 2), 100));
 
-    speed = 2;
+    speed = 5;
 
-    if(!tile.loadFromFile("/home/mathieu/Documents/repository/CrazyMarbles/CrazyMarble/data/tile.png")){
+    if(!tile.loadFromFile("data/tile.png")){
         std::cout << "Error loading file" << std::endl;
     }
-    //tile.setSmooth(true);
+    tile.setSmooth(true);
     spriteTile.setTexture(tile);
 }
 
 
+void Game::updateView() {
+    int margeSize = 50;
+
+    Vector2f pos;
+    pos.x = circle.getPosition().x + (margeSize / 2) - (largeur / 2);
+    pos.y = circle.getPosition().y + (margeSize / 2) - (hauteur / 2);
+    view.reset(FloatRect(pos.x, pos.y, largeur, hauteur));
+    view.zoom(0.5);
+    windows.setView(view);
+}
+
+
 void Game::updateGameBoard() {
+    updateView();
+
     VertexArray quad(Quads, 4);
 
     unsigned int width = tile.getSize().x;
@@ -49,8 +64,8 @@ void Game::updateGameBoard() {
             //Sprite texture = board.getMap().map[row][column];
 
 
-            int x = (largeur/2 - (row * (width/2))) + column * (width/2) - width/2;
-            int y =  row * (width/(2*2)) + column * (height/(2*2)) + 50;
+            int x = (board.getMidleBoard()/2 - (row * (width/2))) + column * (width/2) - width/2;
+            int y =  row * (width/(2*1)) + column * (height/(2*1)) + 50;
 
             //temp.setPosition(Vector2f(x, y));
             quad[0].position = sf::Vector2f(x+width/2, y);
@@ -65,18 +80,6 @@ void Game::updateGameBoard() {
             //std::cin >> yolo;
         }
     }
-
-/*
-    for(int i=0; i<10; i++){
-        RectangleShape temp = circle;
-        temp.setFillColor(Color::Green);
-        for(int y=0;y<10;y++){
-            temp.setPosition(Vector2f(i*60,y*60));
-            windows.draw(temp);
-        }
-    }
-*/
-    debug = false;
 
     //windows.draw(spriteTile);
     windows.draw(circle);
@@ -114,11 +117,12 @@ void Game::checkPos() {
     Vector2f pos = circle.getPosition();
     if(pos.x < 0){
         pos.x = 0;
+        circle.setPosition(0, pos.y);
     }
     if(pos.y < 0){
-        pos.y = 0;
+        circle.setPosition(pos.x, 0);
     }
-    circle.setPosition(pos);
+
 
 }
 

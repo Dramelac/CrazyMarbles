@@ -4,7 +4,7 @@
 
 #include "Board.hpp"
 
-Board::Board(int hauteur, int largeur): hauteur(hauteur), largeur(largeur){
+Board::Board(unsigned int hauteur, unsigned int largeur): hauteur(hauteur), largeur(largeur), midleBoard(largeur * 75){
     board = new Cell* [hauteur];
     for(int i=0; i<hauteur;i++){
         board[i] = new Cell[largeur];
@@ -24,4 +24,8 @@ Board::~Board() {
         delete[] board[largeur];
     }
     delete[] board;
+}
+
+const unsigned int Board::getMidleBoard() const {
+    return midleBoard;
 }

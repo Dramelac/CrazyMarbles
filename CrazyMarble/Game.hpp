@@ -14,6 +14,7 @@ class Game {
 private:
     Board board;
     RenderWindow windows;
+    View view;
     CircleShape circle;
     const unsigned int largeur;
     const unsigned int hauteur;
@@ -21,13 +22,13 @@ private:
 
     Texture tile;
     Sprite spriteTile;
-    bool debug;
 
     void updateGameBoard();
     void eventChecker();
     void checkPos();
+    void updateView();
 public:
-    Game(const int x, const int y);
+    Game(const unsigned int x, const unsigned int y);
     void gameLoop();
 };
 

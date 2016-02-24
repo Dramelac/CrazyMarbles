@@ -11,14 +11,16 @@
 class Board {
 private:
     Cell** board;
+    const unsigned int midleBoard;
     int largeur;
     int hauteur;
 public:
-    Board(int hauteur, int largeur);
+    Board(const unsigned int hauteur, const unsigned int largeur);
     ~Board();
 
     int getLargeur() const;
     int getHauteur() const;
+    const unsigned int getMidleBoard() const;
 };
 
 
