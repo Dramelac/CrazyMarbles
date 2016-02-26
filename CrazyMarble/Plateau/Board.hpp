@@ -7,6 +7,8 @@
 
 
 #include "Cell.hpp"
+#include <SFML/Graphics.hpp>
+using namespace sf;
 
 class Board {
 private:
@@ -14,6 +16,8 @@ private:
     const unsigned int midleBoard;
     int largeur;
     int hauteur;
+
+    void initCellPlace();
 public:
     Board(const unsigned int hauteur, const unsigned int largeur);
     ~Board();
@@ -21,6 +25,7 @@ public:
     int getLargeur() const;
     int getHauteur() const;
     const unsigned int getMidleBoard() const;
+    void drawBoard(RenderWindow *windows);
 };
 
 

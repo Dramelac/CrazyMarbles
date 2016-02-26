@@ -20,9 +20,6 @@ private:
     const unsigned int hauteur;
     int speed;
 
-    Texture tile;
-    Sprite spriteTile;
-
     void updateGameBoard();
     void eventChecker();
     void checkPos();

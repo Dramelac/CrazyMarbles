@@ -9,6 +9,18 @@ Board::Board(unsigned int hauteur, unsigned int largeur): hauteur(hauteur), larg
     for(int i=0; i<hauteur;i++){
         board[i] = new Cell[largeur];
     }
+    initCellPlace();
+}
+
+
+void Board::initCellPlace() {
+    for (int row = 0; row < largeur; row++)
+    {
+        for (int column = 0; column < hauteur; column++)
+        {
+            board[row][column].setupQuadPlace(midleBoard, row, column);
+        }
+    }
 }
 
 int Board::getLargeur() const {
@@ -29,3 +41,16 @@ Board::~Board() {
 const unsigned int Board::getMidleBoard() const {
     return midleBoard;
 }
+
+
+void Board::drawBoard(RenderWindow *windows) {
+
+    for (int row = 0; row < largeur; row++)
+    {
+        for (int column = 0; column < hauteur; column++)
+        {
+            board[row][column].drawCel(windows);
+        }
+    }
+}
+
