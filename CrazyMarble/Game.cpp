@@ -64,7 +64,7 @@ void Game::eventChecker() {
         if(Mouse::isButtonPressed(Mouse::Right)){
             std::cout << circle.getPosition().x << " / " << circle.getPosition().y << std::endl;
         }
-        SoundUtils::InitSong();
+
         /*
         if(Keyboard::isKeyPressed(Keyboard::Down)){
             SoundUtils::MuteSong();
@@ -95,7 +95,7 @@ void Game::checkPos() {
 }
 
 void Game::gameLoop() {
-
+    SoundUtils::InitSong();
     while(windows.isOpen()){
         Event event;
         while(windows.pollEvent(event)){
