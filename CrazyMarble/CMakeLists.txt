@@ -3,7 +3,7 @@ project(CrazyMarble)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp Plateau/Board.cpp Plateau/Board.hpp Plateau/Cell.cpp Plateau/Cell.hpp Game.cpp Game.hpp)
+set(SOURCE_FILES main.cpp Plateau/Board.cpp Plateau/Board.hpp Plateau/Cell.cpp Plateau/Cell.hpp Game.cpp Game.hpp Utils/TextureLoader.cpp Utils/TextureLoader.hpp)
 add_executable(CrazyMarble ${SOURCE_FILES})
 
 
