@@ -12,6 +12,9 @@ private:
     int value;
     Texture tile;
     VertexArray quad;
+    Texture tileWall;
+    VertexArray quadWallRight;
+    VertexArray quadWallLeft;
 
 public:
     Cell();
@@ -20,7 +23,7 @@ public:
     void setValue(int value);
 
     const Texture & getTile() const;
-    void setupQuadPlace(int middle, int row, int column);
+    void setupQuadPlace(int middle, int row, int column, int max);
     void drawCel(RenderWindow *windows);
 };
 

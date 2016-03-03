@@ -61,7 +61,7 @@ void Game::eventChecker() {
             circle.move(-1 * speed, 0);
         }
 
-        
+
         if(Mouse::isButtonPressed(Mouse::Right)){
             std::cout << circle.getPosition().x << " / " << circle.getPosition().y << std::endl;
         }
