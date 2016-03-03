@@ -9,7 +9,7 @@ Texture TextureLoader::tileWall;
 
 void TextureLoader::LoadingTextures() {
 
-    if(!tile.loadFromFile("data/tile.png")){
+    if(!tile.loadFromFile("data/tile2.png")){
         std::cout << "Error loading file" << std::endl;
     }
     if(!tileWall.loadFromFile("data/wall.png")){

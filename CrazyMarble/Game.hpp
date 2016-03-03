@@ -20,6 +20,8 @@ private:
     const unsigned int hauteur;
     int speed;
 
+    float zoom;
+
     void updateGameBoard();
     void eventChecker();
     void checkPos();

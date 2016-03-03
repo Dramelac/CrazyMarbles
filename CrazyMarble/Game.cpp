@@ -5,20 +5,18 @@
 #include <iostream>
 #include "Game.hpp"
 
-Game::Game(unsigned int x, unsigned int y):largeur(1000),hauteur(800),board(Board(x,y)){
+Game::Game(unsigned int x, unsigned int y):largeur(1920),hauteur(1080),board(Board(x,y)), zoom(0.5){
 
     windows.create(VideoMode(largeur,hauteur), "Crazy Marbles");
     windows.setPosition(Vector2i(250,50));
-    windows.setFramerateLimit(30);
+    windows.setFramerateLimit(60);
+    //windows.setMouseCursorVisible(false);
 
     circle.setFillColor(Color::Blue);
     circle.setRadius(5);
-    //circle.setPosition(Vector2f(largeur / 2 - (circle.getRadius() / 2), 100));
     circle.setPosition(Vector2f(365, 60));
 
-    speed = 5;
-
-
+    speed = 2;
 }
 
 
@@ -29,8 +27,9 @@ void Game::updateView() {
     pos.x = circle.getPosition().x + (margeSize / 2) - (largeur / 2);
     pos.y = circle.getPosition().y + (margeSize / 2) - (hauteur / 2);
     view.reset(FloatRect(pos.x, pos.y, largeur, hauteur));
-    view.zoom(0.5);
+    view.zoom(this->zoom);
     windows.setView(view);
+
 }
 
 
@@ -39,7 +38,6 @@ void Game::updateGameBoard() {
 
     board.drawBoard(&windows);
 
-    //windows.draw(spriteTile);
     windows.draw(circle);
     windows.display();
     windows.clear();
@@ -89,9 +87,9 @@ void Game::gameLoop() {
     while(windows.isOpen()){
         Event event;
         while(windows.pollEvent(event)){
-            if(event.type == Event::Closed){
-                windows.close();
-            }
+            if(event.type == Event::Closed) windows.close();
+
+            if (event.type == sf::Event::MouseWheelMoved) zoom += event.mouseWheel.delta * 0.1;
         }
         eventChecker();
 
