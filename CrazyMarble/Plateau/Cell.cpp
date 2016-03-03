@@ -40,7 +40,7 @@ void Cell::setupQuadPlace(int middle, int row, int column) {
     unsigned int height = tile.getSize().y;
 
     int x = (middle/2 - (row * (width/2))) + column * (width/2) - width/2;
-    int y =  row * (width/(2*1)) + column * (height/(2*1)) + 50;
+    int y =  row * (width/(2*2)) + column * (height/(2*2)) + 50;
 
     quad[0].position = sf::Vector2f(x+width/2, y);
     quad[1].position = sf::Vector2f(x+width, y+height/4);

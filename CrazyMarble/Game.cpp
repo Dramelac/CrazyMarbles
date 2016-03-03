@@ -13,7 +13,8 @@ Game::Game(unsigned int x, unsigned int y):largeur(1000),hauteur(800),board(Boar
 
     circle.setFillColor(Color::Blue);
     circle.setRadius(5);
-    circle.setPosition(Vector2f(largeur / 2 - (circle.getRadius() / 2), 100));
+    //circle.setPosition(Vector2f(largeur / 2 - (circle.getRadius() / 2), 100));
+    circle.setPosition(Vector2f(365, 60));
 
     speed = 5;
 
@@ -51,18 +52,18 @@ void Game::eventChecker() {
             circle.move(0, -1 * speed);
         }
         if(Keyboard::isKeyPressed(Keyboard::Down)){
-            circle.move(0, 1 * speed);
+            circle.move(0, speed);
         }
         if(Keyboard::isKeyPressed(Keyboard::Right)){
-            circle.move(1 * speed, 0);
+            circle.move(speed, 0);
         }
         if(Keyboard::isKeyPressed(Keyboard::Left)){
             circle.move(-1 * speed, 0);
         }
 
-        if(Mouse::isButtonPressed(Mouse::Left)){
-            Vector2i clickPos = Mouse::getPosition(windows);
-            circle.setPosition(Vector2f(clickPos.x - circle.getRadius() / 2, clickPos.y - circle.getRadius() / 2));
+        
+        if(Mouse::isButtonPressed(Mouse::Right)){
+            std::cout << circle.getPosition().x << " / " << circle.getPosition().y << std::endl;
         }
 
         checkPos();
