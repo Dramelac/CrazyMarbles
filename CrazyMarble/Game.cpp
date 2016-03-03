@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "Game.hpp"
+#include "Utils/SoundUtils.hpp"
 
 Game::Game(unsigned int x, unsigned int y):largeur(1920),hauteur(1080),board(Board(x,y)), zoom(0.5){
 
@@ -63,7 +64,20 @@ void Game::eventChecker() {
         if(Mouse::isButtonPressed(Mouse::Right)){
             std::cout << circle.getPosition().x << " / " << circle.getPosition().y << std::endl;
         }
-
+        /*
+        if(Keyboard::isKeyPressed(Keyboard::Down)){
+            SoundUtils::MuteSong();
+        }
+        if(Keyboard::isKeyPressed(Keyboard::Up)){
+            SoundUtils::UnMute();
+        }
+        if (Keyboard::isKeyPressed(Keyboard::Right)) {
+            SoundUtils::UpSong();
+        }
+        else if (Keyboard::isKeyPressed(Keyboard::Left)) {
+            SoundUtils::DownSong();
+        }
+        */
         checkPos();
     }
 }
