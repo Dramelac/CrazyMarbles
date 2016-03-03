@@ -3,7 +3,7 @@
 
 void Timer::Stop_Timer()
 {
-	Timer::timer.my_thread.join();
+	//Timer::timer.my_thread.join();
 }
 
 const int Timer::secondGet()
@@ -58,6 +58,7 @@ void test(Timer timer)
 
 void Timer::Start_Timer()
 {
+	/*
 	Timer timer;
 	timer.running = true;	
 	timer.my_thread = thread([=]()
@@ -73,6 +74,7 @@ void Timer::Start_Timer()
 		timer.running = false;
 		timer.Stop_Timer();
 	}
+	 */
 	
 }
 
