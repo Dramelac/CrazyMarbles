@@ -64,6 +64,7 @@ void Game::eventChecker() {
         if(Mouse::isButtonPressed(Mouse::Right)){
             std::cout << circle.getPosition().x << " / " << circle.getPosition().y << std::endl;
         }
+        SoundUtils::InitSong();
         /*
         if(Keyboard::isKeyPressed(Keyboard::Down)){
             SoundUtils::MuteSong();
@@ -82,7 +83,6 @@ void Game::eventChecker() {
     }
 }
 
-
 void Game::checkPos() {
     Vector2f pos = circle.getPosition();
     if(pos.x < 0){
@@ -92,8 +92,6 @@ void Game::checkPos() {
     if(pos.y < 0){
         circle.setPosition(pos.x, 0);
     }
-
-
 }
 
 void Game::gameLoop() {
