@@ -8,6 +8,7 @@
 
 #include "Plateau/Board.hpp"
 #include "Play/Player.hpp"
+#include "Utils/SoundUtils.hpp"
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
@@ -24,7 +25,8 @@ private:
     float zoom;
 
     void updateGameBoard();
-    void eventChecker();
+    void eventChecker(Event event);
+    void keyboardChecker();
     void updateView();
 public:
     Game(const unsigned int x, const unsigned int y);

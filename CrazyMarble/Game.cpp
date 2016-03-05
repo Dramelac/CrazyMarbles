@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include "Game.hpp"
-#include "Utils/SoundUtils.hpp"
 
 Game::Game(unsigned int x, unsigned int y): width(1920), height(1080), board(Board(x, y)), zoom(0.5), player("Yolo", 20, Position(365, 60)){
 
@@ -41,54 +40,62 @@ void Game::updateGameBoard() {
 }
 
 
-void Game::eventChecker() {
-    if(windows.hasFocus()){
-        if(Keyboard::isKeyPressed(Keyboard::Up)){
+void Game::eventChecker(Event event) {
+
+    if(event.type == Event::Closed) windows.close();
+
+    if (event.type == sf::Event::MouseWheelMoved) zoom += event.mouseWheel.delta * 0.1;
+
+    if (Mouse::isButtonPressed(Mouse::Right)) {
+        std::cout << player.getPosition().x << " / " << player.getPosition().y << std::endl;
+    }
+
+}
+
+
+void Game::keyboardChecker() {
+
+    if(windows.hasFocus()) {
+        if (Keyboard::isKeyPressed(Keyboard::Up) || Keyboard::isKeyPressed(Keyboard::Z)) {
             player.move(Position(0, -1 * speed));
         }
-        if(Keyboard::isKeyPressed(Keyboard::Down)){
+        if (Keyboard::isKeyPressed(Keyboard::Down) || Keyboard::isKeyPressed(Keyboard::S)) {
             player.move(Position(0, speed));
         }
-        if(Keyboard::isKeyPressed(Keyboard::Right)){
+        if (Keyboard::isKeyPressed(Keyboard::Right) || Keyboard::isKeyPressed(Keyboard::D)) {
             player.move(Position(speed, 0));
         }
-        if(Keyboard::isKeyPressed(Keyboard::Left)){
+        if (Keyboard::isKeyPressed(Keyboard::Left) || Keyboard::isKeyPressed(Keyboard::Q)) {
             player.move(Position(-1 * speed, 0));
         }
 
-        if(Mouse::isButtonPressed(Mouse::Right)){
-            std::cout << player.getPosition().x << " / " << player.getPosition().y << std::endl;
-        }
 
+        // Music Control //
 
-        /*
-        if(Keyboard::isKeyPressed(Keyboard::Down)){
+        if(Keyboard::isKeyPressed(Keyboard::M)){
             SoundUtils::MuteSong();
         }
-        if(Keyboard::isKeyPressed(Keyboard::Up)){
+        if(Keyboard::isKeyPressed(Keyboard::P)){
             SoundUtils::UnMute();
         }
-        if (Keyboard::isKeyPressed(Keyboard::Right)) {
+        if (Keyboard::isKeyPressed(Keyboard::O)) {
             SoundUtils::UpSong();
         }
-        else if (Keyboard::isKeyPressed(Keyboard::Left)) {
+        else if (Keyboard::isKeyPressed(Keyboard::L)) {
             SoundUtils::DownSong();
         }
-        */
+
     }
 }
-
 
 void Game::gameLoop() {
     SoundUtils::InitSong();
     while(windows.isOpen()){
         Event event;
         while(windows.pollEvent(event)){
-            if(event.type == Event::Closed) windows.close();
-
-            if (event.type == sf::Event::MouseWheelMoved) zoom += event.mouseWheel.delta * 0.1;
+            eventChecker(event);
         }
-        eventChecker();
+        keyboardChecker();
 
         updateGameBoard();
     }
