@@ -6,7 +6,7 @@
 #include "Cell.hpp"
 #include "../Utils/TextureLoader.hpp"
 
-Cell::Cell() : value(0), quad(Quads, 4), quadWallRight(Quads, 4), quadWallLeft(Quads, 4) {
+Cell::Cell() : heightLevel(0), quad(Quads, 4), quadWallRight(Quads, 4), quadWallLeft(Quads, 4) {
 
     unsigned int width = TextureLoader::tile.getSize().x;
     unsigned int height = TextureLoader::tile.getSize().y;
@@ -38,11 +38,14 @@ Cell::Cell() : value(0), quad(Quads, 4), quadWallRight(Quads, 4), quadWallLeft(Q
 
 
 void Cell::setupQuadPlace(int middle, int row, int column, int max) {
+    if(row == 9 && column == 9) heightLevel = 1;
     unsigned int width = TextureLoader::tile.getSize().x;
     unsigned int height = TextureLoader::tile.getSize().y;
 
+    int level = heightLevel * width/2;
+
     int x = (middle/2 - (row * (width/2))) + column * (width/2) - width/2;
-    int y =  row * (width/(2*2)) + column * (height/(2*2)) + 50;
+    int y =  row * (width/4) + column * (height/4) + level + 50;
 
     quad[0].position = sf::Vector2f(x+width/2, y);
     quad[1].position = sf::Vector2f(x+width, y+height/4);

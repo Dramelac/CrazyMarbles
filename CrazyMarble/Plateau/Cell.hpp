@@ -10,7 +10,7 @@ using namespace sf;
 
 class Cell {
 private:
-    int value;
+    int heightLevel;
     VertexArray quad;
     VertexArray quadWallRight;
     VertexArray quadWallLeft;
