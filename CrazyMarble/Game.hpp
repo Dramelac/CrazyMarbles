@@ -7,6 +7,7 @@
 
 
 #include "Plateau/Board.hpp"
+#include "Play/Player.hpp"
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
@@ -15,16 +16,15 @@ private:
     Board board;
     RenderWindow windows;
     View view;
-    CircleShape circle;
-    const unsigned int largeur;
-    const unsigned int hauteur;
-    int speed;
+    const unsigned int width;
+    const unsigned int height;
 
+    Player player;
+    int speed;
     float zoom;
 
     void updateGameBoard();
     void eventChecker();
-    void checkPos();
     void updateView();
 public:
     Game(const unsigned int x, const unsigned int y);

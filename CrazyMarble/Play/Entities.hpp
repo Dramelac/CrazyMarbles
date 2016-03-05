@@ -5,13 +5,13 @@
 #ifndef CRAZYMARBLE_ENTITIES_HPP
 #define CRAZYMARBLE_ENTITIES_HPP
 
-#include <iostream>
+#include <string>
 #include "../Utils/Position.hpp"
 
 using namespace std;
 
 class Entities {
-private:
+protected:
     Position position;
     string name;
     int health;
@@ -19,6 +19,8 @@ private:
 public:
 
     Entities(const string &name, int health);
+    Entities(const Position &position, const string &name, int health);
+    Entities();
 };
 
 

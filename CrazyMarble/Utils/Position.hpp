@@ -5,6 +5,7 @@
 #ifndef CRAZYMARBLE_POSITION_HPP
 #define CRAZYMARBLE_POSITION_HPP
 
+#include <SFML/Graphics.hpp>
 
 class Position {
 private:
@@ -13,9 +14,13 @@ private:
     int CordZ;
 
 public:
-
     Position(int CordX, int CordY, int CordZ);
+    Position(int CordX, int CordY);
     Position();
+
+    void Move(const Position *position);
+    sf::Vector2f getVector();
+
 };
 
 

@@ -6,16 +6,12 @@
 #include "Game.hpp"
 #include "Utils/SoundUtils.hpp"
 
-Game::Game(unsigned int x, unsigned int y):largeur(1920),hauteur(1080),board(Board(x,y)), zoom(0.5){
+Game::Game(unsigned int x, unsigned int y): width(1920), height(1080), board(Board(x, y)), zoom(0.5), player("Yolo", 20, Position(365, 60)){
 
-    windows.create(VideoMode(largeur,hauteur), "Crazy Marbles");
+    windows.create(VideoMode(width, height), "Crazy Marbles");
     windows.setPosition(Vector2i(250,50));
     windows.setFramerateLimit(60);
     //windows.setMouseCursorVisible(false);
-
-    circle.setFillColor(Color::Blue);
-    circle.setRadius(5);
-    circle.setPosition(Vector2f(365, 60));
 
     speed = 2;
 }
@@ -24,22 +20,22 @@ Game::Game(unsigned int x, unsigned int y):largeur(1920),hauteur(1080),board(Boa
 void Game::updateView() {
     int margeSize = 50;
 
-    Vector2f pos;
-    pos.x = circle.getPosition().x + (margeSize / 2) - (largeur / 2);
-    pos.y = circle.getPosition().y + (margeSize / 2) - (hauteur / 2);
-    view.reset(FloatRect(pos.x, pos.y, largeur, hauteur));
+    Vector2f pos = player.getPosition();
+    int temp = (margeSize / 2) - (width / 2);
+    pos.x += temp;
+    temp = (margeSize / 2) - (height / 2);
+    pos.y += temp;
+    view.reset(FloatRect(pos.x, pos.y, width, height));
     view.zoom(this->zoom);
     windows.setView(view);
-
 }
 
 
 void Game::updateGameBoard() {
     updateView();
-
     board.drawBoard(&windows);
+    player.renderPlayer(&windows);
 
-    windows.draw(circle);
     windows.display();
     windows.clear();
 }
@@ -48,22 +44,22 @@ void Game::updateGameBoard() {
 void Game::eventChecker() {
     if(windows.hasFocus()){
         if(Keyboard::isKeyPressed(Keyboard::Up)){
-            circle.move(0, -1 * speed);
+            player.move(Position(0, -1 * speed));
         }
         if(Keyboard::isKeyPressed(Keyboard::Down)){
-            circle.move(0, speed);
+            player.move(Position(0, speed));
         }
         if(Keyboard::isKeyPressed(Keyboard::Right)){
-            circle.move(speed, 0);
+            player.move(Position(speed, 0));
         }
         if(Keyboard::isKeyPressed(Keyboard::Left)){
-            circle.move(-1 * speed, 0);
+            player.move(Position(-1 * speed, 0));
         }
-
 
         if(Mouse::isButtonPressed(Mouse::Right)){
-            std::cout << circle.getPosition().x << " / " << circle.getPosition().y << std::endl;
+            std::cout << player.getPosition().x << " / " << player.getPosition().y << std::endl;
         }
+
 
         /*
         if(Keyboard::isKeyPressed(Keyboard::Down)){
@@ -79,20 +75,9 @@ void Game::eventChecker() {
             SoundUtils::DownSong();
         }
         */
-        checkPos();
     }
 }
 
-void Game::checkPos() {
-    Vector2f pos = circle.getPosition();
-    if(pos.x < 0){
-        pos.x = 0;
-        circle.setPosition(0, pos.y);
-    }
-    if(pos.y < 0){
-        circle.setPosition(pos.x, 0);
-    }
-}
 
 void Game::gameLoop() {
     SoundUtils::InitSong();

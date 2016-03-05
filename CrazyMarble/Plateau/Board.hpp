@@ -14,8 +14,8 @@ class Board {
 private:
     Cell** board;
     const unsigned int midleBoard;
-    int largeur;
-    int hauteur;
+    int widthNumber;
+    int heightNumber;
 
     void initCellPlace();
 public:

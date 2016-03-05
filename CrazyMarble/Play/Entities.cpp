@@ -5,3 +5,9 @@
 #include "Entities.hpp"
 
 Entities::Entities(const string &name, int health) : position(Position()), name(name), health(health) { }
+
+
+Entities::Entities(const Position &position, const string &name, int health) : position(position), name(name),
+                                                                               health(health) { }
+
+Entities::Entities() : position(Position()), name(""), health(1) { }
