@@ -33,7 +33,7 @@ int Board::getHauteur() const {
 
 Board::~Board() {
     for (int i=0;i<hauteur;i++){
-        delete[] board[largeur];
+        delete[] board[i];
     }
     delete[] board;
 }
