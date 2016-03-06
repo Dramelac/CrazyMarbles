@@ -44,7 +44,7 @@ void Game::eventChecker(Event event) {
 
     if(event.type == Event::Closed) windows.close();
 
-    if (event.type == sf::Event::MouseWheelMoved) zoom += event.mouseWheel.delta * 0.1;
+    if (event.type == sf::Event::MouseWheelMoved) zoom += event.mouseWheel.delta * -0.1;
 
     if (Mouse::isButtonPressed(Mouse::Right)) {
         std::cout << player.getPosition().x << " / " << player.getPosition().y << std::endl;

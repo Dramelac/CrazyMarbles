@@ -37,7 +37,7 @@ Cell::Cell() : heightLevel(0), quad(Quads, 4), quadWallRight(Quads, 4), quadWall
 }
 
 
-void Cell::setupQuadPlace(int middle, int row, int column, int max) {
+void Cell::setupQuadPlace(int middle, int row, int column) {
     if(row == 9 && column == 9) heightLevel = 1;
     unsigned int width = TextureLoader::tile.getSize().x;
     unsigned int height = TextureLoader::tile.getSize().y;
@@ -46,6 +46,8 @@ void Cell::setupQuadPlace(int middle, int row, int column, int max) {
 
     int x = (middle/2 - (row * (width/2))) + column * (width/2) - width/2;
     int y =  row * (width/4) + column * (height/4) + level + 50;
+
+    int max = y + 1000;
 
     quad[0].position = Vector2f(x+width/2, y);
     quad[1].position = Vector2f(x+width, y+height/4);

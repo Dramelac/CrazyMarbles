@@ -18,7 +18,7 @@ private:
 public:
     Cell();
 
-    void setupQuadPlace(int middle, int row, int column, int max);
+    void setupQuadPlace(int middle, int row, int column);
     void drawCel(RenderWindow *windows);
 };
 
