@@ -5,11 +5,11 @@
 #include <iostream>
 #include "Game.hpp"
 
-Game::Game(unsigned int x, unsigned int y): width(1920), height(1080), board(Board(x, y)), zoom(0.5), player("Yolo", 20, Position(365, 60)){
+Game::Game(unsigned int x, unsigned int y): width(1920), height(1080), board(Board(x, y)), zoom(0.5),
+                                            player("Yolo", 20, Position(board.getMidleBoard()/2, 60)){
 
     windows.create(VideoMode(width, height), "Crazy Marbles");
     windows.setPosition(Vector2i(250,50));
-    windows.setFramerateLimit(60);
     //windows.setMouseCursorVisible(false);
 
     speed = 2;
@@ -44,7 +44,9 @@ void Game::eventChecker(Event event) {
 
     if(event.type == Event::Closed) windows.close();
 
-    if (event.type == sf::Event::MouseWheelMoved) zoom += event.mouseWheel.delta * -0.1;
+    if (event.type == sf::Event::MouseWheelMoved) {
+        zoom += event.mouseWheel.delta * -0.1;
+    }
 
     if (Mouse::isButtonPressed(Mouse::Right)) {
         std::cout << player.getPosition().x << " / " << player.getPosition().y << std::endl;
@@ -89,7 +91,10 @@ void Game::keyboardChecker() {
 }
 
 void Game::gameLoop() {
+    windows.setFramerateLimit(60);
     SoundUtils::InitSong();
+    Clock clock;
+    int count=0;
     while(windows.isOpen()){
         Event event;
         while(windows.pollEvent(event)){
@@ -98,6 +103,16 @@ void Game::gameLoop() {
         keyboardChecker();
 
         updateGameBoard();
+
+        Time fps = clock.getElapsedTime();
+        count++;
+        if(fps.asSeconds() >= 1){
+            std::cout << "FPS : " << count << std::endl;
+            count = 0;
+            clock.restart();
+        }
+
+
     }
 
 }
