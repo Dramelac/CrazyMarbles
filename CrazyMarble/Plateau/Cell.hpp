@@ -14,6 +14,7 @@ private:
     VertexArray quad;
     VertexArray quadWallRight;
     VertexArray quadWallLeft;
+    Sprite textCell;
 
 public:
     Cell();
