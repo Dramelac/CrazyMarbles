@@ -46,10 +46,13 @@ void Game::eventChecker(Event event) {
 
     if (event.type == sf::Event::MouseWheelMoved) {
         zoom += event.mouseWheel.delta * -0.1;
+        if (zoom < 0.1){
+            zoom = 0.1;
+        }
     }
 
     if (Mouse::isButtonPressed(Mouse::Right)) {
-        std::cout << player.getPosition().x << " / " << player.getPosition().y << std::endl;
+        std::cout << player.getPosition().x << " / " << player.getPosition().y << ", m : " << board.getMidleBoard() << std::endl;
     }
 
 }
