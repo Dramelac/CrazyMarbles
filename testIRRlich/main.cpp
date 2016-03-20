@@ -1,22 +1,12 @@
-#include <iostream>
 #include <irrlicht.h>
-#include "driverChoice.h"
-
-using namespace std;
-using namespace irr;
 
 
 int main(void) {
 
-    // ask user for driver
-    video::E_DRIVER_TYPE driverType=driverChoiceConsole();
-    if (driverType==video::EDT_COUNT)
-        return 1;
-
-    // create device
-
-    IrrlichtDevice *device =
-            createDevice(driverType, core::dimension2d<u32>(640, 480), 16, false);
+    irr::IrrlichtDevice *device = irr::createDevice( // creation device
+            irr::video::EDT_OPENGL,                      // l'API est OpenGL
+            irr::core::dimension2d<irr::u32>(800,600),   // taille de la fenetre 800x600
+            32, false, true, false, 0);
 
     irr::video::IVideoDriver* driver =
             device->getVideoDriver();                    // creation driver
@@ -39,3 +29,4 @@ int main(void) {
     device->drop ();                                 // liberation de la memoire
     return 0;
 }
+

@@ -1,34 +1,44 @@
-cmake_minimum_required(VERSION 3.3)
+#definit la version minimale a utiliser
+cmake_minimum_required(VERSION 2.6)
+
+#nom du projet
 project(testIRRlich)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -lopengl32 -lm")
-set(PROJECT_BINARY_DIR test)
+#definit ou l'executable sera placé
+set(EXECUTABLE_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE})
 
-IF(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
-    SET(CMAKE_BUILD_TYPE RelWithDebInfo)
-ENDIF(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
+set(IRRLICHT_PATH_INCLUDE /home/mathieu/Documents/repository/CrazyMarbles/irrlicht-1.8.3/include)
 
-IF(CMAKE_CXX_FLAGS_DEBUG)
-    SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/debug)
-ELSE(CMAKE_CXX_FLAGS_DEBUG)
-    SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/release)
-ENDIF(CMAKE_CXX_FLAGS_DEBUG)
+set(IRRLICHT_PATH_LIB /home/mathieu/Documents/repository/CrazyMarbles/irrlicht-1.8.3/lib/Linux)
 
-FIND_PACKAGE(X11)
+#==================================
+#======INCLUSION D'IRRLICHT========
+#==================================
+#inclure le repertoire contenant les entetes de irrlicht
+include_directories(${IRRLICHT_PATH_INCLUDE})
+#inlude les bibliothèque compiles
+link_directories(${IRRLICHT_PATH_LIB})
 
-INCLUDE_DIRECTORIES(
-        "C:/irrlicht-1.8.3/include"
-        ${X11_INCLUDE_DIR}
-        ${PROJECT_SOURCE_DIR}
+
+#ficihier du projet
+file(
+    GLOB_RECURSE
+    sources_files
+    src/*
+    inc/*
 )
 
-FILE(GLOB SRCS src/*.cpp)
-FILE(GLOB HDRS include/*.h)
-
 set(SOURCE_FILES main.cpp)
-add_executable(testIRRlich ${SRCS} ${HDRS} ${SOURCE_FILES} )
 
-TARGET_LINK_LIBRARIES(testIRRlich
-        ${X11_LIBRARIES}
-        "C:/irrlicht-1.8.3/lib/Win32-gcc/libIrrlicht.a"
-        )
+#declaration de l'executable
+add_executable(testIRRlich ${SOURCE_FILES})
+
+
+#liaison du programme avec la bibliothèque
+target_link_libraries(
+    testIRRlich
+    Irrlicht
+    X11
+    Xxf86vm
+    GL
+)
