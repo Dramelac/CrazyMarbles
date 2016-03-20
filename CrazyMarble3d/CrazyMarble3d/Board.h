@@ -25,7 +25,7 @@ public:
 	int getLargeur() const;
 	int getHauteur() const;
 	const unsigned int getMidleBoard() const;
-	void drawBoard(RenderWindow *windows);
+	//void drawBoard(RenderWindow *windows);
 };
 
 

@@ -5,18 +5,30 @@
 #include <iostream>
 #include "Game.h"
 
-Game::Game(unsigned int x, unsigned int y) : width(1920), height(1080), board(Board(x, y)), zoom(0.5),
-player("Yolo", 20, Position(board.getMidleBoard() / 2, 60)){
+Game::Game(unsigned int x, unsigned int y) : width(1280), height(720), board(Board(x, y)), zoom(0.5),
+player("Yolo", 20), device(nullptr){
 
-	windows.create(VideoMode(width, height), "Crazy Marbles");
-	windows.setPosition(Vector2i(250, 50));
-	//windows.setMouseCursorVisible(false);
+	
+	this->device = createDevice(										// creation device
+		video::EDT_OPENGL,											     // l'API est OpenGL
+		core::dimension2d<u32>(width, height),							 // taille de la fenetre 800x600
+		32, false, true, false, 0);
+
+	this->driver = this->device->getVideoDriver();                       // creation driver
+	this->sceneManager = this->device->getSceneManager();                // creation scene manager
+
+	this->sceneManager->addCameraSceneNode(0,							 // ajout camera fixe
+		core::vector3df(0, 0, 0),
+		core::vector3df(5, 0, 0));
+
+
 
 	speed = 2;
 }
 
 
 void Game::updateView() {
+	/*
 	int margeSize = 50;
 
 	Vector2f pos = player.getPosition();
@@ -27,21 +39,32 @@ void Game::updateView() {
 	view.reset(FloatRect(pos.x, pos.y, width, height));
 	view.zoom(this->zoom);
 	windows.setView(view);
+	*/
 }
 
 
 void Game::updateGameBoard() {
+	/*
 	updateView();
 	board.drawBoard(&windows);
 	player.renderPlayer(&windows);
 
 	windows.display();
 	windows.clear();
+	*/
+
+	driver->beginScene(                          // demarre le rendu
+		true,                                    // clear back-buffer
+		true,                                    // clear z-buffer
+		irr::video::SColor(255, 255, 255, 255));    // fond blanc
+	sceneManager->drawAll();                    // calcule le rendu
+	driver->endScene();
+
 }
 
 
-void Game::eventChecker(Event event) {
-
+void Game::eventChecker() {
+	/*
 	if (event.type == Event::Closed) windows.close();
 
 	if (event.type == sf::Event::MouseWheelMoved) {
@@ -53,13 +76,13 @@ void Game::eventChecker(Event event) {
 
 	if (Mouse::isButtonPressed(Mouse::Right)) {
 		std::cout << player.getPosition().x << " / " << player.getPosition().y << ", m : " << board.getMidleBoard() << std::endl;
-	}
+	}*/
 
 }
 
-
 void Game::keyboardChecker() {
 
+	/*
 	if (windows.hasFocus()) {
 		if (Keyboard::isKeyPressed(Keyboard::Up) || Keyboard::isKeyPressed(Keyboard::Z)) {
 			player.move(Position(0, -1 * speed));
@@ -91,31 +114,32 @@ void Game::keyboardChecker() {
 		}
 
 	}
+	*/
 }
 
 void Game::gameLoop() {
-	windows.setFramerateLimit(60);
-	SoundUtils::InitSong();
-	Clock clock;
-	int count = 0;
-	while (windows.isOpen()){
-		Event event;
-		while (windows.pollEvent(event)){
+	//windows.setFramerateLimit(60);
+	//SoundUtils::InitSong();
+	//Clock clock;
+	//int count = 0;
+	while (device->run()){
+		/*while (windows.pollEvent(event)){
 			eventChecker(event);
-		}
-		keyboardChecker();
+		}*/
+		//keyboardChecker();
 
 		updateGameBoard();
 
-		Time fps = clock.getElapsedTime();
+		/*Time fps = clock.getElapsedTime();
 		count++;
 		if (fps.asSeconds() >= 1){
 			std::cout << "FPS : " << count << std::endl;
 			count = 0;
 			clock.restart();
 		}
-
-
+		*/
 	}
+
+	device->drop();
 
 }

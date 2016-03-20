@@ -42,6 +42,7 @@ const unsigned int Board::getMidleBoard() const {
 	return midleBoard;
 }
 
+/*
 void Board::drawBoard(RenderWindow *windows) {
 
 	for (int row = 0; row < widthNumber; row++)
@@ -52,4 +53,5 @@ void Board::drawBoard(RenderWindow *windows) {
 		}
 	}
 }
+*/
 

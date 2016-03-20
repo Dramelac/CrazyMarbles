@@ -6,17 +6,20 @@
 #define TESTISO_GAME_HPP
 
 
-#include "Plateau/Board.h"
-//#include "Play/Player.hpp"
+#include "Board.h"
+#include "Player.h"
 //#include "Utils/SoundUtils.hpp"
-//#include <SFML/Graphics.hpp>
-//using namespace sf;
+#include <irrlicht.h>
+
+using namespace irr;
 
 class Game {
 private:
 	Board board;
-	RenderWindow windows;
-	View view;
+	IrrlichtDevice* device;
+	video::IVideoDriver* driver;
+	scene::ISceneManager *sceneManager;
+
 	const unsigned int width;
 	const unsigned int height;
 
@@ -25,7 +28,7 @@ private:
 	float zoom;
 
 	void updateGameBoard();
-	void eventChecker(Event event);
+	void eventChecker();
 	void keyboardChecker();
 	void updateView();
 public:
