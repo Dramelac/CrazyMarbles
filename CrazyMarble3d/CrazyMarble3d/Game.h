@@ -20,6 +20,8 @@ private:
 	video::IVideoDriver* driver;
 	scene::ISceneManager *sceneManager;
 
+	scene::IMeshSceneNode* cube;
+
 	const unsigned int width;
 	const unsigned int height;
 

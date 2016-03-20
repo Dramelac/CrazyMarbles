@@ -20,6 +20,37 @@ player("Yolo", 20), device(nullptr){
 	this->sceneManager->addCameraSceneNode(0,							 // ajout camera fixe
 		core::vector3df(0, 0, 0),
 		core::vector3df(5, 0, 0));
+	
+	device->getCursorControl()->setVisible(false); // curseur invisible
+
+	/* CUBE TEST */
+
+	this->cube =							  // pointeur vers le node
+		sceneManager->addCubeSceneNode(        // la creation du cube
+			10.0f,                             // cote de 10 unites
+			0,                                 // parent = racine
+			-1,                                // pas d'ID
+			core::vector3df(              // le vecteur de position
+				0.0f,                          // origine en X
+				0.0f,                          // origine en Y
+				20.0f));                       // +20 unites en Z
+
+	cube->setMaterialFlag(irr::video::EMF_WIREFRAME, true);
+
+	// CAMERA 
+
+	SKeyMap keyMap[4];
+	keyMap[0].Action = EKA_MOVE_FORWARD;   // avancer
+	keyMap[0].KeyCode = KEY_KEY_Z;
+	keyMap[1].Action = EKA_MOVE_BACKWARD;  // reculer
+	keyMap[1].KeyCode = KEY_KEY_S;
+	keyMap[2].Action = EKA_STRAFE_LEFT;    // a gauche
+	keyMap[2].KeyCode = KEY_KEY_Q;
+	keyMap[3].Action = EKA_STRAFE_RIGHT;   // a droite
+	keyMap[3].KeyCode = KEY_KEY_D;
+
+	sceneManager->addCameraSceneNodeFPS(0, 100.0f, 0.1f, -1, keyMap, 4);
+
 
 
 
@@ -53,10 +84,12 @@ void Game::updateGameBoard() {
 	windows.clear();
 	*/
 
-	driver->beginScene(                          // demarre le rendu
-		true,                                    // clear back-buffer
-		true,                                    // clear z-buffer
-		irr::video::SColor(255, 255, 255, 255));    // fond blanc
+	driver->beginScene(true, true,
+		video::SColor(                  // contient la couleur blanc
+		255,                                   // composante A alpha (transparence)
+		255,                                   // composante R rouge
+		255,                                   // composante G verte
+		255));
 	sceneManager->drawAll();                    // calcule le rendu
 	driver->endScene();
 
