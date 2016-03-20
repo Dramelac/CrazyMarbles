@@ -5,10 +5,9 @@
 #ifndef CRAZYMARBLE_PLAYER_HPP
 #define CRAZYMARBLE_PLAYER_HPP
 
-//#include <SFML/Graphics.hpp>
-#include "Entities.h"
 #include <iostream>
-//using namespace sf;
+#include "Entities.h"
+
 using namespace std;
 
 class Player : Entities {
