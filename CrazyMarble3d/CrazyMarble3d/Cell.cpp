@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "Cell.h"
-#include "../Utils/TextureLoader.h"
+#include "TextureLoader.h"
 
 Cell::Cell() {
 	/*

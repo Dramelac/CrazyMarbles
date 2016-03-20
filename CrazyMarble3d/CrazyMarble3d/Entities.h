@@ -6,7 +6,7 @@
 #define CRAZYMARBLE_ENTITIES_HPP
 
 #include <string>
-#include "../Utils/Position.h"
+#include "Position.h"
 
 using namespace std;
 

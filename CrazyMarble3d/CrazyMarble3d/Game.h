@@ -6,8 +6,8 @@
 #define TESTISO_GAME_HPP
 
 
-#include "Plateau/Board.h"
-#include "Play/Player.h"
+#include "Board.h"
+#include "Player.h"
 //#include "Utils/SoundUtils.hpp"
 #include <irrlicht.h>
 
