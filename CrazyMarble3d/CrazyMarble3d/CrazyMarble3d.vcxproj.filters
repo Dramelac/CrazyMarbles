@@ -13,10 +13,78 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers sources\Plateau">
+      <UniqueIdentifier>{d1e5eaa7-42b3-42b3-9875-e7aebe76fa19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Plateau">
+      <UniqueIdentifier>{d4564183-81ca-4006-b269-4fd12958a909}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Play">
+      <UniqueIdentifier>{7504c333-6edc-487a-9979-df607b4c0c33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Play">
+      <UniqueIdentifier>{2a777e11-50f0-4b70-bb64-05a188305ca1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Utils">
+      <UniqueIdentifier>{396bec0a-8a03-4de6-b2e1-dd51fe95cb7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Utils">
+      <UniqueIdentifier>{93e17435-1103-4366-9d69-cb0d597e8377}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Fichiers sources\Plateau</Filter>
+    </ClCompile>
+    <ClCompile Include="Cell.cpp">
+      <Filter>Fichiers sources\Plateau</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities.cpp">
+      <Filter>Fichiers sources\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Fichiers sources\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoader.cpp">
+      <Filter>Fichiers sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundUtils.cpp">
+      <Filter>Fichiers sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Position.cpp">
+      <Filter>Fichiers sources\Utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>Fichiers d%27en-tête\Plateau</Filter>
+    </ClInclude>
+    <ClInclude Include="Cell.h">
+      <Filter>Fichiers d%27en-tête\Plateau</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities.h">
+      <Filter>Fichiers d%27en-tête\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Fichiers d%27en-tête\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoader.h">
+      <Filter>Fichiers d%27en-tête\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundUtils.h">
+      <Filter>Fichiers d%27en-tête\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Position.h">
+      <Filter>Fichiers d%27en-tête\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
