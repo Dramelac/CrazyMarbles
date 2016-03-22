@@ -187,3 +187,7 @@ void Game::gameLoop() {
 	device->drop();
 
 }
+
+Game::~Game() {
+    
+}

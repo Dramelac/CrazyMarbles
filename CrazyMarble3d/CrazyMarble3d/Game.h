@@ -39,6 +39,8 @@ private:
 	void updateView();
 public:
 	Game(const unsigned int x, const unsigned int y);
+	~Game();
+
 	void gameLoop();
 };
 
