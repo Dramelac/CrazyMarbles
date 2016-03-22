@@ -6,7 +6,7 @@
 #include "Game.h"
 
 Game::Game(unsigned int x, unsigned int y) : width(1280), height(720), board(Board(x, y)), zoom(0.5),
-player("Yolo", 20), device(nullptr){
+device(nullptr){
 
 	
 	this->device = createDevice(										// creation device
@@ -20,36 +20,23 @@ player("Yolo", 20), device(nullptr){
 	this->sceneManager->addCameraSceneNode(0,							 // ajout camera fixe
 		core::vector3df(0, 0, 0),
 		core::vector3df(5, 0, 0));
-	
+
+	this->player = new Player("Test", 20, sceneManager);
 	device->getCursorControl()->setVisible(false); // curseur invisible
-/*
-	/* CUBE TEST 
 
-	this->cube =							  // pointeur vers le node
-		sceneManager->addCubeSceneNode(        // la creation du cube
-			10.0f,                             // cote de 10 unites
-			0,                                 // parent = racine
-			-1,                                // pas d'ID
-			core::vector3df(              // le vecteur de position
-				0.0f,                          // origine en X
-				0.0f,                          // origine en Y
-				20.0f));                       // +20 unites en Z
+	///* MODELE */
 
-	cube->setMaterialFlag(irr::video::EMF_WIREFRAME, true);*/
+	//irr::scene::IAnimatedMeshSceneNode* sphere =        // cree un scene node nomme sphere
+	//	sceneManager->addAnimatedMeshSceneNode(          // via le scene manager
+	//		sceneManager->getMesh("earth.x"),              // en chargeant le mesh "earth.x"
+	//		nullptr, -1,                                          // pas de parent, pas d'ID
+	//		irr::core::vector3df(0.0f, 0.0f, 25.0f),        // position de la sphere
+	//		irr::core::vector3df(0.0f, 0.0f, 0.0f),         // rotation
+	//		irr::core::vector3df(15.0f, 15.0f, 15.0f));     // echelle
 
+	//
 
-	/* MODELE */
-
-	irr::scene::IAnimatedMeshSceneNode* sphere =        // cree un scene node nomme sphere
-		sceneManager->addAnimatedMeshSceneNode(          // via le scene manager
-			sceneManager->getMesh("earth.x"),              // en chargeant le mesh "earth.x"
-			nullptr, -1,                                          // pas de parent, pas d'ID
-			irr::core::vector3df(0.0f, 0.0f, 25.0f),        // position de la sphere
-			irr::core::vector3df(0.0f, 0.0f, 0.0f),         // rotation
-			irr::core::vector3df(15.0f, 15.0f, 15.0f));     // echelle
-
-	
-
+	//cube->setMaterialFlag(irr::video::EMF_WIREFRAME, true);
 
 	// CAMERA 
 
@@ -189,4 +176,10 @@ void Game::gameLoop() {
 
 	device->drop();
 
+}
+
+Game::~Game() {
+
+	delete player;
+    
 }
