@@ -5,10 +5,14 @@
 #ifndef TESTISO_GAME_HPP
 #define TESTISO_GAME_HPP
 
+#ifdef __linux__
+	#include "Plateau/Board.h">
+	#include "Play/Player.h"
+#elif _WIN32
+	#include "Board.h">
+	#include "Player.h"
+#endif
 
-#include "Board.h"
-#include "Player.h"
-//#include "Utils/SoundUtils.hpp"
 #include <irrlicht.h>
 
 using namespace irr;

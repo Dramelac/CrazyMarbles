@@ -40,8 +40,8 @@ player("Yolo", 20), device(nullptr){
 
     /* MODELE */
 
-    irr::scene::IAnimatedMeshSceneNode* sphere =        // cree un scene node nomme sphere
-            sceneManager->addAnimatedMeshSceneNode (          // via le scene manager
+    irr::scene::IAnimatedMeshSceneNode* sphere =                    // cree un scene node nomme sphere
+            sceneManager->addAnimatedMeshSceneNode (                // via le scene manager
                     sceneManager->getMesh ("/home/mathieu/Documents/repository/CrazyMarbles/irrlicht-1.8.3/media/earth.x"),              // en chargeant le mesh "earth.x"
                     0, -1,                                          // pas de parent, pas d'ID
                     irr::core::vector3df(0.0f, 0.0f, 25.0f),        // position de la sphere
