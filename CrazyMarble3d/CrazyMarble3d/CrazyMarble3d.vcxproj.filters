@@ -87,4 +87,12 @@
       <Filter>Fichiers d%27en-tête\Utils</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\irrlicht-1.8.3\media\earth.x">
+      <Filter>Fichiers de ressources</Filter>
+    </None>
+    <None Include="..\..\irrlicht-1.8.3\media\sydney.md2">
+      <Filter>Fichiers de ressources</Filter>
+    </None>
+  </ItemGroup>
 </Project>

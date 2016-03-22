@@ -22,8 +22,8 @@ player("Yolo", 20), device(nullptr){
 		core::vector3df(5, 0, 0));
 	
 	device->getCursorControl()->setVisible(false); // curseur invisible
-
-	/* CUBE TEST */
+/*
+	/* CUBE TEST 
 
 	this->cube =							  // pointeur vers le node
 		sceneManager->addCubeSceneNode(        // la creation du cube
@@ -35,7 +35,21 @@ player("Yolo", 20), device(nullptr){
 				0.0f,                          // origine en Y
 				20.0f));                       // +20 unites en Z
 
-	cube->setMaterialFlag(irr::video::EMF_WIREFRAME, true);
+	cube->setMaterialFlag(irr::video::EMF_WIREFRAME, true);*/
+
+
+	/* MODELE */
+
+	irr::scene::IAnimatedMeshSceneNode* sphere =        // cree un scene node nomme sphere
+		sceneManager->addAnimatedMeshSceneNode(          // via le scene manager
+			sceneManager->getMesh("earth.x"),              // en chargeant le mesh "earth.x"
+			nullptr, -1,                                          // pas de parent, pas d'ID
+			irr::core::vector3df(0.0f, 0.0f, 25.0f),        // position de la sphere
+			irr::core::vector3df(0.0f, 0.0f, 0.0f),         // rotation
+			irr::core::vector3df(15.0f, 15.0f, 15.0f));     // echelle
+
+	
+
 
 	// CAMERA 
 
