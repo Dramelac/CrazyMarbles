@@ -1,1 +1,8 @@
-../../CrazyMarble3d/CrazyMarble3d/Position.h
+#pragma once
+class Position
+{
+public:
+	Position();
+	~Position();
+};
+

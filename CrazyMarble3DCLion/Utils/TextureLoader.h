@@ -1,1 +1,8 @@
-../../CrazyMarble3d/CrazyMarble3d/TextureLoader.h
+#pragma once
+class TextureLoader
+{
+public:
+	TextureLoader();
+	~TextureLoader();
+};
+

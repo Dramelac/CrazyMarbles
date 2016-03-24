@@ -1,1 +1,8 @@
-../../CrazyMarble3d/CrazyMarble3d/SoundUtils.h
+#pragma once
+class SoundUtils
+{
+public:
+	SoundUtils();
+	~SoundUtils();
+};
+

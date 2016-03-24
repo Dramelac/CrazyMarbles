@@ -1,1 +1,11 @@
-../../CrazyMarble3d/CrazyMarble3d/TextureLoader.cpp
+#include "TextureLoader.h"
+
+
+TextureLoader::TextureLoader()
+{
+}
+
+
+TextureLoader::~TextureLoader()
+{
+}

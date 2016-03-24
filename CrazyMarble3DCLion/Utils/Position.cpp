@@ -1,1 +1,11 @@
-../../CrazyMarble3d/CrazyMarble3d/Position.cpp
+#include "Position.h"
+
+
+Position::Position()
+{
+}
+
+
+Position::~Position()
+{
+}

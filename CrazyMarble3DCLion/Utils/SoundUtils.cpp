@@ -1,1 +1,11 @@
-../../CrazyMarble3d/CrazyMarble3d/SoundUtils.cpp
+#include "SoundUtils.h"
+
+
+SoundUtils::SoundUtils()
+{
+}
+
+
+SoundUtils::~SoundUtils()
+{
+}
