@@ -18,7 +18,7 @@ private:
 
 public:
 
-	Player(const string &name, int health, scene::ISceneManager *sceneManager );
+	Player(const string &name, int health, scene::ISceneManager *sceneManager, video::IVideoDriver* driver);
 	
 	/*
 	void move(const Position position);

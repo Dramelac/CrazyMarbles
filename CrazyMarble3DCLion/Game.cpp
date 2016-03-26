@@ -13,6 +13,7 @@ device(nullptr){
 		core::dimension2d<u32>(width, height),							 // taille de la fenetre 800x600
 		32, false, true, false, 0);
     this->device->setWindowCaption(L"Crazy Marble");
+    device->getCursorControl()->setVisible(false);                      // curseur invisible
 
 	this->driver = this->device->getVideoDriver();                       // creation driver
 	this->sceneManager = this->device->getSceneManager();                // creation scene manager
@@ -21,8 +22,7 @@ device(nullptr){
 		core::vector3df(0, 0, 0),
 		core::vector3df(5, 0, 0));
 
-	this->player = new Player("Test", 20, sceneManager);
-	device->getCursorControl()->setVisible(false); // curseur invisible
+	this->player = new Player("Test", 20, sceneManager, driver);
 
     // Load Textures
     TextureLoader::LoadingTextures(driver);
@@ -35,6 +35,23 @@ device(nullptr){
             irr::video::EMF_WIREFRAME, true);                 // de l'override material
     driver->getOverrideMaterial().EnablePasses =        // indique le type de node affectes
             irr::scene::ESNRP_SOLID;                          // par l'override material
+
+
+    /* CUBE */
+
+    irr::scene::IMeshSceneNode* cube =         // pointeur vers le node
+            sceneManager->addCubeSceneNode(        // la creation du cube
+                    10.0f,                             // cote de 10 unites
+                    0,                                 // parent = racine
+                    -1,                                // pas d'ID
+                    irr::core::vector3df(              // le vecteur de position
+                            0.0f,                          // origine en X
+                            30.0f,                          // origine en Y
+                            20.0f));                       // +20 unites en Z
+
+    cube->setMaterialFlag(irr::video::EMF_WIREFRAME, true);
+
+
 
 	// CAMERA 
 

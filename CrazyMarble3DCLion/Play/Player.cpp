@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "../Utils/TextureLoader.h"
 
-Player::Player(const string &name, int health, scene::ISceneManager *sceneManager) : Entities(name, health), score(0) {
+Player::Player(const string &name, int health, scene::ISceneManager *sceneManager, video::IVideoDriver* driver) : Entities(name, health), score(0) {
 
     // MODEL
 
@@ -17,10 +17,17 @@ Player::Player(const string &name, int health, scene::ISceneManager *sceneManage
 			irr::core::vector3df(0.0f, 0.0f, 0.0f),         // rotation
 			irr::core::vector3df(15.0f, 15.0f, 15.0f));     // echelle
 
-    sphere->setMaterialFlag(video::EMF_LIGHTING, true);
-    sphere->setMaterialTexture(0, TextureLoader::tile);
-
-
+    //sphere->setMaterialFlag(video::EMF_LIGHTING, true);
+    //sphere->setMaterialTexture(0, TextureLoader::tile);
+/*
+    video::ITexture* earthNormalMap = driver->getTexture("data/earthbump.jpg");
+    if (earthNormalMap)
+    {
+        driver->makeNormalMapTexture(earthNormalMap, 20.0f);
+        sphere->setMaterialTexture(1, earthNormalMap);
+        sphere->setMaterialType(video::EMT_NORMAL_MAP_TRANSPARENT_VERTEX_ALPHA);
+    }
+*/
 }
 
 
