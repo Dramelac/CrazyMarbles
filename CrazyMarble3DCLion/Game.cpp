@@ -2,16 +2,17 @@
 // Created by mathieu on 23/02/16.
 //
 
-#include <iostream>
 #include "Game.h"
 
-Game::Game(unsigned int x, unsigned int y) : width(1280), height(720), board(Board(x, y)), zoom(0.5){
+Game::Game(unsigned int x, unsigned int y) : width(1280), height(720), board(Board(x, y)), zoom(0.5),
+device(nullptr){
 
 	
 	this->device = createDevice(										// creation device
 		video::EDT_OPENGL,											     // l'API est OpenGL
 		core::dimension2d<u32>(width, height),							 // taille de la fenetre 800x600
 		32, false, true, false, 0);
+    this->device->setWindowCaption(L"Crazy Marble");
 
 	this->driver = this->device->getVideoDriver();                       // creation driver
 	this->sceneManager = this->device->getSceneManager();                // creation scene manager
@@ -23,34 +24,18 @@ Game::Game(unsigned int x, unsigned int y) : width(1280), height(720), board(Boa
 	this->player = new Player("Test", 20, sceneManager);
 	device->getCursorControl()->setVisible(false); // curseur invisible
 
-	/* MODELE */
+    // Load Textures
+    TextureLoader::LoadingTextures(driver);
 
-    scene::IAnimatedMesh* temp =  sceneManager->getMesh("C:\\Users\\Mrtiran\\Documents\\Project\\CrazyMarbles\\irrlicht-1.8.3\\media\\earth.x");
-	irr::scene::IAnimatedMeshSceneNode* sphere =        // cree un scene node nomme sphere
-		sceneManager->addAnimatedMeshSceneNode(          // via le scene manager
-			temp,              // en chargeant le mesh "earth.x"
-			nullptr, -1,                                          // pas de parent, pas d'ID
-			irr::core::vector3df(0.0f, 0.0f, 25.0f),        // position de la sphere
-			irr::core::vector3df(0.0f, 0.0f, 0.0f),         // rotation
-			irr::core::vector3df(15.0f, 15.0f, 15.0f));     // echelle
+	///* MODELE */
 
+    driver->getOverrideMaterial().EnableFlags =         // indique que le flag EMF_WIREFRAME
+            irr::video::EMF_WIREFRAME;                        // va etre outrepasse
+    driver->getOverrideMaterial().Material.setFlag(     // active le flag EMF_WIREFRAME
+            irr::video::EMF_WIREFRAME, true);                 // de l'override material
+    driver->getOverrideMaterial().EnablePasses =        // indique le type de node affectes
+            irr::scene::ESNRP_SOLID;                          // par l'override material
 
-
-	/*
- 	// CUBE
-
-	irr::scene::IMeshSceneNode* cube =         // pointeur vers le node
-			sceneManager->addCubeSceneNode(        // la creation du cube
-					10.0f,                             // cote de 10 unites
-					0,                                 // parent = racine
-					-1,                                // pas d'ID
-					irr::core::vector3df(              // le vecteur de position
-							0.0f,                          // origine en X
-							0.0f,                          // origine en Y
-							20.0f));                       // +20 unites en Z
-
-	//cube->setMaterialFlag(irr::video::EMF_WIREFRAME, true);
-*/
 	// CAMERA 
 
 	SKeyMap keyMap[4];
@@ -187,8 +172,7 @@ void Game::gameLoop() {
 		*/
 	}
 
-	//SegFault on Windows
-	//device->drop();
+	device->drop();
 
 }
 

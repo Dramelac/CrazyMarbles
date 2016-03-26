@@ -5,10 +5,9 @@
 #ifndef CRAZYMARBLE_PLAYER_HPP
 #define CRAZYMARBLE_PLAYER_HPP
 
-#include "Entities.h"
 #include <irrlicht.h>
-
 #include <iostream>
+#include "Entities.h"
 
 using namespace std;
 using namespace irr;

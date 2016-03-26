@@ -5,8 +5,13 @@
 #ifndef TESTISO_CELL_HPP
 #define TESTISO_CELL_HPP
 
+#ifdef __linux__
+    #include "../Utils/Position.h"
+#elif _WIN32
+    #include "Position.h"
+#else
 
-#include "../Utils/Position.h"
+#endif
 
 //#include <SFML/Graphics.hpp>
 //using namespace sf;

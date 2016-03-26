@@ -6,8 +6,12 @@
 #define TESTISO_GAME_HPP
 
 
+#include <iostream>
+
 #include "Plateau/Board.h"
 #include "Play/Player.h"
+#include "Utils/TextureLoader.h"
+
 #include <irrlicht.h>
 
 using namespace irr;

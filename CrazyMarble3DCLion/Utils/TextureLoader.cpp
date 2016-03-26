@@ -1,11 +1,10 @@
 #include "TextureLoader.h"
 
 
-TextureLoader::TextureLoader()
-{
-}
+video::ITexture* TextureLoader::tile;
 
+void TextureLoader::LoadingTextures(video::IVideoDriver* driver) {
 
-TextureLoader::~TextureLoader()
-{
+    tile = driver->getTexture("data/tile.jpg");
+
 }
