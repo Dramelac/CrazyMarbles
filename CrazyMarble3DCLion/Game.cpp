@@ -73,6 +73,17 @@ device(nullptr){
     test->setMaterialTexture(0,
                              driver->getTexture("data/skybox_texture.jpg"));
 
+    test->setVisible(false);
+
+
+    cubeMesh = sceneManager->getMesh("data/model/cube.3ds");
+
+    cube_node = sceneManager->addMeshSceneNode(cubeMesh);
+    //cube_node->setScale(core::vector3df(1.0f,1.0f,1.0f));
+    cube_node->setPosition(core::vector3df(0.0f,-500.0f,50.0f));
+
+    cube_node->setMaterialTexture(0, driver->getTexture("data/model/cube_color.png"));
+    //cube_node->getMaterial(0) = material;
 
 	// CAMERA 
 

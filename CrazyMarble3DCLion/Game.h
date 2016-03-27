@@ -25,7 +25,10 @@ private:
 
 	scene::IMeshSceneNode* cube;
 	scene::ISceneNode* test;
-	video::ITexture* rt;
+
+    scene::IAnimatedMesh* cubeMesh;
+    scene::IMeshSceneNode* cube_node;
+
 	scene::ICameraSceneNode* fpsCamera;
 
 	const unsigned int width;

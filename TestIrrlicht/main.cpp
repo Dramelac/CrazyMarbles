@@ -55,12 +55,12 @@ int main () {
     camera = smgr->addCameraSceneNodeFPS(0,30.0f,90.0f,-1,
                                          0,0,false,0.0f);
     camera->setPosition(vector3df(30,10,30));
-
+/*
     ground = smgr->getMesh("./graph/grass.obj");
     ground_node = smgr->addMeshSceneNode(ground);
     ground_node->setScale(vector3df(1000,1,1000));
     ground_node->setMaterialFlag(EMF_LIGHTING, false);
-
+*/
     material.setTexture(0, driver->getTexture("./graph/building.tga"));
     house = smgr->getMesh("./graph/building.obj");
 
