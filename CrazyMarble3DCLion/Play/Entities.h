@@ -5,13 +5,8 @@
 #ifndef CRAZYMARBLE_ENTITIES_HPP
 #define CRAZYMARBLE_ENTITIES_HPP
 
-#ifdef __linux__
-    #include "../Utils/Position.h"
-#elif _WIN32
-    #include "Position.h"
-#else
 
-#endif
+#include "../Utils/Position.h"
 
 #include <string>
 
