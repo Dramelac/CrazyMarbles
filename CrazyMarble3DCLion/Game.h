@@ -23,9 +23,6 @@ private:
 	video::IVideoDriver* driver;
 	scene::ISceneManager *sceneManager;
 
-	scene::IMeshSceneNode* cube;
-	scene::ISceneNode* test;
-
     scene::IAnimatedMesh* cubeMesh;
     scene::IMeshSceneNode* cube_node;
 

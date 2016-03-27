@@ -20,17 +20,18 @@ device(nullptr){
 
     // OPTIONAL
     sceneManager->addSkyBoxSceneNode(
-            driver->getTexture("data/../../irrlicht-1.8.3/media/water.jpg"), //Sky
-            driver->getTexture("data/../../irrlicht-1.8.3/media/wall.bmp"),  //sol
-            driver->getTexture("data/../../irrlicht-1.8.3/media/wall.bmp"),  //left
-            driver->getTexture("data/../../irrlicht-1.8.3/media/wall.bmp"),  //right
-            driver->getTexture("data/../../irrlicht-1.8.3/media/wall.bmp"),  //forward
-            driver->getTexture("data/../../irrlicht-1.8.3/media/wall.bmp")); //backward
+            driver->getTexture("data/skybox/top.png"),
+            driver->getTexture("data/skybox/bottom.png"),
+            driver->getTexture("data/skybox/front.png"),
+            driver->getTexture("data/skybox/back.png"),
+            driver->getTexture("data/skybox/left.png"),
+            driver->getTexture("data/skybox/right.png"));
 
 
-    //this->player = new Player("Test", 20, sceneManager, driver);
+    this->player = new Player("Test", 20, sceneManager, driver);
 
 
+    // LIGHT
     sceneManager->addLightSceneNode(0, core::vector3df(0, 0, 20),
                             video::SColorf(1.0f, 1.0f, 1.0f), 1000.0f, -1);
 
@@ -39,50 +40,13 @@ device(nullptr){
     // Load Textures
     TextureLoader::LoadingTextures(driver);
 
-	/* MODELE */
-/*
-    driver->getOverrideMaterial().EnableFlags =         // indique que le flag EMF_WIREFRAME
-            irr::video::EMF_WIREFRAME;                        // va etre outrepasse
-    driver->getOverrideMaterial().Material.setFlag(     // active le flag EMF_WIREFRAME
-            irr::video::EMF_WIREFRAME, true);                 // de l'override material
-    driver->getOverrideMaterial().EnablePasses =        // indique le type de node affectes
-            irr::scene::ESNRP_SOLID;                          // par l'override material
-*/
-
-    /* CUBE */
-/*
-    irr::scene::IMeshSceneNode* cube =         // pointeur vers le node
-            sceneManager->addCubeSceneNode(        // la creation du cube
-                    10.0f,                             // cote de 10 unites
-                    0,                                 // parent = racine
-                    -1,                                // pas d'ID
-                    irr::core::vector3df(              // le vecteur de position
-                            0.0f,                          // origine en X
-                            30.0f,                          // origine en Y
-                            20.0f));                       // +20 unites en Z
-
-    cube->setMaterialFlag(irr::video::EMF_LIGHTING, true);
-	cube->setMaterialTexture(0, driver->addRenderTargetTexture(core::dimension2d<u32>(64,64),"data/tile.jpg"));
-*/
-
-    test = sceneManager->addCubeSceneNode(64.0f, 0, -1,
-                                          core::vector3df(0, 10, 20));
-
-    test->setPosition(core::vector3df(0.0f,30.0f,50.0f));
-    test->setScale(core::vector3df(1.0f,2.0f,1.0f));
-    test->setMaterialTexture(0,
-                             driver->getTexture("data/skybox_texture.jpg"));
-
-    test->setVisible(false);
-
-
     cubeMesh = sceneManager->getMesh("data/model/cube.3ds");
 
     cube_node = sceneManager->addMeshSceneNode(cubeMesh);
     //cube_node->setScale(core::vector3df(1.0f,1.0f,1.0f));
     cube_node->setPosition(core::vector3df(0.0f,-500.0f,50.0f));
 
-    cube_node->setMaterialTexture(0, driver->getTexture("data/model/cube_color.png"));
+    cube_node->setMaterialTexture(0, TextureLoader::tile);
     //cube_node->getMaterial(0) = material;
 
 	// CAMERA 
@@ -97,10 +61,7 @@ device(nullptr){
 	keyMap[3].Action = EKA_STRAFE_RIGHT;   // a droite
 	keyMap[3].KeyCode = KEY_KEY_D;
 
-	//sceneManager->addCameraSceneNodeFPS(0, 100.0f, 0.1f, -1, keyMap, 4);
     fpsCamera = sceneManager->addCameraSceneNodeFPS(0, 100.0f, 0.1f, -1, keyMap, 4);
-
-    //sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));
 
 
 	speed = 2;
@@ -213,9 +174,10 @@ void Game::gameLoop() {
             int fps = driver->getFPS();
             if (lastFPS != fps)
             {
-                core::stringw str = L"Irrlicht Engine - Render to Texture and Specular Highlights example";
-                str += " FPS:";
+                core::stringw str = L"Crazy Marble ";
+                str += " [FPS:";
                 str += fps;
+                str += "]";
 
                 device->setWindowCaption(str.c_str());
                 lastFPS = fps;
@@ -224,20 +186,7 @@ void Game::gameLoop() {
             //updateGameBoard();
 
         }
-		/*while (windows.pollEvent(event)){
-			eventChecker(event);
-		}*/
 		//keyboardChecker();
-
-
-		/*Time fps = clock.getElapsedTime();
-		count++;
-		if (fps.asSeconds() >= 1){
-			std::cout << "FPS : " << count << std::endl;
-			count = 0;
-			clock.restart();
-		}
-		*/
 	}
 
 	device->drop();

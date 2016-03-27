@@ -5,6 +5,6 @@ video::ITexture* TextureLoader::tile;
 
 void TextureLoader::LoadingTextures(video::IVideoDriver* driver) {
 
-    tile = driver->addRenderTargetTexture(core::dimension2d<u32>(64,64),"data/tile.jpg");
+    tile = driver->getTexture("data/model/cube_tex.png");
 
 }
