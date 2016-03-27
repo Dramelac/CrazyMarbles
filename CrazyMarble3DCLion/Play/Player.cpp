@@ -17,6 +17,8 @@ Player::Player(const string &name, int health, scene::ISceneManager *sceneManage
 			irr::core::vector3df(0.0f, 0.0f, 0.0f),         // rotation
 			irr::core::vector3df(15.0f, 15.0f, 15.0f));     // echelle
 
+	sphere->setVisible(false);
+
     //sphere->setMaterialFlag(video::EMF_LIGHTING, true);
     //sphere->setMaterialTexture(0, TextureLoader::tile);
 /*

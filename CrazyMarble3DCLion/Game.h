@@ -24,6 +24,9 @@ private:
 	scene::ISceneManager *sceneManager;
 
 	scene::IMeshSceneNode* cube;
+	scene::ISceneNode* test;
+	video::ITexture* rt;
+	scene::ICameraSceneNode* fpsCamera;
 
 	const unsigned int width;
 	const unsigned int height;

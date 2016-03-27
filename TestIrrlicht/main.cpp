@@ -1,117 +1,104 @@
-#include <iostream>
 #include <irrlicht.h>
-
 using namespace irr;
-
+using namespace irr::core;
+using namespace irr::video;
 using namespace std;
 
-int main() {
+IrrlichtDevice*                 device;
+video::IVideoDriver*	        driver;
+scene::ISceneManager*           smgr;
+scene::ICameraSceneNode*        camera;
+scene::IAnimatedMesh*           ground;
+scene::IMeshSceneNode*          ground_node;
+scene::IAnimatedMesh*           house;
+scene::IMeshSceneNode*          house_node;
+scene::IAnimatedMesh*           avatar;
+scene::IAnimatedMeshSceneNode*  avatar_node;
+video::SMaterial                material;
+scene::ISceneNode*              cube;
+int main () {
 
-    // Crée le moteur.
-    IrrlichtDevice* device = createDevice(video::EDT_OPENGL,
-                                          core::dimension2d<u32>(640, 480));
+    //video::EDT_SOFTWARE
+    //video::EDT_NULL
+    //video::EDT_OPENGL,
+
+    device=createDevice(video::EDT_OPENGL, dimension2d<u32>(640,480),16,false,true);
+
+    if (device == 0) return(1);
+
+    driver = device->getVideoDriver();
+    smgr = device->getSceneManager();
+/*
+    smgr->addSkyBoxSceneNode(
+            driver->getTexture("./media/irrlicht2_up.jpg"),
+            driver->getTexture("./media/irrlicht2_dn.jpg"),
+            driver->getTexture("./media/irrlicht2_lf.jpg"),
+            driver->getTexture("./media/irrlicht2_rt.jpg"),
+            driver->getTexture("./media/irrlicht2_ft.jpg"),
+            driver->getTexture("./media/irrlicht2_bk.jpg"));
+*/
+    smgr->addSkyBoxSceneNode(
+            driver->getTexture("./media/water.jpg"),
+            driver->getTexture("./media/wall.bmp"),
+            driver->getTexture("./media/wall.bmp"),
+            driver->getTexture("./media/wall.bmp"),
+            driver->getTexture("./media/wall.bmp"),
+            driver->getTexture("./media/wall.bmp"));
+
+    smgr->addLightSceneNode(0, vector3df(0, 100, 0),
+                                 video::SColorf(1.0f, 1.0f, 1.0f), 1000.0f, -1);
+
+    smgr->setAmbientLight(video::SColorf(255.0,255.0,255.0));
 
 
 
-    video::IVideoDriver* driver = device->getVideoDriver();
-    scene::ISceneManager* smgr = device->getSceneManager();
-    gui::IGUIEnvironment* env = device->getGUIEnvironment();
+    camera = smgr->addCameraSceneNodeFPS(0,30.0f,90.0f,-1,
+                                         0,0,false,0.0f);
+    camera->setPosition(vector3df(30,10,30));
 
-    driver->setTextureCreationFlag(video::ETCF_ALWAYS_32_BIT, true);
+    ground = smgr->getMesh("./graph/grass.obj");
+    ground_node = smgr->addMeshSceneNode(ground);
+    ground_node->setScale(vector3df(1000,1,1000));
+    ground_node->setMaterialFlag(EMF_LIGHTING, false);
 
-    // Ajoute le logo d'Irrlicht.
-    env->addImage(driver->getTexture("media/irrlichtlogo3.png"),
-                  core::position2d<s32>(10,10));
-
-    // Ajoute une caméra.
-    scene::ICameraSceneNode* camera = smgr->addCameraSceneNodeFPS();
-    camera->setPosition(core::vector3df(-200,200,-200));
-
-    // Cache le curseur de la souris.
-    device->getCursorControl()->setVisible(false);
+    material.setTexture(0, driver->getTexture("./graph/building.tga"));
+    house = smgr->getMesh("./graph/building.obj");
 
 
-
-    scene::ISceneNode* earth = 0;
-
-    scene::IAnimatedMesh* earthMesh = smgr->getMesh("media/earth.x");
-    if (earthMesh)
-    {
-        // Réalise plusieurs tâches avec le manipulateur de mesh.
-        scene::IMeshManipulator *manipulator = smgr->getMeshManipulator();
-
-        // Crée la copie de mesh avec les informations de la tangente du mesh original earth.x.
-        scene::IMesh* tangentSphereMesh =
-                manipulator->createMeshWithTangents(earthMesh->getMesh(0));
-
-        // Fixe la valeur alpha pour chaque vertex à 200.
-        manipulator->setVertexColorAlpha(tangentSphereMesh, 200);
-
-        // Redimensionne le mesh avec un facteur 50.
-        core::matrix4 m;
-        m.setScale ( core::vector3df(50,50,50) );
-        manipulator->transform( tangentSphereMesh, m );
-
-        earth = smgr->addMeshSceneNode(tangentSphereMesh);
-
-        earth->setPosition(core::vector3df(-70,130,45));
-
-        // Charge la texture des hauteurs et crée la texture des normales à partir de celle-ci et l'affecte au mesh.
-        video::ITexture* earthNormalMap = driver->getTexture("media/earthbump.jpg");
-        if (earthNormalMap)
-        {
-            driver->makeNormalMapTexture(earthNormalMap, 20.0f);
-            earth->setMaterialTexture(1, earthNormalMap);
-            earth->setMaterialType(video::EMT_NORMAL_MAP_TRANSPARENT_VERTEX_ALPHA);
+    for (int i=0; i<5; i++) {
+            house_node = smgr->addMeshSceneNode(house);
+            house_node->setScale(vector3df(0.5f,0.5f,0.5f));
+            house_node->setPosition(vector3df(30*i+5,0,-30));
+            house_node->getMaterial(0) = material;
+            house_node->setRotation(vector3df(0,90,0));
         }
 
-        // Ajuste les options du matériel.
-        //earth->setMaterialFlag(video::EMF_FOG_ENABLE, true);
-        earth->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
+    /*
+    material.setTexture(0, driver->getTexture("media/sydney.bmp"));
+    avatar = smgr->getMesh("media/sydney.md2");
+    avatar_node = smgr->addAnimatedMeshSceneNode(avatar);
+    avatar_node->setScale(vector3df(.1,.1,.1));
+    avatar_node->setPosition(vector3df(5,2.5,5));
+    avatar_node->setRotation(vector3df(0,270,0));
+    avatar_node->getMaterial(0) = material;
+*/
 
-        // Ajoute l'animateur de rotation.
-        scene::ISceneNodeAnimator* anim =
-                smgr->createRotationAnimator(core::vector3df(0,0.1f,0));
-        earth->addAnimator(anim);
-        anim->drop();
+    cube = smgr->addCubeSceneNode(1.0f, 0, -1,
+                                  vector3df(10, 2, 10),
+                                  vector3df(45.0, 0, 0),
+                                  vector3df(1.0f, 1.0f, 1.0f));
 
-        // Jette le mesh parce que nous l'avons crée avec un appel à createXXX.
-        tangentSphereMesh->drop();
-    }
+    cube->setMaterialTexture(0, driver->getTexture("media/wall.jpg"));
 
+    //cube->addAnimator(smgr->createRotationAnimator(vector3df(1,.5,.25)));
 
-
-
-
-
-
-    int lastFPS = -1;
-
-    while(device->run())
-        if (device->isWindowActive())
-        {
-            driver->beginScene(true, true, 0);
-
+    while (device->run()) {
+            driver->beginScene(true,true, video::SColor(255,100,101,140));
             smgr->drawAll();
-            env->drawAll();
-
             driver->endScene();
-
-            int fps = driver->getFPS();
-
-            if (lastFPS != fps)
-            {
-                core::stringw str = L"Per pixel lighting example - Irrlicht Engine [";
-                str += driver->getName();
-                str += "] FPS:";
-                str += fps;
-
-                device->setWindowCaption(str.c_str());
-                lastFPS = fps;
-            }
         }
 
-    device->drop();
+    driver->drop();
 
-    return 0;
+    return(0);
 }
