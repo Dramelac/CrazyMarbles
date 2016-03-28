@@ -5,7 +5,7 @@ using namespace irr;
 
 
 int main(void) {
-	Game game(10, 10);
+	Game game(20, 20);
 	game.gameLoop();
 
 

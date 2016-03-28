@@ -22,7 +22,6 @@ public:
     Cell();
 
     void setupQuadPlace(int row, int column, ISceneManager* sceneManager);
-    //void drawCel(RenderWindow *windows);
 
     static const float size;
 };
