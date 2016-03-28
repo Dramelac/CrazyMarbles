@@ -9,11 +9,11 @@ Player::Player(const string &name, int health, scene::ISceneManager *sceneManage
 
     // MODEL
 
-    sphereMesh = TextureLoader::sphereMesh;
+    sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
 
-    sphere_node = sceneManager->addMeshSceneNode(sphereMesh);
+    sphere_node = sceneManager->addMeshSceneNode(sphereMesh);           // add object to screen
     //sphere_node->setScale(core::vector3df(1.0f,1.0f,1.0f));
-    sphere_node->setPosition(core::vector3df(25.0f,0.0f,25.0f));
+    sphere_node->setPosition(core::vector3df(25.0f,0.0f,25.0f));        // set init player pos (can be change if need)
 
     // we used default texture with model : sphere_c.png
     // to force texture use :

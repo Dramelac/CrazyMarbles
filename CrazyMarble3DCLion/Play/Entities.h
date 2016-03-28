@@ -19,7 +19,6 @@ protected:
 	int health;
 
 public:
-
 	Entities(const std::string &name, int health);
 	Entities(const Position &position, const std::string &name, int health);
 	Entities();

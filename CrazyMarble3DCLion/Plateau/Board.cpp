@@ -6,6 +6,7 @@
 
 Board::Board(unsigned int hauteur, unsigned int largeur, ISceneManager* sceneManager) : heightNumber(hauteur),
 																						widthNumber(largeur){
+	// init all Cell by default (to change with board loading)
 	board = new Cell*[hauteur];
 	for (int i = 0; i<hauteur; i++){
 		board[i] = new Cell[largeur];
@@ -15,6 +16,7 @@ Board::Board(unsigned int hauteur, unsigned int largeur, ISceneManager* sceneMan
 
 
 void Board::initCellPlace(scene::ISceneManager* sceneManager) {
+	// setup all cell with model pos etc
 	for (int row = 0; row < widthNumber; row++)
 	{
 		for (int column = 0; column < heightNumber; column++)
