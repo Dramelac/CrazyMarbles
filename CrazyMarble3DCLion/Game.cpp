@@ -69,7 +69,7 @@ void Game::gameLoop() {
 	while (device->run()){
         if (device->isWindowActive()){
 
-            driver->beginScene(true,true, video::SColor(255,100,101,140));
+            driver->beginScene(true,true, video::SColor(255,0,0,0));
             sceneManager->drawAll();
             driver->endScene();
 
