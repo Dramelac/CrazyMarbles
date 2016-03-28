@@ -12,6 +12,9 @@ IAnimatedMesh* TextureLoader::sphereMesh;
 
 void TextureLoader::LoadingTextures(IVideoDriver* driver, ISceneManager* sceneManager) {
 
+    // LOAD every texture / model
+    // for recursive use
+
     tile = driver->getTexture("data/model/cube_tex.png");
     sphere = driver->getTexture("data/model/sphere_c.png");
 

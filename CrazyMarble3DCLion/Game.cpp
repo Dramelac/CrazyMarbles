@@ -96,6 +96,7 @@ void Game::gameLoop() {
 		//keyboardChecker();
 	}
 
+    // drop every loading image / node / model / all
 	device->drop();
 
 }
@@ -191,9 +192,7 @@ void Game::keyboardChecker() {
 }
 
 Game::~Game() {
-
 	delete player;
     delete board;
-    TextureLoader::drop();
     
 }
