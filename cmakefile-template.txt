@@ -1,4 +1,4 @@
-#definit la version minimale a utiliser
+﻿#definit la version minimale a utiliser
 cmake_minimum_required(VERSION 2.6)
 
 #nom du projet
@@ -28,7 +28,9 @@ file(
     inc/*
 )
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cpp Plateau/Board.cpp Plateau/Board.h Plateau/Cell.cpp Plateau/Cell.h Game.cpp Game.h
+        Utils/TextureLoader.cpp Utils/TextureLoader.h Play/Entities.cpp Play/Entities.h Utils/Position.cpp
+        Utils/Position.h Utils/SoundUtils.cpp Utils/SoundUtils.h Play/Player.cpp Play/Player.h)
 
 #declaration de l'executable
 add_executable(testIRRlich ${SOURCE_FILES})
