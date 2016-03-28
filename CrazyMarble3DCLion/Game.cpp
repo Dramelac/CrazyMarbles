@@ -39,7 +39,7 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
                 driver->getTexture("data/skybox/night/left.png"),
                 driver->getTexture("data/skybox/night/right.png"));
     }
-    
+
     // SkyDome test
     //sceneManager->addSkyDomeSceneNode(driver->getTexture("data/../../irrlicht-1.8.3/media/skydome.jpg"),16,8,0.95f,2.0f);
 
@@ -73,7 +73,28 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
 
     fpsCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1, keyMap, 4);    // create camera (to change /
                                                                                         // fix to player)
-    fpsCamera->setPosition(vector3df(x*Cell::size,600.0f,y*Cell::size));                // init camera pos
+    //fpsCamera->setPosition(vector3df(x*Cell::size,600.0f,y*Cell::size));                // init camera pos
+    fpsCamera->setPosition(vector3df(850,300,850));
+
+
+    // COLLISION : GRAVITY
+
+    // plateau de selector collision
+    IMetaTriangleSelector* metaSelector = board->getMapMetaSelector(sceneManager);      // create decor collision data
+
+    // Apply gravity to player :
+    player->enableCollision(metaSelector, sceneManager);                    // apply collision map to player
+
+    // Gravity to camera (test hitbox only)
+    // Animation collision
+    ISceneNodeAnimatorCollisionResponse* anim = sceneManager->createCollisionResponseAnimator(
+            metaSelector, // Map collision
+            fpsCamera,  // object player to detect
+            core::vector3df(1.0f,100.0f,1.0f), // hitbox
+            core::vector3df(0, -1, 0)  // gravity vector
+    );
+    fpsCamera->addAnimator(anim);             // apply gravity / collision to player object
+    anim->drop();                               // drop temp anim
 
 
 	speed = 2;              // useless for now (change or remove later)

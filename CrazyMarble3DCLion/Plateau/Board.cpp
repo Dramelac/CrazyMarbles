@@ -34,23 +34,37 @@ int Board::getHauteur() const {
 	return heightNumber;
 }
 
+
+IMetaTriangleSelector *Board::getMapMetaSelector(ISceneManager *sceneManager) {
+
+	// plateau de selector collision
+	scene::IMetaTriangleSelector* metaSelector = sceneManager->createMetaTriangleSelector();
+
+	// selector mesh collision temp
+	scene::ITriangleSelector *selector;
+
+
+	for (int row = 0; row < widthNumber; row++)
+	{
+		for (int column = 0; column < heightNumber; column++)
+		{
+			IMeshSceneNode* temp_node = this->board[row][column].getCellNode();             // load 1 node element
+			selector = sceneManager->createTriangleSelectorFromBoundingBox(temp_node);      // getSelector
+
+			temp_node->setTriangleSelector(selector);                                       // set to the node the new selector
+			metaSelector->addTriangleSelector(selector);                                    // update metaSelectors
+		}
+	}
+
+	selector->drop();                                                                        // drop temp selector
+
+	return metaSelector;
+}
+
 Board::~Board() {
 	for (int i = 0; i < heightNumber; i++){
 		delete[] board[i];
 	}
 	delete[] board;
 }
-
-/*
-void Board::drawBoard(RenderWindow *windows) {
-
-	for (int row = 0; row < widthNumber; row++)
-	{
-		for (int column = 0; column < heightNumber; column++)
-		{
-			board[row][column].drawCel(windows);
-		}
-	}
-}
-*/
 

@@ -45,3 +45,6 @@ void Cell::setupQuadPlace(int row, int column, ISceneManager* sceneManager) {
 
 }
 
+IMeshSceneNode *Cell::getCellNode() {
+    return cell_node;
+}

@@ -12,23 +12,20 @@
 
 using namespace std;
 using namespace irr;
+using namespace irr::scene;
 
 class Player : Entities {
 private:
-	scene::IAnimatedMesh* sphereMesh;
-	scene::IMeshSceneNode* sphere_node;
+	IAnimatedMesh* sphereMesh;
+	IMeshSceneNode* sphere_node;
 
 	int score;
 
 public:
 
-	Player(const std::string &name, int health, scene::ISceneManager *sceneManager);
-	
-	/*
-	void move(const Position position);
-	void renderPlayer(RenderWindow *windows);
-	Vector2f getPosition();
-	*/
+	Player(const std::string &name, int health, ISceneManager *sceneManager);
+	void enableCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
+
 };
 
 

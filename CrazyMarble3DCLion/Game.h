@@ -15,15 +15,18 @@
 #include <irrlicht.h>
 
 using namespace irr;
+using namespace irr::scene;
+using namespace irr::core;
+using namespace irr::video;
 
 class Game {
 private:
 	Board* board;
 	IrrlichtDevice* device;
-	video::IVideoDriver* driver;
-	scene::ISceneManager *sceneManager;
+	IVideoDriver* driver;
+	ISceneManager *sceneManager;
 
-	scene::ICameraSceneNode* fpsCamera;
+	ICameraSceneNode* fpsCamera;
 
 	const unsigned int width;
 	const unsigned int height;

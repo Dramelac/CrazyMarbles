@@ -14,14 +14,15 @@ using namespace irr::scene;
 
 class Cell {
 private:
-    scene::IAnimatedMesh* cellMesh;
-    scene::IMeshSceneNode* cell_node;
+    IAnimatedMesh* cellMesh;
+    IMeshSceneNode* cell_node;
 
 
 public:
     Cell();
 
     void setupQuadPlace(int row, int column, ISceneManager* sceneManager);
+    IMeshSceneNode* getCellNode();
 
     static const float size;
 };

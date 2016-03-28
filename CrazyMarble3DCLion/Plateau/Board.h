@@ -21,7 +21,8 @@ public:
 
 	int getLargeur() const;
 	int getHauteur() const;
-	//void drawBoard(RenderWindow *windows);
+
+	IMetaTriangleSelector* getMapMetaSelector(ISceneManager* sceneManager);
 };
 
 
