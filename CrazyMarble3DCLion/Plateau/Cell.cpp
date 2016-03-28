@@ -6,6 +6,8 @@
 #include "Cell.h"
 #include "../Utils/TextureLoader.h"
 
+const float Cell::size = 150.0f;
+
 Cell::Cell() {
 
     cellMesh = TextureLoader::cellMesh;
@@ -14,11 +16,14 @@ Cell::Cell() {
 
 
 void Cell::setupQuadPlace(int row, int column, ISceneManager* sceneManager) {
+    int line = 0;
 
-    vector3df temp = vector3df(row*150.0f,-500.0f,column*150.0f);
+    if (row >= 5 || column >= 5) line = 1;
+
+    vector3df temp = vector3df(row*size,-500.0f-(line*size),column*size);
     cell_node = sceneManager->addMeshSceneNode(cellMesh);
     cell_node->setPosition(temp);
-    cell_node->setMaterialTexture(0, TextureLoader::tile);
+    //cell_node->setMaterialTexture(0, TextureLoader::tile);
 
 	/*
 	if (row == 9 && column == 9) heightLevel = 1;

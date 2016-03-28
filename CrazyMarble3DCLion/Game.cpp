@@ -55,7 +55,8 @@ Game::Game(unsigned int x, unsigned int y) : width(1280), height(720), zoom(0.5)
 	keyMap[3].Action = EKA_STRAFE_RIGHT;   // a droite
 	keyMap[3].KeyCode = KEY_KEY_D;
 
-    fpsCamera = sceneManager->addCameraSceneNodeFPS(0, 100.0f, 0.1f, -1, keyMap, 4);
+    fpsCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1, keyMap, 4);
+    fpsCamera->setPosition(vector3df(x*Cell::size,600.0f,y*Cell::size));
 
 
 	speed = 2;

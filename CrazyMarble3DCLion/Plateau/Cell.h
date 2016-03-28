@@ -17,11 +17,14 @@ private:
     scene::IAnimatedMesh* cellMesh;
     scene::IMeshSceneNode* cell_node;
 
+
 public:
     Cell();
 
     void setupQuadPlace(int row, int column, ISceneManager* sceneManager);
     //void drawCel(RenderWindow *windows);
+
+    static const float size;
 };
 
 
