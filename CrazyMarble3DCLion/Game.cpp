@@ -8,14 +8,14 @@ Game::Game(unsigned int x, unsigned int y) : width(1920), height(1080), zoom(0.5
 
 	
 	this->device = createDevice(										// creation device
-		video::EDT_OPENGL,											     // l'API est OpenGL
-		core::dimension2d<u32>(width, height),							 // taille de la fenetre 800x600
+		video::EDT_OPENGL,											    // l'API est OpenGL
+		core::dimension2d<u32>(width, height),							// taille de la fenetre 800x600
 		16, false, true);
-    this->device->setWindowCaption(L"Crazy Marble");
+    this->device->setWindowCaption(L"Crazy Marble");                    // first windows name
     device->getCursorControl()->setVisible(false);                      // curseur invisible
 
-	this->driver = this->device->getVideoDriver();                       // creation driver
-	this->sceneManager = this->device->getSceneManager();                // creation scene manager
+	this->driver = this->device->getVideoDriver();                      // creation driver
+	this->sceneManager = this->device->getSceneManager();               // creation scene manager
 
 
     // Load Textures
@@ -35,11 +35,14 @@ Game::Game(unsigned int x, unsigned int y) : width(1920), height(1080), zoom(0.5
 
     this->board = new Board(x, y, sceneManager);
 
-    // LIGHT
-    sceneManager->addLightSceneNode(0, core::vector3df(0, 0, 20),
-                            video::SColorf(1.0f, 1.0f, 1.0f), 1000.0f, -1);
+    // LIGHT        ambient light for texture (to change for shadow on cell)
 
-    sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));
+    /*              light point for use later
+    sceneManager->addLightSceneNode(0, core::vector3df(0, 500, 20),
+                            video::SColorf(1.0f, 1.0f, 1.0f), 1000.0f, -1);
+    */
+
+    sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
 
 
 
@@ -55,11 +58,12 @@ Game::Game(unsigned int x, unsigned int y) : width(1920), height(1080), zoom(0.5
 	keyMap[3].Action = EKA_STRAFE_RIGHT;   // a droite
 	keyMap[3].KeyCode = KEY_KEY_D;
 
-    fpsCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1, keyMap, 4);
-    fpsCamera->setPosition(vector3df(x*Cell::size,600.0f,y*Cell::size));
+    fpsCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1, keyMap, 4);    // create camera (to change /
+                                                                                        // fix to player)
+    fpsCamera->setPosition(vector3df(x*Cell::size,600.0f,y*Cell::size));                // init camera pos
 
 
-	speed = 2;
+	speed = 2;              // useless for now (change or remove later)
 }
 
 void Game::gameLoop() {
@@ -67,10 +71,10 @@ void Game::gameLoop() {
     int lastFPS = -1;
 
 	while (device->run()){
-        if (device->isWindowActive()){
+        if (device->isWindowActive()){                                      // test if wuindows active
 
-            driver->beginScene(true,true, video::SColor(255,0,0,0));
-            sceneManager->drawAll();
+            driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
+            sceneManager->drawAll();                                        // update display
             driver->endScene();
 
 
@@ -190,5 +194,6 @@ Game::~Game() {
 
 	delete player;
     delete board;
+    TextureLoader::drop();
     
 }
