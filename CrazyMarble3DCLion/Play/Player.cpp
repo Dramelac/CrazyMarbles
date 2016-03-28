@@ -3,12 +3,13 @@
 //
 
 #include "Player.h"
+#include "../Utils/TextureLoader.h"
 
 Player::Player(const string &name, int health, scene::ISceneManager *sceneManager) : Entities(name, health), score(0) {
 
     // MODEL
 
-    sphereMesh = sceneManager->getMesh("data/model/sphere.3ds");
+    sphereMesh = TextureLoader::sphereMesh;
 
     sphere_node = sceneManager->addMeshSceneNode(sphereMesh);
     //sphere_node->setScale(core::vector3df(1.0f,1.0f,1.0f));
