@@ -14,5 +14,6 @@ public:
     static ITexture* sphere;
 
     static IAnimatedMesh* cellMesh;
+    static IAnimatedMesh* sphereMesh;
 };
 
