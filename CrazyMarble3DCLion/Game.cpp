@@ -23,12 +23,12 @@ Game::Game(unsigned int x, unsigned int y) : width(1920), height(1080), zoom(0.5
 
     // OPTIONAL
     sceneManager->addSkyBoxSceneNode(
-            driver->getTexture("data/skybox/top.png"),
-            driver->getTexture("data/skybox/bottom.png"),
-            driver->getTexture("data/skybox/front.png"),
-            driver->getTexture("data/skybox/back.png"),
-            driver->getTexture("data/skybox/left.png"),
-            driver->getTexture("data/skybox/right.png"));
+            driver->getTexture("data/skybox/day/top.png"),
+            driver->getTexture("data/skybox/day/bottom.png"),
+            driver->getTexture("data/skybox/day/front.png"),
+            driver->getTexture("data/skybox/day/back.png"),
+            driver->getTexture("data/skybox/day/left.png"),
+            driver->getTexture("data/skybox/day/right.png"));
 
 
     this->player = new Player("Test", 20, sceneManager);
