@@ -39,7 +39,9 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
                 driver->getTexture("data/skybox/night/left.png"),
                 driver->getTexture("data/skybox/night/right.png"));
     }
-
+    
+    // SkyDome test
+    //sceneManager->addSkyDomeSceneNode(driver->getTexture("data/../../irrlicht-1.8.3/media/skydome.jpg"),16,8,0.95f,2.0f);
 
 
     this->player = new Player("Test", 20, sceneManager);
