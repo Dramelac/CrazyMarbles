@@ -9,6 +9,16 @@ Player::Player(const string &name, int health, scene::ISceneManager *sceneManage
 
     // MODEL
 
+    sphereMesh = sceneManager->getMesh("data/model/sphere.3ds");
+
+    sphere_node = sceneManager->addMeshSceneNode(sphereMesh);
+    //sphere_node->setScale(core::vector3df(1.0f,1.0f,1.0f));
+    sphere_node->setPosition(core::vector3df(25.0f,0.0f,75.0f));
+
+    sphere_node->setMaterialTexture(0, TextureLoader::sphere);
+
+
+/*
 	scene::IAnimatedMeshSceneNode* sphere =        // cree un scene node nomme sphere
 		sceneManager->addAnimatedMeshSceneNode(          // via le scene manager
 			sceneManager->getMesh("data/earth.x"),              // en chargeant le mesh "earth.x"
@@ -21,7 +31,7 @@ Player::Player(const string &name, int health, scene::ISceneManager *sceneManage
 
     //sphere->setMaterialFlag(video::EMF_LIGHTING, true);
     //sphere->setMaterialTexture(0, TextureLoader::tile);
-/*
+
     video::ITexture* earthNormalMap = driver->getTexture("data/earthbump.jpg");
     if (earthNormalMap)
     {

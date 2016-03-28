@@ -18,6 +18,10 @@ device(nullptr){
 	this->driver = this->device->getVideoDriver();                       // creation driver
 	this->sceneManager = this->device->getSceneManager();                // creation scene manager
 
+
+    // Load Textures
+    TextureLoader::LoadingTextures(driver);
+
     // OPTIONAL
     sceneManager->addSkyBoxSceneNode(
             driver->getTexture("data/skybox/top.png"),
@@ -37,8 +41,6 @@ device(nullptr){
 
     sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));
 
-    // Load Textures
-    TextureLoader::LoadingTextures(driver);
 
     cubeMesh = sceneManager->getMesh("data/model/cube.3ds");
 

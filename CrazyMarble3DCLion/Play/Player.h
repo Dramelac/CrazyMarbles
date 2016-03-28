@@ -14,6 +14,9 @@ using namespace irr;
 
 class Player : Entities {
 private:
+	scene::IAnimatedMesh* sphereMesh;
+	scene::IMeshSceneNode* sphere_node;
+
 	int score;
 
 public:

@@ -9,5 +9,6 @@ public:
 	static void LoadingTextures(video::IVideoDriver* driver);
 
     static video::ITexture* tile;
+    static video::ITexture* sphere;
 };
 
