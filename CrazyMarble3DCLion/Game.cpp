@@ -91,7 +91,7 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
             metaSelector, // Map collision
             fpsCamera,  // object player to detect
             core::vector3df(1.0f,100.0f,1.0f), // hitbox
-            core::vector3df(0, -1, 0)  // gravity vector
+            core::vector3df(0, -10, 0)  // gravity vector
     );
     fpsCamera->addAnimator(anim);             // apply gravity / collision to player object
     anim->drop();                               // drop temp anim
