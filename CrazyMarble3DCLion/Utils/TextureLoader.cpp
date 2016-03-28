@@ -1,12 +1,16 @@
 #include "TextureLoader.h"
 
 
-video::ITexture* TextureLoader::tile;
-video::ITexture* TextureLoader::sphere;
+ITexture* TextureLoader::tile;
+ITexture* TextureLoader::sphere;
 
-void TextureLoader::LoadingTextures(video::IVideoDriver* driver) {
+IAnimatedMesh* TextureLoader::cellMesh;
+
+void TextureLoader::LoadingTextures(IVideoDriver* driver, ISceneManager* sceneManager) {
 
     tile = driver->getTexture("data/model/cube_tex.png");
     sphere = driver->getTexture("data/model/sphere_color.png");
+
+    cellMesh = sceneManager->getMesh("data/model/cube.3ds");
 
 }

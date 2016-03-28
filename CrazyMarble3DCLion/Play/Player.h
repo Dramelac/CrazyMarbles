@@ -5,9 +5,10 @@
 #ifndef CRAZYMARBLE_PLAYER_HPP
 #define CRAZYMARBLE_PLAYER_HPP
 
-#include <irrlicht.h>
-#include <iostream>
+#include <string>
 #include "Entities.h"
+
+#include <irrlicht.h>
 
 using namespace std;
 using namespace irr;
@@ -21,7 +22,7 @@ private:
 
 public:
 
-	Player(const string &name, int health, scene::ISceneManager *sceneManager, video::IVideoDriver* driver);
+	Player(const std::string &name, int health, scene::ISceneManager *sceneManager);
 	
 	/*
 	void move(const Position position);

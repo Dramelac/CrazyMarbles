@@ -4,39 +4,22 @@
 
 #include <iostream>
 #include "Cell.h"
+#include "../Utils/TextureLoader.h"
 
 Cell::Cell() {
-	/*
-	unsigned int width = TextureLoader::tile.getSize().x;
-	unsigned int height = TextureLoader::tile.getSize().y;
 
-	quad[0].texCoords = Vector2f(0, 0);
-	quad[1].texCoords = Vector2f(width, 0);
-	quad[2].texCoords = Vector2f(width, height);
-	quad[3].texCoords = Vector2f(0, height);
-	quad.resize(width * height * 4);
+    cellMesh = TextureLoader::cellMesh;
 
-
-	width = TextureLoader::tileWall.getSize().x;
-	height = TextureLoader::tileWall.getSize().y;
-
-	quadWallRight[0].texCoords = Vector2f(0, 0);
-	quadWallRight[1].texCoords = Vector2f(width, 0);
-	quadWallRight[2].texCoords = Vector2f(width, height);
-	quadWallRight[3].texCoords = Vector2f(0, height);
-	quadWallRight.resize(width * height * 4);
-
-	quadWallLeft[0].texCoords = Vector2f(0, 0);
-	quadWallLeft[1].texCoords = Vector2f(width, 0);
-	quadWallLeft[2].texCoords = Vector2f(width, height);
-	quadWallLeft[3].texCoords = Vector2f(0, height);
-	quadWallLeft.resize(width * height * 4);
-	textCell.setTexture(TextureLoader::tile);
-	*/
 }
 
 
-void Cell::setupQuadPlace(int middle, int row, int column) {
+void Cell::setupQuadPlace(int row, int column, ISceneManager* sceneManager) {
+
+    vector3df temp = vector3df(row*150.0f,-500.0f,column*150.0f);
+    cell_node = sceneManager->addMeshSceneNode(cellMesh);
+    cell_node->setPosition(temp);
+    cell_node->setMaterialTexture(0, TextureLoader::tile);
+
 	/*
 	if (row == 9 && column == 9) heightLevel = 1;
 	//unsigned int width = TextureLoader::tile.getSize().x;

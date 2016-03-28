@@ -2,13 +2,17 @@
 #include <iostream>
 
 using namespace irr;
+using namespace irr::video;
+using namespace irr::scene;
 
 class TextureLoader
 {
 public:
-	static void LoadingTextures(video::IVideoDriver* driver);
+	static void LoadingTextures(IVideoDriver* driver, ISceneManager* sceneManager);
 
-    static video::ITexture* tile;
-    static video::ITexture* sphere;
+    static ITexture* tile;
+    static ITexture* sphere;
+
+    static IAnimatedMesh* cellMesh;
 };
 

@@ -5,18 +5,22 @@
 #ifndef TESTISO_CELL_HPP
 #define TESTISO_CELL_HPP
 
+#include <irrlicht.h>
 #include "../Utils/Position.h"
 
-//#include <SFML/Graphics.hpp>
-//using namespace sf;
+using namespace irr;
+using namespace irr::core;
+using namespace irr::scene;
 
 class Cell {
 private:
+    scene::IAnimatedMesh* cellMesh;
+    scene::IMeshSceneNode* cell_node;
 
 public:
     Cell();
 
-    void setupQuadPlace(int middle, int row, int column);
+    void setupQuadPlace(int row, int column, ISceneManager* sceneManager);
     //void drawCel(RenderWindow *windows);
 };
 

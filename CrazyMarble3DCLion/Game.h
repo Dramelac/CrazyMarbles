@@ -18,13 +18,10 @@ using namespace irr;
 
 class Game {
 private:
-	Board board;
+	Board* board;
 	IrrlichtDevice* device;
 	video::IVideoDriver* driver;
 	scene::ISceneManager *sceneManager;
-
-    scene::IAnimatedMesh* cubeMesh;
-    scene::IMeshSceneNode* cube_node;
 
 	scene::ICameraSceneNode* fpsCamera;
 

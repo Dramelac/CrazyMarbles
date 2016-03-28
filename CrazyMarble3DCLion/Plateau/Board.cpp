@@ -4,21 +4,22 @@
 
 #include "Board.h"
 
-Board::Board(unsigned int hauteur, unsigned int largeur) : heightNumber(hauteur), widthNumber(largeur), midleBoard(largeur * 75){
+Board::Board(unsigned int hauteur, unsigned int largeur, ISceneManager* sceneManager) : heightNumber(hauteur),
+																						widthNumber(largeur){
 	board = new Cell*[hauteur];
 	for (int i = 0; i<hauteur; i++){
 		board[i] = new Cell[largeur];
 	}
-	initCellPlace();
+	initCellPlace(sceneManager);
 }
 
 
-void Board::initCellPlace() {
+void Board::initCellPlace(scene::ISceneManager* sceneManager) {
 	for (int row = 0; row < widthNumber; row++)
 	{
 		for (int column = 0; column < heightNumber; column++)
 		{
-			board[row][column].setupQuadPlace(midleBoard, row, column);
+			board[row][column].setupQuadPlace(row, column, sceneManager);
 		}
 	}
 }
@@ -36,10 +37,6 @@ Board::~Board() {
 		delete[] board[i];
 	}
 	delete[] board;
-}
-
-const unsigned int Board::getMidleBoard() const {
-	return midleBoard;
 }
 
 /*

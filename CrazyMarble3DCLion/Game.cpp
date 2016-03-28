@@ -4,8 +4,7 @@
 
 #include "Game.h"
 
-Game::Game(unsigned int x, unsigned int y) : width(1280), height(720), board(Board(x, y)), zoom(0.5),
-device(nullptr){
+Game::Game(unsigned int x, unsigned int y) : width(1280), height(720), zoom(0.5), device(nullptr){
 
 	
 	this->device = createDevice(										// creation device
@@ -20,7 +19,7 @@ device(nullptr){
 
 
     // Load Textures
-    TextureLoader::LoadingTextures(driver);
+    TextureLoader::LoadingTextures(driver, sceneManager);
 
     // OPTIONAL
     sceneManager->addSkyBoxSceneNode(
@@ -32,8 +31,9 @@ device(nullptr){
             driver->getTexture("data/skybox/right.png"));
 
 
-    this->player = new Player("Test", 20, sceneManager, driver);
+    this->player = new Player("Test", 20, sceneManager);
 
+    this->board = new Board(x, y, sceneManager);
 
     // LIGHT
     sceneManager->addLightSceneNode(0, core::vector3df(0, 0, 20),
@@ -42,14 +42,6 @@ device(nullptr){
     sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));
 
 
-    cubeMesh = sceneManager->getMesh("data/model/cube.3ds");
-
-    cube_node = sceneManager->addMeshSceneNode(cubeMesh);
-    //cube_node->setScale(core::vector3df(1.0f,1.0f,1.0f));
-    cube_node->setPosition(core::vector3df(0.0f,-500.0f,50.0f));
-
-    cube_node->setMaterialTexture(0, TextureLoader::tile);
-    //cube_node->getMaterial(0) = material;
 
 	// CAMERA 
 
@@ -198,5 +190,6 @@ void Game::gameLoop() {
 Game::~Game() {
 
 	delete player;
+    delete board;
     
 }

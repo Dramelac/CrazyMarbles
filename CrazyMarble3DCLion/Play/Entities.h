@@ -10,19 +10,18 @@
 
 #include <string>
 
-
 using namespace std;
 
 class Entities {
 protected:
 	Position position;
-	string name;
+	std::string name;
 	int health;
 
 public:
 
-	Entities(const string &name, int health);
-	Entities(const Position &position, const string &name, int health);
+	Entities(const std::string &name, int health);
+	Entities(const Position &position, const std::string &name, int health);
 	Entities();
 };
 

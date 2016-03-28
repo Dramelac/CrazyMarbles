@@ -7,24 +7,20 @@
 
 
 #include "Cell.h"
-//#include <SFML/Graphics.hpp>
-//using namespace sf;
 
 class Board {
 private:
 	Cell** board;
-	const unsigned int midleBoard;
 	int widthNumber;
 	int heightNumber;
 
-	void initCellPlace();
+	void initCellPlace(ISceneManager* sceneManager);
 public:
-	Board(const unsigned int hauteur, const unsigned int largeur);
+	Board(const unsigned int hauteur, const unsigned int largeur, ISceneManager* sceneManager);
 	~Board();
 
 	int getLargeur() const;
 	int getHauteur() const;
-	const unsigned int getMidleBoard() const;
 	//void drawBoard(RenderWindow *windows);
 };
 

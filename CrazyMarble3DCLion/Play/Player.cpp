@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "../Utils/TextureLoader.h"
 
-Player::Player(const string &name, int health, scene::ISceneManager *sceneManager, video::IVideoDriver* driver) : Entities(name, health), score(0) {
+Player::Player(const string &name, int health, scene::ISceneManager *sceneManager) : Entities(name, health), score(0) {
 
     // MODEL
 
@@ -13,7 +13,7 @@ Player::Player(const string &name, int health, scene::ISceneManager *sceneManage
 
     sphere_node = sceneManager->addMeshSceneNode(sphereMesh);
     //sphere_node->setScale(core::vector3df(1.0f,1.0f,1.0f));
-    sphere_node->setPosition(core::vector3df(25.0f,0.0f,75.0f));
+    sphere_node->setPosition(core::vector3df(25.0f,0.0f,25.0f));
 
     sphere_node->setMaterialTexture(0, TextureLoader::sphere);
 
