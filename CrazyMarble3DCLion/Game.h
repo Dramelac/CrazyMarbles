@@ -11,6 +11,7 @@
 #include "Plateau/Board.h"
 #include "Play/Player.h"
 #include "Utils/TextureLoader.h"
+#include "Utils/KeyboardEvent.h"
 
 #include <irrlicht.h>
 
@@ -29,12 +30,15 @@ private:
 	const unsigned int width;
 	const unsigned int height;
 
-	Player *player;
+
+	KeyboardEvent keyevent;
+    int speed;
+
+    Player *player;
 	float zoom;
 
 	void updateGameBoard();
-	void eventChecker();
-	void keyboardChecker();
+	void keyboardChecker(f32 deltaTime);
 public:
 	Game(const unsigned int x, const unsigned int y, bool day = true);
 	~Game();

@@ -51,3 +51,8 @@ void Player::updateCamera() {
     fixeCamera->setTarget(sphere_node->getPosition());
 
 }
+void Player::updatePosition(core::vector3df vec) {
+    sphere_node->setPosition(sphere_node->getPosition()+vec);
+}
+
+

@@ -27,7 +27,7 @@ public:
 
 	Player(const std::string &name, int health, ISceneManager *sceneManager);
 	void enableCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
-
+	void updatePosition(core::vector3df vec);
 	void updateCamera();
 };
 

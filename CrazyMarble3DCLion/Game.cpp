@@ -4,7 +4,7 @@
 
 #include "Game.h"
 
-Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080), zoom(0.5), device(nullptr){
+Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080), zoom(0.5), keyevent(KeyboardEvent()){
 
 	
 	this->device = createDevice(										// creation device
@@ -86,13 +86,13 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
 
     // Apply gravity to player :
     player->enableCollision(metaSelector, sceneManager);                    // apply collision map to player
-
+    speed=50;
 }
 
 void Game::gameLoop() {
 
     int lastFPS = -1;
-
+    u32 then = device->getTimer()->getTime();
 	while (device->run()){
         if (device->isWindowActive()){                                      // test if windows is active
 
@@ -117,8 +117,9 @@ void Game::gameLoop() {
             }
 
             //updateGameBoard();                    //to implement later
-
-            //keyboardChecker();
+            u32 now = device->getTimer()->getTime();
+            f32 deltaTime = (f32)(now-then) / 1000.f;
+            keyboardChecker(deltaTime);
 
         }
 	}
@@ -145,58 +146,26 @@ void Game::updateGameBoard() {
 
 }
 
-void Game::eventChecker() {
-    /*
-    if (event.type == Event::Closed) windows.close();
-
-    if (event.type == sf::Event::MouseWheelMoved) {
-        zoom += event.mouseWheel.delta * -0.1;
-        if (zoom < 0.1){
-            zoom = 0.1;
-        }
+void Game::keyboardChecker(f32 deltaTime) {
+    core::vector3df vector(0.0f,0.0f,0.0f);
+    if(keyevent.checkKey(KEY_KEY_Z)){
+        vector.X += -speed * deltaTime;
+        vector.Z += -speed * deltaTime;
     }
-
-    if (Mouse::isButtonPressed(Mouse::Right)) {
-        std::cout << player.getPosition().x << " / " << player.getPosition().y << ", m : " << board.getMidleBoard() << std::endl;
-    }*/
-
-}
-
-void Game::keyboardChecker() {
-
-    /*
-    if (windows.hasFocus()) {
-        if (Keyboard::isKeyPressed(Keyboard::Up) || Keyboard::isKeyPressed(Keyboard::Z)) {
-            player.move(Position(0, -1 * speed));
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Down) || Keyboard::isKeyPressed(Keyboard::S)) {
-            player.move(Position(0, speed));
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Right) || Keyboard::isKeyPressed(Keyboard::D)) {
-            player.move(Position(speed, 0));
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Left) || Keyboard::isKeyPressed(Keyboard::Q)) {
-            player.move(Position(-1 * speed, 0));
-        }
-
-
-        // Music Control //
-
-        if (Keyboard::isKeyPressed(Keyboard::M)){
-            SoundUtils::MuteSong();
-        }
-        if (Keyboard::isKeyPressed(Keyboard::P)){
-            SoundUtils::UnMute();
-        }
-        if (Keyboard::isKeyPressed(Keyboard::O)) {
-            SoundUtils::UpSong();
-        }
-        else if (Keyboard::isKeyPressed(Keyboard::L)) {
-            SoundUtils::DownSong();
-        }
-
+    else if(keyevent.checkKey(KEY_KEY_S)){
+        vector.X += speed * deltaTime;
+        vector.Z += speed * deltaTime;
     }
-    */
+    if(keyevent.checkKey(KEY_KEY_Q)){
+        vector.X += speed * deltaTime;
+        vector.Z += -speed/2 * deltaTime;
+    }
+    else if(keyevent.checkKey(KEY_KEY_D)){
+        vector.X += -speed * deltaTime;
+        vector.Z += speed/2 * deltaTime;
+    }
+    player->updatePosition(vector);
+
 }
 
 Game::~Game() {
