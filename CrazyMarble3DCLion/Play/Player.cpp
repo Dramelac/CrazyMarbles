@@ -20,6 +20,7 @@ Player::Player(const string &name, int health, ISceneManager *sceneManager) : En
     // to force texture use :
     //sphere_node->setMaterialTexture(0, TextureLoader::sphere);
 
+
 }
 
 void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
@@ -36,3 +37,12 @@ void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager 
 
 }
 
+
+IMeshSceneNode *Player::getSphere_node() const {
+    return sphere_node;
+}
+
+
+core::vector3df Player::getPosition() {
+    return sphere_node->getPosition();
+}

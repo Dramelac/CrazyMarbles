@@ -72,10 +72,14 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
 	keyMap[3].KeyCode = KEY_KEY_D;
 
     // To change
+    /*
     fpsCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1, keyMap, 4);    // create camera (to change /
                                                                                         // fix to player)
     //fpsCamera->setPosition(vector3df(x*Cell::size,600.0f,y*Cell::size));                // init camera pos
     fpsCamera->setPosition(vector3df(850,300,850));
+    */
+
+    fpsCamera = sceneManager->addCameraSceneNode(0, core::vector3df(450.0f,150.0f,450.0f), player->getPosition());
 
 
     // COLLISION : GRAVITY
@@ -88,6 +92,7 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
 
     // Gravity to camera (test hitbox only)
     // Animation collision
+    /*
     ISceneNodeAnimatorCollisionResponse* anim = sceneManager->createCollisionResponseAnimator(
             metaSelector, // Map collision
             fpsCamera,  // object player to detect
@@ -96,7 +101,7 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
     );
     fpsCamera->addAnimator(anim);             // apply gravity / collision to player object
     anim->drop();                               // drop temp anim
-
+    */
 
 	speed = 2;              // useless for now (change or remove later)
 }
@@ -109,6 +114,15 @@ void Game::gameLoop() {
         if (device->isWindowActive()){                                      // test if wuindows active
 
             driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
+
+            vector3df cameraPos = player->getPosition();
+            cameraPos.X += 800.0f;
+            cameraPos.Z += 800.0f;
+            cameraPos.Y += 500.0f;
+            fpsCamera->setPosition(cameraPos);
+            fpsCamera->setTarget(player->getPosition());
+
+
             sceneManager->drawAll();                                        // update display
             driver->endScene();
 
