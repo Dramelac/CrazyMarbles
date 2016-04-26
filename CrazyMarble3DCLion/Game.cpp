@@ -86,7 +86,7 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
 
     // Apply gravity to player :
     player->enableCollision(metaSelector, sceneManager);                    // apply collision map to player
-    speed = 5;
+    speed = 250;
 }
 
 void Game::gameLoop() {
@@ -119,6 +119,7 @@ void Game::gameLoop() {
             //updateGameBoard();                    //to implement later
             u32 now = device->getTimer()->getTime();
             f32 deltaTime = (f32)(now-then) / 1000.f;
+            then = now;
             keyboardChecker(deltaTime);
 
         }
