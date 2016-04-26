@@ -59,7 +59,7 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
 
 
 
-	// CAMERA 
+	// CAMERA
 
 	SKeyMap keyMap[4];
 	keyMap[0].Action = EKA_MOVE_FORWARD;   // avancer
@@ -94,7 +94,7 @@ void Game::gameLoop() {
     int lastFPS = -1;
 
 	while (device->run()){
-        if (device->isWindowActive()){                                      // test if wuindows active
+        if (device->isWindowActive()){                                      // test if windows is active
 
             driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
 
@@ -116,10 +116,11 @@ void Game::gameLoop() {
                 lastFPS = fps;
             }
 
-            //updateGameBoard();
+            //updateGameBoard();                    //to implement later
+
+            //keyboardChecker();
 
         }
-		//keyboardChecker();
 	}
 
     // drop every loading image / node / model / all

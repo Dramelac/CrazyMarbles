@@ -25,7 +25,7 @@ private:
 	IrrlichtDevice* device;
 	IVideoDriver* driver;
 	ISceneManager *sceneManager;
-	
+
 	const unsigned int width;
 	const unsigned int height;
 
