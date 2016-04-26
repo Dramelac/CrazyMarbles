@@ -25,14 +25,11 @@ private:
 	IrrlichtDevice* device;
 	IVideoDriver* driver;
 	ISceneManager *sceneManager;
-
-	ICameraSceneNode* fpsCamera;
-
+	
 	const unsigned int width;
 	const unsigned int height;
 
 	Player *player;
-	int speed;
 	float zoom;
 
 	void updateGameBoard();

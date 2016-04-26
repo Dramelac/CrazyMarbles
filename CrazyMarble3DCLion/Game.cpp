@@ -79,9 +79,6 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
     fpsCamera->setPosition(vector3df(850,300,850));
     */
 
-    fpsCamera = sceneManager->addCameraSceneNode(0, core::vector3df(450.0f,150.0f,450.0f), player->getPosition());
-
-
     // COLLISION : GRAVITY
 
     // plateau de selector collision
@@ -90,20 +87,6 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
     // Apply gravity to player :
     player->enableCollision(metaSelector, sceneManager);                    // apply collision map to player
 
-    // Gravity to camera (test hitbox only)
-    // Animation collision
-    /*
-    ISceneNodeAnimatorCollisionResponse* anim = sceneManager->createCollisionResponseAnimator(
-            metaSelector, // Map collision
-            fpsCamera,  // object player to detect
-            core::vector3df(1.0f,100.0f,1.0f), // hitbox
-            core::vector3df(0, -10, 0)  // gravity vector
-    );
-    fpsCamera->addAnimator(anim);             // apply gravity / collision to player object
-    anim->drop();                               // drop temp anim
-    */
-
-	speed = 2;              // useless for now (change or remove later)
 }
 
 void Game::gameLoop() {
@@ -115,13 +98,7 @@ void Game::gameLoop() {
 
             driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
 
-            vector3df cameraPos = player->getPosition();
-            cameraPos.X += 800.0f;
-            cameraPos.Z += 800.0f;
-            cameraPos.Y += 500.0f;
-            fpsCamera->setPosition(cameraPos);
-            fpsCamera->setTarget(player->getPosition());
-
+            player->updateCamera();
 
             sceneManager->drawAll();                                        // update display
             driver->endScene();

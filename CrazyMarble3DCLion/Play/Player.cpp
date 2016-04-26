@@ -13,12 +13,17 @@ Player::Player(const string &name, int health, ISceneManager *sceneManager) : En
 
     sphere_node = sceneManager->addMeshSceneNode(sphereMesh);           // add object to screen
     //sphere_node->setScale(core::vector3df(1.0f,1.0f,1.0f));
-    sphere_node->setPosition(core::vector3df(25.0f,300.0f,25.0f));        // set init player pos (can be change if need)
+    sphere_node->setPosition(core::vector3df(425.0f,300.0f,425.0f));        // set init player pos (can be change if need)
     //sphere_node->setPosition(core::vector3df(5*150.0f+50,300.0f,430.0f));
 
     // we used default texture with model : sphere_c.png
     // to force texture use :
     //sphere_node->setMaterialTexture(0, TextureLoader::sphere);
+
+
+    // Camera
+
+    fixeCamera = sceneManager->addCameraSceneNode(0, core::vector3df(450.0f,150.0f,450.0f), sphere_node->getPosition());
 
 
 }
@@ -38,11 +43,13 @@ void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager 
 }
 
 
-IMeshSceneNode *Player::getSphere_node() const {
-    return sphere_node;
-}
+void Player::updateCamera() {
 
+    core::vector3df cameraPos = sphere_node->getPosition();
+    cameraPos.X += 800.0f;
+    cameraPos.Z += 800.0f;
+    cameraPos.Y += 700.0f;
+    fixeCamera->setPosition(cameraPos);
+    fixeCamera->setTarget(sphere_node->getPosition());
 
-core::vector3df Player::getPosition() {
-    return sphere_node->getPosition();
 }

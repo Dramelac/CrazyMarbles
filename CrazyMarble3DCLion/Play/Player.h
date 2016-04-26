@@ -19,6 +19,8 @@ private:
 	IAnimatedMesh* sphereMesh;
 	IMeshSceneNode* sphere_node;
 
+	ICameraSceneNode* fixeCamera;
+
 	int score;
 
 public:
@@ -26,9 +28,7 @@ public:
 	Player(const std::string &name, int health, ISceneManager *sceneManager);
 	void enableCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
 
-
-	IMeshSceneNode * getSphere_node() const;
-	core::vector3df getPosition();
+	void updateCamera();
 };
 
 
