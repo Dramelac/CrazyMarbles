@@ -35,7 +35,6 @@ private:
 	void updateGameBoard();
 	void eventChecker();
 	void keyboardChecker();
-	void updateView();
 public:
 	Game(const unsigned int x, const unsigned int y, bool day = true);
 	~Game();

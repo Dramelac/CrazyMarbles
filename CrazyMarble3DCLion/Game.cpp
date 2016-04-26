@@ -128,24 +128,8 @@ void Game::gameLoop() {
 
 }
 
-void Game::updateView() {
-    /*
-    int margeSize = 50;
-
-    Vector2f pos = player.getPosition();
-    int temp = (margeSize / 2) - (width / 2);
-    pos.x += temp;
-    temp = (margeSize / 2) - (height / 2);
-    pos.y += temp;
-    view.reset(FloatRect(pos.x, pos.y, width, height));
-    view.zoom(this->zoom);
-    windows.setView(view);
-    */
-}
-
 void Game::updateGameBoard() {
     /*
-    updateView();
     board.drawBoard(&windows);
     player.renderPlayer(&windows);
 
