@@ -5,7 +5,7 @@
 #include "KeyboardEvent.h"
 
 KeyboardEvent::KeyboardEvent() {
-    for(int i = 0; i < KEY_KEY_CODES_COUNT; i++){
+    for(int i = 0; i < KEY_KEY_CODES_COUNT; ++i){
         keyPressedDown[i] = false;
     }
 }
@@ -17,6 +17,6 @@ bool KeyboardEvent::OnEvent(const SEvent &event)
     return false;
 }
 
-bool KeyboardEvent::checkKey(EKEY_CODE keyCode) const  {
+bool KeyboardEvent::IsKeyDown(EKEY_CODE keyCode) const  {
     return keyPressedDown[keyCode];
 }

@@ -10,7 +10,7 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
 	this->device = createDevice(										// creation device
 		video::EDT_OPENGL,											    // l'API est OpenGL
 		core::dimension2d<u32>(width, height),							// taille de la fenetre 800x600
-		16, false, true);
+		16, false, false, false, &keyevent);
     this->device->setWindowCaption(L"Crazy Marble");                    // first windows name
     device->getCursorControl()->setVisible(false);                      // curseur invisible
 
@@ -86,7 +86,7 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
 
     // Apply gravity to player :
     player->enableCollision(metaSelector, sceneManager);                    // apply collision map to player
-    speed=50;
+    speed = 5;
 }
 
 void Game::gameLoop() {
@@ -148,19 +148,19 @@ void Game::updateGameBoard() {
 
 void Game::keyboardChecker(f32 deltaTime) {
     core::vector3df vector(0.0f,0.0f,0.0f);
-    if(keyevent.checkKey(KEY_KEY_Z)){
+    if(keyevent.IsKeyDown(KEY_KEY_Z)){
         vector.X += -speed * deltaTime;
         vector.Z += -speed * deltaTime;
     }
-    else if(keyevent.checkKey(KEY_KEY_S)){
+    else if(keyevent.IsKeyDown(KEY_KEY_S)){
         vector.X += speed * deltaTime;
         vector.Z += speed * deltaTime;
     }
-    if(keyevent.checkKey(KEY_KEY_Q)){
+    if(keyevent.IsKeyDown(KEY_KEY_Q)){
         vector.X += speed * deltaTime;
         vector.Z += -speed/2 * deltaTime;
     }
-    else if(keyevent.checkKey(KEY_KEY_D)){
+    else if(keyevent.IsKeyDown(KEY_KEY_D)){
         vector.X += -speed * deltaTime;
         vector.Z += speed/2 * deltaTime;
     }

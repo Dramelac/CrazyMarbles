@@ -9,15 +9,17 @@
 
 using namespace irr;
 
-class KeyboardEvent : public  IEventReceiver{
+class KeyboardEvent : public IEventReceiver{
+
 private:
+
     bool keyPressedDown[KEY_KEY_CODES_COUNT];
+
 public :
 
     virtual bool OnEvent(const SEvent& event);
-    virtual bool checkKey(EKEY_CODE keyCode) const;
+    virtual bool IsKeyDown(EKEY_CODE keyCode) const;
     KeyboardEvent();
-
 
 };
 
