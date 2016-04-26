@@ -123,9 +123,6 @@ void Game::gameLoop() {
         }
 	}
 
-    // drop every loading image / node / model / all
-	device->drop();
-
 }
 
 void Game::updateGameBoard() {
@@ -203,6 +200,10 @@ void Game::keyboardChecker() {
 }
 
 Game::~Game() {
+
+    // drop every loading image / node / model / all
+    device->drop();
+
 	delete player;
     delete board;
     

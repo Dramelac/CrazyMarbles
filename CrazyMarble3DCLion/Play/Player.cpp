@@ -46,9 +46,7 @@ void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager 
 void Player::updateCamera() {
 
     core::vector3df cameraPos = sphere_node->getPosition();
-    cameraPos.X += 800.0f;
-    cameraPos.Z += 800.0f;
-    cameraPos.Y += 700.0f;
+    cameraPos += core::vector3df(800.0f, 700.0f, 800.0f);
     fixeCamera->setPosition(cameraPos);
     fixeCamera->setTarget(sphere_node->getPosition());
 
