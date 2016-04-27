@@ -8,11 +8,14 @@
 #include <irrlicht.h>
 
 using namespace irr;
+using namespace video;
+using namespace core;
 using namespace gui;
 
 class Menu {
 private:
     IrrlichtDevice* device;
+    IVideoDriver* driver;
     IGUIEnvironment* gui;
 
 public:

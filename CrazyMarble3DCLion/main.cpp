@@ -1,5 +1,4 @@
 #include <irrlicht.h>
-#include "Game.h"
 #include "IrrlichtMain.h"
 
 using namespace irr;
