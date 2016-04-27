@@ -1,13 +1,14 @@
 #include <irrlicht.h>
 #include "Game.h"
+#include "IrrlichtMain.h"
 
 using namespace irr;
 
 
 int main(void) {
-	Game game(10, 10);
-	game.gameLoop();
 
+	IrrlichtMain all = IrrlichtMain();
+	all.main();
 
 	return 0;
 }
