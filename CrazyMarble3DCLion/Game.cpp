@@ -72,12 +72,12 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
 	keyMap[3].KeyCode = KEY_KEY_D;
 
     // To change
-    /*
-    fpsCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1, keyMap, 4);    // create camera (to change /
+
+    //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1, keyMap, 4);    // create camera (to change /
                                                                                         // fix to player)
     //fpsCamera->setPosition(vector3df(x*Cell::size,600.0f,y*Cell::size));                // init camera pos
-    fpsCamera->setPosition(vector3df(850,300,850));
-    */
+    //fpsCamera->setPosition(vector3df(850,300,850));
+
 
     // COLLISION : GRAVITY
 
