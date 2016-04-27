@@ -14,7 +14,7 @@ Player::Player(const std::string &name, int health, ISceneManager *sceneManager)
 
     sphere_node = sceneManager->addMeshSceneNode(sphereMesh);           // add object to screen
     //sphere_node->setScale(vector3df(1.0f,1.0f,1.0f));
-    sphere_node->setPosition(vector3df(25.0f,30.0f,25.0f));        // set init player pos (can be change if need)
+    sphere_node->setPosition(vector3df(25.0f,300.0f,25.0f));        // set init player pos (can be change if need)
     //sphere_node->setPosition(vector3df(5*150.0f+50,300.0f,430.0f));
 
     // we used default texture with model : sphere_c.png

@@ -4,13 +4,12 @@
 
 #include "Game.h"
 
-Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080), zoom(0.5), keyevent(KeyboardEvent()){
+Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent, unsigned int x, unsigned int y, bool day) : play(true){
 
 	
-	this->device = createDevice(										// creation device
-		video::EDT_OPENGL,											    // l'API est OpenGL
-		core::dimension2d<u32>(width, height),							// taille de la fenetre 800x600
-		16, false, false, false, &keyevent);
+	this->device = inDevice;
+    this->keyevent = keyevent;
+
     this->device->setWindowCaption(L"Crazy Marble");                    // first windows name
     device->getCursorControl()->setVisible(false);                      // curseur invisible
 
@@ -94,6 +93,7 @@ void Game::gameLoop() {
     int lastFPS = -1;
     u32 then = device->getTimer()->getTime();
 	while (device->run()){
+
         if (device->isWindowActive()){                                      // check if windows is active
 
             driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
@@ -122,6 +122,11 @@ void Game::gameLoop() {
             f32 deltaTime = (f32)(now-then) / 1000.f;
             then = now;
             keyboardChecker(deltaTime);
+
+            if (!play){
+                std::cout << "escape !!" << endl;
+                break;
+            }
 
         }
 	}
@@ -153,19 +158,19 @@ void Game::keyboardChecker(f32 deltaTime) {
     core::vector3df vector(0.0f,0.0f,0.0f);
 
     // Check all key
-    if(keyevent.IsKeyDown(KEY_KEY_Z)){
+    if(keyevent->IsKeyDown(KEY_KEY_Z)){
         vector.X += -speed * deltaTime;
         vector.Z += -speed * deltaTime;
     }
-    else if(keyevent.IsKeyDown(KEY_KEY_S)){
+    else if(keyevent->IsKeyDown(KEY_KEY_S)){
         vector.X += speed * deltaTime;
         vector.Z += speed * deltaTime;
     }
-    if(keyevent.IsKeyDown(KEY_KEY_Q)){
+    if(keyevent->IsKeyDown(KEY_KEY_Q)){
         vector.X += speed * deltaTime;
         vector.Z += -speed/2 * deltaTime;
     }
-    else if(keyevent.IsKeyDown(KEY_KEY_D)){
+    else if(keyevent->IsKeyDown(KEY_KEY_D)){
         vector.X += -speed * deltaTime;
         vector.Z += speed/2 * deltaTime;
     }
@@ -174,18 +179,25 @@ void Game::keyboardChecker(f32 deltaTime) {
     player->updatePosition(vector);
 
 
-    if(keyevent.IsKeyDown(KEY_KEY_P)){
+    if(keyevent->IsKeyDown(KEY_KEY_P)){
         player->updateFOV(0.005);
-    } else if(keyevent.IsKeyDown(KEY_KEY_O)){
+    } else if(keyevent->IsKeyDown(KEY_KEY_O)){
         player->updateFOV(-0.005);
+    }
+
+    // quit event
+
+    if (keyevent->IsKeyDown(KEY_ESCAPE)){
+        std::cout << "escape !!" << endl;
+        play = false;
     }
 
 }
 
 Game::~Game() {
 
-    // drop every loading image / node / model / all
-    device->drop();
+    sceneManager->clear();
+    driver->drop();
 
 	delete player;
     delete board;

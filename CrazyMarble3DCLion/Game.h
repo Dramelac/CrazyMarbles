@@ -27,20 +27,17 @@ private:
 	IVideoDriver* driver;
 	ISceneManager *sceneManager;
 
-	const unsigned int width;
-	const unsigned int height;
-
-
-	KeyboardEvent keyevent;
+	KeyboardEvent* keyevent;
+    bool play;
     int speed;
 
     Player *player;
-	float zoom;
 
 	void updateGameBoard();
 	void keyboardChecker(f32 deltaTime);
 public:
-	Game(const unsigned int x, const unsigned int y, bool day = true);
+	Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
+		 const unsigned int x, const unsigned int y, bool day = true);
 	~Game();
 
 	void gameLoop();
