@@ -3,6 +3,7 @@
 //
 
 #include "IrrlichtMain.h"
+#include "Menu.h"
 
 IrrlichtMain::IrrlichtMain() : width(1920), height(1080), keyevent(KeyboardEvent()) {
 
@@ -16,8 +17,12 @@ IrrlichtMain::IrrlichtMain() : width(1920), height(1080), keyevent(KeyboardEvent
 
 void IrrlichtMain::main() {
     while (device->run()){
+        /*
         Game game(device, &keyevent, 50, 50);
         game.gameLoop();
+        */
+        Menu menu(device);
+        menu.loop();
 
         // to close device
         device->closeDevice();

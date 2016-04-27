@@ -5,9 +5,20 @@
 #ifndef CRAZYMARBLE3DCLION_MENU_HPP
 #define CRAZYMARBLE3DCLION_MENU_HPP
 
+#include <irrlicht.h>
+
+using namespace irr;
+using namespace gui;
 
 class Menu {
+private:
+    IrrlichtDevice* device;
+    IGUIEnvironment* gui;
 
+public:
+
+    Menu(IrrlichtDevice* inDevice);
+    void loop();
 };
 
 
