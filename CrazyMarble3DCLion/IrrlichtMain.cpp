@@ -21,7 +21,7 @@ void IrrlichtMain::main() {
         Game game(device, &keyEvent, 50, 50);
         game.gameLoop();
         */
-        Menu menu(device);
+        Menu menu(device, &keyEvent);
         menu.loop();
 
         // to close device

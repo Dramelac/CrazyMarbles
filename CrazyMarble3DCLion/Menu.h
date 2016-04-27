@@ -6,6 +6,7 @@
 #define CRAZYMARBLE3DCLION_MENU_HPP
 
 #include <irrlicht.h>
+#include "Utils/KeyboardEvent.h"
 
 using namespace irr;
 using namespace video;
@@ -18,11 +19,15 @@ private:
     IVideoDriver* driver;
     IGUIEnvironment* gui;
 
+
+    KeyboardEvent* keyEvent;
+
     IGUIButton* exit;
+    IGUIButton* game;
 
 public:
 
-    Menu(IrrlichtDevice* inDevice);
+    Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent);
     void loop();
 };
 
