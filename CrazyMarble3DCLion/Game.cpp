@@ -117,6 +117,7 @@ void Game::gameLoop() {
             }
 
             //updateGameBoard();                    //to implement later
+            // Move time
             u32 now = device->getTimer()->getTime();
             f32 deltaTime = (f32)(now-then) / 1000.f;
             then = now;
@@ -148,7 +149,10 @@ void Game::updateGameBoard() {
 }
 
 void Game::keyboardChecker(f32 deltaTime) {
+    // Init moving vector
     core::vector3df vector(0.0f,0.0f,0.0f);
+
+    // Check all key
     if(keyevent.IsKeyDown(KEY_KEY_Z)){
         vector.X += -speed * deltaTime;
         vector.Z += -speed * deltaTime;
@@ -165,6 +169,8 @@ void Game::keyboardChecker(f32 deltaTime) {
         vector.X += -speed * deltaTime;
         vector.Z += speed/2 * deltaTime;
     }
+
+    // apply moving to player
     player->updatePosition(vector);
 
 }
