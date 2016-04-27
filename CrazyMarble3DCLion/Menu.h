@@ -18,6 +18,8 @@ private:
     IVideoDriver* driver;
     IGUIEnvironment* gui;
 
+    IGUIButton* exit;
+
 public:
 
     Menu(IrrlichtDevice* inDevice);

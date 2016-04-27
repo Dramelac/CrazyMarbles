@@ -22,8 +22,8 @@ bool KeyboardEvent::OnEvent(const SEvent &event)
         if (event.GUIEvent.EventType == EGET_BUTTON_CLICKED){
             switch (event.GUIEvent.Caller->getID()){
                 case 101:
-                    std::cout << "closing " << std::endl;
-                    device->closeDevice();
+                    //std::cout << "closing " << std::endl;
+                    //device->closeDevice();
                     return true;
                 default:
                     return false;
