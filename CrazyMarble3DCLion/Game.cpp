@@ -40,7 +40,7 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
                 driver->getTexture("data/skybox/night/right.png"));
     }
 
-    // SkyDome test
+    // SkyDome
     //sceneManager->addSkyDomeSceneNode(driver->getTexture("data/../../irrlicht-1.8.3/media/skydome.jpg"),16,8,0.95f,2.0f);
 
 
@@ -73,7 +73,7 @@ Game::Game(unsigned int x, unsigned int y, bool day) : width(1920), height(1080)
 
     // To change
 
-    //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1, keyMap, 4);    // create camera (to change /
+    //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);    // create camera (to change /
                                                                                         // fix to player)
     //fpsCamera->setPosition(vector3df(x*Cell::size,600.0f,y*Cell::size));                // init camera pos
     //fpsCamera->setPosition(vector3df(850,300,850));
@@ -94,7 +94,7 @@ void Game::gameLoop() {
     int lastFPS = -1;
     u32 then = device->getTimer()->getTime();
 	while (device->run()){
-        if (device->isWindowActive()){                                      // test if windows is active
+        if (device->isWindowActive()){                                      // check if windows is active
 
             driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
 
@@ -172,6 +172,13 @@ void Game::keyboardChecker(f32 deltaTime) {
 
     // apply moving to player
     player->updatePosition(vector);
+
+
+    if(keyevent.IsKeyDown(KEY_KEY_P)){
+        player->updateFOV(0.005);
+    } else if(keyevent.IsKeyDown(KEY_KEY_O)){
+        player->updateFOV(-0.005);
+    }
 
 }
 

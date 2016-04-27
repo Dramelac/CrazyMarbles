@@ -30,6 +30,8 @@ public:
 	void enableCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
 	void updatePosition(vector3df vec);
 	void updateCamera();
+
+	void updateFOV(f32 x);
 };
 
 

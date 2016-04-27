@@ -14,7 +14,7 @@ Player::Player(const std::string &name, int health, ISceneManager *sceneManager)
 
     sphere_node = sceneManager->addMeshSceneNode(sphereMesh);           // add object to screen
     //sphere_node->setScale(vector3df(1.0f,1.0f,1.0f));
-    sphere_node->setPosition(vector3df(25.0f,250.0f,25.0f));        // set init player pos (can be change if need)
+    sphere_node->setPosition(vector3df(25.0f,30.0f,25.0f));        // set init player pos (can be change if need)
     //sphere_node->setPosition(vector3df(5*150.0f+50,300.0f,430.0f));
 
     // we used default texture with model : sphere_c.png
@@ -26,6 +26,8 @@ Player::Player(const std::string &name, int health, ISceneManager *sceneManager)
 
     fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), sphere_node->getPosition());
 
+    // Render distance
+    // fixeCamera->setFarValue(5000);
 
 }
 
@@ -53,8 +55,16 @@ void Player::updateCamera() {
     fixeCamera->setTarget(sphere_node->getPosition());
 
 }
+
+
 void Player::updatePosition(vector3df vec) {
     sphere_node->setPosition(sphere_node->getPosition()+vec);
 }
 
 
+void Player::updateFOV(f32 x) {
+    f32 temp = fixeCamera->getFOV();
+    std::cout << "fov old : " << temp;
+    fixeCamera->setFOV(temp + x);
+    std::cout << "/ fov now : " << temp + x << endl;
+}
