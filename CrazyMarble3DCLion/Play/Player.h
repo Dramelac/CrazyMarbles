@@ -12,7 +12,8 @@
 
 using namespace std;
 using namespace irr;
-using namespace irr::scene;
+using namespace scene;
+using namespace core;
 
 class Player : Entities {
 private:
@@ -27,7 +28,7 @@ public:
 
 	Player(const std::string &name, int health, ISceneManager *sceneManager);
 	void enableCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
-	void updatePosition(core::vector3df vec);
+	void updatePosition(vector3df vec);
 	void updateCamera();
 };
 

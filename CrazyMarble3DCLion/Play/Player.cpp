@@ -5,16 +5,17 @@
 #include "Player.h"
 #include "../Utils/TextureLoader.h"
 
-Player::Player(const string &name, int health, ISceneManager *sceneManager) : Entities(name, health), score(0) {
+
+Player::Player(const std::string &name, int health, ISceneManager *sceneManager) : Entities(name, health), score(0) {
 
     // MODEL
 
     sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
 
     sphere_node = sceneManager->addMeshSceneNode(sphereMesh);           // add object to screen
-    //sphere_node->setScale(core::vector3df(1.0f,1.0f,1.0f));
-    sphere_node->setPosition(core::vector3df(425.0f,300.0f,425.0f));        // set init player pos (can be change if need)
-    //sphere_node->setPosition(core::vector3df(5*150.0f+50,300.0f,430.0f));
+    //sphere_node->setScale(vector3df(1.0f,1.0f,1.0f));
+    sphere_node->setPosition(vector3df(25.0f,250.0f,25.0f));        // set init player pos (can be change if need)
+    //sphere_node->setPosition(vector3df(5*150.0f+50,300.0f,430.0f));
 
     // we used default texture with model : sphere_c.png
     // to force texture use :
@@ -23,7 +24,7 @@ Player::Player(const string &name, int health, ISceneManager *sceneManager) : En
 
     // Camera
 
-    fixeCamera = sceneManager->addCameraSceneNode(0, core::vector3df(450.0f,150.0f,450.0f), sphere_node->getPosition());
+    fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), sphere_node->getPosition());
 
 
 }
@@ -31,11 +32,12 @@ Player::Player(const string &name, int health, ISceneManager *sceneManager) : En
 void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
 
     // Animation collision
+
     ISceneNodeAnimatorCollisionResponse* anim = sceneManager->createCollisionResponseAnimator(
             metaSelector, // Map collision
             sphere_node,  // object player to detect
-            core::vector3df(1.0f,1.0f,1.0f), // hitbox
-            core::vector3df(5, -15, 5)  // gravity vector
+            vector3df(1.0f,1.0f,10.0f), // hitbox
+            vector3df(5, -15, 5)  // gravity vector
     );
     sphere_node->addAnimator(anim);             // apply gravity / collision to player object
     anim->drop();                               // drop temp anim
@@ -45,13 +47,13 @@ void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager 
 
 void Player::updateCamera() {
 
-    core::vector3df cameraPos = sphere_node->getPosition();
-    cameraPos += core::vector3df(800.0f, 700.0f, 800.0f);
+    vector3df cameraPos = sphere_node->getPosition();
+    cameraPos += vector3df(800.0f, 700.0f, 800.0f);
     fixeCamera->setPosition(cameraPos);
     fixeCamera->setTarget(sphere_node->getPosition());
 
 }
-void Player::updatePosition(core::vector3df vec) {
+void Player::updatePosition(vector3df vec) {
     sphere_node->setPosition(sphere_node->getPosition()+vec);
 }
 
