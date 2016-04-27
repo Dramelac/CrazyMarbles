@@ -12,12 +12,15 @@
 
 using namespace std;
 using namespace irr;
-using namespace irr::scene;
+using namespace scene;
+using namespace core;
 
 class Player : Entities {
 private:
 	IAnimatedMesh* sphereMesh;
 	IMeshSceneNode* sphere_node;
+
+	ICameraSceneNode* fixeCamera;
 
 	int score;
 
@@ -25,7 +28,10 @@ public:
 
 	Player(const std::string &name, int health, ISceneManager *sceneManager);
 	void enableCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
+	void updatePosition(vector3df vec);
+	void updateCamera();
 
+	void updateFOV(f32 x);
 };
 
 

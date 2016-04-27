@@ -6,7 +6,6 @@
 #define TESTISO_CELL_HPP
 
 #include <irrlicht.h>
-#include "../Utils/Position.h"
 
 using namespace irr;
 using namespace irr::core;
