@@ -27,7 +27,7 @@ private:
 	IVideoDriver* driver;
 	ISceneManager *sceneManager;
 
-	KeyboardEvent* keyevent;
+	KeyboardEvent *keyevent;
     bool play;
     int speed;
 

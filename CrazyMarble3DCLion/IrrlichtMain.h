@@ -21,7 +21,7 @@ private:
     const unsigned int width;
     const unsigned int height;
 
-    KeyboardEvent keyevent;
+    KeyboardEvent keyEvent;
 
 public:
     IrrlichtMain();
