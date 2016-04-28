@@ -18,7 +18,8 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent) : keyEvent(keyEven
 
     exit = gui->addButton(rect<s32>(10,240,110,240 + 32), 0, 101, L"Quit", L"Exits Program");
     game = gui->addButton(rect<s32>(800,400,850,500), 0, 100, L"YOLO");
-
+    scoreBoard = gui->addButton(rect<s32>(800,400,850,500), 0, 100, L"ScoreBoard");
+    scoreBoard->setImage(driver->getTexture("data/GUI/BGCM.png"));
 }
 
 
@@ -38,6 +39,8 @@ void Menu::loop() {
                 Game game(device, keyEvent, 10, 10);
                 game.gameLoop();
                 device->getCursorControl()->setVisible(true);
+            } else if (scoreBoard->isPressed()){
+
             }
         }
     }
