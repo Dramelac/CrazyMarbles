@@ -9,9 +9,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 #definit ou l'executable sera placé
 #set(EXECUTABLE_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE})
 
-set(IRRLICHT_PATH_INCLUDE ~/Documents/repository/CrazyMarbles/irrlicht-1.8.3/include)
+set(IRRLICHT_PATH_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/../irrlicht-1.8.3/include)
 
-set(IRRLICHT_PATH_LIB ~/Documents/repository/CrazyMarbles/irrlicht-1.8.3/lib/Linux)
+set(IRRLICHT_PATH_LIB ${CMAKE_CURRENT_SOURCE_DIR}/../irrlicht-1.8.3/lib/Linux)
 
 #==================================
 #======INCLUSION D'IRRLICHT========
