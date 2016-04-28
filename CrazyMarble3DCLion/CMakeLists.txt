@@ -24,16 +24,15 @@ link_directories(${IRRLICHT_PATH_LIB})
 
 #ficihier du projet
 file(
-        GLOB_RECURSE
-        sources_files
-        src/*
-        inc/*
+        GLOB
+        SOURCE_FILES
+        *.cpp
+        *.h
+        Utils/*
+        Plateau/*
+        Play/*
 )
 
-set(SOURCE_FILES main.cpp Plateau/Board.cpp Plateau/Board.h Plateau/Cell.cpp Plateau/Cell.h Game.cpp Game.h
-        Utils/TextureLoader.cpp Utils/TextureLoader.h Play/Entities.cpp Play/Entities.h Utils/SoundUtils.cpp
-        Utils/SoundUtils.h Play/Player.cpp Play/Player.h Utils/KeyboardEvent.cpp Utils/KeyboardEvent.h
-        IrrlichtMain.cpp IrrlichtMain.h Menu.cpp Menu.h)
 
 #declaration de l'executable
 add_executable(CrazyMarble3DCLion ${SOURCE_FILES})
