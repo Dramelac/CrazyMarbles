@@ -17,9 +17,9 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent) : keyEvent(keyEven
     gui->addImage(driver->getTexture("data/GUI/BGCM.png"), position2d<int>(0, 0));
 
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
-    game = gui->addButton(rect<s32>(600,400,1320,500), 0, 100, L"PLAY");
-    scoreBoard = gui->addButton(rect<s32>(600,550,1320,650), 0, 100, L"ScoreBoard");
-
+    game = gui->addButton(rect<s32>(600,400,1320,500), 0, 102, L"PLAY");
+    scoreBoard = gui->addButton(rect<s32>(600,550,1320,650), 0, 103, L"ScoreBoard");
+    credit = gui->addButton(rect<s32>(600, 700, 1320, 800),0,104, L"Credit");
     //scoreBoard->setImage(driver->getTexture("data/GUI/BGCM.png"));
 }
 
