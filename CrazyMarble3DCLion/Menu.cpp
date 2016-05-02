@@ -20,7 +20,8 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent) : keyEvent(keyEven
     game = gui->addButton(rect<s32>(600,400,1320,500), 0, 102, L"PLAY");
     scoreBoard = gui->addButton(rect<s32>(600,550,1320,650), 0, 103, L"ScoreBoard");
     credit = gui->addButton(rect<s32>(600, 700, 1320, 800),0,104, L"Credit");
-    //scoreBoard->setImage(driver->getTexture("data/GUI/BGCM.png"));
+    game->setImage(driver->getTexture("data/GUI/BGCM.png"));
+    game->setScaleImage(true);
 }
 
 
