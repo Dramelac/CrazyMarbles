@@ -5,7 +5,8 @@
 #ifndef CRAZYMARBLE3DCLION_CHRONO_H
 #define CRAZYMARBLE3DCLION_CHRONO_H
 #include <irrlicht.h>
-#
+
+using namespace irr;
 
 class Chrono : public ITimer{
 private:
