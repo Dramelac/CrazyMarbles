@@ -12,6 +12,7 @@
 #include "Play/Player.h"
 #include "Utils/TextureLoader.h"
 #include "Utils/KeyboardEvent.h"
+#include "Utils/Chrono.h"
 
 #include <irrlicht.h>
 

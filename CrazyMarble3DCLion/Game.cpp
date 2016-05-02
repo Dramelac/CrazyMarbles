@@ -86,6 +86,7 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent, unsigned int x, un
     // Apply gravity to player :
     player->enableCollision(metaSelector, sceneManager);                    // apply collision map to player
     speed = 250;
+
 }
 
 void Game::gameLoop() {
