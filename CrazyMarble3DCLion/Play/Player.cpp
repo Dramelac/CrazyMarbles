@@ -53,7 +53,7 @@ void Player::updateCamera() {
     cameraPos += vector3df(800.0f, 700.0f, 800.0f);
     fixeCamera->setPosition(cameraPos);
     fixeCamera->setTarget(sphere_node->getPosition());
-
+    //fixeCamera->setFarValue(5000);
 }
 
 

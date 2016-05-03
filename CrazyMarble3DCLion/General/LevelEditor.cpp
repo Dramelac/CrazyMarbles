@@ -53,7 +53,7 @@ void LevelEditor::gameLoop() {
             int fps = driver->getFPS();
             if (lastFPS != fps)
             {
-                core::stringw title = L"Crazy Marble - 2DEV  [FPS:";
+                core::stringw title = L"Crazy Marble - 2DEV - Level Editor [FPS:";
                 title += fps;
                 title += "]";
 

@@ -14,10 +14,12 @@ private:
 	int widthNumber;
 	int heightNumber;
 
-	void initCellPlace(ISceneManager* sceneManager);
+	void initAllCellPlace(ISceneManager *sceneManager);
 public:
 	Board(const unsigned int hauteur, const unsigned int largeur, ISceneManager* sceneManager);
-	~Board();
+    Board(u16 size);
+
+    ~Board();
 
 	int getLargeur() const;
 	int getHauteur() const;
