@@ -23,7 +23,7 @@ private:
     KeyboardEvent* keyEvent;
 
     IGUIButton* exit;
-    IGUIButton* game;
+    IGUIButton* play;
     IGUIButton* scoreBoard;
     IGUIButton* levelEditor;
     IGUIButton* credit;

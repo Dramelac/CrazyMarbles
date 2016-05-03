@@ -3,9 +3,11 @@
 //
 
 #include "Menu.h"
-#include "Game.h"
+#include "../General/Game.h"
+#include "NickMenu.h"
 
-Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent) : keyEvent(keyEvent) {
+Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
+        : keyEvent(keyEvent){
     device = inDevice;
     gui = device->getGUIEnvironment();
     driver = device->getVideoDriver();
@@ -17,12 +19,15 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent) : keyEvent(keyEven
     gui->addImage(driver->getTexture("data/GUI/BGCM.png"), position2d<int>(0, 0));
 
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
-    game = gui->addButton(rect<s32>(600,400,1320,500), 0, 102, L"PLAY");
+    play = gui->addButton(rect<s32>(600,400,1320,500), 0, 102, L"PLAY");
     scoreBoard = gui->addButton(rect<s32>(600,550,1320,650), 0, 103, L"ScoreBoard");
     levelEditor = gui->addButton(rect<s32>(600, 700, 1320, 800),0,104, L"Level Editor");
     credit = gui->addButton(rect<s32>(600, 850, 1320, 950),0,104, L"Credit");
-    game->setImage(driver->getTexture("data/GUI/BGCM.png"));
-    game->setScaleImage(true);
+    play->setImage(driver->getTexture("data/GUI/BGCM.png"));
+    //play->setScaleImage(true);
+    NickMenu nickMenu(device, keyEvent);
+    string pseudo = nickMenu.loop();
+
 }
 
 
@@ -38,7 +43,7 @@ void Menu::loop() {
 
             if (exit->isPressed()){
                 device->closeDevice();
-            } else if (game->isPressed()){
+            } else if (play->isPressed()){
                 Game game(device, keyEvent, 10, 10);
                 game.gameLoop();
                 device->getCursorControl()->setVisible(true);
