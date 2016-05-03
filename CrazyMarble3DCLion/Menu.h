@@ -25,6 +25,7 @@ private:
     IGUIButton* exit;
     IGUIButton* game;
     IGUIButton* scoreBoard;
+    IGUIButton* levelEditor;
     IGUIButton* credit;
 
 
