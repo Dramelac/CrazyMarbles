@@ -6,7 +6,7 @@
 #define CRAZYMARBLE3DCLION_MENU_HPP
 
 #include <irrlicht.h>
-#include "Utils/KeyboardEvent.h"
+#include "../Utils/KeyboardEvent.h"
 
 using namespace irr;
 using namespace video;

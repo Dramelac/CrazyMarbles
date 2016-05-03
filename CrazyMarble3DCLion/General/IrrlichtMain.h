@@ -7,7 +7,7 @@
 
 #include <irrlicht.h>
 
-#include "Utils/KeyboardEvent.h"
+#include "../Utils/KeyboardEvent.h"
 
 #include "Game.h"
 
