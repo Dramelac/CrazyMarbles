@@ -28,6 +28,7 @@ file(
         SOURCE_FILES
         *.cpp
         *.h
+        General/*
         Utils/*
         Plateau/*
         Play/*
