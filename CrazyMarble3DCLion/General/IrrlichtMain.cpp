@@ -12,6 +12,12 @@ IrrlichtMain::IrrlichtMain() : width(1920), height(1080), keyEvent(KeyboardEvent
             core::dimension2d<u32>(width, height),							// taille de la fenetre 800x600
             16, false, false, false, &keyEvent);
     keyEvent.setDevice(device);
+
+
+    // Load Textures
+    TextureLoader::LoadingTextures(device->getVideoDriver(),
+                                   device->getSceneManager());
+
 }
 
 

@@ -6,6 +6,8 @@
 #define CRAZYMARBLE3DCLION_LEVELEDITOR_H
 
 #include <irrlicht.h>
+#include "../Utils/KeyboardEvent.h"
+#include "../Plateau/Board.h"
 
 using namespace irr;
 using namespace irr::scene;
@@ -21,9 +23,14 @@ private:
 
     KeyboardEvent *keyevent;
 
+    bool play;
+
 public:
 
+    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, bool day = true);
 
+    void gameLoop();
+    void keyboardChecker();
 };
 
 

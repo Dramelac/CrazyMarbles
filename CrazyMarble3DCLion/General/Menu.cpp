@@ -4,6 +4,7 @@
 
 #include "Menu.h"
 #include "Game.h"
+#include "LevelEditor.h"
 
 Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent) : keyEvent(keyEvent) {
     device = inDevice;
@@ -45,7 +46,8 @@ void Menu::loop() {
             } else if (scoreBoard->isPressed()){
 
             } else if (levelEditor->isPressed()){
-
+                LevelEditor levelEditor(device, keyEvent);
+                levelEditor.gameLoop();
             } else if (credit->isPressed()){
 
             }
