@@ -20,7 +20,11 @@ private:
 public:
     Cell();
 
-    void setupQuadPlace(int row, int column, ISceneManager* sceneManager);
+    void setupBetaPlace(int row, int column, ISceneManager *sceneManager);
+    void setup(ISceneManager *sceneManager,
+               int row, int column, int line,
+               int type=0, vector3df rotation=vector3df(0.f,0.f,0.f));
+
     IMeshSceneNode* getCellNode();
 
     static const float size;

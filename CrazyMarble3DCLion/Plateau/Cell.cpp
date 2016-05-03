@@ -8,13 +8,10 @@
 
 const float Cell::size = 150.0f;
 
-Cell::Cell() {
+Cell::Cell() { }
 
 
-}
-
-
-void Cell::setupQuadPlace(int row, int column, ISceneManager* sceneManager) {
+void Cell::setupBetaPlace(int row, int column, ISceneManager *sceneManager) {
     int line = 0;
 
     // Uni test pente / gravity / TO REMOVE LATER
@@ -40,10 +37,28 @@ void Cell::setupQuadPlace(int row, int column, ISceneManager* sceneManager) {
     // uni text for pente / gravity / TO REMOVE LATER
     if (column == 5 && row < 5) {
         cell_node->setRotation(vector3df(0.0f,270.0f,0.0f));        // -90° rotation
-        cell_node->setPosition(vector3df((row+1)*size,-500.0f-(line*size),column*size)); // recenter after rotation
+        //cell_node->setPosition(vector3df((row+1)*size,-500.0f-(line*size),column*size)); // recenter after rotation
     }
 
 }
+
+
+void Cell::setup(ISceneManager *sceneManager,
+                 int row, int column, int line,
+                 int type, vector3df rotation) {
+    switch (type){
+        case 0:
+            break;
+        default:
+            cellMesh = TextureLoader::cellMesh;                     // load Cell object
+            break;
+    }
+
+    cell_node = sceneManager->addMeshSceneNode(cellMesh);               // create object on screen
+    cell_node->setRotation(rotation);
+    cell_node->setPosition(vector3df(row*size,-500.0f-(line*size),column*size));    // setup position
+}
+
 
 IMeshSceneNode *Cell::getCellNode() {
     return cell_node;
