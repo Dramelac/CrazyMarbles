@@ -10,8 +10,13 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, bool d
 
     this->driver = this->device->getVideoDriver();                      // creation driver
     this->sceneManager = this->device->getSceneManager();               // creation scene manager
+    gui = device->getGUIEnvironment();
 
-    gui->addImage(driver->getTexture("data/GUI/BGCM.png"), position2d<int>(0, 0));
+
+    rightRotation = gui->addButton(rect<s32>(70,600,100,630), 0, 102, L"RR");
+    leftRotation = gui->addButton(rect<s32>(20,600,50,630), 0, 102, L"LR");
+    lvlUp = gui->addButton(rect<s32>(45,550,75,580), 0, 102, L"Lu");
+    lvlDown = gui->addButton(rect<s32>(45,650,75,680), 0, 102, L"LD");
 
 
     // OPTIONAL
@@ -50,6 +55,8 @@ void LevelEditor::gameLoop() {
             driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
 
             sceneManager->drawAll();                                        // update display
+            gui->drawAll();
+
             driver->endScene();
             if(rightRotation->isPressed()){
 
@@ -59,15 +66,15 @@ void LevelEditor::gameLoop() {
 
             }else if (lvlDown->isPressed()){
 
-            }else if (goToRight->isPressed()){
+            }/*else if (goToRight->isPressed()){
 
             }else if (goToLeft->isPressed()){
 
             }else if (goToTop->isPressed()){
 
             }else if (goToDown->isPressed()){
-                
-            }
+
+            }*/
 
 
             // display frames per second in window title

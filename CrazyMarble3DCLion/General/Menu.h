@@ -28,6 +28,8 @@ private:
     IGUIButton* levelEditor;
     IGUIButton* credit;
 
+    void clearAllButton();
+
 
 public:
 

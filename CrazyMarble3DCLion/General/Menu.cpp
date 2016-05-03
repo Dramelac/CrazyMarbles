@@ -54,3 +54,9 @@ void Menu::loop() {
         }
     }
 }
+
+void Menu::clearAllButton() {
+    
+}
+
+
