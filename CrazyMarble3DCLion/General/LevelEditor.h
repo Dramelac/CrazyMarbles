@@ -21,6 +21,18 @@ private:
     IVideoDriver* driver;
     ISceneManager *sceneManager;
 
+    IGUIEnvironment* gui;
+
+    IGUIButton* goToRight;
+    IGUIButton* goToLeft;
+    IGUIButton* goToTop;
+    IGUIButton* goToDown;
+
+    IGUIButton* rightRotation;
+    IGUIButton* leftRotation;
+    IGUIButton* lvlUp;
+    IGUIButton* lvlDown;
+
     KeyboardEvent *keyevent;
 
     bool play;

@@ -11,6 +11,9 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, bool d
     this->driver = this->device->getVideoDriver();                      // creation driver
     this->sceneManager = this->device->getSceneManager();               // creation scene manager
 
+    gui->addImage(driver->getTexture("data/GUI/BGCM.png"), position2d<int>(0, 0));
+
+
     // OPTIONAL
     if (day){
         sceneManager->addSkyBoxSceneNode(
@@ -48,6 +51,23 @@ void LevelEditor::gameLoop() {
 
             sceneManager->drawAll();                                        // update display
             driver->endScene();
+            if(rightRotation->isPressed()){
+
+            }else if (leftRotation->isPressed()){
+
+            }else if (lvlUp->isPressed()){
+
+            }else if (lvlDown->isPressed()){
+
+            }else if (goToRight->isPressed()){
+
+            }else if (goToLeft->isPressed()){
+
+            }else if (goToTop->isPressed()){
+
+            }else if (goToDown->isPressed()){
+                
+            }
 
 
             // display frames per second in window title
