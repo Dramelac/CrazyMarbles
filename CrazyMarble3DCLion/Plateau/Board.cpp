@@ -46,6 +46,11 @@ int Board::getHauteur() const {
 }
 
 
+void Board::setupCell(ISceneManager *sceneManager, vector3di cursor, s16 type, vector3df rotation) {
+    board[cursor.X][cursor.Y].setup(sceneManager, cursor, type, rotation);
+}
+
+
 IMetaTriangleSelector *Board::getMapMetaSelector(ISceneManager *sceneManager) {
 
 	// plateau de selector collision

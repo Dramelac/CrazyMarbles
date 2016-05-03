@@ -16,7 +16,7 @@ using namespace irr::video;
 
 class LevelEditor {
 private:
-    Board* board;
+    Board board;
     IrrlichtDevice* device;
     IVideoDriver* driver;
     ISceneManager *sceneManager;
@@ -24,6 +24,11 @@ private:
     KeyboardEvent *keyevent;
 
     bool play;
+    s32 size;
+
+    vector3di cursor;
+    s16 currentType;
+    vector3df currentRotation;
 
 public:
 
@@ -31,6 +36,9 @@ public:
 
     void gameLoop();
     void keyboardChecker();
+
+    void move(vector3di change);
+    void applySetup();
 };
 
 

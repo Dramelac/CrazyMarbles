@@ -11,7 +11,7 @@ const float Cell::size = 150.0f;
 Cell::Cell() { }
 
 
-void Cell::setupBetaPlace(int row, int column, ISceneManager *sceneManager) {
+void Cell::setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager) {
     int line = 0;
 
     // Uni test pente / gravity / TO REMOVE LATER
@@ -44,8 +44,8 @@ void Cell::setupBetaPlace(int row, int column, ISceneManager *sceneManager) {
 
 
 void Cell::setup(ISceneManager *sceneManager,
-                 int row, int column, int line,
-                 int type, vector3df rotation) {
+                 s32 row, s32 column, s32 line,
+                 s16 type, vector3df rotation) {
     switch (type){
         case 0:
             break;
@@ -57,6 +57,11 @@ void Cell::setup(ISceneManager *sceneManager,
     cell_node = sceneManager->addMeshSceneNode(cellMesh);               // create object on screen
     cell_node->setRotation(rotation);
     cell_node->setPosition(vector3df(row*size,-500.0f-(line*size),column*size));    // setup position
+}
+
+
+void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector3df rotation) {
+    setup(sceneManager, cursor.X, cursor.Y, cursor.Z, type, rotation);
 }
 
 

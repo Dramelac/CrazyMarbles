@@ -20,10 +20,13 @@ private:
 public:
     Cell();
 
-    void setupBetaPlace(int row, int column, ISceneManager *sceneManager);
+    void setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager);
     void setup(ISceneManager *sceneManager,
-               int row, int column, int line,
-               int type=0, vector3df rotation=vector3df(0.f,0.f,0.f));
+               s32 row, s32 column, s32 line,
+               s16 type=0, vector3df rotation=vector3df(0.f,0.f,0.f));
+    void setup(ISceneManager *sceneManager,
+               vector3di cursor,
+               s16 type=0, vector3df rotation=vector3df(0.f,0.f,0.f));
 
     IMeshSceneNode* getCellNode();
 

@@ -5,7 +5,8 @@
 #include "LevelEditor.h"
 
 LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, bool day) :
-        device(device), keyevent(keyevent), play(true) {
+        device(device), keyevent(keyevent), play(true), board(50), cursor(vector3di(0, 0, 0)),
+        currentType(0), currentRotation(vector3df(0, 0, 0)) {
 
     this->driver = this->device->getVideoDriver();                      // creation driver
     this->sceneManager = this->device->getSceneManager();               // creation scene manager
@@ -80,3 +81,23 @@ void LevelEditor::keyboardChecker() {
     }
 
 }
+
+
+void LevelEditor::move(vector3di change) {
+    cursor += change;
+    if (cursor.X >= size){
+        cursor.X = size-1;
+    }
+    if (cursor.Y>= size){
+        cursor.Y= size-1;
+    }
+    if (cursor.Z >= size){
+        cursor.Z = size-1;
+    }
+}
+
+
+void LevelEditor::applySetup() {
+    board.setupCell(sceneManager, cursor, currentType, currentRotation);
+}
+
