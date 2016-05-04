@@ -7,6 +7,8 @@
 
 #include <irrlicht.h>
 #include "../Utils/KeyboardEvent.h"
+#include "Game.h"
+#include "LevelEditor.h"
 
 using namespace irr;
 using namespace video;

@@ -3,8 +3,6 @@
 //
 
 #include "Menu.h"
-#include "Game.h"
-#include "LevelEditor.h"
 
 Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent) : keyEvent(keyEvent) {
     device = inDevice;
