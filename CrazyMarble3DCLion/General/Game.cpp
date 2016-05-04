@@ -121,7 +121,6 @@ void Game::gameLoop() {
             keyboardChecker(deltaTime);
 
             if (!play){
-                std::cout << "escape !!" << endl;
                 break;
             }
 
@@ -185,7 +184,6 @@ void Game::keyboardChecker(f32 deltaTime) {
     // quit event
 
     if (keyevent->IsKeyDown(KEY_ESCAPE)){
-        std::cout << "escape !!" << endl;
         play = false;
     }
 

@@ -3,6 +3,7 @@
 //
 
 #include "Player.h"
+#include "../Utils/TextureLoader.h"
 
 
 Player::Player(const std::string &name, int health, ISceneManager *sceneManager) : Entities(name, health), score(0) {

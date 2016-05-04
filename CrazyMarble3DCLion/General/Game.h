@@ -10,7 +10,6 @@
 
 #include "../Plateau/Board.h"
 #include "../Play/Player.h"
-#include "../Utils/TextureLoader.h"
 #include "../Utils/KeyboardEvent.h"
 
 #include <irrlicht.h>

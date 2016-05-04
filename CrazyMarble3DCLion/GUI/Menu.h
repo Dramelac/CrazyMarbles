@@ -7,8 +7,8 @@
 
 #include <irrlicht.h>
 #include "../Utils/KeyboardEvent.h"
-#include "Game.h"
-#include "LevelEditor.h"
+#include "../General/Game.h"
+#include "../General/LevelEditor.h"
 
 using namespace irr;
 using namespace video;
@@ -25,7 +25,7 @@ private:
     KeyboardEvent* keyEvent;
 
     IGUIButton* exit;
-    IGUIButton* game;
+    IGUIButton* play;
     IGUIButton* scoreBoard;
     IGUIButton* levelEditor;
     IGUIButton* credit;
