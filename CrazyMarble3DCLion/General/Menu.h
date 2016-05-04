@@ -28,7 +28,9 @@ private:
     IGUIButton* levelEditor;
     IGUIButton* credit;
 
-    void clearAllButton();
+    IGUIImage* background;
+
+    void visibilityButons(bool status);
 
 
 public:

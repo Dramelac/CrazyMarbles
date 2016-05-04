@@ -41,7 +41,8 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, bool d
     // light everywhere
     sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));
 
-    sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
+    //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
+    fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), vector3df(0, 0, 0));
 
 }
 
@@ -128,3 +129,15 @@ void LevelEditor::applySetup() {
     board.setupCell(sceneManager, cursor, currentType, currentRotation);
 }
 
+LevelEditor::~LevelEditor() {
+    /*
+    goToRight->remove();
+    goToLeft->remove();
+    goToTop->remove();
+    goToDown->remove();
+    */
+    rightRotation->remove();
+    leftRotation->remove();
+    lvlUp->remove();
+    lvlDown->remove();
+}

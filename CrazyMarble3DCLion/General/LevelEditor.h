@@ -21,6 +21,8 @@ private:
     IVideoDriver* driver;
     ISceneManager *sceneManager;
 
+    ICameraSceneNode* fixeCamera;
+
     IGUIEnvironment* gui;
 
     IGUIButton* goToRight;
@@ -32,6 +34,7 @@ private:
     IGUIButton* leftRotation;
     IGUIButton* lvlUp;
     IGUIButton* lvlDown;
+
 
     KeyboardEvent *keyevent;
 
@@ -51,6 +54,8 @@ public:
 
     void move(vector3di change);
     void applySetup();
+
+    ~LevelEditor();
 };
 
 
