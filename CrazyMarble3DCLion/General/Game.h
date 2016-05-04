@@ -10,8 +10,6 @@
 
 #include <irrlicht.h>
 
-
-#include "../Utils/TextureLoader.h"
 #include "../Utils/Chrono.h"
 
 #include "../Plateau/Board.h"
