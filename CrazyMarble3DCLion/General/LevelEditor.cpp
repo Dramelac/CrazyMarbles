@@ -119,6 +119,10 @@ void LevelEditor::gameLoop() {
                 currentType = 1;
             }
 
+            if(validate->isPressed()){
+                
+            }
+
             if (update){
                 applySetup();
             }
@@ -209,6 +213,8 @@ LevelEditor::~LevelEditor() {
     cellPente->remove();
     cellAngle->remove();
     cellAngleInt->remove();
+
+    validate->remove();
 
 
 }
