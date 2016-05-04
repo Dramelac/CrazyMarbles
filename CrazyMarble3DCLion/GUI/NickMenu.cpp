@@ -26,7 +26,7 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
 }
 
 
-string NickMenu::loop() {
+void NickMenu::loop() {
     while (device->run()){
         if (device->isWindowActive())
         {
@@ -41,7 +41,7 @@ string NickMenu::loop() {
 
             } else if (valide->isPressed()){
 
-                return "pseudo";
+                return;
             }
         }
     }

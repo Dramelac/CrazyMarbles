@@ -30,7 +30,7 @@ private:
 
 public:
     NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent);
-    string loop();
+    void loop();
 };
 
 

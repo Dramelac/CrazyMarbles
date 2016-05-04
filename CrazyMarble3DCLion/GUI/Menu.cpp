@@ -25,8 +25,8 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     credit = gui->addButton(rect<s32>(600, 850, 1320, 950),0,104, L"Credit");
     play->setImage(driver->getTexture("data/GUI/BGCM.png"));
     //play->setScaleImage(true);
-    NickMenu nickMenu(device, keyEvent);
-    string pseudo = nickMenu.loop();
+    //NickMenu nickMenu(device, keyEvent);
+    //string pseudo = nickMenu.loop();
 
 }
 
