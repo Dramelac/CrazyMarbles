@@ -39,6 +39,7 @@ private:
     IGUIButton* cellAngleInt;
     IGUIButton* cellFlat;
     IGUIButton* cellPente;
+    IGUIButton* cellEmpty;
 
     IGUIButton* validate;
 

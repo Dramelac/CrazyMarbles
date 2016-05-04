@@ -14,20 +14,22 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 si
     gui = device->getGUIEnvironment();
 
 
-    goToRight = gui->addButton(rect<s32>(300,600,420,650), 0, 102, L"GTR");
-    goToLeft = gui->addButton(rect<s32>(100,600,220,650), 0, 102, L"GTL");
-    goToTop = gui->addButton(rect<s32>(235,465,285,590), 0, 102, L"GTT");
-    goToDown = gui->addButton(rect<s32>(235,660,285,785), 0, 102, L"GTD");
+    goToRight = gui->addButton(rect<s32>(230,640,350,760), 0, 102, L"GTR");
+    goToLeft = gui->addButton(rect<s32>(100,510,220,630), 0, 102, L"GTL");
+    goToTop = gui->addButton(rect<s32>(230,510,350,630), 0, 102, L"GTT");
+    goToDown = gui->addButton(rect<s32>(100,640,220,760), 0, 102, L"GTD");
 
     rightRotation = gui->addButton(rect<s32>(1700,530,1820,650), 0, 102, L"RR");
     leftRotation = gui->addButton(rect<s32>(1500,530,1620,650), 0, 102, L"LR");
     lvlUp = gui->addButton(rect<s32>(1635,400,1685,500), 0, 102, L"LU");
     lvlDown = gui->addButton(rect<s32>(1635,680,1685,780), 0, 102, L"LD");
 
+    cellEmpty = gui->addButton(rect<s32>(760,880,840,1080), 0, 102, L"C0");
     cellFlat = gui->addButton(rect<s32>(840,880,920,1080), 0, 102, L"C1");
     cellPente = gui->addButton(rect<s32>(920,880,1000,1080), 0, 102, L"C2");
     cellAngle = gui->addButton(rect<s32>(1000,880,1080,1080), 0, 102, L"C3");
     cellAngleInt = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"C4");
+
 
     validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Valider");
 
@@ -129,16 +131,17 @@ void LevelEditor::keyboardChecker() {
         lvlDown->setPressed(false);
     }
 
-    if (goToRight->isPressed()){
+    if (goToRight->isPressed() || keyevent->IsKeyDown(KEY_RIGHT)){
         move(vector3di(-1,0,0));
         goToRight->setPressed(false);
-    }else if (goToLeft->isPressed()){
+    }else if (goToLeft->isPressed() || keyevent->IsKeyDown(KEY_LEFT)){
         move(vector3di(1,0,0));
         goToLeft->setPressed(false);
-    }else if (goToTop->isPressed()){
+    }else if (goToTop->isPressed()  || keyevent->IsKeyDown(KEY_UP)){
         move(vector3di(0,-1,0));
         goToTop->setPressed(false);
-    }else if (goToDown->isPressed()){
+
+    }else if (goToDown->isPressed() || keyevent->IsKeyDown(KEY_DOWN)){
         move(vector3di(0,1,0));
         goToDown->setPressed(false);
     }
@@ -160,6 +163,8 @@ void LevelEditor::keyboardChecker() {
         update = true;
         currentType = 3;
         cellAngleInt->setPressed(false);
+    }else if (cellEmpty->isPressed()){
+
     }
 
     if(validate->isPressed()){
@@ -226,7 +231,7 @@ LevelEditor::~LevelEditor() {
     lvlUp->remove();
     lvlDown->remove();
 
-
+    cellEmpty->remove();
     cellFlat->remove();
     cellPente->remove();
     cellAngle->remove();
