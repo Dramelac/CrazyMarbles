@@ -53,6 +53,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 si
 
     //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
     fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), vector3df(0, 0, 0));
+    fixeCamera->setFarValue(15000);
     updateCamera();
 
 
@@ -93,9 +94,9 @@ void LevelEditor::gameLoop() {
             }
 
             if (goToRight->isPressed()){
-                move(vector3di(1,0,0));
-            }else if (goToLeft->isPressed()){
                 move(vector3di(-1,0,0));
+            }else if (goToLeft->isPressed()){
+                move(vector3di(1,0,0));
             }else if (goToTop->isPressed()){
                 move(vector3di(0,-1,0));
             }else if (goToDown->isPressed()){
@@ -171,8 +172,8 @@ void LevelEditor::move(vector3di change) {
 void LevelEditor::updateCamera() {
     vector3df cameraPos = vector3df();
     cameraPos.X = cursor.X * Cell::size;
-    cameraPos.Y = cursor.Y * Cell::size;
-    cameraPos.Z = cursor.Z * Cell::size;
+    cameraPos.Z = cursor.Y * Cell::size;
+    cameraPos.Y = cursor.Z * Cell::size;
     vector3df lookAt = vector3df(cameraPos);
     cameraPos += vector3df(800.0f, 700.0f, 800.0f);
     fixeCamera->setPosition(cameraPos);
