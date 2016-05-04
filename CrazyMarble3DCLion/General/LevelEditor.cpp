@@ -192,8 +192,17 @@ LevelEditor::~LevelEditor() {
     goToLeft->remove();
     goToTop->remove();
     goToDown->remove();
+
     rightRotation->remove();
     leftRotation->remove();
     lvlUp->remove();
     lvlDown->remove();
+
+
+    cellFlat->remove();
+    cellPente->remove();
+    cellAngle->remove();
+    cellAngleInt->remove();
+
+
 }
