@@ -104,12 +104,16 @@ void LevelEditor::gameLoop() {
             }
 
             if (cellAngle->isPressed()){
+                update = true;
                 currentType = 2;
             }else if (cellAngleInt->isPressed()){
+                update = true;
                 currentType = 3;
             }else if (cellFlat->isPressed()){
+                update = true;
                 currentType = 0;
             }else if (cellPente->isPressed()){
+                update = true;
                 currentType = 1;
             }
 
