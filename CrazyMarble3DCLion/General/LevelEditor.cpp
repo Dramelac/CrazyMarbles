@@ -111,43 +111,55 @@ void LevelEditor::keyboardChecker() {
         update = true;
         currentRotation.Y += 90;
         currentRotation.Y %= 360;
+        rightRotation->setPressed(false);
     }else if (leftRotation->isPressed()){
         update = true;
         currentRotation.Y -= 90;
         currentRotation.Y %= 360;
+        leftRotation->setPressed(false);
     }
 
     if (lvlUp->isPressed()){
         update = true;
         cursor.Z -= 1;
+        lvlUp->setPressed(false);
     }else if (lvlDown->isPressed()){
         update = true;
         cursor.Z += 1;
+        lvlDown->setPressed(false);
     }
 
     if (goToRight->isPressed()){
         move(vector3di(-1,0,0));
+        goToRight->setPressed(false);
     }else if (goToLeft->isPressed()){
         move(vector3di(1,0,0));
+        goToLeft->setPressed(false);
     }else if (goToTop->isPressed()){
         move(vector3di(0,-1,0));
+        goToTop->setPressed(false);
     }else if (goToDown->isPressed()){
         move(vector3di(0,1,0));
+        goToDown->setPressed(false);
     }
 
 
     if (cellFlat->isPressed()){
         update = true;
         currentType = 0;
+        cellFlat->setPressed(false);
     }else if (cellPente->isPressed()){
         update = true;
         currentType = 1;
+        cellPente->setPressed(false);
     } else if (cellAngle->isPressed()) {
         update = true;
         currentType = 2;
+        cellAngle->setPressed(false);
     }else if (cellAngleInt->isPressed()){
         update = true;
         currentType = 3;
+        cellAngleInt->setPressed(false);
     }
 
     if(validate->isPressed()){
