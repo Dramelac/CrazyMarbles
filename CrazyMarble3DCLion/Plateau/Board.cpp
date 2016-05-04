@@ -65,8 +65,8 @@ IMetaTriangleSelector *Board::getMapMetaSelector(ISceneManager *sceneManager) {
 		for (int column = 0; column < heightNumber; column++)
 		{
 			IMeshSceneNode* temp_node = this->board[row][column].getCellNode();             // load 1 node element
-			//selector = sceneManager->createTriangleSelectorFromBoundingBox(temp_node);      // getSelector
-			selector = sceneManager->createOctreeTriangleSelector(temp_node->getMesh(), temp_node, 128);
+			selector = sceneManager->createTriangleSelector(temp_node->getMesh(), temp_node);      // getSelector
+			//selector = sceneManager->createOctreeTriangleSelector(temp_node->getMesh(), temp_node, 128);
 
 			temp_node->setTriangleSelector(selector);                                       // set to the node the new selector
 			metaSelector->addTriangleSelector(selector);                                    // update metaSelectors
