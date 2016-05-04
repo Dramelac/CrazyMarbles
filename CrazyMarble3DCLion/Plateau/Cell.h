@@ -22,12 +22,10 @@ public:
     Cell();
 
     void setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager);
-    void setup(ISceneManager *sceneManager,
-               s32 row, s32 column, s32 line,
-               s16 type=0, vector3df rotation=vector3df(0.f,0.f,0.f));
+
     void setup(ISceneManager *sceneManager,
                vector3di cursor,
-               s16 type=0, vector3df rotation=vector3df(0.f,0.f,0.f));
+               s16 type=0, vector3di rotation=vector3di(0, 0, 0));
 
     IMeshSceneNode* getCellNode();
 

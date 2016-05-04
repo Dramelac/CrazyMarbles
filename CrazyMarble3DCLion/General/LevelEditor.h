@@ -49,7 +49,7 @@ private:
 
     vector3di cursor;
     s16 currentType;
-    vector3df currentRotation;
+    vector3di currentRotation;
 
 public:
 

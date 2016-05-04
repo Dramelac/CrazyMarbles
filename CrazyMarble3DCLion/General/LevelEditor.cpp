@@ -2,11 +2,12 @@
 // Created by mathieu on 03/05/16.
 //
 
+#include <iostream>
 #include "LevelEditor.h"
 
 LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 size, bool day) :
         device(device), keyevent(keyevent), play(true), board(50), cursor(vector3di(0, 0, 0)),
-        currentType(0), currentRotation(vector3df(0, 0, 0)), size(size) {
+        currentType(0), currentRotation(vector3di(0, 0, 0)), size(size) {
 
     this->driver = this->device->getVideoDriver();                      // creation driver
     this->sceneManager = this->device->getSceneManager();               // creation scene manager
@@ -77,55 +78,6 @@ void LevelEditor::gameLoop() {
             gui->drawAll();
 
             driver->endScene();
-            bool update = false;
-
-            if(rightRotation->isPressed()){
-                update = true;
-                currentRotation.Y += 90;
-            }else if (leftRotation->isPressed()){
-                update = true;
-                currentRotation.Y -= 90;
-            }
-
-            if (lvlUp->isPressed()){
-                update = true;
-                cursor.Z -= 1;
-            }else if (lvlDown->isPressed()){
-                update = true;
-                cursor.Z += 1;
-            }
-
-            if (goToRight->isPressed()){
-                move(vector3di(-1,0,0));
-            }else if (goToLeft->isPressed()){
-                move(vector3di(1,0,0));
-            }else if (goToTop->isPressed()){
-                move(vector3di(0,-1,0));
-            }else if (goToDown->isPressed()){
-                move(vector3di(0,1,0));
-            }
-
-            if (cellAngle->isPressed()){
-                update = true;
-                currentType = 2;
-            }else if (cellAngleInt->isPressed()){
-                update = true;
-                currentType = 3;
-            }else if (cellFlat->isPressed()){
-                update = true;
-                currentType = 0;
-            }else if (cellPente->isPressed()){
-                update = true;
-                currentType = 1;
-            }
-
-            if(validate->isPressed()){
-
-            }
-
-            if (update){
-                applySetup();
-            }
 
 
             // display frames per second in window title
@@ -152,6 +104,59 @@ void LevelEditor::gameLoop() {
 
 
 void LevelEditor::keyboardChecker() {
+
+    bool update = false;
+
+    if(rightRotation->isPressed()){
+        update = true;
+        currentRotation.Y += 90;
+        currentRotation.Y %= 360;
+    }else if (leftRotation->isPressed()){
+        update = true;
+        currentRotation.Y -= 90;
+        currentRotation.Y %= 360;
+    }
+
+    if (lvlUp->isPressed()){
+        update = true;
+        cursor.Z -= 1;
+    }else if (lvlDown->isPressed()){
+        update = true;
+        cursor.Z += 1;
+    }
+
+    if (goToRight->isPressed()){
+        move(vector3di(-1,0,0));
+    }else if (goToLeft->isPressed()){
+        move(vector3di(1,0,0));
+    }else if (goToTop->isPressed()){
+        move(vector3di(0,-1,0));
+    }else if (goToDown->isPressed()){
+        move(vector3di(0,1,0));
+    }
+
+
+    if (cellFlat->isPressed()){
+        update = true;
+        currentType = 0;
+    }else if (cellPente->isPressed()){
+        update = true;
+        currentType = 1;
+    } else if (cellAngle->isPressed()) {
+        update = true;
+        currentType = 2;
+    }else if (cellAngleInt->isPressed()){
+        update = true;
+        currentType = 3;
+    }
+
+    if(validate->isPressed()){
+
+    }
+
+    if (update){
+        applySetup();
+    }
 
     // quit event
     if (keyevent->IsKeyDown(KEY_ESCAPE)){

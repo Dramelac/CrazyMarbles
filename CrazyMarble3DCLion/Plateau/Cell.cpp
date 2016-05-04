@@ -45,14 +45,7 @@ void Cell::setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager) {
 }
 
 
-void Cell::setup(ISceneManager *sceneManager,
-                 s32 row, s32 column, s32 line,
-                 s16 type, vector3df rotation) {
-}
-
-
-void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector3df rotation) {
-    setup(sceneManager, cursor.X, cursor.Y, cursor.Z, type, rotation);
+void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector3di rotation) {
 
     switch (type){
         case 0:
@@ -79,7 +72,7 @@ void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector
         cell_node->setMesh(cellMesh);
     }
 
-    cell_node->setRotation(rotation);
+    cell_node->setRotation(vector3df(rotation.X, rotation.Y, rotation.Z));
     cell_node->setPosition(vector3df(cursor.X*size,-500.0f-(cursor.Z*size),cursor.Y*size));    // setup position
 }
 

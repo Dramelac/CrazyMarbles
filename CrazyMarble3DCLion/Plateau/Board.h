@@ -26,7 +26,7 @@ public:
 
     void setupCell(ISceneManager *sceneManager,
                    vector3di cursor,
-                   s16 type=0, vector3df rotation=vector3df(0.f,0.f,0.f));
+                   s16 type=0, vector3di rotation=vector3di(0, 0, 0));
 
 	IMetaTriangleSelector* getMapMetaSelector(ISceneManager* sceneManager);
 };
