@@ -14,10 +14,11 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 si
     gui = device->getGUIEnvironment();
 
 
-    goToRight = gui->addButton(rect<s32>(230,640,350,760), 0, 102, L"GTR");
-    goToLeft = gui->addButton(rect<s32>(100,510,220,630), 0, 102, L"GTL");
-    goToTop = gui->addButton(rect<s32>(230,510,350,630), 0, 102, L"GTT");
-    goToDown = gui->addButton(rect<s32>(100,640,220,760), 0, 102, L"GTD");
+    goToRight = gui->addButton(rect<s32>(230,510,350,630), 0, 102, L"GTR");
+    goToLeft = gui->addButton(rect<s32>(100,640,220,760), 0, 102, L"GTL");
+    goToTop = gui->addButton(rect<s32>(100,510,220,630), 0, 102, L"GTT");
+    goToDown = gui->addButton(rect<s32>(230,640,350,760), 0, 102, L"GTD");
+
 
     rightRotation = gui->addButton(rect<s32>(1700,530,1820,650), 0, 102, L"RR");
     leftRotation = gui->addButton(rect<s32>(1500,530,1620,650), 0, 102, L"LR");
