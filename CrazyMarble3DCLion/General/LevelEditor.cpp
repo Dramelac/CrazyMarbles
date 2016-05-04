@@ -13,10 +13,15 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, bool d
     gui = device->getGUIEnvironment();
 
 
-    rightRotation = gui->addButton(rect<s32>(300,600,420,650), 0, 102, L"RR");
-    leftRotation = gui->addButton(rect<s32>(100,600,220,650), 0, 102, L"LR");
-    lvlUp = gui->addButton(rect<s32>(235,465,285,590), 0, 102, L"Lu");
-    lvlDown = gui->addButton(rect<s32>(235,660,285,785), 0, 102, L"LD");
+    goToRight = gui->addButton(rect<s32>(300,600,420,650), 0, 102, L"GTR");
+    goToLeft = gui->addButton(rect<s32>(100,600,220,650), 0, 102, L"GTL");
+    goToTop = gui->addButton(rect<s32>(235,465,285,590), 0, 102, L"GTT");
+    goToDown = gui->addButton(rect<s32>(235,660,285,785), 0, 102, L"GTD");
+
+    rightRotation = gui->addButton(rect<s32>(1700,530,1820,650), 0, 102, L"RR");
+    leftRotation = gui->addButton(rect<s32>(1500,530,1620,650), 0, 102, L"LR");
+    lvlUp = gui->addButton(rect<s32>(1635,400,1685,500), 0, 102, L"LU");
+    lvlDown = gui->addButton(rect<s32>(1635,680,1685,780), 0, 102, L"LD");
 
 
     // OPTIONAL
@@ -77,7 +82,7 @@ void LevelEditor::gameLoop() {
             }else if (lvlDown->isPressed()){
                 update = true;
                 cursor.Z += 1;
-            }/*else if (goToRight->isPressed()){
+            }else if (goToRight->isPressed()){
                 update = true;
                 cursor.X += 1;
             }else if (goToLeft->isPressed()){
@@ -89,7 +94,7 @@ void LevelEditor::gameLoop() {
             }else if (goToDown->isPressed()){
                 update = true;
                 cursor.Y += 1;
-            }*/
+            }
 
             if (update){
                 applySetup();
@@ -167,12 +172,11 @@ void LevelEditor::applySetup() {
 }
 
 LevelEditor::~LevelEditor() {
-    /*
+
     goToRight->remove();
     goToLeft->remove();
     goToTop->remove();
     goToDown->remove();
-    */
     rightRotation->remove();
     leftRotation->remove();
     lvlUp->remove();
