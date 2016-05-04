@@ -4,9 +4,9 @@
 
 #include "LevelEditor.h"
 
-LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, bool day) :
+LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 size, bool day) :
         device(device), keyevent(keyevent), play(true), board(50), cursor(vector3di(0, 0, 0)),
-        currentType(0), currentRotation(vector3df(0, 0, 0)) {
+        currentType(0), currentRotation(vector3df(0, 0, 0)), size(size) {
 
     this->driver = this->device->getVideoDriver();                      // creation driver
     this->sceneManager = this->device->getSceneManager();               // creation scene manager
@@ -23,10 +23,10 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, bool d
     lvlUp = gui->addButton(rect<s32>(1635,400,1685,500), 0, 102, L"LU");
     lvlDown = gui->addButton(rect<s32>(1635,680,1685,780), 0, 102, L"LD");
 
-    cellAngle = gui->addButton(rect<s32>(840,880,920,1080), 0, 102, L"C1");
-    cellAngleInt = gui->addButton(rect<s32>(920,880,1000,1080), 0, 102, L"C2");
-    cellFlat = gui->addButton(rect<s32>(1000,880,1080,1080), 0, 102, L"C3");
-    cellPente = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"C4");
+    cellFlat = gui->addButton(rect<s32>(840,880,920,1080), 0, 102, L"C1");
+    cellPente = gui->addButton(rect<s32>(920,880,1000,1080), 0, 102, L"C2");
+    cellAngle = gui->addButton(rect<s32>(1000,880,1080,1080), 0, 102, L"C3");
+    cellAngleInt = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"C4");
 
 
     // OPTIONAL
@@ -75,39 +75,42 @@ void LevelEditor::gameLoop() {
 
             driver->endScene();
             bool update = false;
+
             if(rightRotation->isPressed()){
                 update = true;
                 currentRotation.Y += 90;
             }else if (leftRotation->isPressed()){
                 update = true;
                 currentRotation.Y -= 90;
-            }else if (lvlUp->isPressed()){
+            }
+
+            if (lvlUp->isPressed()){
                 update = true;
                 cursor.Z -= 1;
             }else if (lvlDown->isPressed()){
                 update = true;
                 cursor.Z += 1;
-            }else if (goToRight->isPressed()){
-                update = true;
-                cursor.X += 1;
+            }
+
+            if (goToRight->isPressed()){
+                move(vector3di(1,0,0));
             }else if (goToLeft->isPressed()){
-                update = true;
-                cursor.X -= 1;
+                move(vector3di(-1,0,0));
             }else if (goToTop->isPressed()){
-                update = true;
-                cursor.Y -= 1;
+                move(vector3di(0,-1,0));
             }else if (goToDown->isPressed()){
-                update = true;
-                cursor.Y += 1;
-            }/*else if (cellAngle->isPressed()){
+                move(vector3di(0,1,0));
+            }
 
+            if (cellAngle->isPressed()){
+                currentType = 2;
             }else if (cellAngleInt->isPressed()){
-
+                currentType = 3;
             }else if (cellFlat->isPressed()){
-
+                currentType = 0;
             }else if (cellPente->isPressed()){
-
-            }*/
+                currentType = 1;
+            }
 
             if (update){
                 applySetup();
@@ -151,18 +154,15 @@ void LevelEditor::move(vector3di change) {
     cursor += change;
     if (cursor.X >= size){
         cursor.X = size-1;
-    } else if (cursor.X < 0){
+    }
+    if (cursor.X < 0){
         cursor.X = 0;
     }
     if (cursor.Y>= size){
         cursor.Y= size-1;
-    } else if (cursor.Y < 0){
-        cursor.Y = 0;
     }
-    if (cursor.Z >= size){
-        cursor.Z = size-1;
-    } else if (cursor.Z < 0){
-        cursor.Z = 0;
+    if (cursor.Y < 0){
+        cursor.Y = 0;
     }
     updateCamera();
 }
@@ -182,6 +182,7 @@ void LevelEditor::updateCamera() {
 
 void LevelEditor::applySetup() {
     board.setupCell(sceneManager, cursor, currentType, currentRotation);
+    updateCamera();
 }
 
 LevelEditor::~LevelEditor() {

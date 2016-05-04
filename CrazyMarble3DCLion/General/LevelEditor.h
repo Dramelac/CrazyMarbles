@@ -52,7 +52,7 @@ private:
 
 public:
 
-    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, bool day = true);
+    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 size=50, bool day = true);
 
     void gameLoop();
     void keyboardChecker();

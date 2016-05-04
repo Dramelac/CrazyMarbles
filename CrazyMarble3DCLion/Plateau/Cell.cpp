@@ -54,24 +54,24 @@ void Cell::setup(ISceneManager *sceneManager,
 void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector3df rotation) {
     setup(sceneManager, cursor.X, cursor.Y, cursor.Z, type, rotation);
 
-    switch (type){
-        case 0:
-            cellMesh = TextureLoader::cellMesh;                     // load Cell object
-            break;
-        case 1:
-            cellMesh = TextureLoader::cell_pente_Mesh;              // load Cell object
-            break;
-        case 2:
-            cellMesh = TextureLoader::cell_angle_Mesh;              // load Cell object
-            break;
-        case 3:
-            cellMesh = TextureLoader::cell_angle_int_Mesh;          // load Cell object
-            break;
-        default:
-            cellMesh = TextureLoader::cellMesh;                     // load Cell object
-            break;
-    }
     if (not isSet){
+        switch (type){
+            case 0:
+                cellMesh = TextureLoader::cellMesh;                     // load Cell object
+                break;
+            case 1:
+                cellMesh = TextureLoader::cell_pente_Mesh;              // load Cell object
+                break;
+            case 2:
+                cellMesh = TextureLoader::cell_angle_Mesh;              // load Cell object
+                break;
+            case 3:
+                cellMesh = TextureLoader::cell_angle_int_Mesh;          // load Cell object
+                break;
+            default:
+                cellMesh = TextureLoader::cellMesh;                     // load Cell object
+                break;
+        }
         cell_node = sceneManager->addMeshSceneNode(cellMesh);               // create object on screen
         isSet = true;
     } else {
