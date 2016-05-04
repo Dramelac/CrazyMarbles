@@ -60,8 +60,11 @@ void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector
         case 3:
             cellMesh = TextureLoader::cell_angle_int_Mesh;          // load Cell object
             break;
+        case 4:
+            if(not isSet){
+                return;
+            }
         default:
-            cellMesh = TextureLoader::cellMesh;                     // load Cell object
             break;
     }
 
@@ -69,7 +72,13 @@ void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector
         cell_node = sceneManager->addMeshSceneNode(cellMesh);               // create object on screen
         isSet = true;
     } else {
-        cell_node->setMesh(cellMesh);
+        if (type != 4){
+            cell_node->setMesh(cellMesh);
+        } else {
+            cell_node->remove();
+            isSet = false;
+            return;
+        }
     }
 
     cell_node->setRotation(vector3df(rotation.X, rotation.Y, rotation.Z));

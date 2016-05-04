@@ -15,9 +15,10 @@
 #include <irrlicht.h>
 
 using namespace irr;
-using namespace irr::scene;
-using namespace irr::core;
-using namespace irr::video;
+using namespace scene;
+using namespace core;
+using namespace video;
+using namespace io;
 
 class Game {
 private:
@@ -33,11 +34,15 @@ private:
     Player *player;
 
 	void updateGameBoard();
+    void setupSkyBox(bool day);
 	void keyboardChecker(f32 deltaTime);
 public:
 	Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
 		 const unsigned int x, const unsigned int y, bool day = true);
-	~Game();
+
+    Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap);
+
+    ~Game();
 
 	void gameLoop();
 };

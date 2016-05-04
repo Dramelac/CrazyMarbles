@@ -14,10 +14,14 @@ private:
 	int widthNumber;
 	int heightNumber;
 
+    core::array<scene::ISceneNode *> nodes;
+
 	void initAllCellPlace(ISceneManager *sceneManager);
 public:
 	Board(const unsigned int hauteur, const unsigned int largeur, ISceneManager* sceneManager);
     Board(u16 size);
+
+    Board(ISceneManager* sceneManager);
 
     ~Board();
 
@@ -29,6 +33,7 @@ public:
                    s16 type=0, vector3di rotation=vector3di(0, 0, 0));
 
 	IMetaTriangleSelector* getMapMetaSelector(ISceneManager* sceneManager);
+	IMetaTriangleSelector* getMapMetaSelectorFromNodes(ISceneManager* sceneManager);
 };
 
 

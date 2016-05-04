@@ -84,3 +84,57 @@ Board::~Board() {
 	}
 	delete[] board;
 }
+
+Board::Board(ISceneManager* sceneManager) {
+    sceneManager->getSceneNodesFromType(scene::ESNT_ANY, nodes); // Find all nodes
+}
+
+IMetaTriangleSelector *Board::getMapMetaSelectorFromNodes(ISceneManager *sceneManager) {
+
+    // plateau de selector collision
+    scene::IMetaTriangleSelector* metaSelector = sceneManager->createMetaTriangleSelector();
+
+
+    for (u32 i=0; i < nodes.size(); ++i)
+    {
+        scene::ISceneNode * node = nodes[i];
+        // selector mesh collision temp
+        scene::ITriangleSelector * selector = 0;
+
+        switch(node->getType())
+        {
+            case scene::ESNT_CUBE:
+            case scene::ESNT_ANIMATED_MESH:
+                selector = sceneManager->createTriangleSelectorFromBoundingBox(node);
+                break;
+
+            case scene::ESNT_MESH:
+            case scene::ESNT_SPHERE: // Derived from IMeshSceneNode
+                selector = sceneManager->createTriangleSelector(((scene::IMeshSceneNode*)node)->getMesh(), node);
+                break;
+
+            case scene::ESNT_TERRAIN:
+                selector = sceneManager->createTerrainTriangleSelector((scene::ITerrainSceneNode*)node);
+                break;
+
+            case scene::ESNT_OCTREE:
+                selector = sceneManager->createOctreeTriangleSelector(((scene::IMeshSceneNode*)node)->getMesh(), node);
+                break;
+
+            default:
+                // Don't create a selector for this node type
+                break;
+        }
+
+        if(selector)
+        {
+            // Add it to the meta selector, which will take a reference to it
+            metaSelector->addTriangleSelector(selector);
+            // And drop my reference to it, so that the meta selector owns it.
+            selector->drop();
+        }
+    }
+
+    return metaSelector;
+}
+

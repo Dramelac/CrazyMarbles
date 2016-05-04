@@ -165,7 +165,9 @@ void LevelEditor::keyboardChecker() {
         currentType = 3;
         cellAngleInt->setPressed(false);
     }else if (cellEmpty->isPressed()){
-
+        update = true;
+        currentType = 4;
+        cellEmpty->setPressed(false);
     }
 
     if(validate->isPressed()){
@@ -244,6 +246,6 @@ LevelEditor::~LevelEditor() {
 }
 
 void LevelEditor::save() {
-    sceneManager->saveScene("data/test.irr");
+    sceneManager->saveScene("test.irr");
 }
 
