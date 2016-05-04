@@ -41,7 +41,7 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
 
 
 	// CAMERA
-
+    /*
 	SKeyMap keyMap[4];
 	keyMap[0].Action = EKA_MOVE_FORWARD;   // avancer
 	keyMap[0].KeyCode = KEY_KEY_Z;
@@ -51,7 +51,7 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
 	keyMap[2].KeyCode = KEY_KEY_Q;
 	keyMap[3].Action = EKA_STRAFE_RIGHT;   // a droite
 	keyMap[3].KeyCode = KEY_KEY_D;
-
+    */
     // To change
 
     //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);    // create camera (to change /
@@ -96,9 +96,18 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
 
     // Apply gravity to player :
     player->enableCollision(metaSelector, sceneManager);                    // apply collision map to player
+    /*
+    ICameraSceneNode* test = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
 
-    metaSelector->drop();
-
+    ISceneNodeAnimatorCollisionResponse* anim = sceneManager->createCollisionResponseAnimator(
+            metaSelector, // Map collision
+            test,  // object player to detect
+            vector3df(50,50,50), // hitbox
+            vector3df(0, -10, 0)  // gravity vector
+    );
+    test->addAnimator(anim);
+    anim->drop();
+    */
     speed = 250;
 
 }

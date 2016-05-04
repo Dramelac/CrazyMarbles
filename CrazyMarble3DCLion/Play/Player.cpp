@@ -42,10 +42,10 @@ void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager 
             metaSelector, // Map collision
             sphere_node,  // object player to detect
             vector3df(49,49,49), // hitbox
-            vector3df(5, -15, 5)  // gravity vector
+            vector3df(0, -10, 0)  // gravity vector
     );
     sphere_node->addAnimator(anim);             // apply gravity / collision to player object
-    anim->drop();                               // drop temp anim
+    //anim->drop();                               // drop temp anim
 
 }
 
