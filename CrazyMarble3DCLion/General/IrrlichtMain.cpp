@@ -3,7 +3,7 @@
 //
 
 #include "IrrlichtMain.h"
-#include "../Menu/Menu.h"
+#include "../GUI/Menu.h"
 
 IrrlichtMain::IrrlichtMain() : width(1920), height(1080), keyEvent(KeyboardEvent()) {
 
@@ -21,7 +21,7 @@ void IrrlichtMain::main() {
         Game game(device, &keyEvent, 50, 50);
         game.gameLoop();
         */
-        Menu menu(device, &keyEvent, (core::list<IGUIButton *>()));
+        Menu menu(device, &keyEvent);
         menu.loop();
 
         // to close device
