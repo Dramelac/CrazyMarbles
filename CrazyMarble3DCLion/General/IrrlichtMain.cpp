@@ -3,21 +3,26 @@
 //
 
 #include "IrrlichtMain.h"
+#include "../Menu/Menu.h"
 
-IrrlichtMain::IrrlichtMain() : width(1920), height(1080), keyevent(KeyboardEvent()) {
+IrrlichtMain::IrrlichtMain() : width(1920), height(1080), keyEvent(KeyboardEvent()) {
 
     this->device = createDevice(										// creation device
             video::EDT_OPENGL,											    // l'API est OpenGL
             core::dimension2d<u32>(width, height),							// taille de la fenetre 800x600
-            16, false, false, false, &keyevent);
-
+            16, false, false, false, &keyEvent);
+    keyEvent.setDevice(device);
 }
 
 
 void IrrlichtMain::main() {
     while (device->run()){
-        Game game(device, &keyevent, 50, 50);
+        /*
+        Game game(device, &keyEvent, 50, 50);
         game.gameLoop();
+        */
+        Menu menu(device, &keyEvent, (core::list<IGUIButton *>()));
+        menu.loop();
 
         // to close device
         device->closeDevice();

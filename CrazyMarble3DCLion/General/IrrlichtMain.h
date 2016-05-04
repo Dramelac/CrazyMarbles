@@ -7,7 +7,7 @@
 
 #include <irrlicht.h>
 
-#include "Utils/KeyboardEvent.h"
+#include "../Utils/KeyboardEvent.h"
 
 #include "Game.h"
 
@@ -21,7 +21,7 @@ private:
     const unsigned int width;
     const unsigned int height;
 
-    KeyboardEvent keyevent;
+    KeyboardEvent keyEvent;
 
 public:
     IrrlichtMain();
