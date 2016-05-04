@@ -133,12 +133,18 @@ void LevelEditor::move(vector3di change) {
     cursor += change;
     if (cursor.X >= size){
         cursor.X = size-1;
+    } else if (cursor.X < 0){
+        cursor.X = 0;
     }
     if (cursor.Y>= size){
         cursor.Y= size-1;
+    } else if (cursor.Y < 0){
+        cursor.Y = 0;
     }
     if (cursor.Z >= size){
         cursor.Z = size-1;
+    } else if (cursor.Z < 0){
+        cursor.Z = 0;
     }
     updateCamera();
 }
