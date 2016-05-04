@@ -151,7 +151,8 @@ void LevelEditor::keyboardChecker() {
     }
 
     if(validate->isPressed()){
-
+        save();
+        play = false;
     }
 
     if (update){
@@ -223,3 +224,8 @@ LevelEditor::~LevelEditor() {
 
 
 }
+
+void LevelEditor::save() {
+    sceneManager->saveScene("data/test.irr");
+}
+

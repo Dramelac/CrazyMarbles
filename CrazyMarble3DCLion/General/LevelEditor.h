@@ -62,6 +62,8 @@ public:
     void updateCamera();
     void applySetup();
 
+    void save();
+
     ~LevelEditor();
 };
 
