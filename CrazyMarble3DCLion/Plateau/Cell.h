@@ -15,6 +15,7 @@ class Cell {
 private:
     IAnimatedMesh* cellMesh;
     IMeshSceneNode* cell_node;
+    bool isSet;
 
 
 public:

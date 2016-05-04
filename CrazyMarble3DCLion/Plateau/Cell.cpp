@@ -8,7 +8,9 @@
 
 const float Cell::size = 150.0f;
 
-Cell::Cell() { }
+Cell::Cell() {
+    isSet = false;
+}
 
 
 void Cell::setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager) {
@@ -60,8 +62,13 @@ void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector
             cellMesh = TextureLoader::cellMesh;                     // load Cell object
             break;
     }
+    if (not isSet){
+        cell_node = sceneManager->addMeshSceneNode(cellMesh);               // create object on screen
+        isSet = true;
+    } else {
+        cell_node->setMesh(cellMesh);
+    }
 
-    cell_node = sceneManager->addMeshSceneNode(cellMesh);               // create object on screen
     cell_node->setRotation(rotation);
     cell_node->setPosition(vector3df(cursor.X*size,-500.0f-(cursor.Z*size),cursor.Y*size));    // setup position
 }
