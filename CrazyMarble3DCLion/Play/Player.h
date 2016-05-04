@@ -8,7 +8,6 @@
 #include <string>
 #include <irrlicht.h>
 
-#include "../Utils/TextureLoader.h"
 #include "Entities.h"
 
 using namespace std;

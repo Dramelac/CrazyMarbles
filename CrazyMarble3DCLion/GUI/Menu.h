@@ -8,7 +8,6 @@
 #include <irrlicht.h>
 #include "../Utils/KeyboardEvent.h"
 #include "../General/Game.h"
-#include "NickMenu.h"
 #include "../General/LevelEditor.h"
 
 using namespace irr;
