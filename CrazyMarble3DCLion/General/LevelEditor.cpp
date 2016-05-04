@@ -243,6 +243,6 @@ LevelEditor::~LevelEditor() {
 }
 
 void LevelEditor::save() {
-    sceneManager->saveScene("data/test.irr");
+    sceneManager->saveScene("test.irr");
 }
 

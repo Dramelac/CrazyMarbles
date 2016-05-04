@@ -4,7 +4,9 @@
 
 #include "Game.h"
 
-Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent, unsigned int x, unsigned int y, bool day) : play(true){
+Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
+           unsigned int x, unsigned int y, bool day) :
+        play(true){
 
 	
 	this->device = inDevice;
@@ -17,24 +19,7 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent, unsigned int x, un
 	this->sceneManager = this->device->getSceneManager();               // creation scene manager
 
 
-    // OPTIONAL
-    if (day){
-        sceneManager->addSkyBoxSceneNode(
-                driver->getTexture("data/skybox/day/top.png"),
-                driver->getTexture("data/skybox/day/bottom.png"),
-                driver->getTexture("data/skybox/day/front.png"),
-                driver->getTexture("data/skybox/day/back.png"),
-                driver->getTexture("data/skybox/day/left.png"),
-                driver->getTexture("data/skybox/day/right.png"));
-    } else {
-        sceneManager->addSkyBoxSceneNode(
-                driver->getTexture("data/skybox/night/top.png"),
-                driver->getTexture("data/skybox/night/bottom.png"),
-                driver->getTexture("data/skybox/night/front.png"),
-                driver->getTexture("data/skybox/night/back.png"),
-                driver->getTexture("data/skybox/night/left.png"),
-                driver->getTexture("data/skybox/night/right.png"));
-    }
+    setupSkyBox(day);
 
     // SkyDome
     //sceneManager->addSkyDomeSceneNode(driver->getTexture("data/../../irrlicht-1.8.3/media/skydome.jpg"),16,8,0.95f,2.0f);
@@ -84,6 +69,40 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent, unsigned int x, un
     player->enableCollision(metaSelector, sceneManager);                    // apply collision map to player
     speed = 250;
 }
+
+
+Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
+        device(inDevice), keyevent(keyevent), play(true) {
+
+    this->device->setWindowCaption(L"Crazy Marble");                    // first windows name
+    device->getCursorControl()->setVisible(false);                      // curseur invisible
+
+    this->driver = this->device->getVideoDriver();                      // creation driver
+    this->sceneManager = this->device->getSceneManager();               // creation scene manager
+
+    sceneManager->loadScene(pathMap);
+
+    this->player = new Player("Test", 20, sceneManager);
+
+    this->board  = new Board(sceneManager);
+
+
+    //sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
+
+    // COLLISION : GRAVITY
+
+    // plateau de selector collision
+    IMetaTriangleSelector* metaSelector = board->getMapMetaSelectorFromNodes(sceneManager);      // create decor collision data
+
+    // Apply gravity to player :
+    player->enableCollision(metaSelector, sceneManager);                    // apply collision map to player
+
+    metaSelector->drop();
+
+    speed = 250;
+
+}
+
 
 void Game::gameLoop() {
 
@@ -192,9 +211,32 @@ void Game::keyboardChecker(f32 deltaTime) {
 Game::~Game() {
 
     sceneManager->clear();
-    driver->drop();
+    //driver->drop();
 
 	delete player;
-    delete board;
+    //delete board;
     
 }
+
+void Game::setupSkyBox(bool day) {
+    if (day){
+        sceneManager->addSkyBoxSceneNode(
+                driver->getTexture("data/skybox/day/top.png"),
+                driver->getTexture("data/skybox/day/bottom.png"),
+                driver->getTexture("data/skybox/day/front.png"),
+                driver->getTexture("data/skybox/day/back.png"),
+                driver->getTexture("data/skybox/day/left.png"),
+                driver->getTexture("data/skybox/day/right.png"));
+    } else {
+        sceneManager->addSkyBoxSceneNode(
+                driver->getTexture("data/skybox/night/top.png"),
+                driver->getTexture("data/skybox/night/bottom.png"),
+                driver->getTexture("data/skybox/night/front.png"),
+                driver->getTexture("data/skybox/night/back.png"),
+                driver->getTexture("data/skybox/night/left.png"),
+                driver->getTexture("data/skybox/night/right.png"));
+    }
+}
+
+
+
