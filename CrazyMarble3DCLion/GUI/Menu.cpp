@@ -23,7 +23,7 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     scoreBoard = gui->addButton(rect<s32>(600,550,1320,650), 0, 103, L"ScoreBoard");
     levelEditor = gui->addButton(rect<s32>(600, 700, 1320, 800),0,104, L"Level Editor");
     credit = gui->addButton(rect<s32>(600, 850, 1320, 950),0,104, L"Credit");
-    play->setImage(driver->getTexture("data/GUI/BGCM.png"));
+    play->setImage(driver->getTexture("data/GUI/play_bleu_01.png"));
     //play->setScaleImage(true);
     //NickMenu nickMenu(device, keyEvent);
     //string pseudo = nickMenu.loop();
