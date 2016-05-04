@@ -40,6 +40,7 @@ private:
     IGUIButton* cellFlat;
     IGUIButton* cellPente;
 
+    IGUIButton* validate;
 
     KeyboardEvent *keyevent;
 

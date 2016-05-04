@@ -120,7 +120,7 @@ void LevelEditor::gameLoop() {
             }
 
             if(validate->isPressed()){
-                
+
             }
 
             if (update){
