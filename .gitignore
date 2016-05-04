@@ -2,7 +2,6 @@
 *.slo
 *.lo
 *.o
-*.obj
 
 # Precompiled Headers
 *.gch
@@ -28,3 +27,7 @@
 *.app
 
 .idea
+irrlicht-1.8.3
+*.opensdf
+glut-3.7
+glew-1.13.0

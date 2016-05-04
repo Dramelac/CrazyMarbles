@@ -18,7 +18,7 @@ void Board::initCellPlace() {
     {
         for (int column = 0; column < heightNumber; column++)
         {
-            board[row][column].setupQuadPlace(midleBoard, row, column, 800);
+            board[row][column].setupQuadPlace(midleBoard, row, column);
         }
     }
 }

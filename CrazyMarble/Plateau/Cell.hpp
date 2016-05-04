@@ -14,11 +14,12 @@ private:
     VertexArray quad;
     VertexArray quadWallRight;
     VertexArray quadWallLeft;
+    Sprite textCell;
 
 public:
     Cell();
 
-    void setupQuadPlace(int middle, int row, int column, int max);
+    void setupQuadPlace(int middle, int row, int column);
     void drawCel(RenderWindow *windows);
 };
 
