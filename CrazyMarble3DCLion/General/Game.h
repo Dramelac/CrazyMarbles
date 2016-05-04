@@ -8,13 +8,15 @@
 
 #include <iostream>
 
-#include "Plateau/Board.h"
-#include "Play/Player.h"
-#include "Utils/TextureLoader.h"
-#include "Utils/KeyboardEvent.h"
-#include "Utils/Chrono.h"
-
 #include <irrlicht.h>
+
+
+#include "../Utils/TextureLoader.h"
+#include "../Utils/Chrono.h"
+
+#include "../Plateau/Board.h"
+#include "../Play/Player.h"
+#include "../Utils/KeyboardEvent.h"
 
 using namespace irr;
 using namespace irr::scene;

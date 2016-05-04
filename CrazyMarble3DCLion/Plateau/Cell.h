@@ -15,12 +15,18 @@ class Cell {
 private:
     IAnimatedMesh* cellMesh;
     IMeshSceneNode* cell_node;
+    bool isSet;
 
 
 public:
     Cell();
 
-    void setupQuadPlace(int row, int column, ISceneManager* sceneManager);
+    void setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager);
+
+    void setup(ISceneManager *sceneManager,
+               vector3di cursor,
+               s16 type=0, vector3di rotation=vector3di(0, 0, 0));
+
     IMeshSceneNode* getCellNode();
 
     static const float size;

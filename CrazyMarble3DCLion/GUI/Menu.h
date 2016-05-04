@@ -6,7 +6,9 @@
 #define CRAZYMARBLE3DCLION_MENU_HPP
 
 #include <irrlicht.h>
-#include "Utils/KeyboardEvent.h"
+#include "../Utils/KeyboardEvent.h"
+#include "../General/Game.h"
+#include "../General/LevelEditor.h"
 
 using namespace irr;
 using namespace video;
@@ -23,8 +25,14 @@ private:
     KeyboardEvent* keyEvent;
 
     IGUIButton* exit;
-    IGUIButton* game;
+    IGUIButton* play;
     IGUIButton* scoreBoard;
+    IGUIButton* levelEditor;
+    IGUIButton* credit;
+
+    IGUIImage* background;
+
+    void visibilityButons(bool status);
 
 
 public:

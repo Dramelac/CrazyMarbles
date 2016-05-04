@@ -7,21 +7,32 @@
 Board::Board(unsigned int hauteur, unsigned int largeur, ISceneManager* sceneManager) : heightNumber(hauteur),
 																						widthNumber(largeur){
 	// init all Cell by default (to change with board loading)
-	board = new Cell*[hauteur];
-	for (int i = 0; i<hauteur; i++){
-		board[i] = new Cell[largeur];
+	board = new Cell*[heightNumber];
+	for (int i = 0; i<heightNumber; i++){
+		board[i] = new Cell[widthNumber];
 	}
-	initCellPlace(sceneManager);
+    initAllCellPlace(sceneManager);
 }
 
 
-void Board::initCellPlace(scene::ISceneManager* sceneManager) {
+Board::Board(u16 size) {
+    heightNumber = size;
+    widthNumber = size;
+    // init all Cell by default (to change with board loading)
+    board = new Cell*[heightNumber];
+    for (int i = 0; i<heightNumber; i++){
+        board[i] = new Cell[widthNumber];
+    }
+}
+
+
+void Board::initAllCellPlace(scene::ISceneManager *sceneManager) {
 	// setup all cell with model pos etc
 	for (int row = 0; row < widthNumber; row++)
 	{
 		for (int column = 0; column < heightNumber; column++)
 		{
-			board[row][column].setupQuadPlace(row, column, sceneManager);
+            board[row][column].setupBetaPlace(row, column, sceneManager);
 		}
 	}
 }
@@ -32,6 +43,11 @@ int Board::getLargeur() const {
 
 int Board::getHauteur() const {
 	return heightNumber;
+}
+
+
+void Board::setupCell(ISceneManager *sceneManager, vector3di cursor, s16 type, vector3di rotation) {
+    board[cursor.X][cursor.Y].setup(sceneManager, cursor, type, rotation);
 }
 
 
@@ -49,8 +65,8 @@ IMetaTriangleSelector *Board::getMapMetaSelector(ISceneManager *sceneManager) {
 		for (int column = 0; column < heightNumber; column++)
 		{
 			IMeshSceneNode* temp_node = this->board[row][column].getCellNode();             // load 1 node element
-			//selector = sceneManager->createTriangleSelectorFromBoundingBox(temp_node);      // getSelector
-			selector = sceneManager->createOctreeTriangleSelector(temp_node->getMesh(), temp_node, 128);
+			selector = sceneManager->createTriangleSelector(temp_node->getMesh(), temp_node);      // getSelector
+			//selector = sceneManager->createOctreeTriangleSelector(temp_node->getMesh(), temp_node, 128);
 
 			temp_node->setTriangleSelector(selector);                                       // set to the node the new selector
 			metaSelector->addTriangleSelector(selector);                                    // update metaSelectors
@@ -68,4 +84,3 @@ Board::~Board() {
 	}
 	delete[] board;
 }
-

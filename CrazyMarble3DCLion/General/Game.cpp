@@ -17,9 +17,6 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent, unsigned int x, un
 	this->sceneManager = this->device->getSceneManager();               // creation scene manager
 
 
-    // Load Textures
-    TextureLoader::LoadingTextures(driver, sceneManager);
-
     // OPTIONAL
     if (day){
         sceneManager->addSkyBoxSceneNode(
@@ -125,7 +122,6 @@ void Game::gameLoop() {
             keyboardChecker(deltaTime);
 
             if (!play){
-                std::cout << "escape !!" << endl;
                 break;
             }
 
@@ -189,7 +185,6 @@ void Game::keyboardChecker(f32 deltaTime) {
     // quit event
 
     if (keyevent->IsKeyDown(KEY_ESCAPE)){
-        std::cout << "escape !!" << endl;
         play = false;
     }
 

@@ -28,6 +28,8 @@ file(
         SOURCE_FILES
         *.cpp
         *.h
+        General/*
+        GUI/*
         Utils/*
         Plateau/*
         Play/*
@@ -35,7 +37,7 @@ file(
 
 
 #declaration de l'executable
-add_executable(CrazyMarble3DCLion ${SOURCE_FILES} Utils/Chrono.cpp Utils/Chrono.h)
+add_executable(CrazyMarble3DCLion ${SOURCE_FILES})
 
 
 #liaison du programme avec la bibliothèque
