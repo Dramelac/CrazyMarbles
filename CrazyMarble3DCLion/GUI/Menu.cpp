@@ -3,8 +3,6 @@
 //
 
 #include "Menu.h"
-#include "../General/Game.h"
-#include "NickMenu.h"
 
 Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
         : keyEvent(keyEvent){
@@ -16,7 +14,7 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     device->getCursorControl()->setVisible(true);
 
 
-    gui->addImage(driver->getTexture("data/GUI/BGCM.png"), position2d<int>(0, 0));
+    background = gui->addImage(driver->getTexture("data/GUI/BGCM.png"), position2d<int>(0, 0));
 
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
     play = gui->addButton(rect<s32>(600,400,1320,500), 0, 102, L"PLAY");
@@ -44,16 +42,30 @@ void Menu::loop() {
             if (exit->isPressed()){
                 device->closeDevice();
             } else if (play->isPressed()){
-                Game game(device, keyEvent, 10, 10);
+                Game game(device, keyEvent, 50, 50);
                 game.gameLoop();
                 device->getCursorControl()->setVisible(true);
             } else if (scoreBoard->isPressed()){
 
             } else if (levelEditor->isPressed()){
-
+                visibilityButons(false);
+                LevelEditor levelEditor(device, keyEvent);
+                levelEditor.gameLoop();
+                visibilityButons(true);
             } else if (credit->isPressed()){
 
             }
         }
     }
 }
+
+void Menu::visibilityButons(bool status) {
+    exit->setVisible(status);
+    play->setVisible(status);
+    scoreBoard->setVisible(status);
+    levelEditor->setVisible(status);
+    credit->setVisible(status);
+    background->setVisible(status);
+}
+
+

@@ -7,6 +7,9 @@
 
 #include <irrlicht.h>
 #include "../Utils/KeyboardEvent.h"
+#include "../General/Game.h"
+#include "NickMenu.h"
+#include "../General/LevelEditor.h"
 
 using namespace irr;
 using namespace video;
@@ -27,6 +30,10 @@ private:
     IGUIButton* scoreBoard;
     IGUIButton* levelEditor;
     IGUIButton* credit;
+
+    IGUIImage* background;
+
+    void visibilityButons(bool status);
 
 
 public:

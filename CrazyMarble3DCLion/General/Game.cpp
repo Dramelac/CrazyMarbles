@@ -17,9 +17,6 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent, unsigned int x, un
 	this->sceneManager = this->device->getSceneManager();               // creation scene manager
 
 
-    // Load Textures
-    TextureLoader::LoadingTextures(driver, sceneManager);
-
     // OPTIONAL
     if (day){
         sceneManager->addSkyBoxSceneNode(

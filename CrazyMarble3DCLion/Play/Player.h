@@ -6,9 +6,10 @@
 #define CRAZYMARBLE_PLAYER_HPP
 
 #include <string>
-#include "Entities.h"
-
 #include <irrlicht.h>
+
+#include "../Utils/TextureLoader.h"
+#include "Entities.h"
 
 using namespace std;
 using namespace irr;
