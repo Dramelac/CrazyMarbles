@@ -13,10 +13,10 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, bool d
     gui = device->getGUIEnvironment();
 
 
-    rightRotation = gui->addButton(rect<s32>(70,600,100,630), 0, 102, L"RR");
-    leftRotation = gui->addButton(rect<s32>(20,600,50,630), 0, 102, L"LR");
-    lvlUp = gui->addButton(rect<s32>(45,550,75,580), 0, 102, L"Lu");
-    lvlDown = gui->addButton(rect<s32>(45,650,75,680), 0, 102, L"LD");
+    rightRotation = gui->addButton(rect<s32>(300,600,420,650), 0, 102, L"RR");
+    leftRotation = gui->addButton(rect<s32>(100,600,220,650), 0, 102, L"LR");
+    lvlUp = gui->addButton(rect<s32>(235,465,285,590), 0, 102, L"Lu");
+    lvlDown = gui->addButton(rect<s32>(235,660,285,785), 0, 102, L"LD");
 
 
     // OPTIONAL
