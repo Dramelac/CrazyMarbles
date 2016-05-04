@@ -35,6 +35,11 @@ private:
     IGUIButton* lvlUp;
     IGUIButton* lvlDown;
 
+    IGUIButton* cellAngle;
+    IGUIButton* cellAngleInt;
+    IGUIButton* cellFlat;
+    IGUIButton* cellPente;
+
 
     KeyboardEvent *keyevent;
 

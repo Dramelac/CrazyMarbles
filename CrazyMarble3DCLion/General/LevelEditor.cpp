@@ -23,6 +23,11 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, bool d
     lvlUp = gui->addButton(rect<s32>(1635,400,1685,500), 0, 102, L"LU");
     lvlDown = gui->addButton(rect<s32>(1635,680,1685,780), 0, 102, L"LD");
 
+    cellAngle = gui->addButton(rect<s32>(840,880,920,1080), 0, 102, L"C1");
+    cellAngleInt = gui->addButton(rect<s32>(920,880,1000,1080), 0, 102, L"C2");
+    cellFlat = gui->addButton(rect<s32>(1000,880,1080,1080), 0, 102, L"C3");
+    cellPente = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"C4");
+
 
     // OPTIONAL
     if (day){
@@ -94,7 +99,15 @@ void LevelEditor::gameLoop() {
             }else if (goToDown->isPressed()){
                 update = true;
                 cursor.Y += 1;
-            }
+            }/*else if (cellAngle->isPressed()){
+
+            }else if (cellAngleInt->isPressed()){
+
+            }else if (cellFlat->isPressed()){
+
+            }else if (cellPente->isPressed()){
+
+            }*/
 
             if (update){
                 applySetup();
