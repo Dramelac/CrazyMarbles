@@ -58,6 +58,15 @@ void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector
         case 0:
             cellMesh = TextureLoader::cellMesh;                     // load Cell object
             break;
+        case 1:
+            cellMesh = TextureLoader::cell_pente_Mesh;              // load Cell object
+            break;
+        case 2:
+            cellMesh = TextureLoader::cell_angle_Mesh;              // load Cell object
+            break;
+        case 3:
+            cellMesh = TextureLoader::cell_angle_int_Mesh;          // load Cell object
+            break;
         default:
             cellMesh = TextureLoader::cellMesh;                     // load Cell object
             break;
