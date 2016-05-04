@@ -44,7 +44,7 @@ void Menu::loop() {
             if (exit->isPressed()){
                 device->closeDevice();
             } else if (play->isPressed()){
-                Game game(device, keyEvent, 10, 10);
+                Game game(device, keyEvent, 50, 50);
                 game.gameLoop();
                 device->getCursorControl()->setVisible(true);
             } else if (scoreBoard->isPressed()){
