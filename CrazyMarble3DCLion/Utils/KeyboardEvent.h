@@ -8,11 +8,12 @@
 #include <irrlicht.h>
 
 using namespace irr;
+using namespace gui;
 
 class KeyboardEvent : public IEventReceiver{
 
 private:
-
+    IrrlichtDevice* device;
     bool keyPressedDown[KEY_KEY_CODES_COUNT];
 
 public :
@@ -21,6 +22,8 @@ public :
     virtual bool IsKeyDown(EKEY_CODE keyCode) const;
     KeyboardEvent();
 
+
+    void setDevice(IrrlichtDevice *device);
 };
 
 
