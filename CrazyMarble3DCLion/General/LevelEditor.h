@@ -53,6 +53,7 @@ public:
     void keyboardChecker();
 
     void move(vector3di change);
+    void updateCamera();
     void applySetup();
 
     ~LevelEditor();

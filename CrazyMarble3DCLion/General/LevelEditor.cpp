@@ -43,6 +43,11 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, bool d
 
     //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
     fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), vector3df(0, 0, 0));
+    updateCamera();
+
+
+    // TEMP
+    board.setupCell(sceneManager, cursor);
 
 }
 
@@ -59,23 +64,36 @@ void LevelEditor::gameLoop() {
             gui->drawAll();
 
             driver->endScene();
+            bool update = false;
             if(rightRotation->isPressed()){
-
+                update = true;
+                currentRotation.Y += 90;
             }else if (leftRotation->isPressed()){
-
+                update = true;
+                currentRotation.Y -= 90;
             }else if (lvlUp->isPressed()){
-
+                update = true;
+                cursor.Z -= 1;
             }else if (lvlDown->isPressed()){
-
+                update = true;
+                cursor.Z += 1;
             }/*else if (goToRight->isPressed()){
-
+                update = true;
+                cursor.X += 1;
             }else if (goToLeft->isPressed()){
-
+                update = true;
+                cursor.X -= 1;
             }else if (goToTop->isPressed()){
-
+                update = true;
+                cursor.Y -= 1;
             }else if (goToDown->isPressed()){
-
+                update = true;
+                cursor.Y += 1;
             }*/
+
+            if (update){
+                applySetup();
+            }
 
 
             // display frames per second in window title
@@ -122,6 +140,19 @@ void LevelEditor::move(vector3di change) {
     if (cursor.Z >= size){
         cursor.Z = size-1;
     }
+    updateCamera();
+}
+
+
+void LevelEditor::updateCamera() {
+    vector3df cameraPos = vector3df();
+    cameraPos.X = cursor.X * Cell::size;
+    cameraPos.Y = cursor.Y * Cell::size;
+    cameraPos.Z = cursor.Z * Cell::size;
+    vector3df lookAt = vector3df(cameraPos);
+    cameraPos += vector3df(800.0f, 700.0f, 800.0f);
+    fixeCamera->setPosition(cameraPos);
+    fixeCamera->setTarget(lookAt);
 }
 
 
