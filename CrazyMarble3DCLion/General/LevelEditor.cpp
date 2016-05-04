@@ -28,6 +28,8 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 si
     cellAngle = gui->addButton(rect<s32>(1000,880,1080,1080), 0, 102, L"C3");
     cellAngleInt = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"C4");
 
+    validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Valider");
+
 
     // OPTIONAL
     if (day){
