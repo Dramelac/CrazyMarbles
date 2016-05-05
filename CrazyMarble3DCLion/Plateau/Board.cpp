@@ -94,7 +94,7 @@ IMetaTriangleSelector *Board::getMapMetaSelectorFromNodes(ISceneManager *sceneMa
     scene::IMetaTriangleSelector* metaSelector = sceneManager->createMetaTriangleSelector();
 
 
-    for (u32 i=0; i < nodes.size()-2; ++i)
+    for (u32 i=0; i < nodes.size(); ++i)
     {
         scene::ISceneNode * node = nodes[i];
 
