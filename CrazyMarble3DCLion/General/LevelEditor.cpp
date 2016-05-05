@@ -2,7 +2,7 @@
 // Created by mathieu on 03/05/16.
 //
 
-#include <iostream>
+#include <stdio.h>
 #include "LevelEditor.h"
 
 LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 size, bool day) :
@@ -265,6 +265,8 @@ LevelEditor::~LevelEditor() {
 }
 
 void LevelEditor::save() {
-    sceneManager->saveScene("test.irr");
+    io::IWriteFile* file = io::createWriteFile("test.irr", false);
+    sceneManager->saveScene(file);
+    rename("test.irr", "data/Maps/test.irr");
 }
 
