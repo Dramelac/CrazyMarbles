@@ -14,10 +14,10 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 si
     gui = device->getGUIEnvironment();
 
 
-    goToRight = gui->addButton(rect<s32>(230,510,350,630), 0, 102, L"GTR");
-    goToLeft = gui->addButton(rect<s32>(100,640,220,760), 0, 102, L"GTL");
-    goToTop = gui->addButton(rect<s32>(100,510,220,630), 0, 102, L"GTT");
-    goToDown = gui->addButton(rect<s32>(230,640,350,760), 0, 102, L"GTD");
+    goToRight = gui->addButton(rect<s32>(230,510,350,630), 0, 102);
+    goToLeft = gui->addButton(rect<s32>(100,640,220,760), 0, 102);
+    goToTop = gui->addButton(rect<s32>(100,510,220,630), 0, 102);
+    goToDown = gui->addButton(rect<s32>(230,640,350,760), 0, 102);
 
 
     rightRotation = gui->addButton(rect<s32>(1700,530,1820,650), 0, 102, L"RR");
@@ -32,14 +32,23 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 si
     cellAngleInt = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"C4");
 
     goToRight->setImage(driver->getTexture("data/GUI/arrow_to_right.png"));
-    goToRight->setScaleImage();
-    goToRight->isAlphaChannelUsed();
+    goToRight->setUseAlphaChannel(true);
+    goToRight->setScaleImage(true);
+    goToRight->setDrawBorder(false);
     goToLeft->setImage(driver->getTexture("data/GUI/arrow_to_left.png"));
+    goToLeft->setUseAlphaChannel(true);
     goToLeft->setScaleImage(true);
+    goToLeft->setDrawBorder(false);
     goToTop->setImage(driver->getTexture("data/GUI/arrow_to_top.png"));
+    goToTop->setUseAlphaChannel(true);
     goToTop->setScaleImage(true);
+    goToTop->setDrawBorder(false);
     goToDown->setImage(driver->getTexture("data/GUI/arrow_to_down.png"));
-    //goToDown->setScaleImage(true);
+    goToDown->setUseAlphaChannel(true);
+    goToDown->setScaleImage(true);
+    goToDown->setDrawBorder(false);
+
+
 
     validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Valider");
 
