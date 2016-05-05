@@ -78,16 +78,6 @@ IMetaTriangleSelector *Board::getMapMetaSelector(ISceneManager *sceneManager) {
 	return metaSelector;
 }
 
-Board::~Board() {
-	for (int i = 0; i < heightNumber; i++){
-		delete[] board[i];
-	}
-	delete[] board;
-}
-
-Board::Board(ISceneManager* sceneManager) {
-    sceneManager->getSceneNodesFromType(scene::ESNT_ANY, nodes); // Find all nodes
-}
 
 IMetaTriangleSelector *Board::getMapMetaSelectorFromNodes(ISceneManager *sceneManager) {
 
@@ -95,11 +85,12 @@ IMetaTriangleSelector *Board::getMapMetaSelectorFromNodes(ISceneManager *sceneMa
     scene::IMetaTriangleSelector* metaSelector = sceneManager->createMetaTriangleSelector();
 
 
-    for (u32 i=0; i < nodes.size(); ++i)
+    for (u32 i=0; i < nodes.size()-2; ++i)
     {
         scene::ISceneNode * node = nodes[i];
+
         // selector mesh collision temp
-        scene::ITriangleSelector * selector = 0;
+        scene::ITriangleSelector *selector=0;
 
         switch(node->getType())
         {
@@ -129,6 +120,7 @@ IMetaTriangleSelector *Board::getMapMetaSelectorFromNodes(ISceneManager *sceneMa
         if(selector)
         {
             // Add it to the meta selector, which will take a reference to it
+            node->setTriangleSelector(selector);
             metaSelector->addTriangleSelector(selector);
             // And drop my reference to it, so that the meta selector owns it.
             selector->drop();
@@ -136,5 +128,17 @@ IMetaTriangleSelector *Board::getMapMetaSelectorFromNodes(ISceneManager *sceneMa
     }
 
     return metaSelector;
+}
+
+
+Board::~Board() {
+	for (int i = 0; i < heightNumber; i++){
+		delete[] board[i];
+	}
+	delete[] board;
+}
+
+Board::Board(ISceneManager* sceneManager) {
+    sceneManager->getSceneNodesFromType(scene::ESNT_ANY, nodes); // Find all nodes
 }
 

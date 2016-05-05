@@ -36,16 +36,15 @@ void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager 
     // Animation collision
 
     vector3df hitbox = sphere_node->getBoundingBox().MaxEdge;
-    std::cout << hitbox.X << "/" << hitbox.Y << "/" << hitbox.Z << std::endl;
 
     ISceneNodeAnimatorCollisionResponse* anim = sceneManager->createCollisionResponseAnimator(
             metaSelector, // Map collision
             sphere_node,  // object player to detect
-            vector3df(49,49,49), // hitbox
+            hitbox, // hitbox
             vector3df(0, -10, 0)  // gravity vector
     );
     sphere_node->addAnimator(anim);             // apply gravity / collision to player object
-    //anim->drop();                               // drop temp anim
+    anim->drop();                               // drop temp anim
 
 }
 
