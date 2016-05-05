@@ -129,23 +129,23 @@ void LevelEditor::keyboardChecker() {
 
     bool update = false;
 
-    if(rightRotation->isPressed()){
+    if(rightRotation->isPressed() || keyevent->IsKeyDown(KEY_KEY_I, true)){
         update = true;
         currentRotation.Y += 90;
         currentRotation.Y %= 360;
         rightRotation->setPressed(false);
-    }else if (leftRotation->isPressed()){
+    }else if (leftRotation->isPressed() || keyevent->IsKeyDown(KEY_KEY_O, true)){
         update = true;
         currentRotation.Y -= 90;
         currentRotation.Y %= 360;
         leftRotation->setPressed(false);
     }
 
-    if (lvlUp->isPressed()){
+    if (lvlUp->isPressed() || keyevent->IsKeyDown(KEY_KEY_P, true)){
         update = true;
         cursor.Z -= 1;
         lvlUp->setPressed(false);
-    }else if (lvlDown->isPressed()){
+    }else if (lvlDown->isPressed() || keyevent->IsKeyDown(KEY_KEY_M, true)){
         update = true;
         cursor.Z += 1;
         lvlDown->setPressed(false);
@@ -166,23 +166,23 @@ void LevelEditor::keyboardChecker() {
     }
 
 
-    if (cellFlat->isPressed()){
+    if (cellFlat->isPressed() || keyevent->IsKeyDown(KEY_KEY_A, true)){
         update = true;
         currentType = 0;
         cellFlat->setPressed(false);
-    }else if (cellPente->isPressed()){
+    }else if (cellPente->isPressed() || keyevent->IsKeyDown(KEY_KEY_Z, true)){
         update = true;
         currentType = 1;
         cellPente->setPressed(false);
-    } else if (cellAngle->isPressed()) {
+    } else if (cellAngle->isPressed() || keyevent->IsKeyDown(KEY_KEY_E, true)) {
         update = true;
         currentType = 2;
         cellAngle->setPressed(false);
-    }else if (cellAngleInt->isPressed()){
+    }else if (cellAngleInt->isPressed() || keyevent->IsKeyDown(KEY_KEY_R, true)){
         update = true;
         currentType = 3;
         cellAngleInt->setPressed(false);
-    }else if (cellEmpty->isPressed()){
+    }else if (cellEmpty->isPressed() || keyevent->IsKeyDown(KEY_KEY_T, true)){
         update = true;
         currentType = 4;
         cellEmpty->setPressed(false);
