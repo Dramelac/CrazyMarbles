@@ -19,12 +19,12 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
 
     play = gui->addButton(rect<s32>(657,400,1263,545), 0, 102, L"");
-    play->setImage(driver->getTexture("data/GUI/bouton_main_menu_play_selected.png"));
+    play->setImage(driver->getTexture("data/GUI/test_bouton_avec_fond_play.png"));
     play->setPressedImage(driver->getTexture("data/GUI/bouton_main_menu_play_pressed.png"));
     play->setDrawBorder(false);
 
     scoreBoard = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"");
-    scoreBoard->setImage(driver->getTexture("data/GUI/bouton_main_menu_scoreboard_selected.png"));
+    scoreBoard->setImage(driver->getTexture("data/GUI/test_bouton_avec_fond_scoreboard.png"));
     scoreBoard->setPressedImage(driver->getTexture("data/GUI/bouton_main_menu_scoreboard_pressed.png"));
     scoreBoard->setDrawBorder(false);
 
