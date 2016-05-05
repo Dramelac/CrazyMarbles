@@ -261,12 +261,13 @@ LevelEditor::~LevelEditor() {
 
     validate->remove();
 
-
 }
 
-void LevelEditor::save() {
-    io::IWriteFile* file = io::createWriteFile("test.irr", false);
+void LevelEditor::save(path name) {
+    io::IWriteFile* file = io::createWriteFile(name, false);
     sceneManager->saveScene(file);
-    rename("test.irr", "data/Maps/test.irr");
+    std::string result = "data/Maps/";
+    result += name.c_str();
+    rename(name.c_str(), result.c_str());
 }
 

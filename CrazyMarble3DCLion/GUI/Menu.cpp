@@ -44,7 +44,7 @@ void Menu::loop() {
                 device->closeDevice();
             } else if (play->isPressed()){
                 //Game game(device, keyEvent, 50, 50);
-                Game game(device, keyEvent, "data/Maps/test.irr");
+                Game game(device, keyEvent, "data/Maps/map.irr");
                 game.gameLoop();
                 device->getCursorControl()->setVisible(true);
             } else if (scoreBoard->isPressed()){
