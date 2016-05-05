@@ -14,7 +14,7 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     device->getCursorControl()->setVisible(true);
 
 
-    background = gui->addImage(driver->getTexture("data/GUI/BGCM.png"), position2d<int>(0, 0));
+    background = gui->addImage(driver->getTexture("data/GUI/BGCM2.png"), position2d<int>(0, 0));
 
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
     play = gui->addButton(rect<s32>(600,400,1320,500), 0, 102, L"PLAY");
