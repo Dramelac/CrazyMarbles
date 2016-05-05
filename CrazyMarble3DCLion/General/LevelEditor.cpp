@@ -227,7 +227,7 @@ void LevelEditor::updateCamera() {
     vector3df cameraPos = vector3df();
     cameraPos.X = cursor.X * Cell::size;
     cameraPos.Z = cursor.Y * Cell::size;
-    cameraPos.Y = cursor.Z * Cell::size;
+    cameraPos.Y = cursor.Z * -Cell::size;
     vector3df lookAt = vector3df(cameraPos);
     cameraPos += vector3df(800.0f, 700.0f, 800.0f);
     fixeCamera->setPosition(cameraPos);
