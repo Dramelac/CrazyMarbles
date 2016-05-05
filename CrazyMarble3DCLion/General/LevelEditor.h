@@ -27,6 +27,9 @@ private:
     Player* player;
     ICameraSceneNode* fixeCamera;
 
+    ISceneNode* skyBox;
+    u32 skyId;
+
     IGUIEnvironment* gui;
 
     IGUIButton* goToRight;
@@ -47,7 +50,7 @@ private:
 
     IGUIButton* validate;
 
-    KeyboardEvent *keyevent;
+    KeyboardEvent *keyEvent;
 
     bool play;
     s32 size;
@@ -66,6 +69,7 @@ public:
     void move(vector3di change);
     void updateCamera();
     void applySetup();
+    void setupSkyBox(u32 templateId);
 
     void save(path name="map.irr");
 

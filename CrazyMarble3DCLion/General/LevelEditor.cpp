@@ -6,7 +6,7 @@
 #include "LevelEditor.h"
 
 LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, u16 size, bool day) :
-        device(device), keyevent(keyevent), play(true), cursor(vector3di(0, 0, 0)),
+        device(device), keyEvent(keyevent), play(true), cursor(vector3di(0, 0, 0)),
         currentType(0), currentRotation(vector3di(0, 0, 0)), size(size) {
 
     this->driver = this->device->getVideoDriver();                      // creation driver
@@ -53,35 +53,23 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, u16 si
     goToDown->setScaleImage(true);
     goToDown->setDrawBorder(false);
 
-
-
     validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Valider");
 
 
-    // OPTIONAL
-    if (day){
-        sceneManager->addSkyBoxSceneNode(
-                driver->getTexture("data/skybox/day/top.png"),
-                driver->getTexture("data/skybox/day/bottom.png"),
-                driver->getTexture("data/skybox/day/front.png"),
-                driver->getTexture("data/skybox/day/back.png"),
-                driver->getTexture("data/skybox/day/left.png"),
-                driver->getTexture("data/skybox/day/right.png"));
-    } else {
-        sceneManager->addSkyBoxSceneNode(
-                driver->getTexture("data/skybox/night/top.png"),
-                driver->getTexture("data/skybox/night/bottom.png"),
-                driver->getTexture("data/skybox/night/front.png"),
-                driver->getTexture("data/skybox/night/back.png"),
-                driver->getTexture("data/skybox/night/left.png"),
-                driver->getTexture("data/skybox/night/right.png"));
-    }
+    skyBox = sceneManager->addSkyBoxSceneNode(
+            driver->getTexture("data/skybox/day/top.png"),
+            driver->getTexture("data/skybox/day/bottom.png"),
+            driver->getTexture("data/skybox/day/front.png"),
+            driver->getTexture("data/skybox/day/back.png"),
+            driver->getTexture("data/skybox/day/left.png"),
+            driver->getTexture("data/skybox/day/right.png"));
+    skyId = 0;
 
     // light everywhere
     sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));
 
-    //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
     fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), vector3df(0, 0, 0));
+    //fixeCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
     fixeCamera->setFarValue(15000);
     updateCamera();
 
@@ -132,64 +120,69 @@ void LevelEditor::keyboardChecker() {
 
     bool update = false;
 
-    if (keyevent->IsKeyDown(KEY_SPACE, true)){
+    if (keyEvent->IsKeyDown(KEY_SPACE, true)){
         board->setupStartPoint(cursor);
     }
 
-    if(rightRotation->isPressed() || keyevent->IsKeyDown(KEY_KEY_I, true)){
+    if (keyEvent->IsKeyDown(KEY_KEY_S, true)){
+        skyId = (skyId + 1) % 3;
+        setupSkyBox(skyId);
+    }
+
+    if(rightRotation->isPressed() || keyEvent->IsKeyDown(KEY_KEY_I, true)){
         update = true;
         currentRotation.Y += 90;
         currentRotation.Y %= 360;
         rightRotation->setPressed(false);
-    }else if (leftRotation->isPressed() || keyevent->IsKeyDown(KEY_KEY_O, true)){
+    }else if (leftRotation->isPressed() || keyEvent->IsKeyDown(KEY_KEY_O, true)){
         update = true;
         currentRotation.Y -= 90;
         currentRotation.Y %= 360;
         leftRotation->setPressed(false);
     }
 
-    if (lvlUp->isPressed() || keyevent->IsKeyDown(KEY_KEY_P, true)){
+    if (lvlUp->isPressed() || keyEvent->IsKeyDown(KEY_KEY_P, true)){
         update = true;
         cursor.Z -= 1;
         lvlUp->setPressed(false);
-    }else if (lvlDown->isPressed() || keyevent->IsKeyDown(KEY_KEY_M, true)){
+    }else if (lvlDown->isPressed() || keyEvent->IsKeyDown(KEY_KEY_M, true)){
         update = true;
         cursor.Z += 1;
         lvlDown->setPressed(false);
     }
 
-    if (goToRight->isPressed() || keyevent->IsKeyDown(KEY_RIGHT, true)){
+    if (goToRight->isPressed() || keyEvent->IsKeyDown(KEY_RIGHT, true)){
         move(vector3di(-1,0,0));
         goToRight->setPressed(false);
-    }else if (goToLeft->isPressed() || keyevent->IsKeyDown(KEY_LEFT, true)){
+    }else if (goToLeft->isPressed() || keyEvent->IsKeyDown(KEY_LEFT, true)){
         move(vector3di(1,0,0));
         goToLeft->setPressed(false);
-    }else if (goToTop->isPressed()  || keyevent->IsKeyDown(KEY_UP, true)){
+    }else if (goToTop->isPressed()  || keyEvent->IsKeyDown(KEY_UP, true)){
         move(vector3di(0,-1,0));
         goToTop->setPressed(false);
-    }else if (goToDown->isPressed() || keyevent->IsKeyDown(KEY_DOWN, true)){
+    }else if (goToDown->isPressed() || keyEvent->IsKeyDown(KEY_DOWN, true)){
         move(vector3di(0,1,0));
         goToDown->setPressed(false);
     }
 
 
-    if (cellFlat->isPressed() || keyevent->IsKeyDown(KEY_KEY_A, true)){
+    if (cellFlat->isPressed() || keyEvent->IsKeyDown(KEY_KEY_A, true)){
         update = true;
         currentType = 0;
         cellFlat->setPressed(false);
-    }else if (cellPente->isPressed() || keyevent->IsKeyDown(KEY_KEY_Z, true)){
+    }else if (cellPente->isPressed() || keyEvent->IsKeyDown(KEY_KEY_Z, true)){
         update = true;
         currentType = 1;
         cellPente->setPressed(false);
-    } else if (cellAngle->isPressed() || keyevent->IsKeyDown(KEY_KEY_E, true)) {
+    } else if (cellAngle->isPressed() || keyEvent->IsKeyDown(KEY_KEY_E, true)) {
         update = true;
         currentType = 2;
         cellAngle->setPressed(false);
-    }else if (cellAngleInt->isPressed() || keyevent->IsKeyDown(KEY_KEY_R, true)){
+    }else if (cellAngleInt->isPressed() || keyEvent->IsKeyDown(KEY_KEY_R, true)){
         update = true;
         currentType = 3;
         cellAngleInt->setPressed(false);
-    }else if (cellEmpty->isPressed() || keyevent->IsKeyDown(KEY_KEY_T, true)){
+    }else if (cellEmpty->isPressed() || keyEvent->IsKeyDown(KEY_KEY_T, true)){
         update = true;
         currentType = 4;
         cellEmpty->setPressed(false);
@@ -205,7 +198,7 @@ void LevelEditor::keyboardChecker() {
     }
 
     // quit event
-    if (keyevent->IsKeyDown(KEY_ESCAPE)){
+    if (keyEvent->IsKeyDown(KEY_ESCAPE)){
         play = false;
     }
 
@@ -249,6 +242,36 @@ void LevelEditor::applySetup() {
 }
 
 
+void LevelEditor::setupSkyBox(u32 templateId) {
+    skyBox->remove();
+    switch (templateId){
+        case 0:
+            skyBox = sceneManager->addSkyBoxSceneNode(
+                    driver->getTexture("data/skybox/day/top.png"),
+                    driver->getTexture("data/skybox/day/bottom.png"),
+                    driver->getTexture("data/skybox/day/front.png"),
+                    driver->getTexture("data/skybox/day/back.png"),
+                    driver->getTexture("data/skybox/day/left.png"),
+                    driver->getTexture("data/skybox/day/right.png"));
+            break;
+        case 1:
+            skyBox = sceneManager->addSkyBoxSceneNode(
+                    driver->getTexture("data/skybox/night/top.png"),
+                    driver->getTexture("data/skybox/night/bottom.png"),
+                    driver->getTexture("data/skybox/night/front.png"),
+                    driver->getTexture("data/skybox/night/back.png"),
+                    driver->getTexture("data/skybox/night/left.png"),
+                    driver->getTexture("data/skybox/night/right.png"));
+            break;
+        case 2:
+            skyBox = sceneManager->addSkyDomeSceneNode(driver->getTexture("data/skybox/skydome.jpg"));
+            break;
+        default:
+            break;
+    }
+}
+
+
 void LevelEditor::save(path name) {
     player->removePlayerNode();
     io::IWriteFile* file = io::createWriteFile(name, false);
@@ -282,4 +305,5 @@ LevelEditor::~LevelEditor() {
     sceneManager->clear();
 
 }
+
 
