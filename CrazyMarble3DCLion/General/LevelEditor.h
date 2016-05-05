@@ -9,6 +9,7 @@
 #include <string>
 #include "../Utils/KeyboardEvent.h"
 #include "../Plateau/Board.h"
+#include "../Play/Player.h"
 
 using namespace irr;
 using namespace scene;
@@ -18,11 +19,12 @@ using namespace io;
 
 class LevelEditor {
 private:
-    Board* board;
     IrrlichtDevice* device;
     IVideoDriver* driver;
     ISceneManager *sceneManager;
 
+    Board* board;
+    Player* player;
     ICameraSceneNode* fixeCamera;
 
     IGUIEnvironment* gui;

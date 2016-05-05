@@ -14,6 +14,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, u16 si
     gui = device->getGUIEnvironment();
 
     board = new Board(sceneManager, size);
+    player = new Player(sceneManager);
 
 
     goToRight = gui->addButton(rect<s32>(230,510,350,630), 0, 102);
@@ -233,8 +234,9 @@ void LevelEditor::updateCamera() {
     vector3df cameraPos = vector3df();
     cameraPos.X = cursor.X * Cell::size;
     cameraPos.Z = cursor.Y * Cell::size;
-    cameraPos.Y = cursor.Z * -Cell::size;
+    cameraPos.Y = (cursor.Z * -Cell::size) - 250;
     vector3df lookAt = vector3df(cameraPos);
+    player->setPosition(lookAt);
     cameraPos += vector3df(800.0f, 700.0f, 800.0f);
     fixeCamera->setPosition(cameraPos);
     fixeCamera->setTarget(lookAt);

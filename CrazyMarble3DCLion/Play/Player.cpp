@@ -33,7 +33,6 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health)
 }
 
 
-
 Player::Player(ISceneManager *sceneManager, const std::string &name, int health, Board *board)
         : Entities(name, health), score(0) {
 
@@ -51,7 +50,16 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health,
 }
 
 
+Player::Player(ISceneManager *sceneManager) : Entities() {
 
+    sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
+
+    sphere_node = sceneManager->addMeshSceneNode(sphereMesh);           // add object to screen
+
+    sphere_node->setPosition(vector3df(0,-250,0));
+    sphere_node->setScale(vector3df(0.5,0.5,0.5));
+    sphere_node->setMaterialTexture(0, TextureLoader::sphereRed);
+}
 
 void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
 
@@ -92,4 +100,10 @@ void Player::updateFOV(f32 x) {
     fixeCamera->setFOV(temp + x);
     std::cout << "/ fov now : " << temp + x << endl;
 }
+
+void Player::setPosition(vector3df pos) {
+    sphere_node->setPosition(pos);
+}
+
+
 
