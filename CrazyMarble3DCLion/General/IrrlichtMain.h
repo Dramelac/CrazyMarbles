@@ -8,8 +8,8 @@
 #include <irrlicht.h>
 
 #include "../Utils/KeyboardEvent.h"
-
-#include "Game.h"
+#include "../Utils/TextureLoader.h"
+#include "../GUI/Menu.h"
 
 using namespace irr;
 

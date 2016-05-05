@@ -3,8 +3,6 @@
 //
 
 #include "Menu.h"
-#include "../General/Game.h"
-#include "NickMenu.h"
 
 Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
         : keyEvent(keyEvent){
@@ -16,14 +14,29 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     device->getCursorControl()->setVisible(true);
 
 
-    gui->addImage(driver->getTexture("data/GUI/BGCM.png"), position2d<int>(0, 0));
+    background = gui->addImage(driver->getTexture("data/GUI/BGCM2.png"), position2d<int>(0, 0));
 
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
-    play = gui->addButton(rect<s32>(600,400,1320,500), 0, 102, L"PLAY");
-    scoreBoard = gui->addButton(rect<s32>(600,550,1320,650), 0, 103, L"ScoreBoard");
-    levelEditor = gui->addButton(rect<s32>(600, 700, 1320, 800),0,104, L"Level Editor");
-    credit = gui->addButton(rect<s32>(600, 850, 1320, 950),0,104, L"Credit");
-    play->setImage(driver->getTexture("data/GUI/play_bleu_01.png"));
+
+    play = gui->addButton(rect<s32>(657,400,1263,500), 0, 102, L"");
+    play->setImage(driver->getTexture("data/GUI/bouton_main_menu_play_selected.png"));
+    play->setPressedImage(driver->getTexture("data/GUI/bouton_main_menu_play_pressed.png"));
+    play->setDrawBorder(false);
+
+    scoreBoard = gui->addButton(rect<s32>(657,550,1263,650), 0, 103, L"");
+    scoreBoard->setImage(driver->getTexture("data/GUI/bouton_main_menu_scoreboard_selected.png"));
+    scoreBoard->setPressedImage(driver->getTexture("data/GUI/bouton_main_menu_scoreboard_pressed.png"));
+    scoreBoard->setDrawBorder(false);
+
+    levelEditor = gui->addButton(rect<s32>(657, 700, 1263, 800),0,104, L"");
+    levelEditor->setImage(driver->getTexture("data/GUI/bouton_main_menu_level_editor_selected.png"));
+    levelEditor->setPressedImage(driver->getTexture("data/GUI/bouton_main_menu_level_editor_pressed.png"));
+    levelEditor->setDrawBorder(false);
+
+    credit = gui->addButton(rect<s32>(657, 850, 1263, 950),0,104, L"");
+    credit->setImage(driver->getTexture("data/GUI/bouton_main_menu_credits_selected.png"));
+    credit->setPressedImage(driver->getTexture("data/GUI/bouton_main_menu_credits_pressed.png"));
+    credit->setDrawBorder(false);
     //play->setScaleImage(true);
     //NickMenu nickMenu(device, keyEvent);
     //string pseudo = nickMenu.loop();
@@ -44,16 +57,31 @@ void Menu::loop() {
             if (exit->isPressed()){
                 device->closeDevice();
             } else if (play->isPressed()){
-                Game game(device, keyEvent, 10, 10);
+                //Game game(device, keyEvent, 50, 50);
+                Game game(device, keyEvent, "data/Maps/map.irr");
                 game.gameLoop();
                 device->getCursorControl()->setVisible(true);
             } else if (scoreBoard->isPressed()){
 
             } else if (levelEditor->isPressed()){
-
+                visibilityButons(false);
+                LevelEditor levelEditor(device, keyEvent);
+                levelEditor.gameLoop();
+                visibilityButons(true);
             } else if (credit->isPressed()){
 
             }
         }
     }
 }
+
+void Menu::visibilityButons(bool status) {
+    exit->setVisible(status);
+    play->setVisible(status);
+    scoreBoard->setVisible(status);
+    levelEditor->setVisible(status);
+    credit->setVisible(status);
+    background->setVisible(status);
+}
+
+

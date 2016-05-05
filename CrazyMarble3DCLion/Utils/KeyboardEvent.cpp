@@ -37,6 +37,7 @@ bool KeyboardEvent::OnEvent(const SEvent &event)
 
 // Keyboard checker
 bool KeyboardEvent::IsKeyDown(EKEY_CODE keyCode) const  {
+
     return keyPressedDown[keyCode];
 }
 
