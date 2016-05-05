@@ -26,7 +26,7 @@ Board::Board(ISceneManager* sceneManager, u16 size) {
     }
     startPoint = sceneManager->addEmptySceneNode();               // create object on screen
     startPoint->setName("start");
-    startPoint->setPosition(vector3df(225.0f,100.0f,425.0f));
+    startPoint->setPosition(vector3df(25.0f,0.0f,25.0f));
 }
 
 // load scene construct / start game
