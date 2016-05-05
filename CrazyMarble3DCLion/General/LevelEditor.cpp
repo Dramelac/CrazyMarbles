@@ -151,17 +151,16 @@ void LevelEditor::keyboardChecker() {
         lvlDown->setPressed(false);
     }
 
-    if (goToRight->isPressed() || keyevent->IsKeyDown(KEY_RIGHT)){
+    if (goToRight->isPressed() || keyevent->IsKeyDown(KEY_RIGHT, true)){
         move(vector3di(-1,0,0));
         goToRight->setPressed(false);
-    }else if (goToLeft->isPressed() || keyevent->IsKeyDown(KEY_LEFT)){
+    }else if (goToLeft->isPressed() || keyevent->IsKeyDown(KEY_LEFT, true)){
         move(vector3di(1,0,0));
         goToLeft->setPressed(false);
-    }else if (goToTop->isPressed()  || keyevent->IsKeyDown(KEY_UP)){
+    }else if (goToTop->isPressed()  || keyevent->IsKeyDown(KEY_UP, true)){
         move(vector3di(0,-1,0));
         goToTop->setPressed(false);
-
-    }else if (goToDown->isPressed() || keyevent->IsKeyDown(KEY_DOWN)){
+    }else if (goToDown->isPressed() || keyevent->IsKeyDown(KEY_DOWN, true)){
         move(vector3di(0,1,0));
         goToDown->setPressed(false);
     }
