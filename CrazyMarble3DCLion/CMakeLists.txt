@@ -37,7 +37,7 @@ file(
 
 
 #declaration de l'executable
-add_executable(CrazyMarble3DCLion ${SOURCE_FILES} GUI/NickMenu.cpp GUI/NickMenu.h)
+add_executable(CrazyMarble3DCLion ${SOURCE_FILES})
 
 
 #liaison du programme avec la bibliothèque
