@@ -18,9 +18,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 si
     goToLeft = gui->addButton(rect<s32>(100,640,220,760), 0, 102);
     goToTop = gui->addButton(rect<s32>(100,510,220,630), 0, 102);
     goToDown = gui->addButton(rect<s32>(230,640,350,760), 0, 102);
-
-
-
+    
     rightRotation = gui->addButton(rect<s32>(1700,530,1820,650), 0, 102, L"RR");
     leftRotation = gui->addButton(rect<s32>(1500,530,1620,650), 0, 102, L"LR");
     lvlUp = gui->addButton(rect<s32>(1635,400,1685,500), 0, 102, L"LU");
@@ -41,10 +39,12 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 si
     goToLeft->setUseAlphaChannel(true);
     goToLeft->setScaleImage(true);
     goToLeft->setDrawBorder(false);
+
     goToTop->setImage(driver->getTexture("data/GUI/arrow_to_top.png"));
     goToTop->setUseAlphaChannel(true);
     goToTop->setScaleImage(true);
     goToTop->setDrawBorder(false);
+
     goToDown->setImage(driver->getTexture("data/GUI/arrow_to_down.png"));
     goToDown->setUseAlphaChannel(true);
     goToDown->setScaleImage(true);
