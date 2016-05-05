@@ -37,6 +37,7 @@ public:
 	void updateCamera();
 
     void removePlayerNode();
+    void removeCameraNode();
 
 	void updateFOV(f32 x);
 };

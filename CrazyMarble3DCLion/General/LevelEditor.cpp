@@ -68,9 +68,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, u16 si
     // light everywhere
     sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));
 
-    fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), vector3df(0, 0, 0));
     //fixeCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
-    fixeCamera->setFarValue(15000);
     updateCamera();
 
 
@@ -224,15 +222,15 @@ void LevelEditor::move(vector3di change) {
 
 
 void LevelEditor::updateCamera() {
+
     vector3df cameraPos = vector3df();
     cameraPos.X = cursor.X * Cell::size;
     cameraPos.Z = cursor.Y * Cell::size;
     cameraPos.Y = (cursor.Z * -Cell::size) - 250;
     vector3df lookAt = vector3df(cameraPos);
+
     player->setPosition(lookAt);
-    cameraPos += vector3df(800.0f, 700.0f, 800.0f);
-    fixeCamera->setPosition(cameraPos);
-    fixeCamera->setTarget(lookAt);
+    player->updateCamera();
 }
 
 
@@ -274,6 +272,8 @@ void LevelEditor::setupSkyBox(u32 templateId) {
 
 void LevelEditor::save(path name) {
     player->removePlayerNode();
+    player->removeCameraNode();
+
     io::IWriteFile* file = io::createWriteFile(name, false);
     sceneManager->saveScene(file);
     std::string result = "data/Maps/";

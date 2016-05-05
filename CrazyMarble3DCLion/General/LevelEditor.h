@@ -25,7 +25,6 @@ private:
 
     Board* board;
     Player* player;
-    ICameraSceneNode* fixeCamera;
 
     ISceneNode* skyBox;
     u32 skyId;

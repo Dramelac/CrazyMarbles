@@ -59,6 +59,9 @@ Player::Player(ISceneManager *sceneManager) : Entities() {
     sphere_node->setPosition(vector3df(0,-250,0));
     sphere_node->setScale(vector3df(0.5,0.5,0.5));
     sphere_node->setMaterialTexture(0, TextureLoader::sphereRed);
+
+    fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), sphere_node->getPosition());
+    fixeCamera->setFarValue(15000);
 }
 
 void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
@@ -108,5 +111,11 @@ void Player::setPosition(vector3df pos) {
 void Player::removePlayerNode() {
     sphere_node->remove();
 }
+
+void Player::removeCameraNode() {
+    fixeCamera->remove();
+}
+
+
 
 
