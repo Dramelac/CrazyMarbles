@@ -6,13 +6,15 @@
 #define CRAZYMARBLE3DCLION_LEVELEDITOR_H
 
 #include <irrlicht.h>
+#include <string>
 #include "../Utils/KeyboardEvent.h"
 #include "../Plateau/Board.h"
 
 using namespace irr;
-using namespace irr::scene;
-using namespace irr::core;
-using namespace irr::video;
+using namespace scene;
+using namespace core;
+using namespace video;
+using namespace io;
 
 class LevelEditor {
 private:
@@ -63,7 +65,7 @@ public:
     void updateCamera();
     void applySetup();
 
-    void save();
+    void save(path name="map.irr");
 
     ~LevelEditor();
 };

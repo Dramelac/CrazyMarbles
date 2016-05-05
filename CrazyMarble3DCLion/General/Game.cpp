@@ -80,7 +80,8 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
     this->driver = this->device->getVideoDriver();                      // creation driver
     this->sceneManager = this->device->getSceneManager();               // creation scene manager
 
-    sceneManager->loadScene(pathMap);
+    IReadFile* map = createReadFile(pathMap);
+    sceneManager->loadScene(map);
 
     this->player = new Player("Test", 20, sceneManager);
 
