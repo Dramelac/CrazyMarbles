@@ -6,7 +6,8 @@
 #include "../Utils/TextureLoader.h"
 
 
-Player::Player(const std::string &name, int health, ISceneManager *sceneManager) : Entities(name, health), score(0) {
+Player::Player(ISceneManager *sceneManager, const std::string &name, int health)
+        : Entities(name, health), score(0) {
 
     // MODEL
 
@@ -30,6 +31,27 @@ Player::Player(const std::string &name, int health, ISceneManager *sceneManager)
     // fixeCamera->setFarValue(5000);
 
 }
+
+
+
+Player::Player(ISceneManager *sceneManager, const std::string &name, int health, Board *board)
+        : Entities(name, health), score(0) {
+
+    // MODEL
+
+    sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
+
+    sphere_node = sceneManager->addMeshSceneNode(sphereMesh);           // add object to screen
+
+    sphere_node->setPosition(board->getStartPoint());
+
+    fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), sphere_node->getPosition());
+
+
+}
+
+
+
 
 void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
 
@@ -70,3 +92,4 @@ void Player::updateFOV(f32 x) {
     fixeCamera->setFOV(temp + x);
     std::cout << "/ fov now : " << temp + x << endl;
 }
+

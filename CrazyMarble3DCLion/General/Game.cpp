@@ -25,7 +25,7 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
     //sceneManager->addSkyDomeSceneNode(driver->getTexture("data/../../irrlicht-1.8.3/media/skydome.jpg"),16,8,0.95f,2.0f);
 
 
-    this->player = new Player("Test", 20, sceneManager);
+    this->player = new Player(sceneManager, "Test", 20);
 
     this->board = new Board(x, y, sceneManager);
 
@@ -83,10 +83,9 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
     IReadFile* map = createReadFile(pathMap);
     sceneManager->loadScene(map);
 
-    this->player = new Player("Test", 20, sceneManager);
-
     this->board  = new Board(sceneManager);
 
+    this->player = new Player(sceneManager, "Test", 20, board);
 
     //sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
 

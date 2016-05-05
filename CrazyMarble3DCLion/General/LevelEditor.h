@@ -18,7 +18,7 @@ using namespace io;
 
 class LevelEditor {
 private:
-    Board board;
+    Board* board;
     IrrlichtDevice* device;
     IVideoDriver* driver;
     ISceneManager *sceneManager;
@@ -56,7 +56,7 @@ private:
 
 public:
 
-    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 size=50, bool day = true);
+    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, u16 size=50, bool day = true);
 
     void gameLoop();
     void keyboardChecker();

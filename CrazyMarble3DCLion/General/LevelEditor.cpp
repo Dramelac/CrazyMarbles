@@ -5,13 +5,15 @@
 #include <stdio.h>
 #include "LevelEditor.h"
 
-LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 size, bool day) :
-        device(device), keyevent(keyevent), play(true), board(50), cursor(vector3di(0, 0, 0)),
+LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, u16 size, bool day) :
+        device(device), keyevent(keyevent), play(true), cursor(vector3di(0, 0, 0)),
         currentType(0), currentRotation(vector3di(0, 0, 0)), size(size) {
 
     this->driver = this->device->getVideoDriver();                      // creation driver
     this->sceneManager = this->device->getSceneManager();               // creation scene manager
     gui = device->getGUIEnvironment();
+
+    board = new Board(sceneManager, size);
 
 
     goToRight = gui->addButton(rect<s32>(230,510,350,630), 0, 102);
@@ -84,7 +86,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 si
 
 
     // TEMP
-    board.setupCell(sceneManager, cursor);
+    board->setupCell(sceneManager, cursor);
 
 }
 
@@ -128,6 +130,10 @@ void LevelEditor::gameLoop() {
 void LevelEditor::keyboardChecker() {
 
     bool update = false;
+
+    if (keyevent->IsKeyDown(KEY_SPACE, true)){
+        board->setupStartPoint(cursor);
+    }
 
     if(rightRotation->isPressed() || keyevent->IsKeyDown(KEY_KEY_I, true)){
         update = true;
@@ -236,7 +242,7 @@ void LevelEditor::updateCamera() {
 
 
 void LevelEditor::applySetup() {
-    board.setupCell(sceneManager, cursor, currentType, currentRotation);
+    board->setupCell(sceneManager, cursor, currentType, currentRotation);
     updateCamera();
 }
 

@@ -4,6 +4,7 @@
 
 #include "Board.h"
 
+// debug construct
 Board::Board(unsigned int hauteur, unsigned int largeur, ISceneManager* sceneManager) : heightNumber(hauteur),
 																						widthNumber(largeur){
 	// init all Cell by default (to change with board loading)
@@ -14,8 +15,8 @@ Board::Board(unsigned int hauteur, unsigned int largeur, ISceneManager* sceneMan
     initAllCellPlace(sceneManager);
 }
 
-
-Board::Board(u16 size) {
+// Level Editor construct
+Board::Board(ISceneManager* sceneManager, u16 size) {
     heightNumber = size;
     widthNumber = size;
     // init all Cell by default (to change with board loading)
@@ -23,8 +24,24 @@ Board::Board(u16 size) {
     for (int i = 0; i<heightNumber; i++){
         board[i] = new Cell[widthNumber];
     }
+    startPoint = sceneManager->addEmptySceneNode();               // create object on screen
+    startPoint->setName("start");
+    startPoint->setPosition(vector3df(225.0f,100.0f,425.0f));
 }
 
+// load scene construct / start game
+Board::Board(ISceneManager* sceneManager): heightNumber(0), widthNumber(0) {
+    sceneManager->getSceneNodesFromType(scene::ESNT_ANY, nodes); // Find all nodes
+    startPoint = sceneManager->getSceneNodeFromName("start");
+}
+
+
+Board::~Board() {
+    for (int i = 0; i < heightNumber; i++){
+        delete[] board[i];
+    }
+    delete[] board;
+}
 
 void Board::initAllCellPlace(scene::ISceneManager *sceneManager) {
 	// setup all cell with model pos etc
@@ -35,14 +52,6 @@ void Board::initAllCellPlace(scene::ISceneManager *sceneManager) {
             board[row][column].setupBetaPlace(row, column, sceneManager);
 		}
 	}
-}
-
-int Board::getLargeur() const {
-	return widthNumber;
-}
-
-int Board::getHauteur() const {
-	return heightNumber;
 }
 
 
@@ -96,19 +105,23 @@ IMetaTriangleSelector *Board::getMapMetaSelectorFromNodes(ISceneManager *sceneMa
         {
             case scene::ESNT_CUBE:
             case scene::ESNT_ANIMATED_MESH:
+                // We use hitbox
                 selector = sceneManager->createTriangleSelectorFromBoundingBox(node);
                 break;
 
             case scene::ESNT_MESH:
             case scene::ESNT_SPHERE: // Derived from IMeshSceneNode
+                // Cast Node to MeshNode + getMesh / Node
                 selector = sceneManager->createTriangleSelector(((scene::IMeshSceneNode*)node)->getMesh(), node);
                 break;
 
             case scene::ESNT_TERRAIN:
+                // Cast Node to TerrainNode
                 selector = sceneManager->createTerrainTriangleSelector((scene::ITerrainSceneNode*)node);
                 break;
 
             case scene::ESNT_OCTREE:
+                // Cast Node to MeshNode + octree analysis
                 selector = sceneManager->createOctreeTriangleSelector(((scene::IMeshSceneNode*)node)->getMesh(), node);
                 break;
 
@@ -131,14 +144,18 @@ IMetaTriangleSelector *Board::getMapMetaSelectorFromNodes(ISceneManager *sceneMa
 }
 
 
-Board::~Board() {
-	for (int i = 0; i < heightNumber; i++){
-		delete[] board[i];
-	}
-	delete[] board;
+vector3df Board::getStartPoint() {
+    if (startPoint != nullptr){
+        return startPoint->getPosition();
+    } else {
+        return vector3df(25.0f,0.0f,25.0f);
+    }
 }
 
-Board::Board(ISceneManager* sceneManager) {
-    sceneManager->getSceneNodesFromType(scene::ESNT_ANY, nodes); // Find all nodes
+void Board::setupStartPoint(vector3di cursor) {
+    vector3df point(cursor.X*Cell::size,-cursor.Z*Cell::size,cursor.Y*Cell::size);
+    startPoint->setPosition(point);
 }
+
+
 
