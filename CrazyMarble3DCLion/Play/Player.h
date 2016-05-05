@@ -36,6 +36,8 @@ public:
 	void setPosition(vector3df pos);
 	void updateCamera();
 
+    void removePlayerNode();
+
 	void updateFOV(f32 x);
 };
 

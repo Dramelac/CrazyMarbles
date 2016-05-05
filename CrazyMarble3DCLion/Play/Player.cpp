@@ -105,5 +105,8 @@ void Player::setPosition(vector3df pos) {
     sphere_node->setPosition(pos);
 }
 
+void Player::removePlayerNode() {
+    sphere_node->remove();
+}
 
 

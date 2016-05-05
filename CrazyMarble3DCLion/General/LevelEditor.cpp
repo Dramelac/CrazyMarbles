@@ -248,6 +248,17 @@ void LevelEditor::applySetup() {
     updateCamera();
 }
 
+
+void LevelEditor::save(path name) {
+    player->removePlayerNode();
+    io::IWriteFile* file = io::createWriteFile(name, false);
+    sceneManager->saveScene(file);
+    std::string result = "data/Maps/";
+    result += name.c_str();
+    rename(name.c_str(), result.c_str());
+}
+
+
 LevelEditor::~LevelEditor() {
 
     goToRight->remove();
@@ -268,13 +279,7 @@ LevelEditor::~LevelEditor() {
 
     validate->remove();
 
-}
+    sceneManager->clear();
 
-void LevelEditor::save(path name) {
-    io::IWriteFile* file = io::createWriteFile(name, false);
-    sceneManager->saveScene(file);
-    std::string result = "data/Maps/";
-    result += name.c_str();
-    rename(name.c_str(), result.c_str());
 }
 
