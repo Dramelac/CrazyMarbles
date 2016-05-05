@@ -18,23 +18,23 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
 
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
 
-    play = gui->addButton(rect<s32>(657,400,1263,500), 0, 102, L"");
+    play = gui->addButton(rect<s32>(657,400,1263,545), 0, 102, L"");
     play->setImage(driver->getTexture("data/GUI/bouton_main_menu_play_selected.png"));
     play->setPressedImage(driver->getTexture("data/GUI/bouton_main_menu_play_pressed.png"));
     play->setDrawBorder(false);
 
-    scoreBoard = gui->addButton(rect<s32>(657,550,1263,650), 0, 103, L"");
+    scoreBoard = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"");
     scoreBoard->setImage(driver->getTexture("data/GUI/bouton_main_menu_scoreboard_selected.png"));
     scoreBoard->setPressedImage(driver->getTexture("data/GUI/bouton_main_menu_scoreboard_pressed.png"));
     scoreBoard->setDrawBorder(false);
 
-    levelEditor = gui->addButton(rect<s32>(657, 700, 1263, 800),0,104, L"");
+    levelEditor = gui->addButton(rect<s32>(657, 700, 1263, 845),0,104, L"");
     levelEditor->setImage(driver->getTexture("data/GUI/bouton_main_menu_level_editor_selected.png"));
     levelEditor->setPressedImage(driver->getTexture("data/GUI/bouton_main_menu_level_editor_pressed.png"));
     levelEditor->setDrawBorder(false);
 
-    credit = gui->addButton(rect<s32>(657, 850, 1263, 950),0,104, L"");
-    credit->setImage(driver->getTexture("data/GUI/bouton_main_menu_credits_selected.png"));
+    credit = gui->addButton(rect<s32>(657, 850, 1263, 995),0,104, L"");
+    credit->setImage(driver->getTexture("data/GUI/bouton_main_menu_credits_unselected.png"));
     credit->setPressedImage(driver->getTexture("data/GUI/bouton_main_menu_credits_pressed.png"));
     credit->setDrawBorder(false);
     //play->setScaleImage(true);
