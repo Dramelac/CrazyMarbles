@@ -12,10 +12,12 @@ public:
 
     static ITexture* tile;
     static ITexture* sphere;
+    static ITexture* sphereRed;
 
     static IAnimatedMesh* cellMesh;
     static IAnimatedMesh* cell_pente_Mesh;
     static IAnimatedMesh* cell_angle_Mesh;
+    static IAnimatedMesh* cell_angle_int_Mesh;
 	static IAnimatedMesh* sphereMesh;
 };
 

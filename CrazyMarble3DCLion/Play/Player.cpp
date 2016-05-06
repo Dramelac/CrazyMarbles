@@ -6,7 +6,8 @@
 #include "../Utils/TextureLoader.h"
 
 
-Player::Player(const std::string &name, int health, ISceneManager *sceneManager) : Entities(name, health), score(0) {
+Player::Player(ISceneManager *sceneManager, const std::string &name, int health)
+        : Entities(name, health), score(0) {
 
     // MODEL
 
@@ -14,7 +15,7 @@ Player::Player(const std::string &name, int health, ISceneManager *sceneManager)
 
     sphere_node = sceneManager->addMeshSceneNode(sphereMesh);           // add object to screen
     //sphere_node->setScale(vector3df(1.0f,1.0f,1.0f));
-    sphere_node->setPosition(vector3df(25.0f,300.0f,25.0f));        // set init player pos (can be change if need)
+    sphere_node->setPosition(vector3df(25.0f,0.0f,25.0f));        // set init player pos (can be change if need)
     //sphere_node->setPosition(vector3df(5*150.0f+50,300.0f,430.0f));
 
     // we used default texture with model : sphere_c.png
@@ -31,15 +32,49 @@ Player::Player(const std::string &name, int health, ISceneManager *sceneManager)
 
 }
 
+
+Player::Player(ISceneManager *sceneManager, const std::string &name, int health, Board *board)
+        : Entities(name, health), score(0) {
+
+    // MODEL
+
+    sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
+
+    sphere_node = sceneManager->addMeshSceneNode(sphereMesh);           // add object to screen
+
+    sphere_node->setPosition(board->getStartPoint());
+
+    fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), sphere_node->getPosition());
+
+
+}
+
+
+Player::Player(ISceneManager *sceneManager) : Entities() {
+
+    sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
+
+    sphere_node = sceneManager->addMeshSceneNode(sphereMesh);           // add object to screen
+
+    sphere_node->setPosition(vector3df(0,-250,0));
+    sphere_node->setScale(vector3df(0.5,0.5,0.5));
+    sphere_node->setMaterialTexture(0, TextureLoader::sphereRed);
+
+    fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), sphere_node->getPosition());
+    fixeCamera->setFarValue(15000);
+}
+
 void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
 
     // Animation collision
 
+    vector3df hitbox = sphere_node->getBoundingBox().MaxEdge;
+
     ISceneNodeAnimatorCollisionResponse* anim = sceneManager->createCollisionResponseAnimator(
             metaSelector, // Map collision
             sphere_node,  // object player to detect
-            vector3df(1.0f,1.0f,1.0f), // hitbox
-            vector3df(5, -15, 5)  // gravity vector
+            hitbox, // hitbox
+            vector3df(0, -10, 0)  // gravity vector
     );
     sphere_node->addAnimator(anim);             // apply gravity / collision to player object
     anim->drop();                               // drop temp anim
@@ -53,7 +88,7 @@ void Player::updateCamera() {
     cameraPos += vector3df(800.0f, 700.0f, 800.0f);
     fixeCamera->setPosition(cameraPos);
     fixeCamera->setTarget(sphere_node->getPosition());
-
+    //fixeCamera->setFarValue(5000);
 }
 
 
@@ -68,3 +103,19 @@ void Player::updateFOV(f32 x) {
     fixeCamera->setFOV(temp + x);
     std::cout << "/ fov now : " << temp + x << endl;
 }
+
+void Player::setPosition(vector3df pos) {
+    sphere_node->setPosition(pos);
+}
+
+void Player::removePlayerNode() {
+    sphere_node->remove();
+}
+
+void Player::removeCameraNode() {
+    fixeCamera->remove();
+}
+
+
+
+

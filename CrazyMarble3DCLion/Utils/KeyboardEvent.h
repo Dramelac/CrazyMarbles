@@ -19,7 +19,7 @@ private:
 public :
 
     virtual bool OnEvent(const SEvent& event);
-    virtual bool IsKeyDown(EKEY_CODE keyCode) const;
+    virtual bool IsKeyDown(EKEY_CODE keyCode, bool loop=false);
     KeyboardEvent();
 
 
