@@ -2,7 +2,6 @@
 // Created by mathieu on 23/02/16.
 //
 
-#include <iostream>
 #include "Board.h"
 #include "../General/LevelEditor.h"
 
@@ -60,10 +59,6 @@ Board::~Board() {
         delete[] board[i];
     }
     delete[] board;
-
-    for (u32 i=0; i < nodes.size(); ++i) {
-        nodes[i]->remove();
-    }
 }
 
 void Board::initAllCellPlace(scene::ISceneManager *sceneManager) {

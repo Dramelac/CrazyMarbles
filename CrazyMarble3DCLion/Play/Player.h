@@ -30,14 +30,12 @@ public:
 	Player(ISceneManager *sceneManager, const std::string &name, int health);
 	Player(ISceneManager *sceneManager, const std::string &name, int health, Board* board);
     Player(ISceneManager *sceneManager);
+    ~Player();
 
     void enableCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
 	void updatePosition(vector3df vec);
 	void setPosition(vector3df pos);
 	void updateCamera();
-
-    void removePlayerNode();
-    void removeCameraNode();
 
 	void updateFOV(f32 x);
 };

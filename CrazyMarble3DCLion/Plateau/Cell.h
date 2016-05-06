@@ -21,6 +21,7 @@ private:
 
 public:
     Cell();
+    virtual ~Cell();
 
     void setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager);
 

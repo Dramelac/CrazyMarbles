@@ -271,8 +271,9 @@ void LevelEditor::setupSkyBox(s32 templateId) {
 
 
 void LevelEditor::save(path name) {
-    player->removePlayerNode();
-    player->removeCameraNode();
+    //player->removePlayerNode();
+    //player->removeCameraNode();
+    delete player;
 
     io::IWriteFile* file = io::createWriteFile(name, false);
     sceneManager->saveScene(file);
@@ -283,6 +284,7 @@ void LevelEditor::save(path name) {
 
 
 LevelEditor::~LevelEditor() {
+    delete board;
 
     goToRight->remove();
     goToLeft->remove();

@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "../Utils/TextureLoader.h"
 
-
+// Debug player
 Player::Player(ISceneManager *sceneManager, const std::string &name, int health)
         : Entities(name, health), score(0) {
 
@@ -25,14 +25,16 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health)
 
     // Camera
 
-    fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), sphere_node->getPosition());
+    fixeCamera = sceneManager->addCameraSceneNode(sphere_node,
+                                                  vector3df(800.0f, 700.0f, 800.0f),
+                                                  sphere_node->getPosition());
 
     // Render distance
     // fixeCamera->setFarValue(5000);
 
 }
 
-
+// Start new game
 Player::Player(ISceneManager *sceneManager, const std::string &name, int health, Board *board)
         : Entities(name, health), score(0) {
 
@@ -41,15 +43,17 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health,
     sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
 
     sphere_node = sceneManager->addMeshSceneNode(sphereMesh);           // add object to screen
-
     sphere_node->setPosition(board->getStartPoint());
+    sphere_node->setID(10);
 
-    fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), sphere_node->getPosition());
+    fixeCamera = sceneManager->addCameraSceneNode(sphere_node,
+                                                  vector3df(800.0f, 700.0f, 800.0f),
+                                                  sphere_node->getPosition());
 
 
 }
 
-
+// player Level Editor
 Player::Player(ISceneManager *sceneManager) : Entities() {
 
     sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
@@ -60,9 +64,18 @@ Player::Player(ISceneManager *sceneManager) : Entities() {
     sphere_node->setScale(vector3df(0.5,0.5,0.5));
     sphere_node->setMaterialTexture(0, TextureLoader::sphereRed);
 
-    fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), sphere_node->getPosition());
+    fixeCamera = sceneManager->addCameraSceneNode(sphere_node,
+                                                  vector3df(1600.0f, 1400.0f, 1600.0f),
+                                                  sphere_node->getPosition());
     fixeCamera->setFarValue(15000);
 }
+
+
+Player::~Player() {
+    sphere_node->remove();
+    fixeCamera->remove();
+}
+
 
 void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
 
@@ -83,12 +96,7 @@ void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager 
 
 
 void Player::updateCamera() {
-
-    vector3df cameraPos = sphere_node->getPosition();
-    cameraPos += vector3df(800.0f, 700.0f, 800.0f);
-    fixeCamera->setPosition(cameraPos);
     fixeCamera->setTarget(sphere_node->getPosition());
-    //fixeCamera->setFarValue(5000);
 }
 
 
@@ -107,15 +115,4 @@ void Player::updateFOV(f32 x) {
 void Player::setPosition(vector3df pos) {
     sphere_node->setPosition(pos);
 }
-
-void Player::removePlayerNode() {
-    sphere_node->remove();
-}
-
-void Player::removeCameraNode() {
-    fixeCamera->remove();
-}
-
-
-
 

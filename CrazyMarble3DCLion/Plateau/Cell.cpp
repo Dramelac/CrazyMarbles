@@ -110,4 +110,8 @@ s32 Cell::getCurrentLevel(s32 cursorZ) {
 }
 
 
-
+Cell::~Cell() {
+    if (isSet){
+        cell_node->remove();
+    }
+}
