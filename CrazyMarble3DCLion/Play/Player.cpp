@@ -7,7 +7,7 @@
 
 // Debug player
 Player::Player(ISceneManager *sceneManager, const std::string &name, int health)
-        : Entities(name, health), score(0), fallDistance(0) {
+        : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
 
     // MODEL
 
@@ -36,7 +36,7 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health)
 
 // Start new game
 Player::Player(ISceneManager *sceneManager, const std::string &name, int health, Board *board)
-        : Entities(name, health), score(0), fallDistance(0) {
+        : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
 
     // MODEL
 
@@ -54,7 +54,7 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health,
 }
 
 // player Level Editor
-Player::Player(ISceneManager *sceneManager) : Entities(), fallDistance(0) {
+Player::Player(ISceneManager *sceneManager) : Entities(), fallDistance(0), finishTime(0) {
 
     sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
 
@@ -149,9 +149,15 @@ void Player::addFinishLineCollision(IMetaTriangleSelector *metaSelector, ISceneM
 }
 
 bool Player::onCollision(const ISceneNodeAnimatorCollisionResponse &animator) {
-    std::cout << "finish line !!" << std::endl;
+    finishTime++;
     return false;
 }
+
+bool Player::checkFinish() {
+    return finishTime > 20;
+}
+
+
 
 
 

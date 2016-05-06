@@ -26,6 +26,7 @@ private:
     ISceneNodeAnimatorCollisionResponse* animatorCollisionResponse;
     ISceneNodeAnimatorCollisionResponse* animatorFinishCollisionResponse;
 
+    u32 finishTime;
     u32 fallDistance;
     vector3df lastPos;
 
@@ -49,6 +50,8 @@ public:
 	void updateFOV(f32 x);
 
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
+    bool checkFinish();
+
 };
 
 

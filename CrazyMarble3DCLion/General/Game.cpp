@@ -147,7 +147,7 @@ void Game::gameLoop() {
                 play = false;
             }
 
-            if (!play){
+            if (!play || player->checkFinish()){
                 break;
             }
 
