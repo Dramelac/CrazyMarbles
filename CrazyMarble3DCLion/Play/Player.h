@@ -16,7 +16,7 @@ using namespace irr;
 using namespace scene;
 using namespace core;
 
-class Player : Entities {
+class Player : public Entities, public ICollisionCallback {
 private:
 	IAnimatedMesh* sphereMesh;
 	IMeshSceneNode* sphere_node;
@@ -24,6 +24,7 @@ private:
 	ICameraSceneNode* fixeCamera;
 
     ISceneNodeAnimatorCollisionResponse* animatorCollisionResponse;
+    ISceneNodeAnimatorCollisionResponse* animatorFinishCollisionResponse;
 
     u32 fallDistance;
     vector3df lastPos;
@@ -38,6 +39,7 @@ public:
     ~Player();
 
     void enableCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
+    void addFinishLineCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
 	bool isFall();
 
     void updatePosition(vector3df vec);
@@ -45,6 +47,8 @@ public:
 	void updateCamera();
 
 	void updateFOV(f32 x);
+
+    virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
 };
 
 

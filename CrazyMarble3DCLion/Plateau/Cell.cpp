@@ -121,14 +121,16 @@ Cell::~Cell() {
     }
 }
 
-ITriangleSelector* Cell::getSelector(ISceneManager *sceneManager) {
+ITriangleSelector* Cell::getSelector(ISceneManager *sceneManager, bool filterFinish) {
     if (not isSet){
         return nullptr;
-    } else {
+    } else if (not filterFinish || isFinisCell){
         // create Selector
         ITriangleSelector* selector = sceneManager->createTriangleSelector(cell_node->getMesh(), cell_node);
         cell_node->setTriangleSelector(selector);                    // set to the node the new selector
         return selector;
+    } else {
+        return nullptr;
     }
 }
 

@@ -32,7 +32,7 @@ public:
                s16 type=0, vector3di rotation=vector3di(0, 0, 0));
 
 
-    ITriangleSelector* getSelector(ISceneManager *sceneManager);
+    ITriangleSelector* getSelector(ISceneManager *sceneManager, bool filterFinish = false);
 
     s32 getCurrentLevel(s32 cursorZ);
     void switchFinishType();

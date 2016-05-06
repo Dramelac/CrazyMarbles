@@ -4,6 +4,7 @@
 
 #include "Game.h"
 
+// Debug construct
 Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
            unsigned int x, unsigned int y, bool day) :
         play(true){
@@ -70,7 +71,7 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
     speed = 250;
 }
 
-
+// Play select Map
 Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
         device(inDevice), keyevent(keyevent), play(true) {
 
@@ -97,6 +98,10 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
     // Apply gravity to player :
     player->enableCollision(metaSelector, sceneManager);                    // apply collision map to player
     metaSelector->drop();
+
+    IMetaTriangleSelector* metaFinishSelector = board->getMapMetaSelector(sceneManager, true);
+    player->addFinishLineCollision(metaFinishSelector, sceneManager);
+    metaFinishSelector->drop();
 
     speed = 250;
 

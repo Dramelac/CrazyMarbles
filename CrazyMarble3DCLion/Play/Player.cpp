@@ -132,5 +132,29 @@ bool Player::isFall() {
     return false;
 }
 
+void Player::addFinishLineCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
+
+    vector3df hitbox = sphere_node->getBoundingBox().MaxEdge;
+    hitbox += vector3df(0.1,0.1,0.1);
+
+    animatorFinishCollisionResponse = sceneManager->createCollisionResponseAnimator(
+            metaSelector, // Map collision
+            sphere_node,  // object player to detect
+            hitbox, // hitbox
+            vector3df(0, 0, 0)  // gravity vector
+    );
+    sphere_node->addAnimator(animatorFinishCollisionResponse); // apply collision to player object
+    animatorFinishCollisionResponse->setCollisionCallback(this);
+
+}
+
+bool Player::onCollision(const ISceneNodeAnimatorCollisionResponse &animator) {
+    std::cout << "finish line !!" << std::endl;
+    return false;
+}
+
+
+
+
 
 

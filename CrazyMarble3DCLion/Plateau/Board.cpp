@@ -79,7 +79,7 @@ void Board::setupCell(ISceneManager *sceneManager, vector3di cursor, s16 type, v
 }
 
 
-IMetaTriangleSelector *Board::getMapMetaSelector(ISceneManager *sceneManager) {
+IMetaTriangleSelector *Board::getMapMetaSelector(ISceneManager *sceneManager, bool filterFinish) {
 
 	// plateau de selector collision
 	scene::IMetaTriangleSelector* metaSelector = sceneManager->createMetaTriangleSelector();
@@ -98,7 +98,7 @@ IMetaTriangleSelector *Board::getMapMetaSelector(ISceneManager *sceneManager) {
 
 			temp_node->setTriangleSelector(selector);                                       // set to the node the new selector
 			*/
-            ITriangleSelector *selector = board[row][column].getSelector(sceneManager);
+            ITriangleSelector *selector = board[row][column].getSelector(sceneManager, filterFinish);
             if (selector == nullptr) continue;
 
 			metaSelector->addTriangleSelector(selector);                                    // update metaSelectors

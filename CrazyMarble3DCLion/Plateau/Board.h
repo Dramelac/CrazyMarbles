@@ -31,7 +31,7 @@ public:
     void setupStartPoint(vector3di cursor);
     void setupFinishCell(vector3di cursor);
 
-	IMetaTriangleSelector* getMapMetaSelector(ISceneManager* sceneManager);
+	IMetaTriangleSelector* getMapMetaSelector(ISceneManager* sceneManager, bool filterFinish = false);
 
     vector3df getStartPoint();
     s32 getCurrentLevel(vector3di cursor);
