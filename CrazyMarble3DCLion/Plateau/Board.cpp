@@ -32,7 +32,7 @@ Board::Board(ISceneManager* sceneManager, u16 size) {
 
 // load scene construct / start game
 Board::Board(ISceneManager* sceneManager): heightNumber(LevelEditor::size), widthNumber(LevelEditor::size) {
-    core::array<scene::ISceneNode *> nodes;
+    array<ISceneNode *> nodes;
     sceneManager->getSceneNodesFromType(scene::ESNT_ANY, nodes); // Find all nodes
     startPoint = sceneManager->getSceneNodeFromName("start");
 
