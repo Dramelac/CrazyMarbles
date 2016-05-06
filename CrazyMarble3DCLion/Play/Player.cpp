@@ -7,7 +7,7 @@
 
 // Debug player
 Player::Player(ISceneManager *sceneManager, const std::string &name, int health)
-        : Entities(name, health), score(0) {
+        : Entities(name, health), score(0), fallDistance(0) {
 
     // MODEL
 
@@ -36,7 +36,7 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health)
 
 // Start new game
 Player::Player(ISceneManager *sceneManager, const std::string &name, int health, Board *board)
-        : Entities(name, health), score(0) {
+        : Entities(name, health), score(0), fallDistance(0) {
 
     // MODEL
 
@@ -54,7 +54,7 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health,
 }
 
 // player Level Editor
-Player::Player(ISceneManager *sceneManager) : Entities() {
+Player::Player(ISceneManager *sceneManager) : Entities(), fallDistance(0) {
 
     sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
 
@@ -115,4 +115,21 @@ void Player::updateFOV(f32 x) {
 void Player::setPosition(vector3df pos) {
     sphere_node->setPosition(pos);
 }
+
+bool Player::isFall() {
+    if (animatorCollisionResponse->isFalling()){
+        fallDistance++;
+        std::cout << fallDistance << std::endl;
+        if (fallDistance >= 70) {
+            sphere_node->setPosition(lastPos);
+            return false;
+        }
+    } else {
+        lastPos = animatorCollisionResponse->getCollisionResultPosition();
+        fallDistance = 0;
+    }
+    return false;
+}
+
+
 

@@ -25,6 +25,9 @@ private:
 
     ISceneNodeAnimatorCollisionResponse* animatorCollisionResponse;
 
+    u32 fallDistance;
+    vector3df lastPos;
+
 	int score;
 
 public:
@@ -35,7 +38,9 @@ public:
     ~Player();
 
     void enableCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
-	void updatePosition(vector3df vec);
+	bool isFall();
+
+    void updatePosition(vector3df vec);
 	void setPosition(vector3df pos);
 	void updateCamera();
 

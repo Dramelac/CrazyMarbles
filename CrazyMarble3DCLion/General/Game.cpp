@@ -138,6 +138,10 @@ void Game::gameLoop() {
             then = now;
             keyboardChecker(deltaTime);
 
+            if (player->isFall()){
+                play = false;
+            }
+
             if (!play){
                 break;
             }
