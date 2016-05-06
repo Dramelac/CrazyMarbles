@@ -143,10 +143,6 @@ void LevelEditor::keyboardChecker() {
         cursor.Z += 1;
         lvlDown->setPressed(false);
     }
-    /* else if (lvlCurrent->isPressed() || keyEvent->IsKeyDown(KEY_KEY_L, true)){
-        cursor.Z = board->getCurrentLevel(cursor);
-        updateCamera();
-    }*/
 
     if (goToRight->isPressed() || keyEvent->IsKeyDown(KEY_RIGHT, true)){
         move(vector3di(-1,0,0));
@@ -179,7 +175,7 @@ void LevelEditor::keyboardChecker() {
         update = true;
         currentType = 3;
         cellAngleInt->setPressed(false);
-    }else if (cellEmpty->isPressed() || keyEvent->IsKeyDown(KEY_KEY_T, true)){
+    }else if (cellEmpty->isPressed() || keyEvent->IsKeyDown(KEY_BACK, true)){
         update = true;
         currentType = 4;
         cellEmpty->setPressed(false);
@@ -189,7 +185,7 @@ void LevelEditor::keyboardChecker() {
         applySetup();
     }
 
-    if(validate->isPressed() || keyEvent->IsKeyDown(KEY_RETURN, true)){
+    if(validate->isPressed()){
         save();
         play = false;
     }
@@ -295,7 +291,6 @@ LevelEditor::~LevelEditor() {
 
     rightRotation->remove();
     leftRotation->remove();
-    //lvlCurrent->remove();
     lvlUp->remove();
     lvlDown->remove();
 
@@ -325,7 +320,6 @@ void LevelEditor::setupGUI() {
     rightRotation = gui->addButton(rect<s32>(1700,530,1820,650), 0, 102, L"O");
     leftRotation = gui->addButton(rect<s32>(1500,530,1620,650), 0, 102, L"I");
     lvlUp = gui->addButton(rect<s32>(1635,400,1685,500), 0, 102, L"P");
-    //lvlCurrent = gui->addButton(rect<s32>(1635,560,1685,620), 0, 102, L"L");
     lvlDown = gui->addButton(rect<s32>(1635,680,1685,780), 0, 102, L"M");
 
     cellEmpty = gui->addButton(rect<s32>(760,880,840,1080), 0, 102, L"EMPTY");
@@ -372,11 +366,6 @@ void LevelEditor::setupGUI() {
     lvlDown->setUseAlphaChannel(true);
     lvlDown->setScaleImage(true);
     lvlDown->setDrawBorder(false);
-
-    /*lvlCurrent->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/rond.png"));
-    lvlCurrent->setUseAlphaChannel(true);
-    lvlCurrent->setScaleImage(true);
-    lvlCurrent->setDrawBorder(false);*/
 
     leftRotation->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/rotation_left.png"));
     leftRotation->setUseAlphaChannel(true);
