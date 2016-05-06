@@ -329,25 +329,35 @@ void LevelEditor::setupGUI() {
     cellAngleInt = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"C4");
 
 
-    goToRight->setImage(driver->getTexture("data/GUI/arrow_to_right.png"));
+    goToRight->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/arrow_to_right.png"));
     goToRight->setUseAlphaChannel(true);
     goToRight->setScaleImage(true);
     //goToRight->setPressedImage(driver->getTexture("data/GUI/play_jaune_01.png"));
     goToRight->setDrawBorder(false);
-    goToLeft->setImage(driver->getTexture("data/GUI/arrow_to_left.png"));
+    goToLeft->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/arrow_to_left.png"));
     goToLeft->setUseAlphaChannel(true);
     goToLeft->setScaleImage(true);
     goToLeft->setDrawBorder(false);
 
-    goToTop->setImage(driver->getTexture("data/GUI/arrow_to_top.png"));
+    goToTop->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/arrow_to_top.png"));
     goToTop->setUseAlphaChannel(true);
     goToTop->setScaleImage(true);
     goToTop->setDrawBorder(false);
 
-    goToDown->setImage(driver->getTexture("data/GUI/arrow_to_down.png"));
+    goToDown->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/arrow_to_down.png"));
     goToDown->setUseAlphaChannel(true);
     goToDown->setScaleImage(true);
     goToDown->setDrawBorder(false);
+
+
+    cellFlat->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell.png"));
+    cellFlat->setScaleImage();
+    cellPente->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_pente.png"));
+    cellPente->setScaleImage();
+    cellAngle->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_angle.png"));
+    cellAngle->setScaleImage();
+    cellAngleInt->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_angle_int.png"));
+    cellAngleInt->setScaleImage();
 
     validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Valider");
 }
