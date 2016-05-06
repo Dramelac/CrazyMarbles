@@ -2,66 +2,72 @@
 // Created by mathieu on 03/05/16.
 //
 
-#include <iostream>
+#include <stdio.h>
 #include "LevelEditor.h"
 
-LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 size, bool day) :
-        device(device), keyevent(keyevent), play(true), board(50), cursor(vector3di(0, 0, 0)),
-        currentType(0), currentRotation(vector3di(0, 0, 0)), size(size) {
+const u16 LevelEditor::size = 50;
+
+LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent) :
+        device(device), keyEvent(keyevent), play(true), cursor(vector3di(0, 0, 0)),
+        currentType(0), currentRotation(vector3di(0, 0, 0)) {
 
     this->driver = this->device->getVideoDriver();                      // creation driver
     this->sceneManager = this->device->getSceneManager();               // creation scene manager
     gui = device->getGUIEnvironment();
 
+    board = new Board(sceneManager, size);
+    player = new Player(sceneManager);
 
-    goToRight = gui->addButton(rect<s32>(300,600,420,650), 0, 102, L"GTR");
-    goToLeft = gui->addButton(rect<s32>(100,600,220,650), 0, 102, L"GTL");
-    goToTop = gui->addButton(rect<s32>(235,465,285,590), 0, 102, L"GTT");
-    goToDown = gui->addButton(rect<s32>(235,660,285,785), 0, 102, L"GTD");
+    setupGUI();
 
-    rightRotation = gui->addButton(rect<s32>(1700,530,1820,650), 0, 102, L"RR");
-    leftRotation = gui->addButton(rect<s32>(1500,530,1620,650), 0, 102, L"LR");
-    lvlUp = gui->addButton(rect<s32>(1635,400,1685,500), 0, 102, L"LU");
-    lvlDown = gui->addButton(rect<s32>(1635,680,1685,780), 0, 102, L"LD");
-
-    cellFlat = gui->addButton(rect<s32>(840,880,920,1080), 0, 102, L"C1");
-    cellPente = gui->addButton(rect<s32>(920,880,1000,1080), 0, 102, L"C2");
-    cellAngle = gui->addButton(rect<s32>(1000,880,1080,1080), 0, 102, L"C3");
-    cellAngleInt = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"C4");
-
-    validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Valider");
-
-
-    // OPTIONAL
-    if (day){
-        sceneManager->addSkyBoxSceneNode(
-                driver->getTexture("data/skybox/day/top.png"),
-                driver->getTexture("data/skybox/day/bottom.png"),
-                driver->getTexture("data/skybox/day/front.png"),
-                driver->getTexture("data/skybox/day/back.png"),
-                driver->getTexture("data/skybox/day/left.png"),
-                driver->getTexture("data/skybox/day/right.png"));
-    } else {
-        sceneManager->addSkyBoxSceneNode(
-                driver->getTexture("data/skybox/night/top.png"),
-                driver->getTexture("data/skybox/night/bottom.png"),
-                driver->getTexture("data/skybox/night/front.png"),
-                driver->getTexture("data/skybox/night/back.png"),
-                driver->getTexture("data/skybox/night/left.png"),
-                driver->getTexture("data/skybox/night/right.png"));
-    }
+    skyBox = sceneManager->addSkyBoxSceneNode(
+            driver->getTexture("data/skybox/day/top.png"),
+            driver->getTexture("data/skybox/day/bottom.png"),
+            driver->getTexture("data/skybox/day/front.png"),
+            driver->getTexture("data/skybox/day/back.png"),
+            driver->getTexture("data/skybox/day/left.png"),
+            driver->getTexture("data/skybox/day/right.png"));
+    skyBox->setID(80);
+    skyBox->setName("skybox");
+    skyId = 0;
 
     // light everywhere
     sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));
 
-    //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
-    fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), vector3df(0, 0, 0));
-    fixeCamera->setFarValue(15000);
+    //fixeCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
     updateCamera();
 
 
     // TEMP
-    board.setupCell(sceneManager, cursor);
+    board->setupCell(sceneManager, cursor);
+
+}
+
+
+LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path pathMap)
+        : device(device), keyEvent(keyEvent), play(true), cursor(vector3di(0, 0, 0)),
+          currentType(0), currentRotation(vector3di(0, 0, 0)){
+
+    this->driver = this->device->getVideoDriver();                      // creation driver
+    this->sceneManager = this->device->getSceneManager();               // creation scene manager
+    gui = device->getGUIEnvironment();
+
+    IReadFile* map = createReadFile(pathMap);
+    sceneManager->loadScene(map);
+
+    board = new Board(sceneManager);
+    player = new Player(sceneManager);
+
+    setupGUI();
+
+    skyBox = sceneManager->getSceneNodeFromName("skybox");
+    skyId = skyBox->getID() - 80;
+
+    // light everywhere
+    sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));
+
+    //fixeCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
+    updateCamera();
 
 }
 
@@ -107,47 +113,76 @@ void LevelEditor::keyboardChecker() {
 
     bool update = false;
 
-    if(rightRotation->isPressed()){
-        update = true;
-        currentRotation.Y += 90;
-        currentRotation.Y %= 360;
-    }else if (leftRotation->isPressed()){
+    if (keyEvent->IsKeyDown(KEY_SPACE, true)){
+        board->setupStartPoint(cursor);
+    }
+
+    if (keyEvent->IsKeyDown(KEY_KEY_S, true)){
+        skyId = (skyId + 1) % 3;
+        setupSkyBox(skyId);
+    }
+
+    if(rightRotation->isPressed() || keyEvent->IsKeyDown(KEY_KEY_I, true)){
         update = true;
         currentRotation.Y -= 90;
         currentRotation.Y %= 360;
+        rightRotation->setPressed(false);
+    }else if (leftRotation->isPressed() || keyEvent->IsKeyDown(KEY_KEY_O, true)){
+        update = true;
+        currentRotation.Y += 90;
+        currentRotation.Y %= 360;
+        leftRotation->setPressed(false);
     }
 
-    if (lvlUp->isPressed()){
+    if (lvlUp->isPressed() || keyEvent->IsKeyDown(KEY_KEY_P, true)){
         update = true;
         cursor.Z -= 1;
-    }else if (lvlDown->isPressed()){
+        lvlUp->setPressed(false);
+    }else if (lvlDown->isPressed() || keyEvent->IsKeyDown(KEY_KEY_M, true)){
         update = true;
         cursor.Z += 1;
+        lvlDown->setPressed(false);
     }
 
-    if (goToRight->isPressed()){
+    if (goToRight->isPressed() || keyEvent->IsKeyDown(KEY_RIGHT, true)){
         move(vector3di(-1,0,0));
-    }else if (goToLeft->isPressed()){
+        goToRight->setPressed(false);
+    }else if (goToLeft->isPressed() || keyEvent->IsKeyDown(KEY_LEFT, true)){
         move(vector3di(1,0,0));
-    }else if (goToTop->isPressed()){
+        goToLeft->setPressed(false);
+    }else if (goToTop->isPressed()  || keyEvent->IsKeyDown(KEY_UP, true)){
         move(vector3di(0,-1,0));
-    }else if (goToDown->isPressed()){
+        goToTop->setPressed(false);
+    }else if (goToDown->isPressed() || keyEvent->IsKeyDown(KEY_DOWN, true)){
         move(vector3di(0,1,0));
+        goToDown->setPressed(false);
     }
 
 
-    if (cellFlat->isPressed()){
+    if (cellFlat->isPressed() || keyEvent->IsKeyDown(KEY_KEY_A, true)){
         update = true;
         currentType = 0;
-    }else if (cellPente->isPressed()){
+        cellFlat->setPressed(false);
+    }else if (cellPente->isPressed() || keyEvent->IsKeyDown(KEY_KEY_Z, true)){
         update = true;
         currentType = 1;
-    } else if (cellAngle->isPressed()) {
+        cellPente->setPressed(false);
+    } else if (cellAngle->isPressed() || keyEvent->IsKeyDown(KEY_KEY_E, true)) {
         update = true;
         currentType = 2;
-    }else if (cellAngleInt->isPressed()){
+        cellAngle->setPressed(false);
+    }else if (cellAngleInt->isPressed() || keyEvent->IsKeyDown(KEY_KEY_R, true)){
         update = true;
         currentType = 3;
+        cellAngleInt->setPressed(false);
+    }else if (cellEmpty->isPressed() || keyEvent->IsKeyDown(KEY_BACK, true)){
+        update = true;
+        currentType = 4;
+        cellEmpty->setPressed(false);
+    }
+
+    if (update){
+        applySetup();
     }
 
     if(validate->isPressed()){
@@ -155,12 +190,8 @@ void LevelEditor::keyboardChecker() {
         play = false;
     }
 
-    if (update){
-        applySetup();
-    }
-
     // quit event
-    if (keyevent->IsKeyDown(KEY_ESCAPE)){
+    if (keyEvent->IsKeyDown(KEY_ESCAPE, true)){
         play = false;
     }
 
@@ -181,26 +212,75 @@ void LevelEditor::move(vector3di change) {
     if (cursor.Y < 0){
         cursor.Y = 0;
     }
+    cursor.Z = board->getCurrentLevel(cursor);
     updateCamera();
 }
 
 
 void LevelEditor::updateCamera() {
+
     vector3df cameraPos = vector3df();
     cameraPos.X = cursor.X * Cell::size;
     cameraPos.Z = cursor.Y * Cell::size;
-    cameraPos.Y = cursor.Z * Cell::size;
+    cameraPos.Y = (cursor.Z * -Cell::size) - 250;
     vector3df lookAt = vector3df(cameraPos);
-    cameraPos += vector3df(800.0f, 700.0f, 800.0f);
-    fixeCamera->setPosition(cameraPos);
-    fixeCamera->setTarget(lookAt);
+
+    player->setPosition(lookAt);
+    player->updateCamera();
 }
 
 
 void LevelEditor::applySetup() {
-    board.setupCell(sceneManager, cursor, currentType, currentRotation);
+    board->setupCell(sceneManager, cursor, currentType, currentRotation);
     updateCamera();
 }
+
+
+void LevelEditor::setupSkyBox(s32 templateId) {
+    skyBox->remove();
+    switch (templateId){
+        case 0:
+            skyBox = sceneManager->addSkyBoxSceneNode(
+                    driver->getTexture("data/skybox/day/top.png"),
+                    driver->getTexture("data/skybox/day/bottom.png"),
+                    driver->getTexture("data/skybox/day/front.png"),
+                    driver->getTexture("data/skybox/day/back.png"),
+                    driver->getTexture("data/skybox/day/left.png"),
+                    driver->getTexture("data/skybox/day/right.png"));
+            skyBox->setID(80);
+            break;
+        case 1:
+            skyBox = sceneManager->addSkyBoxSceneNode(
+                    driver->getTexture("data/skybox/night/top.png"),
+                    driver->getTexture("data/skybox/night/bottom.png"),
+                    driver->getTexture("data/skybox/night/front.png"),
+                    driver->getTexture("data/skybox/night/back.png"),
+                    driver->getTexture("data/skybox/night/left.png"),
+                    driver->getTexture("data/skybox/night/right.png"));
+            skyBox->setID(81);
+            break;
+        case 2:
+            skyBox = sceneManager->addSkyDomeSceneNode(driver->getTexture("data/skybox/skydome.jpg"));
+            skyBox->setID(82);
+            break;
+        default:
+            break;
+    }
+    skyBox->setName("skybox");
+}
+
+
+void LevelEditor::save(path name) {
+    player->removePlayerNode();
+    player->removeCameraNode();
+
+    io::IWriteFile* file = io::createWriteFile(name, false);
+    sceneManager->saveScene(file);
+    std::string result = "data/Maps/";
+    result += name.c_str();
+    rename(name.c_str(), result.c_str());
+}
+
 
 LevelEditor::~LevelEditor() {
 
@@ -214,7 +294,7 @@ LevelEditor::~LevelEditor() {
     lvlUp->remove();
     lvlDown->remove();
 
-
+    cellEmpty->remove();
     cellFlat->remove();
     cellPente->remove();
     cellAngle->remove();
@@ -222,10 +302,90 @@ LevelEditor::~LevelEditor() {
 
     validate->remove();
 
+    sceneManager->clear();
 
 }
 
-void LevelEditor::save() {
-    sceneManager->saveScene("data/test.irr");
+void LevelEditor::setupGUI() {
+
+    /**
+     * SETUP POSITION
+     */
+
+    goToRight = gui->addButton(rect<s32>(230,510,350,630), 0, 102);
+    goToLeft = gui->addButton(rect<s32>(100,640,220,760), 0, 102);
+    goToTop = gui->addButton(rect<s32>(100,510,220,630), 0, 102);
+    goToDown = gui->addButton(rect<s32>(230,640,350,760), 0, 102);
+
+    rightRotation = gui->addButton(rect<s32>(1700,530,1820,650), 0, 102, L"O");
+    leftRotation = gui->addButton(rect<s32>(1500,530,1620,650), 0, 102, L"I");
+    lvlUp = gui->addButton(rect<s32>(1635,400,1685,500), 0, 102, L"P");
+    lvlDown = gui->addButton(rect<s32>(1635,680,1685,780), 0, 102, L"M");
+
+    cellEmpty = gui->addButton(rect<s32>(760,880,840,1080), 0, 102, L"EMPTY");
+    cellFlat = gui->addButton(rect<s32>(840,880,920,1080), 0, 102, L"A");
+    cellPente = gui->addButton(rect<s32>(920,880,1000,1080), 0, 102, L"Z");
+    cellAngle = gui->addButton(rect<s32>(1000,880,1080,1080), 0, 102, L"E");
+    cellAngleInt = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"R");
+
+    validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Valider");
+
+
+    /**
+     *  SETUP IMAGES
+     */
+
+    // MOVING
+    goToRight->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/arrow_to_right.png"));
+    goToRight->setUseAlphaChannel(true);
+    goToRight->setScaleImage(true);
+    //goToRight->setPressedImage(driver->getTexture("data/GUI/play_jaune_01.png"));
+    goToRight->setDrawBorder(false);
+    goToLeft->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/arrow_to_left.png"));
+    goToLeft->setUseAlphaChannel(true);
+    goToLeft->setScaleImage(true);
+    goToLeft->setDrawBorder(false);
+
+    goToTop->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/arrow_to_top.png"));
+    goToTop->setUseAlphaChannel(true);
+    goToTop->setScaleImage(true);
+    goToTop->setDrawBorder(false);
+
+    goToDown->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/arrow_to_down.png"));
+    goToDown->setUseAlphaChannel(true);
+    goToDown->setScaleImage(true);
+    goToDown->setDrawBorder(false);
+
+    // POSITION
+    lvlUp->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/lvl_up.png"));
+    lvlUp->setUseAlphaChannel(true);
+    lvlUp->setScaleImage(true);
+    lvlUp->setDrawBorder(false);
+
+    lvlDown->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/lvl_down.png"));
+    lvlDown->setUseAlphaChannel(true);
+    lvlDown->setScaleImage(true);
+    lvlDown->setDrawBorder(false);
+
+    leftRotation->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/rotation_left.png"));
+    leftRotation->setUseAlphaChannel(true);
+    leftRotation->setScaleImage(true);
+    leftRotation->setDrawBorder(false);
+
+    rightRotation->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/rotation_right.png"));
+    rightRotation->setUseAlphaChannel(true);
+    rightRotation->setScaleImage(true);
+    rightRotation->setDrawBorder(false);
+
+    // MODELS
+    cellFlat->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell.png"));
+    cellFlat->setScaleImage();
+    cellPente->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_pente.png"));
+    cellPente->setScaleImage();
+    cellAngle->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_angle.png"));
+    cellAngle->setScaleImage();
+    cellAngleInt->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_angle_int.png"));
+    cellAngleInt->setScaleImage();
+
 }
 

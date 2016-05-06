@@ -9,6 +9,7 @@
 #include <irrlicht.h>
 
 #include "Entities.h"
+#include "../Plateau/Board.h"
 
 using namespace std;
 using namespace irr;
@@ -26,10 +27,17 @@ private:
 
 public:
 
-	Player(const std::string &name, int health, ISceneManager *sceneManager);
-	void enableCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
+	Player(ISceneManager *sceneManager, const std::string &name, int health);
+	Player(ISceneManager *sceneManager, const std::string &name, int health, Board* board);
+    Player(ISceneManager *sceneManager);
+
+    void enableCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
 	void updatePosition(vector3df vec);
+	void setPosition(vector3df pos);
 	void updateCamera();
+
+    void removePlayerNode();
+    void removeCameraNode();
 
 	void updateFOV(f32 x);
 };

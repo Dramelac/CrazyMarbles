@@ -2,7 +2,6 @@
 // Created by mathieu on 23/02/16.
 //
 
-#include <iostream>
 #include "Cell.h"
 #include "../Utils/TextureLoader.h"
 
@@ -10,6 +9,14 @@ const float Cell::size = 150.0f;
 
 Cell::Cell() {
     isSet = false;
+    currentLevel = 0;
+}
+
+
+void Cell::setCell(IMeshSceneNode *node) {
+    cell_node = node;
+    isSet = true;
+    currentLevel = s32((cell_node->getPosition().Y + 500) / -Cell::size);
 }
 
 
@@ -60,19 +67,31 @@ void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector
         case 3:
             cellMesh = TextureLoader::cell_angle_int_Mesh;          // load Cell object
             break;
+        case 4:
+            if(not isSet){
+                return;
+            }
         default:
-            cellMesh = TextureLoader::cellMesh;                     // load Cell object
             break;
     }
 
     if (not isSet){
         cell_node = sceneManager->addMeshSceneNode(cellMesh);               // create object on screen
+        s32 id = 1000 + (cursor.X * 50) + cursor.Y;
+        cell_node->setID(id);
         isSet = true;
     } else {
-        cell_node->setMesh(cellMesh);
+        if (type != 4){
+            cell_node->setMesh(cellMesh);
+        } else {
+            cell_node->remove();
+            isSet = false;
+            return;
+        }
     }
 
     cell_node->setRotation(vector3df(rotation.X, rotation.Y, rotation.Z));
+    currentLevel = cursor.Z;
     cell_node->setPosition(vector3df(cursor.X*size,-500.0f-(cursor.Z*size),cursor.Y*size));    // setup position
 }
 
@@ -80,3 +99,15 @@ void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector
 IMeshSceneNode *Cell::getCellNode() {
     return cell_node;
 }
+
+
+s32 Cell::getCurrentLevel(s32 cursorZ) {
+    if (not isSet){
+        return cursorZ;
+    } else {
+        return currentLevel;
+    }
+}
+
+
+

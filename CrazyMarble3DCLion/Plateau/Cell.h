@@ -16,6 +16,7 @@ private:
     IAnimatedMesh* cellMesh;
     IMeshSceneNode* cell_node;
     bool isSet;
+    s32 currentLevel;
 
 
 public:
@@ -23,11 +24,14 @@ public:
 
     void setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager);
 
+    void setCell(IMeshSceneNode* node);
     void setup(ISceneManager *sceneManager,
                vector3di cursor,
                s16 type=0, vector3di rotation=vector3di(0, 0, 0));
 
     IMeshSceneNode* getCellNode();
+
+    s32 getCurrentLevel(s32 cursorZ);
 
     static const float size;
 };
