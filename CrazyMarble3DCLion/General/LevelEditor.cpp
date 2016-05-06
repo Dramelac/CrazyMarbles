@@ -328,7 +328,7 @@ void LevelEditor::setupGUI() {
     //lvlCurrent = gui->addButton(rect<s32>(1635,560,1685,620), 0, 102, L"L");
     lvlDown = gui->addButton(rect<s32>(1635,680,1685,780), 0, 102, L"M");
 
-    cellEmpty = gui->addButton(rect<s32>(760,880,840,1080), 0, 102, L"T");
+    cellEmpty = gui->addButton(rect<s32>(760,880,840,1080), 0, 102, L"EMPTY");
     cellFlat = gui->addButton(rect<s32>(840,880,920,1080), 0, 102, L"A");
     cellPente = gui->addButton(rect<s32>(920,880,1000,1080), 0, 102, L"Z");
     cellAngle = gui->addButton(rect<s32>(1000,880,1080,1080), 0, 102, L"E");
@@ -399,6 +399,4 @@ void LevelEditor::setupGUI() {
     cellAngleInt->setScaleImage();
 
 }
-
-
 
