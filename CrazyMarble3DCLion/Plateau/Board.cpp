@@ -60,10 +60,6 @@ Board::~Board() {
         delete[] board[i];
     }
     delete[] board;
-
-    for (u32 i=0; i < nodes.size(); ++i) {
-        nodes[i]->remove();
-    }
 }
 
 void Board::initAllCellPlace(scene::ISceneManager *sceneManager) {

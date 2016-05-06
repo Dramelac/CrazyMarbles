@@ -209,12 +209,12 @@ void Game::keyboardChecker(f32 deltaTime) {
 
 Game::~Game() {
 
+    delete player;
+    delete board;
+
     sceneManager->clear();
     //driver->drop();
 
-	delete player;
-    //delete board;
-    
 }
 
 void Game::setupSkyBox(bool day) {

@@ -32,7 +32,7 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health)
 
 }
 
-
+// Start new game
 Player::Player(ISceneManager *sceneManager, const std::string &name, int health, Board *board)
         : Entities(name, health), score(0) {
 
@@ -41,15 +41,15 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health,
     sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
 
     sphere_node = sceneManager->addMeshSceneNode(sphereMesh);           // add object to screen
-
     sphere_node->setPosition(board->getStartPoint());
+    sphere_node->setID(10);
 
-    fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), sphere_node->getPosition());
+    fixeCamera = sceneManager->addCameraSceneNode(sphere_node, vector3df(50.0f,150.0f,50.0f), sphere_node->getPosition());
 
 
 }
 
-
+// player Level Editor
 Player::Player(ISceneManager *sceneManager) : Entities() {
 
     sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
@@ -63,6 +63,13 @@ Player::Player(ISceneManager *sceneManager) : Entities() {
     fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), sphere_node->getPosition());
     fixeCamera->setFarValue(15000);
 }
+
+
+Player::~Player() {
+    sphere_node->remove();
+    fixeCamera->remove();
+}
+
 
 void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
 
@@ -107,15 +114,4 @@ void Player::updateFOV(f32 x) {
 void Player::setPosition(vector3df pos) {
     sphere_node->setPosition(pos);
 }
-
-void Player::removePlayerNode() {
-    sphere_node->remove();
-}
-
-void Player::removeCameraNode() {
-    fixeCamera->remove();
-}
-
-
-
 
