@@ -65,7 +65,7 @@ Player::Player(ISceneManager *sceneManager) : Entities() {
     sphere_node->setMaterialTexture(0, TextureLoader::sphereRed);
 
     fixeCamera = sceneManager->addCameraSceneNode(sphere_node,
-                                                  vector3df(800.0f, 700.0f, 800.0f),
+                                                  vector3df(1600.0f, 1400.0f, 1600.0f),
                                                   sphere_node->getPosition());
     fixeCamera->setFarValue(15000);
 }
