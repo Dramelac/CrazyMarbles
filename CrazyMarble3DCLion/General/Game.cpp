@@ -147,26 +147,6 @@ void Game::gameLoop() {
 
 }
 
-void Game::updateGameBoard() {
-    /*
-    board.drawBoard(&windows);
-    player.renderPlayer(&windows);
-
-    windows.display();
-    windows.clear();
-    */
-
-    driver->beginScene(true, true,
-                       video::SColor(                  // contient la couleur blanc
-                               255,                                   // composante A alpha (transparence)
-                               255,                                   // composante R rouge
-                               255,                                   // composante G verte
-                               255));
-    sceneManager->drawAll();                    // calcule le rendu
-    driver->endScene();
-
-}
-
 void Game::keyboardChecker(f32 deltaTime) {
     // Init moving vector
     core::vector3df vector(0.0f,0.0f,0.0f);
@@ -213,7 +193,6 @@ Game::~Game() {
     delete board;
 
     sceneManager->clear();
-    //driver->drop();
 
 }
 
