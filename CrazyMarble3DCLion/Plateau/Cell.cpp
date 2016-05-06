@@ -115,3 +115,15 @@ Cell::~Cell() {
         cell_node->remove();
     }
 }
+
+ITriangleSelector* Cell::getSelector(ISceneManager *sceneManager) {
+    if (not isSet){
+        return nullptr;
+    } else {
+        // create Selector
+        ITriangleSelector* selector = sceneManager->createTriangleSelector(cell_node->getMesh(), cell_node);
+        cell_node->setTriangleSelector(selector);                    // set to the node the new selector
+        return selector;
+    }
+}
+

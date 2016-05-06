@@ -14,16 +14,13 @@ private:
 	int widthNumber;
 	int heightNumber;
 
-    core::array<scene::ISceneNode *> nodes;
 	ISceneNode* startPoint;
 
 	void initAllCellPlace(ISceneManager *sceneManager);
 public:
 	Board(const unsigned int hauteur, const unsigned int largeur, ISceneManager* sceneManager);
     Board(ISceneManager* sceneManager, u16 size);
-
     Board(ISceneManager* sceneManager);
-
     ~Board();
 
 
@@ -34,7 +31,6 @@ public:
     void setupStartPoint(vector3di cursor);
 
 	IMetaTriangleSelector* getMapMetaSelector(ISceneManager* sceneManager);
-	IMetaTriangleSelector* getMapMetaSelectorFromNodes(ISceneManager* sceneManager);
 
     vector3df getStartPoint();
     s32 getCurrentLevel(vector3di cursor);

@@ -31,6 +31,7 @@ public:
                s16 type=0, vector3di rotation=vector3di(0, 0, 0));
 
     IMeshSceneNode* getCellNode();
+    ITriangleSelector* getSelector(ISceneManager *sceneManager);
 
     s32 getCurrentLevel(s32 cursorZ);
 
