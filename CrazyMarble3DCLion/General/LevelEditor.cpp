@@ -238,7 +238,7 @@ void LevelEditor::applySetup() {
 }
 
 
-void LevelEditor::setupSkyBox(u32 templateId) {
+void LevelEditor::setupSkyBox(s32 templateId) {
     skyBox->remove();
     switch (templateId){
         case 0:

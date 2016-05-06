@@ -71,7 +71,7 @@ public:
     void move(vector3di change);
     void updateCamera();
     void applySetup();
-    void setupSkyBox(u32 templateId);
+    void setupSkyBox(s32 templateId);
 
     void save(path name="map.irr");
 
