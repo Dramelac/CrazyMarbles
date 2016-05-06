@@ -119,7 +119,7 @@ void Player::setPosition(vector3df pos) {
 bool Player::isFall() {
     if (animatorCollisionResponse->isFalling()){
         fallDistance++;
-        std::cout << fallDistance << std::endl;
+        //std::cout << fallDistance << std::endl;
         if (fallDistance >= 70) {
             sphere_node->setPosition(lastPos);
             return false;

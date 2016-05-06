@@ -16,6 +16,7 @@ private:
     IAnimatedMesh* cellMesh;
     IMeshSceneNode* cell_node;
     bool isSet;
+    bool isFinisCell;
     s32 currentLevel;
 
 
@@ -30,10 +31,11 @@ public:
                vector3di cursor,
                s16 type=0, vector3di rotation=vector3di(0, 0, 0));
 
-    IMeshSceneNode* getCellNode();
+
     ITriangleSelector* getSelector(ISceneManager *sceneManager);
 
     s32 getCurrentLevel(s32 cursorZ);
+    void switchFinishType();
 
     static const float size;
 };

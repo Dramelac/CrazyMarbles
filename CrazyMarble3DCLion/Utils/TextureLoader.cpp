@@ -21,7 +21,7 @@ void TextureLoader::LoadingTextures(IVideoDriver* driver, ISceneManager* sceneMa
     tile = driver->getTexture("data/model/cube_tex.png");
     sphere = driver->getTexture("data/model/sphere_c.png");
     sphereRed = driver->getTexture("data/model/sphere_red.png");
-    sphereRed = driver->getTexture("data/model/cube_finish.png");
+    finish_line = driver->getTexture("data/model/cube_finish.png");
 
     cellMesh = sceneManager->getMesh("data/model/Cell_flat.3ds");
     cell_pente_Mesh = sceneManager->getMesh("data/model/Cell_pente.3ds");

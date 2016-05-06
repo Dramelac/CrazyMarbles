@@ -29,6 +29,7 @@ public:
                    s16 type=0, vector3di rotation=vector3di(0, 0, 0));
 
     void setupStartPoint(vector3di cursor);
+    void setupFinishCell(vector3di cursor);
 
 	IMetaTriangleSelector* getMapMetaSelector(ISceneManager* sceneManager);
 

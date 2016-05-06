@@ -129,6 +129,12 @@ s32 Board::getCurrentLevel(vector3di cursor) {
     return board[cursor.X][cursor.Y].getCurrentLevel(cursor.Z);
 }
 
+void Board::setupFinishCell(vector3di cursor) {
+    board[cursor.X][cursor.Y].switchFinishType();
+}
+
+
+
 
 
 
