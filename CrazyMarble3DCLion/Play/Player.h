@@ -23,6 +23,8 @@ private:
 
 	ICameraSceneNode* fixeCamera;
 
+    ISceneNodeAnimatorCollisionResponse* animatorCollisionResponse;
+
 	int score;
 
 public:
