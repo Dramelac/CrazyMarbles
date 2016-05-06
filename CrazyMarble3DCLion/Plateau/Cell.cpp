@@ -16,7 +16,7 @@ Cell::Cell() {
 
 void Cell::setCell(IMeshSceneNode *node) {
     cell_node = node;
-    if (cell_node->getName() == "finish") {
+    if (not strcmp(cell_node->getName(), "finish")) {
         isFinisCell = true;
     }
     isSet = true;
@@ -84,12 +84,12 @@ void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector
         cell_node = sceneManager->addMeshSceneNode(cellMesh);               // create object on screen
         s32 id = 1000 + (cursor.X * 50) + cursor.Y;
         cell_node->setID(id);
+        cell_node->setName("Cell");
         isSet = true;
     } else {
         if (type != 4){
             cell_node->setMesh(cellMesh);
             if (isFinisCell) {
-                cell_node->setName("finish");
                 cell_node->setMaterialTexture(0,TextureLoader::finish_line);
             }
         } else {
@@ -135,7 +135,7 @@ ITriangleSelector* Cell::getSelector(ISceneManager *sceneManager) {
 void Cell::switchFinishType() {
     if (isSet){
         if (isFinisCell){
-            cell_node->setName("");
+            cell_node->setName("Cell");
             cell_node->setMaterialTexture(0,TextureLoader::tile);
             isFinisCell = false;
         } else {
