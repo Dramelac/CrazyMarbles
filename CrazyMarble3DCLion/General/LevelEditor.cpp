@@ -124,12 +124,12 @@ void LevelEditor::keyboardChecker() {
 
     if(rightRotation->isPressed() || keyEvent->IsKeyDown(KEY_KEY_I, true)){
         update = true;
-        currentRotation.Y += 90;
+        currentRotation.Y -= 90;
         currentRotation.Y %= 360;
         rightRotation->setPressed(false);
     }else if (leftRotation->isPressed() || keyEvent->IsKeyDown(KEY_KEY_O, true)){
         update = true;
-        currentRotation.Y -= 90;
+        currentRotation.Y += 90;
         currentRotation.Y %= 360;
         leftRotation->setPressed(false);
     }
@@ -184,13 +184,13 @@ void LevelEditor::keyboardChecker() {
         cellEmpty->setPressed(false);
     }
 
-    if(validate->isPressed()){
-        save();
-        play = false;
-    }
-
     if (update){
         applySetup();
+    }
+
+    if(validate->isPressed() || keyEvent->IsKeyDown(KEY_RETURN, true)){
+        save();
+        play = false;
     }
 
     // quit event
@@ -310,25 +310,36 @@ LevelEditor::~LevelEditor() {
 }
 
 void LevelEditor::setupGUI() {
+
+    /**
+     * SETUP POSITION
+     */
+
     goToRight = gui->addButton(rect<s32>(230,510,350,630), 0, 102);
     goToLeft = gui->addButton(rect<s32>(100,640,220,760), 0, 102);
     goToTop = gui->addButton(rect<s32>(100,510,220,630), 0, 102);
     goToDown = gui->addButton(rect<s32>(230,640,350,760), 0, 102);
 
-    rightRotation = gui->addButton(rect<s32>(1700,530,1820,650), 0, 102, L"RR");
-    leftRotation = gui->addButton(rect<s32>(1500,530,1620,650), 0, 102, L"LR");
-    lvlUp = gui->addButton(rect<s32>(1635,400,1685,500), 0, 102, L"LU");
-    lvlCurrent = gui->addButton(rect<s32>(1635,560,1685,620), 0, 102, L"O");
-    lvlDown = gui->addButton(rect<s32>(1635,680,1685,780), 0, 102, L"LD");
+    rightRotation = gui->addButton(rect<s32>(1700,530,1820,650), 0, 102, L"O");
+    leftRotation = gui->addButton(rect<s32>(1500,530,1620,650), 0, 102, L"I");
+    lvlUp = gui->addButton(rect<s32>(1635,400,1685,500), 0, 102, L"P");
+    lvlCurrent = gui->addButton(rect<s32>(1635,560,1685,620), 0, 102, L"L");
+    lvlDown = gui->addButton(rect<s32>(1635,680,1685,780), 0, 102, L"M");
+
+    cellEmpty = gui->addButton(rect<s32>(760,880,840,1080), 0, 102, L"T");
+    cellFlat = gui->addButton(rect<s32>(840,880,920,1080), 0, 102, L"A");
+    cellPente = gui->addButton(rect<s32>(920,880,1000,1080), 0, 102, L"Z");
+    cellAngle = gui->addButton(rect<s32>(1000,880,1080,1080), 0, 102, L"E");
+    cellAngleInt = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"R");
+
+    validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Valider");
 
 
-    cellEmpty = gui->addButton(rect<s32>(760,880,840,1080), 0, 102, L"C0");
-    cellFlat = gui->addButton(rect<s32>(840,880,920,1080), 0, 102, L"C1");
-    cellPente = gui->addButton(rect<s32>(920,880,1000,1080), 0, 102, L"C2");
-    cellAngle = gui->addButton(rect<s32>(1000,880,1080,1080), 0, 102, L"C3");
-    cellAngleInt = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"C4");
+    /**
+     *  SETUP IMAGES
+     */
 
-
+    // MOVING
     goToRight->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/arrow_to_right.png"));
     goToRight->setUseAlphaChannel(true);
     goToRight->setScaleImage(true);
@@ -349,7 +360,33 @@ void LevelEditor::setupGUI() {
     goToDown->setScaleImage(true);
     goToDown->setDrawBorder(false);
 
+    // POSITION
+    lvlUp->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/lvl_up.png"));
+    lvlUp->setUseAlphaChannel(true);
+    lvlUp->setScaleImage(true);
+    lvlUp->setDrawBorder(false);
 
+    lvlDown->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/lvl_down.png"));
+    lvlDown->setUseAlphaChannel(true);
+    lvlDown->setScaleImage(true);
+    lvlDown->setDrawBorder(false);
+
+    lvlCurrent->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/rond.png"));
+    lvlCurrent->setUseAlphaChannel(true);
+    lvlCurrent->setScaleImage(true);
+    lvlCurrent->setDrawBorder(false);
+
+    leftRotation->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/rotation_left.png"));
+    leftRotation->setUseAlphaChannel(true);
+    leftRotation->setScaleImage(true);
+    leftRotation->setDrawBorder(false);
+
+    rightRotation->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/rotation_right.png"));
+    rightRotation->setUseAlphaChannel(true);
+    rightRotation->setScaleImage(true);
+    rightRotation->setDrawBorder(false);
+
+    // MODELS
     cellFlat->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell.png"));
     cellFlat->setScaleImage();
     cellPente->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_pente.png"));
@@ -359,7 +396,6 @@ void LevelEditor::setupGUI() {
     cellAngleInt->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_angle_int.png"));
     cellAngleInt->setScaleImage();
 
-    validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Valider");
 }
 
 
