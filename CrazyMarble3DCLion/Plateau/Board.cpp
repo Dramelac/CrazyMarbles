@@ -2,7 +2,6 @@
 // Created by mathieu on 23/02/16.
 //
 
-#include <iostream>
 #include "Board.h"
 #include "../General/LevelEditor.h"
 
