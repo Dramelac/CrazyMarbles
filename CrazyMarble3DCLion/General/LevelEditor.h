@@ -38,6 +38,7 @@ private:
 
     IGUIButton* rightRotation;
     IGUIButton* leftRotation;
+    IGUIButton* lvlCurrent;
     IGUIButton* lvlUp;
     IGUIButton* lvlDown;
 

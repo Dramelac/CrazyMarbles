@@ -142,7 +142,7 @@ void LevelEditor::keyboardChecker() {
         update = true;
         cursor.Z += 1;
         lvlDown->setPressed(false);
-    } else if (keyEvent->IsKeyDown(KEY_KEY_L, true)){
+    } else if (lvlCurrent->isPressed() || keyEvent->IsKeyDown(KEY_KEY_L, true)){
         cursor.Z = board->getCurrentLevel(cursor);
         updateCamera();
     }
@@ -293,6 +293,7 @@ LevelEditor::~LevelEditor() {
 
     rightRotation->remove();
     leftRotation->remove();
+    lvlCurrent->remove();
     lvlUp->remove();
     lvlDown->remove();
 
@@ -317,13 +318,16 @@ void LevelEditor::setupGUI() {
     rightRotation = gui->addButton(rect<s32>(1700,530,1820,650), 0, 102, L"RR");
     leftRotation = gui->addButton(rect<s32>(1500,530,1620,650), 0, 102, L"LR");
     lvlUp = gui->addButton(rect<s32>(1635,400,1685,500), 0, 102, L"LU");
+    lvlCurrent = gui->addButton(rect<s32>(1635,560,1685,620), 0, 102, L"O");
     lvlDown = gui->addButton(rect<s32>(1635,680,1685,780), 0, 102, L"LD");
+
 
     cellEmpty = gui->addButton(rect<s32>(760,880,840,1080), 0, 102, L"C0");
     cellFlat = gui->addButton(rect<s32>(840,880,920,1080), 0, 102, L"C1");
     cellPente = gui->addButton(rect<s32>(920,880,1000,1080), 0, 102, L"C2");
     cellAngle = gui->addButton(rect<s32>(1000,880,1080,1080), 0, 102, L"C3");
     cellAngleInt = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"C4");
+
 
     goToRight->setImage(driver->getTexture("data/GUI/arrow_to_right.png"));
     goToRight->setUseAlphaChannel(true);
