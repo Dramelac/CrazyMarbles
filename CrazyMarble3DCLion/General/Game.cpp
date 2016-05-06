@@ -166,11 +166,11 @@ void Game::keyboardChecker(f32 deltaTime) {
     }
     if(keyevent->IsKeyDown(KEY_KEY_Q)){
         vector.X += speed * deltaTime;
-        vector.Z += -speed/2 * deltaTime;
+        vector.Z += -speed * deltaTime;
     }
     else if(keyevent->IsKeyDown(KEY_KEY_D)){
         vector.X += -speed * deltaTime;
-        vector.Z += speed/2 * deltaTime;
+        vector.Z += speed * deltaTime;
     }
 
     // apply moving to player
