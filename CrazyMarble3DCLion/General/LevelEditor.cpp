@@ -215,6 +215,7 @@ void LevelEditor::move(vector3di change) {
     if (cursor.Y < 0){
         cursor.Y = 0;
     }
+    cursor.Z = board->getCurrentLevel(cursor);
     updateCamera();
 }
 
