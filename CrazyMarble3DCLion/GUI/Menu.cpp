@@ -65,7 +65,8 @@ void Menu::loop() {
 
             } else if (levelEditor->isPressed()){
                 visibilityButons(false);
-                LevelEditor levelEditor(device, keyEvent);
+                //LevelEditor levelEditor(device, keyEvent);
+                LevelEditor levelEditor(device, keyEvent, "data/Maps/map.irr");
                 levelEditor.gameLoop();
                 visibilityButons(true);
             } else if (credit->isPressed()){

@@ -13,6 +13,12 @@ Cell::Cell() {
 }
 
 
+void Cell::setCell(IMeshSceneNode *node) {
+    cell_node = node;
+    isSet = true;
+}
+
+
 void Cell::setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager) {
     int line = 0;
 
@@ -70,6 +76,8 @@ void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector
 
     if (not isSet){
         cell_node = sceneManager->addMeshSceneNode(cellMesh);               // create object on screen
+        s32 id = 1000 + (cursor.X * 50) + cursor.Y;
+        cell_node->setID(id);
         isSet = true;
     } else {
         if (type != 4){
@@ -89,3 +97,4 @@ void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector
 IMeshSceneNode *Cell::getCellNode() {
     return cell_node;
 }
+

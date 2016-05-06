@@ -27,7 +27,7 @@ private:
     Player* player;
 
     ISceneNode* skyBox;
-    u32 skyId;
+    s32 skyId;
 
     IGUIEnvironment* gui;
 
@@ -52,15 +52,17 @@ private:
     KeyboardEvent *keyEvent;
 
     bool play;
-    s32 size;
 
     vector3di cursor;
     s16 currentType;
     vector3di currentRotation;
 
+    void setupGUI();
+
 public:
 
-    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, u16 size=50, bool day = true);
+    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent);
+    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path pathMap);
 
     void gameLoop();
     void keyboardChecker();
@@ -73,6 +75,8 @@ public:
     void save(path name="map.irr");
 
     ~LevelEditor();
+
+    static const u16 size;
 };
 
 

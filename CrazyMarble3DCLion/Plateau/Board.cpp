@@ -2,7 +2,9 @@
 // Created by mathieu on 23/02/16.
 //
 
+#include <iostream>
 #include "Board.h"
+#include "../General/LevelEditor.h"
 
 // debug construct
 Board::Board(unsigned int hauteur, unsigned int largeur, ISceneManager* sceneManager) : heightNumber(hauteur),
@@ -30,9 +32,26 @@ Board::Board(ISceneManager* sceneManager, u16 size) {
 }
 
 // load scene construct / start game
-Board::Board(ISceneManager* sceneManager): heightNumber(0), widthNumber(0) {
+Board::Board(ISceneManager* sceneManager): heightNumber(LevelEditor::size), widthNumber(LevelEditor::size) {
     sceneManager->getSceneNodesFromType(scene::ESNT_ANY, nodes); // Find all nodes
     startPoint = sceneManager->getSceneNodeFromName("start");
+
+    board = new Cell*[heightNumber];
+    for (int i = 0; i<heightNumber; i++){
+        board[i] = new Cell[widthNumber];
+    }
+
+    for (u32 i=0; i < nodes.size(); ++i)
+    {
+        ISceneNode * node = nodes[i];
+        s32 id = node->getID();
+        if (id >= 1000){
+            id -= 1000;
+            s32 X = id / 50;
+            s32 Y = id % 50;
+            board[X][Y].setCell((scene::IMeshSceneNode*) node);
+        }
+    }
 }
 
 
@@ -95,15 +114,15 @@ IMetaTriangleSelector *Board::getMapMetaSelector(ISceneManager *sceneManager) {
 IMetaTriangleSelector *Board::getMapMetaSelectorFromNodes(ISceneManager *sceneManager) {
 
     // plateau de selector collision
-    scene::IMetaTriangleSelector* metaSelector = sceneManager->createMetaTriangleSelector();
+    IMetaTriangleSelector* metaSelector = sceneManager->createMetaTriangleSelector();
 
 
     for (u32 i=0; i < nodes.size(); ++i)
     {
-        scene::ISceneNode * node = nodes[i];
+        ISceneNode * node = nodes[i];
 
         // selector mesh collision temp
-        scene::ITriangleSelector *selector=0;
+        ITriangleSelector *selector=0;
 
         switch(node->getType())
         {
