@@ -201,7 +201,7 @@ void Game::keyboardChecker(f32 deltaTime) {
 
     // quit event
 
-    if (keyevent->IsKeyDown(KEY_ESCAPE)){
+    if (keyevent->IsKeyDown(KEY_ESCAPE, true)){
         play = false;
     }
 

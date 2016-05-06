@@ -194,7 +194,7 @@ void LevelEditor::keyboardChecker() {
     }
 
     // quit event
-    if (keyEvent->IsKeyDown(KEY_ESCAPE)){
+    if (keyEvent->IsKeyDown(KEY_ESCAPE, true)){
         play = false;
     }
 

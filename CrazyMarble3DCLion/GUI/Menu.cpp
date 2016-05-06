@@ -54,7 +54,7 @@ void Menu::loop() {
 
             driver->endScene();
 
-            if (exit->isPressed()){
+            if (exit->isPressed() || keyEvent->IsKeyDown(KEY_ESCAPE, true)){
                 device->closeDevice();
             } else if (play->isPressed()){
                 //Game game(device, keyEvent, 50, 50);
