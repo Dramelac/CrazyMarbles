@@ -37,6 +37,7 @@ public:
 	IMetaTriangleSelector* getMapMetaSelectorFromNodes(ISceneManager* sceneManager);
 
     vector3df getStartPoint();
+    s32 getCurrentLevel(vector3di cursor);
 };
 
 

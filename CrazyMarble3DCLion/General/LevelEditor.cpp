@@ -142,6 +142,9 @@ void LevelEditor::keyboardChecker() {
         update = true;
         cursor.Z += 1;
         lvlDown->setPressed(false);
+    } else if (keyEvent->IsKeyDown(KEY_KEY_L, true)){
+        cursor.Z = board->getCurrentLevel(cursor);
+        updateCamera();
     }
 
     if (goToRight->isPressed() || keyEvent->IsKeyDown(KEY_RIGHT, true)){

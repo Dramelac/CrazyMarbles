@@ -181,4 +181,11 @@ void Board::setupStartPoint(vector3di cursor) {
 }
 
 
+s32 Board::getCurrentLevel(vector3di cursor) {
+    return board[cursor.X][cursor.Y].getCurrentLevel(cursor.Z);
+}
+
+
+
+
 
