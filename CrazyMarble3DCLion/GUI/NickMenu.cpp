@@ -25,8 +25,9 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
 
     //gui->addStaticText(L"yolo",irr::core::rect<irr::s32>(100,20,400,60),true,true,0 , -1, true);
     editBox = gui->addEditBox(L"", rect<irr::s32>(20,20,320,70));
-    font = gui->getFont("fontlucida.png");
+    font = gui->getFont("data/GUI/Menu/fontlucida.png");
     stringc nickname  = editBox->getText();
+    editBox->setOverrideFont(font);
     //std::cout << nickname.c_str()  << std::endl ;
 
 
@@ -35,7 +36,7 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
 //NickMenu nickMenu(device, keyEvent);
 //string pseudo = nickMenu.loop();
 
-void NickMenu::loop() {
+stringc NickMenu::loop(nickname) {
     while (device->run()){
         if (device->isWindowActive())
         {
@@ -53,7 +54,7 @@ void NickMenu::loop() {
                 stringc nickname  = editBox->getText();
                 std::cout << nickname.c_str()  << std::endl ;
 
-                return;
+                return nickname;
             }
         }
     }

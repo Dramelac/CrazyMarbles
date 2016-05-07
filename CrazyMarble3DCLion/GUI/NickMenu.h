@@ -23,7 +23,7 @@ private:
     IGUIEditBox* editBox;
     IGUIFont* font;
 
-    stringc nickname;
+    stringc* nickname;
 
     KeyboardEvent* keyEvent;
 
