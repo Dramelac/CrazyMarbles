@@ -22,3 +22,12 @@ BlackMarbles::BlackMarbles(ISceneManager *sceneManager, vector3df position) : En
     sphere_node->setPosition(position);
 }
 
+BlackMarbles::BlackMarbles(IMeshSceneNode *node) {
+    sphere_node = node;
+    Entities(node->getName(), 80);
+}
+
+
+BlackMarbles::~BlackMarbles() {
+    sphere_node->remove();
+}

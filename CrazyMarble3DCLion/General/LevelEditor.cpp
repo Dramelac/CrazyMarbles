@@ -127,12 +127,16 @@ void LevelEditor::keyboardChecker() {
         setupSkyBox(skyId);
     }
 
+    if (keyEvent->IsKeyDown(KEY_KEY_C, true)){
+        board->clearAllEnemie();
+    }
+
     if (keyEvent->IsKeyDown(KEY_KEY_B, true)){
         vector3df temp;
         temp.X = cursor.X * Cell::size;
         temp.Z = cursor.Y * Cell::size;
         temp.Y = (cursor.Z * -Cell::size) - 200;
-        BlackMarbles test(sceneManager, temp);
+        board->addEnemie(new BlackMarbles(sceneManager, temp));
     }
 
     if(rightRotation->isPressed() || keyEvent->IsKeyDown(KEY_KEY_I, true)){

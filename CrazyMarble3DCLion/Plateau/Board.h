@@ -7,6 +7,7 @@
 
 
 #include "Cell.h"
+#include "../Play/BlackMarbles.h"
 
 class Board {
 private:
@@ -15,6 +16,7 @@ private:
 	int heightNumber;
 
 	ISceneNode* startPoint;
+	array<BlackMarbles*> enemiesList;
 
 	void initAllCellPlace(ISceneManager *sceneManager);
 public:
@@ -35,6 +37,11 @@ public:
 
     vector3df getStartPoint();
     s32 getCurrentLevel(vector3di cursor);
+
+    void addEnemie(BlackMarbles* enemie);
+    void addEnemie(IMeshSceneNode * node);
+    void clearAllEnemie();
+
 };
 
 

@@ -2,6 +2,7 @@
 // Created by mathieu on 23/02/16.
 //
 
+#include <iostream>
 #include "Board.h"
 #include "../General/LevelEditor.h"
 
@@ -49,7 +50,10 @@ Board::Board(ISceneManager* sceneManager): heightNumber(LevelEditor::size), widt
             id -= 1000;
             s32 X = id / 50;
             s32 Y = id % 50;
-            board[X][Y].setCell((scene::IMeshSceneNode*) node);
+            board[X][Y].setCell((IMeshSceneNode*) node);
+        } else if (not strcmp(node->getName(), "BlackMarble")){
+            std::cout << node->getName() << std::endl;
+            addEnemie((IMeshSceneNode*) node);
         }
     }
 }
@@ -122,6 +126,28 @@ s32 Board::getCurrentLevel(vector3di cursor) {
 void Board::setupFinishCell(vector3di cursor) {
     board[cursor.X][cursor.Y].switchFinishType();
 }
+
+void Board::addEnemie(BlackMarbles* enemie) {
+    enemiesList.push_back(enemie);
+}
+
+void Board::addEnemie(IMeshSceneNode *node) {
+    enemiesList.push_back(new BlackMarbles(node));
+}
+
+void Board::clearAllEnemie() {
+    //std::cout << "clearing ..." << enemiesList.size() << std::endl;
+    for (u16 i=0;i<enemiesList.size();i++){
+        delete enemiesList[i];
+        //std::cout << i << std::endl;
+    }
+    enemiesList.clear();
+}
+
+
+
+
+
 
 
 
