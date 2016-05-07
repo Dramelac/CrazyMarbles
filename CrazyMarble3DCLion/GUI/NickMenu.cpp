@@ -3,6 +3,8 @@
 //
 
 #include "NickMenu.h"
+#include "iostream"
+
 
 
 NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
@@ -24,7 +26,10 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
     //gui->addStaticText(L"yolo",irr::core::rect<irr::s32>(100,20,400,60),true,true,0 , -1, true);
 
 
-    IGUIEditBox *editBox = gui->addEditBox(L"Texte de depart", rect<irr::s32>(20,20,320,70));
+    IGUIEditBox *editBox = gui->addEditBox(L"", rect<irr::s32>(20,20,320,70));
+    IGUIFont *font = gui->getFont("fontlucida.png");
+    stringc nickname  = editBox->getText();
+    std::cout << nickname.c_str  << std::endl ;
 }
 //play->setScaleImage(true);
 //NickMenu nickMenu(device, keyEvent);
