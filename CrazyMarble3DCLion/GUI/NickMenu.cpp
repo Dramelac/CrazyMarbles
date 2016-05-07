@@ -24,12 +24,12 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
     valide = gui->addButton(rect<s32>(600,550,1320,650), 0, 103, L"Valider");
 
     //gui->addStaticText(L"yolo",irr::core::rect<irr::s32>(100,20,400,60),true,true,0 , -1, true);
-
-
-    IGUIEditBox *editBox = gui->addEditBox(L"", rect<irr::s32>(20,20,320,70));
-    IGUIFont *font = gui->getFont("fontlucida.png");
+    editBox = gui->addEditBox(L"", rect<irr::s32>(20,20,320,70));
+    font = gui->getFont("fontlucida.png");
     stringc nickname  = editBox->getText();
-    std::cout << nickname.c_str  << std::endl ;
+    //std::cout << nickname.c_str()  << std::endl ;
+
+
 }
 //play->setScaleImage(true);
 //NickMenu nickMenu(device, keyEvent);
@@ -43,12 +43,16 @@ void NickMenu::loop() {
 
             gui->drawAll();
 
+            stringc nickname  = editBox->getText();
+
             driver->endScene();
 
             if (exit->isPressed()){
                 device->closeDevice();
 
             } else if (valide->isPressed()){
+
+                std::cout << nickname.c_str()  << std::endl ;
 
                 return;
             }

@@ -20,6 +20,10 @@ private:
     IVideoDriver* driver;
     IGUIEnvironment* gui;
 
+    IGUIEditBox* editBox;
+    IGUIFont* font;
+
+    stringc nickname;
 
     KeyboardEvent* keyEvent;
 
