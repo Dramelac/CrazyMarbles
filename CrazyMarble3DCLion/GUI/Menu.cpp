@@ -45,6 +45,8 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     //NickMenu nickMenu(device, keyEvent);
     //string pseudo = nickMenu.loop();
 
+    gui->addStaticText(L"yolo",irr::core::rect<irr::s32>(1700,20,1820,60),true,true,0 , -1, true);
+
 }
 
 

@@ -17,11 +17,11 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
 
     gui->addImage(driver->getTexture("data/GUI/BGCM.png"), position2d<int>(0, 0));
 
-    welcome = gui->addImage(driver->getTexture(""), position2d<int>(0, 0));
+    welcome = gui->addImage(driver->getTexture("/data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
     valide = gui->addButton(rect<s32>(600,550,1320,650), 0, 103, L"Valider");
 
-
+    gui->addStaticText(L"yolo",irr::core::rect<irr::s32>(100,20,400,60),true,true,0 , -1, true);
 
 }
 
