@@ -7,7 +7,6 @@
 
 #include <irrlicht.h>
 #include "../Play/BlackMarbles.h"
-#include "../Play/Player.h"
 
 using namespace irr;
 using namespace core;

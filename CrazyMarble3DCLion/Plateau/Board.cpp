@@ -162,5 +162,3 @@ void Board::setPlayerToEntities(Player *player, ITriangleSelector* selector) {
 }
 
 
-
-

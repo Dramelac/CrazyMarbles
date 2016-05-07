@@ -9,7 +9,6 @@
 #include <irrlicht.h>
 
 #include "Entities.h"
-#include "../Plateau/Board.h"
 
 using namespace irr;
 using namespace scene;
@@ -31,7 +30,7 @@ private:
 public:
 
 	Player(ISceneManager *sceneManager, const stringc& name, int health);
-	Player(ISceneManager *sceneManager, const stringc& name, int health, Board* board);
+	Player(ISceneManager *sceneManager, const stringc& name, int health, vector3df startpos);
     Player(ISceneManager *sceneManager);
     ~Player();
 

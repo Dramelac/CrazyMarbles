@@ -35,11 +35,11 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 }
 
 // Start new game
-Player::Player(ISceneManager *sceneManager, const stringc& name, int health, Board *board)
+Player::Player(ISceneManager *sceneManager, const stringc& name, int health, vector3df startpos)
         : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
 
     // MODEL
-    startPos = board->getStartPoint();
+    startPos = startpos;
     sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
 
     sceneNode = sceneManager->addMeshSceneNode(sceneMesh);           // add object to screen

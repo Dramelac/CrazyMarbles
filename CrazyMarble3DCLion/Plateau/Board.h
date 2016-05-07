@@ -7,7 +7,6 @@
 
 
 #include "Cell.h"
-#include "../Play/BlackMarbles.h"
 
 class Board {
 private:
