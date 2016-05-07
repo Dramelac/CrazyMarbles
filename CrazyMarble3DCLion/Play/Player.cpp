@@ -89,7 +89,7 @@ void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager 
             metaSelector, // Map collision
             sphere_node,  // object player to detect
             hitbox, // hitbox
-            vector3df(5, -30, 5)  // gravity vector
+            vector3df(0, -20, 0)  // gravity vector
     );
     sphere_node->addAnimator(animatorCollisionResponse);             // apply gravity / collision to player object
     //anim->drop();                               // drop temp anim
@@ -122,11 +122,11 @@ bool Player::isFall() {
     if (animatorCollisionResponse->isFalling()){
         fallDistance++;
         //std::cout << fallDistance << std::endl;
-        if (fallDistance >= 70) {
+        if (fallDistance >= 50) {
             std::cout << startPos.X << "/" << startPos.Y << "/" << startPos.Z << std::endl;
             sphere_node->setPosition(startPos);
             sphere_node->updateAbsolutePosition();
-            animatorCollisionResponse->setGravity(vector3df(5, -30, 5));
+            animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
             fallDistance = 0;
             return true;
         }

@@ -189,7 +189,7 @@ void Game::keyboardChecker(f32 deltaTime) {
         vector.X /= 2;
         vector.Z /= 2;
     }
-    vector.Y += -10;
+    vector.Y += -7;
     //cout << vector.X << "/" << vector.Y << "/" << vector.Z << endl;
 
     // apply moving to player
