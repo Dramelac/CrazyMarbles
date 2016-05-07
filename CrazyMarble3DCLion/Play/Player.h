@@ -11,7 +11,6 @@
 #include "Entities.h"
 #include "../Plateau/Board.h"
 
-using namespace std;
 using namespace irr;
 using namespace scene;
 using namespace core;

@@ -22,7 +22,7 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
 
     setupSkyBox(day);
 
-    this->player = new Player(sceneManager, "Test", 20);
+    this->player = new Player(sceneManager, "Test", 100);
 
     this->board = new Board(x, y, sceneManager);
 
@@ -61,7 +61,7 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
 
     this->board  = new Board(sceneManager);
 
-    this->player = new Player(sceneManager, "Test", 20, board);
+    this->player = new Player(sceneManager, "Test", 100, board);
 
     //sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
 
