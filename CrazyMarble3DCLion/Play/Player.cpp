@@ -38,6 +38,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 Player::Player(ISceneManager *sceneManager, const stringc& name, int health, vector3df startpos)
         : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
     speed = 500;
+    inertie = vector3df(0,0,0);
 
     // MODEL
     startPos = startpos;
@@ -90,26 +91,27 @@ void Player::processMoving(KeyboardEvent *keyevent, f32 deltaTime) {
     // Init moving vector
     core::vector3df vector(0.0f,0.0f,0.0f);
     u16 count=0;
+    speed = 10;
 
     // Check all key
     if(keyevent->IsKeyDown(KEY_KEY_Z)){
-        vector.X += -speed * deltaTime;
-        vector.Z += -speed * deltaTime;
+        vector.X += -speed;
+        vector.Z += -speed;
         count++;
     }
     else if(keyevent->IsKeyDown(KEY_KEY_S)){
-        vector.X += speed * deltaTime;
-        vector.Z += speed * deltaTime;
+        vector.X += speed;
+        vector.Z += speed;
         count++;
     }
     if(keyevent->IsKeyDown(KEY_KEY_Q)){
-        vector.X += speed * deltaTime;
-        vector.Z += -speed * deltaTime;
+        vector.X += speed;
+        vector.Z += -speed;
         count++;
     }
     else if(keyevent->IsKeyDown(KEY_KEY_D)){
-        vector.X += -speed * deltaTime;
-        vector.Z += speed * deltaTime;
+        vector.X += -speed;
+        vector.Z += speed;
         count++;
     }
 
