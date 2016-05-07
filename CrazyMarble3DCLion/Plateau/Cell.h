@@ -43,6 +43,7 @@ public:
     void setEntity(BlackMarbles *enemie);
     void setEntity(IMeshSceneNode *node);
     void clearEntity();
+    void enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
 
     static const float size;
 };

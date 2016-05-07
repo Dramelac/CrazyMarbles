@@ -170,3 +170,11 @@ void Cell::clearEntity() {
     isEntitySet = false;
 }
 
+void Cell::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
+    if (isEntitySet){
+        entity->enableCollision(metaSelector, sceneManager);
+    }
+}
+
+
+

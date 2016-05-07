@@ -74,6 +74,7 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
 
     // Apply gravity to player :
     player->enableCollision(metaSelector, sceneManager);                    // apply collision map to player
+    board->setupCollisionEntity(metaSelector, sceneManager);
     metaSelector->drop();
 
     IMetaTriangleSelector* metaFinishSelector = board->getMapMetaSelector(sceneManager, true);

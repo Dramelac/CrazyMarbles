@@ -142,5 +142,14 @@ void Board::removeEnemie(vector3di cursor) {
     board[cursor.X][cursor.Y].clearEntity();
 }
 
+void Board::setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
+    for (int row = 0; row < widthNumber; row++)
+    {
+        for (int column = 0; column < heightNumber; column++)
+        {
+            board[row][column].enableCollision(metaSelector, sceneManager);
+        }
+    }
+}
 
 
