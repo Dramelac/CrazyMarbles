@@ -10,6 +10,7 @@ const float Cell::size = 150.0f;
 Cell::Cell() {
     isSet = false;
     isFinisCell = false;
+    isEntitySet = false;
     currentLevel = 0;
 }
 
@@ -150,4 +151,23 @@ void Cell::switchFinishType() {
 
 }
 
+void Cell::setEntity(BlackMarbles *enemie) {
+    if (isEntitySet){
+        delete entity;
+    }
+    entity = enemie;
+}
+
+void Cell::setEntity(IMeshSceneNode *node) {
+    if (isEntitySet){
+        delete entity;
+    }
+    entity = new BlackMarbles(node);
+}
+
+void Cell::clearEntity() {
+    if (isEntitySet){
+        delete entity;
+    }
+}
 
