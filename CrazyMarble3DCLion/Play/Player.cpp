@@ -51,6 +51,7 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health,
                                                   sphere_node->getPosition());
 
     lastPos = board->getStartPoint();
+    lastPos.Y += Cell::size;
 
 
 }
@@ -125,6 +126,8 @@ bool Player::isFall() {
         if (fallDistance >= 70) {
             std::cout << lastPos.X << "/" << lastPos.Y << "/" << lastPos.Z << std::endl;
             sphere_node->setPosition(lastPos);
+            sphere_node->updateAbsolutePosition();
+            animatorCollisionResponse->setGravity(vector3df(0,-10,0));
             fallDistance = 0;
             return true;
         }
