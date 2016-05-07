@@ -39,19 +39,18 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health,
         : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
 
     // MODEL
-
+    startPos = board->getStartPoint();
     sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
 
     sphere_node = sceneManager->addMeshSceneNode(sphereMesh);           // add object to screen
-    sphere_node->setPosition(board->getStartPoint());
+    sphere_node->setPosition(startPos);
     sphere_node->setID(10);
 
     fixeCamera = sceneManager->addCameraSceneNode(sphere_node,
                                                   vector3df(800.0f, 700.0f, 800.0f),
                                                   sphere_node->getPosition());
 
-    lastPos = board->getStartPoint();
-    lastPos.Y += Cell::size;
+
 
 
 }
@@ -124,16 +123,16 @@ bool Player::isFall() {
         fallDistance++;
         //std::cout << fallDistance << std::endl;
         if (fallDistance >= 70) {
-            std::cout << lastPos.X << "/" << lastPos.Y << "/" << lastPos.Z << std::endl;
-            sphere_node->setPosition(lastPos);
+            std::cout << startPos.X << "/" << startPos.Y << "/" << startPos.Z << std::endl;
+            sphere_node->setPosition(startPos);
             sphere_node->updateAbsolutePosition();
             animatorCollisionResponse->setGravity(vector3df(0,-10,0));
             fallDistance = 0;
             return true;
         }
     } else {
-        //lastPos = animatorCollisionResponse->getCollisionResultPosition();
-        //lastPos = sphere_node->getPosition();
+        //startPos = animatorCollisionResponse->getCollisionResultPosition();
+        //startPos = sphere_node->getPosition();
         fallDistance = 0;
     }
     return false;

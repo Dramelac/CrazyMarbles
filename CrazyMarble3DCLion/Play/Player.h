@@ -28,7 +28,7 @@ private:
 
     u32 finishTime;
     u32 fallDistance;
-    vector3df lastPos;
+    vector3df startPos;
 
 	s32 score;
 
