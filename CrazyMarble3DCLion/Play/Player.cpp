@@ -102,7 +102,7 @@ void Player::processMoving(KeyboardEvent *keyevent, f32 deltaTime) {
         vectorKeyboard.Z += -speed;
         count++;
     }
-    else if(keyevent->IsKeyDown(KEY_KEY_S)){
+    if(keyevent->IsKeyDown(KEY_KEY_S)){
         vectorKeyboard.X += speed;
         vectorKeyboard.Z += speed;
         count++;
@@ -112,7 +112,7 @@ void Player::processMoving(KeyboardEvent *keyevent, f32 deltaTime) {
         vectorKeyboard.Z += -speed;
         count++;
     }
-    else if(keyevent->IsKeyDown(KEY_KEY_D)){
+    if(keyevent->IsKeyDown(KEY_KEY_D)){
         vectorKeyboard.X += -speed;
         vectorKeyboard.Z += speed;
         count++;
