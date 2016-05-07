@@ -68,6 +68,7 @@ void Menu::loop() {
                 game.gameLoop();
                 device->getCursorControl()->setVisible(true);
             } else if (scoreBoard->isPressed()){
+                
 
             } else if (levelEditor->isPressed()){
                 visibilityButons(false);

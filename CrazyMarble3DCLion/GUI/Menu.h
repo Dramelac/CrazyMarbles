@@ -30,6 +30,7 @@ private:
     IGUIButton* levelEditor;
     IGUIButton* credit;
 
+
     IGUIImage* background;
 
     void visibilityButons(bool status);
