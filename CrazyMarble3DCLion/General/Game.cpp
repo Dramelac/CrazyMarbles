@@ -39,10 +39,12 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
     // COLLISION : GRAVITY
 
     // plateau de selector collision
-    IMetaTriangleSelector* metaSelector = board->getMapMetaSelector(sceneManager);      // create decor collision data
+    IMetaTriangleSelector* metaMapSelector = board->getMapMetaSelector(sceneManager);      // create decor collision data
 
     // Apply gravity to player :
-    player->enableCollision(metaSelector, sceneManager);                    // apply collision map to player
+    player->enableCollision(metaMapSelector, sceneManager);                    // apply collision map to player
+
+    metaMapSelector->drop();
     speed = 250;
 }
 

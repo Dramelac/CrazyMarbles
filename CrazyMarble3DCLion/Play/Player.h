@@ -20,7 +20,6 @@ private:
 
 	ICameraSceneNode* fixeCamera;
 
-    ISceneNodeAnimatorCollisionResponse* animatorCollisionResponse;
     ISceneNodeAnimatorCollisionResponse* animatorFinishCollisionResponse;
 
     u32 finishTime;
@@ -36,7 +35,6 @@ public:
     Player(ISceneManager *sceneManager);
     ~Player();
 
-    void enableCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
     void addFinishLineCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
 	bool isFall();
 

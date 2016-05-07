@@ -18,12 +18,16 @@ protected:
     IAnimatedMesh* sceneMesh;
     IMeshSceneNode* sceneNode;
 
+    ISceneNodeAnimatorCollisionResponse* animatorCollisionResponse;
+
 	stringc name;
 	int health;
 
 public:
 	Entities(const stringc &name, int health);
 	Entities();
+
+    void enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
 };
 
 
