@@ -9,6 +9,7 @@
 #include "../Utils/KeyboardEvent.h"
 #include "../General/Game.h"
 #include "../General/LevelEditor.h"
+#include "NickMenu.h"
 
 using namespace irr;
 using namespace video;

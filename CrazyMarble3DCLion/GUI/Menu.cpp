@@ -14,6 +14,10 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     device->getCursorControl()->setVisible(true);
 
 
+    NickMenu nickMenu(device, keyEvent);
+    nickMenu.loop();
+
+
     background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
 
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
@@ -42,8 +46,6 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     credit->setDrawBorder(false);
     credit->setUseAlphaChannel(true);
     //play->setScaleImage(true);
-    //NickMenu nickMenu(device, keyEvent);
-    //string pseudo = nickMenu.loop();
 
     gui->addStaticText(L"yolo",irr::core::rect<irr::s32>(1700,20,1820,60),true,true,0 , -1, true);
 
