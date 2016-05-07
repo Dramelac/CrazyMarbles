@@ -40,7 +40,7 @@ public:
     void removeEnemie(vector3di cursor);
 
     void setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
-    void setPlayerToEntities(Player* player, ITriangleSelector* selector);
+    void setPlayerToEntities(ISceneManager *sceneManager, Player* player, ITriangleSelector* selector);
 };
 
 

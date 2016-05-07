@@ -85,7 +85,7 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
 
     // collision player/entities
     ITriangleSelector* selector = player->createSelfMeta(sceneManager);
-    board->setPlayerToEntities(player, selector);
+    board->setPlayerToEntities(sceneManager, player, selector);
 
     selector->drop();
 

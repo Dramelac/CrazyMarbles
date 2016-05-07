@@ -17,6 +17,7 @@ class BlackMarbles : public Entities {
 
 private:
     Player* player;
+    ISceneNodeAnimatorCollisionResponse* animatorPlayerCollisionResponse;
 
 public:
     BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 id);
@@ -26,7 +27,7 @@ public:
 
     void setPosition(vector3df position);
 
-    void setPlayer(Player *player, ITriangleSelector* selector);
+    void setPlayer(ISceneManager *sceneManager, Player *player, ITriangleSelector* selector);
 };
 
 

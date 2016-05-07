@@ -183,9 +183,9 @@ void Cell::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *s
     }
 }
 
-void Cell::setupPlayerToEntity(Player* player, ITriangleSelector* selector) {
+void Cell::setupPlayerToEntity(ISceneManager *sceneManager, Player* player, ITriangleSelector* selector) {
     if (isEntitySet){
-        entity->setPlayer(player, selector);
+        entity->setPlayer(sceneManager, player, selector);
     }
 }
 
