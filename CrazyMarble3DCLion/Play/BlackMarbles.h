@@ -1,0 +1,14 @@
+//
+// Created by mathieu on 07/05/16.
+//
+
+#ifndef CRAZYMARBLE3DCLION_BLACKMARBLES_H
+#define CRAZYMARBLE3DCLION_BLACKMARBLES_H
+
+
+class BlackMarbles {
+
+};
+
+
+#endif //CRAZYMARBLE3DCLION_BLACKMARBLES_H
