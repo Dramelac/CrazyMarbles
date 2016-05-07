@@ -37,5 +37,10 @@ void BlackMarbles::setPlayer(ISceneManager *sceneManager, Player *myplayer) {
     this->sceneNode->setTriangleSelector(selector);
 
     animatorPlayerCollisionResponse = player->enableCustomCollision(selector, sceneManager);
-    //animatorFinishCollisionResponse->setCollisionCallback(this);
+    animatorPlayerCollisionResponse->setCollisionCallback(this);
+}
+
+bool virtual BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animator) {
+    
+    return false;
 }

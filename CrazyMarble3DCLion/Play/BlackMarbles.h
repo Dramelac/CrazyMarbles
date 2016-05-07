@@ -13,7 +13,7 @@ using namespace irr;
 using namespace scene;
 using namespace core;
 
-class BlackMarbles : public Entities {
+class BlackMarbles : public Entities, public ICollisionCallback {
 
 private:
     Player* player;
@@ -22,12 +22,14 @@ private:
 public:
     BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 id);
     BlackMarbles(IMeshSceneNode * node);
-
     virtual ~BlackMarbles();
 
     void setPosition(vector3df position);
-
     void setPlayer(ISceneManager *sceneManager, Player *myplayer);
+
+    virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse &animator);
+
+
 };
 
 
