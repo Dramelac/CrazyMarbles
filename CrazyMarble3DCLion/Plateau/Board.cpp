@@ -46,14 +46,17 @@ Board::Board(ISceneManager* sceneManager): heightNumber(LevelEditor::size), widt
     {
         ISceneNode * node = nodes[i];
         s32 id = node->getID();
-        if (id >= 1000){
+        if (id >= 3500) {
+            id -= 3500;
+            s32 X = id / 50;
+            s32 Y = id % 50;
+            board[X][Y].setEntity((IMeshSceneNode*) node);
+        }
+        else if (id >= 1000){
             id -= 1000;
             s32 X = id / 50;
             s32 Y = id % 50;
             board[X][Y].setCell((IMeshSceneNode*) node);
-        } else if (not strcmp(node->getName(), "BlackMarble")){
-            std::cout << node->getName() << std::endl;
-            addEnemie((IMeshSceneNode*) node);
         }
     }
 }
@@ -127,31 +130,17 @@ void Board::setupFinishCell(vector3di cursor) {
     board[cursor.X][cursor.Y].switchFinishType();
 }
 
-void Board::addEnemie(BlackMarbles* enemie) {
-    enemiesList.push_back(enemie);
+void Board::addEnemie(ISceneManager *sceneManager, vector3di cursor) {
+    board[cursor.X][cursor.Y].setEntity(new BlackMarbles(sceneManager,
+                                                         vector3df(cursor.X * Cell::size,
+                                                                   (cursor.Z * -Cell::size) - 200,
+                                                                   cursor.Y * Cell::size),
+                                                         (cursor.X * LevelEditor::size) + cursor.Y + 3500));
 }
 
-void Board::addEnemie(IMeshSceneNode *node) {
-    enemiesList.push_back(new BlackMarbles(node));
+void Board::removeEnemie(vector3di cursor) {
+    board[cursor.X][cursor.Y].clearEntity();
 }
-
-void Board::clearAllEnemie() {
-    //std::cout << "clearing ..." << enemiesList.size() << std::endl;
-    for (u16 i=0;i<enemiesList.size();i++){
-        delete enemiesList[i];
-        //std::cout << i << std::endl;
-    }
-    enemiesList.clear();
-}
-
-
-
-
-
-
-
-
-
 
 
 

@@ -128,15 +128,11 @@ void LevelEditor::keyboardChecker() {
     }
 
     if (keyEvent->IsKeyDown(KEY_KEY_C, true)){
-        board->clearAllEnemie();
+        board->removeEnemie(cursor);
     }
 
     if (keyEvent->IsKeyDown(KEY_KEY_B, true)){
-        vector3df temp;
-        temp.X = cursor.X * Cell::size;
-        temp.Z = cursor.Y * Cell::size;
-        temp.Y = (cursor.Z * -Cell::size) - 200;
-        board->addEnemie(new BlackMarbles(sceneManager, temp));
+        board->addEnemie(sceneManager, cursor);
     }
 
     if(rightRotation->isPressed() || keyEvent->IsKeyDown(KEY_KEY_I, true)){

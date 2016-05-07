@@ -156,18 +156,17 @@ void Cell::setEntity(BlackMarbles *enemie) {
         delete entity;
     }
     entity = enemie;
+    isEntitySet = true;
 }
 
 void Cell::setEntity(IMeshSceneNode *node) {
-    if (isEntitySet){
-        delete entity;
-    }
-    entity = new BlackMarbles(node);
+    setEntity(new BlackMarbles(node));
 }
 
 void Cell::clearEntity() {
     if (isEntitySet){
         delete entity;
     }
+    isEntitySet = false;
 }
 

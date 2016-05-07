@@ -20,8 +20,7 @@ private:
 
 
 public:
-    BlackMarbles(ISceneManager *sceneManager);
-    BlackMarbles(ISceneManager *sceneManager, vector3df position);
+    BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 id);
     BlackMarbles(IMeshSceneNode * node);
 
     virtual ~BlackMarbles();

@@ -6,18 +6,12 @@
 #include "../Utils/TextureLoader.h"
 
 
-BlackMarbles::BlackMarbles(ISceneManager *sceneManager) : Entities("BlackMarble", 80) {
+BlackMarbles::BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 id) : Entities("BlackMarble", 80)  {
     sphereMesh = TextureLoader::sphereMesh;
     sphere_node = sceneManager->addMeshSceneNode(sphereMesh);
     sphere_node->setMaterialTexture(0, TextureLoader::sphereBlack);
     sphere_node->setName(name);
-}
-
-BlackMarbles::BlackMarbles(ISceneManager *sceneManager, vector3df position) : Entities("BlackMarble", 80)  {
-    sphereMesh = TextureLoader::sphereMesh;
-    sphere_node = sceneManager->addMeshSceneNode(sphereMesh);
-    sphere_node->setMaterialTexture(0, TextureLoader::sphereBlack);
-    sphere_node->setName(name);
+    sphere_node->setID(id);
 
     sphere_node->setPosition(position);
 }
