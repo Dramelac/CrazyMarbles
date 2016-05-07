@@ -44,6 +44,8 @@ public:
 
 	void updateFOV(f32 x);
 
+    ITriangleSelector* createSelfMeta(ISceneManager *sceneManager);
+
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
     bool checkFinish();
 

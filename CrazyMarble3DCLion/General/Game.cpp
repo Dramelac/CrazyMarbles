@@ -67,6 +67,7 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
 
     //sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
 
+
     // COLLISION : GRAVITY
 
     // plateau de selector collision
@@ -77,12 +78,16 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
     board->setupCollisionEntity(metaSelector, sceneManager);
     metaSelector->drop();
 
+    // collision finish line
     IMetaTriangleSelector* metaFinishSelector = board->getMapMetaSelector(sceneManager, true);
     player->addFinishLineCollision(metaFinishSelector, sceneManager);
     metaFinishSelector->drop();
 
+    // collision player/entities
+    ITriangleSelector* selector = player->createSelfMeta(sceneManager);
+    board->setPlayerToEntities(player, selector);
 
-    board->setPlayerToEntities(player);
+    selector->drop();
 
     //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
 

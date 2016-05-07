@@ -7,10 +7,11 @@
 
 #include <irrlicht.h>
 #include "../Play/BlackMarbles.h"
+#include "../Play/Player.h"
 
 using namespace irr;
-using namespace irr::core;
-using namespace irr::scene;
+using namespace core;
+using namespace scene;
 
 class Cell {
 private:
@@ -45,7 +46,7 @@ public:
     void clearEntity();
     void enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
 
-    void setupPlayerToEntity(Player* player);
+    void setupPlayerToEntity(Player* player, ITriangleSelector* selector);
 
     static const float size;
 };

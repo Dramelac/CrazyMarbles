@@ -2,7 +2,6 @@
 // Created by mathieu on 23/02/16.
 //
 
-#include <iostream>
 #include "Board.h"
 #include "../General/LevelEditor.h"
 
@@ -152,12 +151,12 @@ void Board::setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneMana
     }
 }
 
-void Board::setPlayerToEntities(Player *player) {
+void Board::setPlayerToEntities(Player *player, ITriangleSelector* selector) {
     for (int row = 0; row < widthNumber; row++)
     {
         for (int column = 0; column < heightNumber; column++)
         {
-            board[row][column].setupPlayerToEntity(player);
+            board[row][column].setupPlayerToEntity(player, selector);
         }
     }
 }

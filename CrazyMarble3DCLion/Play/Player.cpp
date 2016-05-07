@@ -141,10 +141,11 @@ bool Player::checkFinish() {
     return finishTime > 20;
 }
 
-
-
-
-
+ITriangleSelector* Player::createSelfMeta(ISceneManager *sceneManager) {
+    ITriangleSelector* selector = sceneManager->createTriangleSelector(sceneNode->getMesh(), sceneNode);
+    sceneNode->setTriangleSelector(selector);
+    return selector;
+}
 
 
 

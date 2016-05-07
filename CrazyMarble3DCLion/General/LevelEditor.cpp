@@ -4,7 +4,6 @@
 
 #include <stdio.h>
 #include "LevelEditor.h"
-#include "../Play/BlackMarbles.h"
 
 const u16 LevelEditor::size = 50;
 
