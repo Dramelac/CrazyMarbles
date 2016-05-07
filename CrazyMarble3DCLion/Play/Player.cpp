@@ -120,7 +120,7 @@ void Player::setPosition(vector3df pos) {
 bool Player::isFall() {
     if (animatorCollisionResponse->isFalling()){
         fallDistance++;
-        if (fallDistance >= 50) {
+        if (fallDistance > 50) {
             sphere_node->setPosition(startPos);
             animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
             fallDistance = 0;

@@ -27,6 +27,7 @@ void Cell::setCell(IMeshSceneNode *node) {
 
 void Cell::setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager) {
     int line = 0;
+    isSet = true;
 
     // Uni test pente / gravity / TO REMOVE LATER
     if ((row == 5 && column < 5) || (column == 5 && row < 5)){  // Artificial pente
