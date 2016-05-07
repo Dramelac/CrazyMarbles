@@ -37,6 +37,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 // Start new game
 Player::Player(ISceneManager *sceneManager, const stringc& name, int health, vector3df startpos)
         : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
+    speed = 500;
 
     // MODEL
     startPos = startpos;
@@ -57,6 +58,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health, vec
 
 // player Level Editor
 Player::Player(ISceneManager *sceneManager) : Entities(), fallDistance(0), finishTime(0) {
+    speed = 500;
 
     sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
 
@@ -81,6 +83,44 @@ Player::~Player() {
 
 void Player::updateCamera() {
     fixeCamera->setTarget(sceneNode->getPosition());
+}
+
+
+void Player::processMoving(KeyboardEvent *keyevent, f32 deltaTime) {
+    // Init moving vector
+    core::vector3df vector(0.0f,0.0f,0.0f);
+    u16 count=0;
+
+    // Check all key
+    if(keyevent->IsKeyDown(KEY_KEY_Z)){
+        vector.X += -speed * deltaTime;
+        vector.Z += -speed * deltaTime;
+        count++;
+    }
+    else if(keyevent->IsKeyDown(KEY_KEY_S)){
+        vector.X += speed * deltaTime;
+        vector.Z += speed * deltaTime;
+        count++;
+    }
+    if(keyevent->IsKeyDown(KEY_KEY_Q)){
+        vector.X += speed * deltaTime;
+        vector.Z += -speed * deltaTime;
+        count++;
+    }
+    else if(keyevent->IsKeyDown(KEY_KEY_D)){
+        vector.X += -speed * deltaTime;
+        vector.Z += speed * deltaTime;
+        count++;
+    }
+
+    if (count == 2){
+        vector.X /= 2;
+        vector.Z /= 2;
+    }
+    vector.Y += -7;
+    //cout << vector.X << "/" << vector.Y << "/" << vector.Z << endl;
+
+    updatePosition(vector);
 }
 
 

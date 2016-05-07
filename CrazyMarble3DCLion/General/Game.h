@@ -29,7 +29,6 @@ private:
 
 	KeyboardEvent *keyevent;
     bool play;
-    int speed;
 
     Player *player;
 
