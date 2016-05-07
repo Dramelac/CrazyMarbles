@@ -43,7 +43,7 @@ public:
 
 	void updateFOV(f32 x);
 
-    ITriangleSelector* createSelfMeta(ISceneManager *sceneManager);
+    ISceneNodeAnimatorCollisionResponse* enableCustomCollision(ITriangleSelector *metaSelector, ISceneManager *sceneManager);
 
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
     bool checkFinish();

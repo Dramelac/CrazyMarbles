@@ -21,6 +21,5 @@ void Entities::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManage
             vector3df(0, -20, 0)  // gravity vector
     );
     sceneNode->addAnimator(animatorCollisionResponse);             // apply gravity / collision to player object
-    //anim->drop();                               // drop temp anim
 }
 

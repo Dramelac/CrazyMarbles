@@ -27,7 +27,7 @@ public:
 
     void setPosition(vector3df position);
 
-    void setPlayer(ISceneManager *sceneManager, Player *player, ITriangleSelector* selector);
+    void setPlayer(ISceneManager *sceneManager, Player *myplayer);
 };
 
 

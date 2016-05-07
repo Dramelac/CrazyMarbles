@@ -84,10 +84,8 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
     metaFinishSelector->drop();
 
     // collision player/entities
-    ITriangleSelector* selector = player->createSelfMeta(sceneManager);
-    board->setPlayerToEntities(sceneManager, player, selector);
+    board->setPlayerToEntities(sceneManager, player);
 
-    selector->drop();
 
     //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
 

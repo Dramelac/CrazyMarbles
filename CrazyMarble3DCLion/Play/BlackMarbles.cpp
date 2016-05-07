@@ -30,17 +30,12 @@ void BlackMarbles::setPosition(vector3df position) {
     sceneNode->setPosition(position);
 }
 
-void BlackMarbles::setPlayer(ISceneManager *sceneManager, Player *player, ITriangleSelector* selector) {
-    this->player = player;
+void BlackMarbles::setPlayer(ISceneManager *sceneManager, Player *myplayer) {
+    this->player = myplayer;
 
-    vector3df hitBox = sceneNode->getBoundingBox().MaxEdge;
+    ITriangleSelector* selector = sceneManager->createTriangleSelector(this->sceneNode->getMesh(), this->sceneNode);
+    this->sceneNode->setTriangleSelector(selector);
 
-    animatorPlayerCollisionResponse = sceneManager->createCollisionResponseAnimator(
-            selector, // player collision
-            sceneNode,  // object player to detect
-            hitBox, // hitBox
-            vector3df(0, 0, 0)  // gravity vector
-    );
-    sceneNode->addAnimator(animatorPlayerCollisionResponse); // apply collision to player object
+    animatorPlayerCollisionResponse = player->enableCustomCollision(selector, sceneManager);
     //animatorFinishCollisionResponse->setCollisionCallback(this);
 }

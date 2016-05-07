@@ -141,11 +141,17 @@ bool Player::checkFinish() {
     return finishTime > 20;
 }
 
-ITriangleSelector* Player::createSelfMeta(ISceneManager *sceneManager) {
-    ITriangleSelector* selector = sceneManager->createTriangleSelector(sceneNode->getMesh(), sceneNode);
-    sceneNode->setTriangleSelector(selector);
-    return selector;
+ISceneNodeAnimatorCollisionResponse* Player::enableCustomCollision(ITriangleSelector *metaSelector, ISceneManager *sceneManager) {
+    vector3df hitbox = sceneNode->getBoundingBox().MaxEdge;
+
+    ISceneNodeAnimatorCollisionResponse* temp = sceneManager->createCollisionResponseAnimator(
+            metaSelector, // Map collision
+            sceneNode,  // object player to detect
+            hitbox, // hitbox
+            vector3df(0, 0, 0)  // gravity vector
+    );
+    sceneNode->addAnimator(temp);             // apply gravity / collision to player object
+
+    return temp;
 }
-
-
 
