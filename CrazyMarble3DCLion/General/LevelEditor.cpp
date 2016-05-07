@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include "LevelEditor.h"
+#include "../Play/BlackMarbles.h"
 
 const u16 LevelEditor::size = 50;
 
@@ -124,6 +125,14 @@ void LevelEditor::keyboardChecker() {
     if (keyEvent->IsKeyDown(KEY_KEY_S, true)){
         skyId = (skyId + 1) % 3;
         setupSkyBox(skyId);
+    }
+
+    if (keyEvent->IsKeyDown(KEY_KEY_B, true)){
+        vector3df temp;
+        temp.X = cursor.X * Cell::size;
+        temp.Z = cursor.Y * Cell::size;
+        temp.Y = (cursor.Z * -Cell::size) - 200;
+        BlackMarbles test(sceneManager, temp);
     }
 
     if(rightRotation->isPressed() || keyEvent->IsKeyDown(KEY_KEY_I, true)){

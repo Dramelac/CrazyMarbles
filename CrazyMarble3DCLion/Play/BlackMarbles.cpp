@@ -13,7 +13,7 @@ BlackMarbles::BlackMarbles(ISceneManager *sceneManager) : Entities("BlackMarble"
     sphere_node->setName(name);
 }
 
-BlackMarbles::BlackMarbles(ISceneManager *sceneManager, vector3df position) {
+BlackMarbles::BlackMarbles(ISceneManager *sceneManager, vector3df position) : Entities("BlackMarble", 80)  {
     sphereMesh = TextureLoader::sphereMesh;
     sphere_node = sceneManager->addMeshSceneNode(sphereMesh);
     sphere_node->setMaterialTexture(0, TextureLoader::sphereBlack);
