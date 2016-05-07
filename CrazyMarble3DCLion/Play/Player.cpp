@@ -7,7 +7,7 @@
 
 // Debug player
 Player::Player(ISceneManager *sceneManager, const std::string &name, int health)
-        : Entities(name, health), score(0) {
+        : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
 
     // MODEL
 
@@ -36,14 +36,14 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health)
 
 // Start new game
 Player::Player(ISceneManager *sceneManager, const std::string &name, int health, Board *board)
-        : Entities(name, health), score(0) {
+        : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
 
     // MODEL
-
+    startPos = board->getStartPoint();
     sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
 
     sphere_node = sceneManager->addMeshSceneNode(sphereMesh);           // add object to screen
-    sphere_node->setPosition(board->getStartPoint());
+    sphere_node->setPosition(startPos);
     sphere_node->setID(10);
 
     fixeCamera = sceneManager->addCameraSceneNode(sphere_node,
@@ -51,10 +51,12 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health,
                                                   sphere_node->getPosition());
 
 
+
+
 }
 
 // player Level Editor
-Player::Player(ISceneManager *sceneManager) : Entities() {
+Player::Player(ISceneManager *sceneManager) : Entities(), fallDistance(0), finishTime(0) {
 
     sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
 
@@ -83,14 +85,14 @@ void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager 
 
     vector3df hitbox = sphere_node->getBoundingBox().MaxEdge;
 
-    ISceneNodeAnimatorCollisionResponse* anim = sceneManager->createCollisionResponseAnimator(
+    animatorCollisionResponse = sceneManager->createCollisionResponseAnimator(
             metaSelector, // Map collision
             sphere_node,  // object player to detect
             hitbox, // hitbox
-            vector3df(0, -10, 0)  // gravity vector
+            vector3df(0, -20, 0)  // gravity vector
     );
-    sphere_node->addAnimator(anim);             // apply gravity / collision to player object
-    anim->drop();                               // drop temp anim
+    sphere_node->addAnimator(animatorCollisionResponse);             // apply gravity / collision to player object
+    //anim->drop();                               // drop temp anim
 
 }
 
@@ -115,4 +117,53 @@ void Player::updateFOV(f32 x) {
 void Player::setPosition(vector3df pos) {
     sphere_node->setPosition(pos);
 }
+
+bool Player::isFall() {
+    if (animatorCollisionResponse->isFalling()){
+        fallDistance++;
+        if (fallDistance >= 50) {
+            sphere_node->setPosition(startPos);
+            animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
+            fallDistance = 0;
+            return true;
+        }
+    } else {
+        //startPos = animatorCollisionResponse->getCollisionResultPosition();
+        //startPos = sphere_node->getPosition();
+        fallDistance = 0;
+    }
+    return false;
+}
+
+void Player::addFinishLineCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
+
+    vector3df hitBox = sphere_node->getBoundingBox().MaxEdge;
+    hitBox += vector3df(0.1,0.1,0.1);
+
+    animatorFinishCollisionResponse = sceneManager->createCollisionResponseAnimator(
+            metaSelector, // Map collision
+            sphere_node,  // object player to detect
+            hitBox, // hitBox
+            vector3df(0, 0, 0)  // gravity vector
+    );
+    sphere_node->addAnimator(animatorFinishCollisionResponse); // apply collision to player object
+    animatorFinishCollisionResponse->setCollisionCallback(this);
+
+}
+
+bool Player::onCollision(const ISceneNodeAnimatorCollisionResponse &animator) {
+    finishTime++;
+    return false;
+}
+
+bool Player::checkFinish() {
+    return finishTime > 20;
+}
+
+
+
+
+
+
+
 

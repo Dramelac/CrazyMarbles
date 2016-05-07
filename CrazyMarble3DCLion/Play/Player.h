@@ -16,14 +16,21 @@ using namespace irr;
 using namespace scene;
 using namespace core;
 
-class Player : Entities {
+class Player : public Entities, public ICollisionCallback {
 private:
 	IAnimatedMesh* sphereMesh;
 	IMeshSceneNode* sphere_node;
 
 	ICameraSceneNode* fixeCamera;
 
-	int score;
+    ISceneNodeAnimatorCollisionResponse* animatorCollisionResponse;
+    ISceneNodeAnimatorCollisionResponse* animatorFinishCollisionResponse;
+
+    u32 finishTime;
+    u32 fallDistance;
+    vector3df startPos;
+
+	s32 score;
 
 public:
 
@@ -33,11 +40,18 @@ public:
     ~Player();
 
     void enableCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
-	void updatePosition(vector3df vec);
+    void addFinishLineCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
+	bool isFall();
+
+    void updatePosition(vector3df vec);
 	void setPosition(vector3df pos);
 	void updateCamera();
 
 	void updateFOV(f32 x);
+
+    virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
+    bool checkFinish();
+
 };
 
 

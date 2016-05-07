@@ -9,13 +9,18 @@ const float Cell::size = 150.0f;
 
 Cell::Cell() {
     isSet = false;
+    isFinisCell = false;
     currentLevel = 0;
 }
 
 
 void Cell::setCell(IMeshSceneNode *node) {
     cell_node = node;
+    if (not strcmp(cell_node->getName(), "finish")) {
+        isFinisCell = true;
+    }
     isSet = true;
+
     currentLevel = s32((cell_node->getPosition().Y + 500) / -Cell::size);
 }
 
@@ -79,13 +84,18 @@ void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector
         cell_node = sceneManager->addMeshSceneNode(cellMesh);               // create object on screen
         s32 id = 1000 + (cursor.X * 50) + cursor.Y;
         cell_node->setID(id);
+        cell_node->setName("Cell");
         isSet = true;
     } else {
         if (type != 4){
             cell_node->setMesh(cellMesh);
+            if (isFinisCell) {
+                cell_node->setMaterialTexture(0,TextureLoader::finish_line);
+            }
         } else {
             cell_node->remove();
             isSet = false;
+            isFinisCell = false;
             return;
         }
     }
@@ -93,11 +103,6 @@ void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector
     cell_node->setRotation(vector3df(rotation.X, rotation.Y, rotation.Z));
     currentLevel = cursor.Z;
     cell_node->setPosition(vector3df(cursor.X*size,-500.0f-(cursor.Z*size),cursor.Y*size));    // setup position
-}
-
-
-IMeshSceneNode *Cell::getCellNode() {
-    return cell_node;
 }
 
 
@@ -115,3 +120,33 @@ Cell::~Cell() {
         cell_node->remove();
     }
 }
+
+ITriangleSelector* Cell::getSelector(ISceneManager *sceneManager, bool filterFinish) {
+    if (not isSet){
+        return nullptr;
+    } else if (not filterFinish || isFinisCell){
+        // create Selector
+        ITriangleSelector* selector = sceneManager->createTriangleSelector(cell_node->getMesh(), cell_node);
+        cell_node->setTriangleSelector(selector);                    // set to the node the new selector
+        return selector;
+    } else {
+        return nullptr;
+    }
+}
+
+void Cell::switchFinishType() {
+    if (isSet){
+        if (isFinisCell){
+            cell_node->setName("Cell");
+            cell_node->setMaterialTexture(0,TextureLoader::tile);
+            isFinisCell = false;
+        } else {
+            cell_node->setName("finish");
+            cell_node->setMaterialTexture(0,TextureLoader::finish_line);
+            isFinisCell = true;
+        }
+    }
+
+}
+
+

@@ -117,6 +117,10 @@ void LevelEditor::keyboardChecker() {
         board->setupStartPoint(cursor);
     }
 
+    if (keyEvent->IsKeyDown(KEY_KEY_F, true)){
+        board->setupFinishCell(cursor);
+    }
+
     if (keyEvent->IsKeyDown(KEY_KEY_S, true)){
         skyId = (skyId + 1) % 3;
         setupSkyBox(skyId);
