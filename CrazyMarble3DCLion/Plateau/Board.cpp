@@ -152,4 +152,16 @@ void Board::setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneMana
     }
 }
 
+void Board::setPlayerToEntities(Player *player) {
+    for (int row = 0; row < widthNumber; row++)
+    {
+        for (int column = 0; column < heightNumber; column++)
+        {
+            board[row][column].setupPlayerToEntity(player);
+        }
+    }
+}
+
+
+
 

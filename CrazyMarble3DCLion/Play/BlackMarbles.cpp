@@ -30,3 +30,6 @@ void BlackMarbles::setPosition(vector3df position) {
     sceneNode->setPosition(position);
 }
 
+void BlackMarbles::setPlayer(Player *player) {
+    this->player = player;
+}

@@ -45,6 +45,8 @@ public:
     void clearEntity();
     void enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
 
+    void setupPlayerToEntity(Player* player);
+
     static const float size;
 };
 

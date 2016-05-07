@@ -81,6 +81,9 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
     player->addFinishLineCollision(metaFinishSelector, sceneManager);
     metaFinishSelector->drop();
 
+
+    board->setPlayerToEntities(player);
+
     //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
 
     speed = 500;

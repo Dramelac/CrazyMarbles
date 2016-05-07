@@ -7,6 +7,7 @@
 
 #include <irrlicht.h>
 #include "Entities.h"
+#include "Player.h"
 
 using namespace irr;
 using namespace scene;
@@ -14,6 +15,8 @@ using namespace core;
 
 class BlackMarbles : public Entities {
 
+private:
+    Player* player;
 
 public:
     BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 id);
@@ -22,6 +25,8 @@ public:
     virtual ~BlackMarbles();
 
     void setPosition(vector3df position);
+
+    void setPlayer(Player *player);
 };
 
 
