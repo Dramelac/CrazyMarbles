@@ -10,9 +10,14 @@
 
 using namespace irr;
 using namespace core;
+using namespace scene;
 
 class Entities {
 protected:
+
+    IAnimatedMesh* sceneMesh;
+    IMeshSceneNode* sceneNode;
+
 	stringc name;
 	int health;
 

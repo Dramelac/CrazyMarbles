@@ -17,8 +17,6 @@ using namespace core;
 
 class Player : public Entities, public ICollisionCallback {
 private:
-	IAnimatedMesh* sphereMesh;
-	IMeshSceneNode* sphere_node;
 
 	ICameraSceneNode* fixeCamera;
 

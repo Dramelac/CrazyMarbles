@@ -7,21 +7,21 @@
 
 
 BlackMarbles::BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 id) : Entities("BlackMarble", 80)  {
-    sphereMesh = TextureLoader::sphereMesh;
-    sphere_node = sceneManager->addMeshSceneNode(sphereMesh);
-    sphere_node->setMaterialTexture(0, TextureLoader::sphereBlack);
-    sphere_node->setName(name);
-    sphere_node->setID(id);
+    sceneMesh = TextureLoader::sphereMesh;
+    sceneNode = sceneManager->addMeshSceneNode(sceneMesh);
+    sceneNode->setMaterialTexture(0, TextureLoader::sphereBlack);
+    sceneNode->setName(name);
+    sceneNode->setID(id);
 
-    sphere_node->setPosition(position);
+    sceneNode->setPosition(position);
 }
 
 BlackMarbles::BlackMarbles(IMeshSceneNode *node) {
-    sphere_node = node;
+    sceneNode = node;
     Entities(node->getName(), 80);
 }
 
 
 BlackMarbles::~BlackMarbles() {
-    sphere_node->remove();
+    sceneNode->remove();
 }

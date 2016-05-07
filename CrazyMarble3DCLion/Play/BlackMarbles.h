@@ -14,10 +14,6 @@ using namespace core;
 
 class BlackMarbles : public Entities {
 
-private:
-    IAnimatedMesh* sphereMesh;
-    IMeshSceneNode* sphere_node;
-
 
 public:
     BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 id);
