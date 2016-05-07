@@ -30,7 +30,7 @@ private:
     u32 fallDistance;
     vector3df lastPos;
 
-	int score;
+	s32 score;
 
 public:
 

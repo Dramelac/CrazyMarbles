@@ -50,6 +50,8 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health,
                                                   vector3df(800.0f, 700.0f, 800.0f),
                                                   sphere_node->getPosition());
 
+    lastPos = board->getStartPoint();
+
 
 }
 
@@ -87,7 +89,7 @@ void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager 
             metaSelector, // Map collision
             sphere_node,  // object player to detect
             hitbox, // hitbox
-            vector3df(0, -20, 0)  // gravity vector
+            vector3df(0, -10, 0)  // gravity vector
     );
     sphere_node->addAnimator(animatorCollisionResponse);             // apply gravity / collision to player object
     //anim->drop();                               // drop temp anim
@@ -121,12 +123,14 @@ bool Player::isFall() {
         fallDistance++;
         //std::cout << fallDistance << std::endl;
         if (fallDistance >= 70) {
+            std::cout << lastPos.X << "/" << lastPos.Y << "/" << lastPos.Z << std::endl;
             sphere_node->setPosition(lastPos);
-            return false;
+            fallDistance = 0;
+            return true;
         }
     } else {
         //lastPos = animatorCollisionResponse->getCollisionResultPosition();
-        lastPos = sphere_node->getPosition();
+        //lastPos = sphere_node->getPosition();
         fallDistance = 0;
     }
     return false;
@@ -134,13 +138,13 @@ bool Player::isFall() {
 
 void Player::addFinishLineCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
 
-    vector3df hitbox = sphere_node->getBoundingBox().MaxEdge;
-    hitbox += vector3df(0.1,0.1,0.1);
+    vector3df hitBox = sphere_node->getBoundingBox().MaxEdge;
+    hitBox += vector3df(0.1,0.1,0.1);
 
     animatorFinishCollisionResponse = sceneManager->createCollisionResponseAnimator(
             metaSelector, // Map collision
             sphere_node,  // object player to detect
-            hitbox, // hitbox
+            hitBox, // hitBox
             vector3df(0, 0, 0)  // gravity vector
     );
     sphere_node->addAnimator(animatorFinishCollisionResponse); // apply collision to player object

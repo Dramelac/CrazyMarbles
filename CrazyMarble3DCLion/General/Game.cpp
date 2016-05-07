@@ -144,7 +144,7 @@ void Game::gameLoop() {
             keyboardChecker(deltaTime);
 
             if (player->isFall()){
-                play = false;
+                // player is fall
             }
 
             if (!play || player->checkFinish()){
