@@ -22,10 +22,6 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
 
     setupSkyBox(day);
 
-    // SkyDome
-    //sceneManager->addSkyDomeSceneNode(driver->getTexture("data/../../irrlicht-1.8.3/media/skydome.jpg"),16,8,0.95f,2.0f);
-
-
     this->player = new Player(sceneManager, "Test", 20);
 
     this->board = new Board(x, y, sceneManager);
@@ -38,27 +34,6 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
     */
 
     sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
-
-
-
-	// CAMERA
-    /*
-	SKeyMap keyMap[4];
-	keyMap[0].Action = EKA_MOVE_FORWARD;   // avancer
-	keyMap[0].KeyCode = KEY_KEY_Z;
-	keyMap[1].Action = EKA_MOVE_BACKWARD;  // reculer
-	keyMap[1].KeyCode = KEY_KEY_S;
-	keyMap[2].Action = EKA_STRAFE_LEFT;    // a gauche
-	keyMap[2].KeyCode = KEY_KEY_Q;
-	keyMap[3].Action = EKA_STRAFE_RIGHT;   // a droite
-	keyMap[3].KeyCode = KEY_KEY_D;
-    */
-    // To change
-
-    //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);    // create camera (to change /
-                                                                                        // fix to player)
-    //fpsCamera->setPosition(vector3df(x*Cell::size,600.0f,y*Cell::size));                // init camera pos
-    //fpsCamera->setPosition(vector3df(850,300,850));
 
 
     // COLLISION : GRAVITY

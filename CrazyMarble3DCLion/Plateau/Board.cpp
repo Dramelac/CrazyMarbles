@@ -84,21 +84,12 @@ IMetaTriangleSelector *Board::getMapMetaSelector(ISceneManager *sceneManager, bo
 	// plateau de selector collision
 	scene::IMetaTriangleSelector* metaSelector = sceneManager->createMetaTriangleSelector();
 
-	// selector mesh collision temp
-	//scene::ITriangleSelector *selector;
-
-
 	for (int row = 0; row < widthNumber; row++)
 	{
 		for (int column = 0; column < heightNumber; column++)
 		{
-			/*IMeshSceneNode* temp_node = this->board[row][column].getCellNode();             // load 1 node element
-			selector = sceneManager->createTriangleSelector(temp_node->getMesh(), temp_node);      // getSelector
-			//selector = sceneManager->createOctreeTriangleSelector(temp_node->getMesh(), temp_node, 128);
-
-			temp_node->setTriangleSelector(selector);                                       // set to the node the new selector
-			*/
-            ITriangleSelector *selector = board[row][column].getSelector(sceneManager, filterFinish);
+            // selector mesh collision temp
+            ITriangleSelector *selector = board[row][column].getSelector(sceneManager, filterFinish); // getSelector
             if (selector == nullptr) continue;
 
 			metaSelector->addTriangleSelector(selector);                                    // update metaSelectors
@@ -106,7 +97,6 @@ IMetaTriangleSelector *Board::getMapMetaSelector(ISceneManager *sceneManager, bo
         }
 	}
                                                                        // drop temp selector
-
 	return metaSelector;
 }
 
