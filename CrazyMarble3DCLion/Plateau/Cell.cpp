@@ -105,6 +105,10 @@ void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector
     cell_node->setRotation(vector3df(rotation.X, rotation.Y, rotation.Z));
     currentLevel = cursor.Z;
     cell_node->setPosition(vector3df(cursor.X*size,-500.0f-(cursor.Z*size),cursor.Y*size));    // setup position
+
+    if (isEntitySet){
+        entity->setPosition(vector3df(cursor.X*size,-200-(cursor.Z*size),cursor.Y*size));
+    }
 }
 
 
@@ -120,6 +124,9 @@ s32 Cell::getCurrentLevel(s32 cursorZ) {
 Cell::~Cell() {
     if (isSet){
         cell_node->remove();
+    }
+    if (isEntitySet){
+        delete entity;
     }
 }
 

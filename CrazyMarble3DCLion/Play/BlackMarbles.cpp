@@ -25,3 +25,8 @@ BlackMarbles::BlackMarbles(IMeshSceneNode *node) {
 BlackMarbles::~BlackMarbles() {
     sceneNode->remove();
 }
+
+void BlackMarbles::setPosition(vector3df position) {
+    sceneNode->setPosition(position);
+}
+

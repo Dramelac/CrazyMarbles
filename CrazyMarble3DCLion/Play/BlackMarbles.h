@@ -20,6 +20,8 @@ public:
     BlackMarbles(IMeshSceneNode * node);
 
     virtual ~BlackMarbles();
+
+    void setPosition(vector3df position);
 };
 
 
