@@ -37,6 +37,8 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 // Start new game
 Player::Player(ISceneManager *sceneManager, const stringc& name, int health, vector3df startpos)
         : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
+    speed = 20;
+    inertie = vector3df(0,0,0);
 
     // MODEL
     startPos = startpos;
@@ -57,6 +59,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health, vec
 
 // player Level Editor
 Player::Player(ISceneManager *sceneManager) : Entities(), fallDistance(0), finishTime(0) {
+    speed = 20;
 
     sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
 
@@ -81,6 +84,81 @@ Player::~Player() {
 
 void Player::updateCamera() {
     fixeCamera->setTarget(sceneNode->getPosition());
+}
+
+
+void Player::processMoving(KeyboardEvent *keyevent, f32 deltaTime) {
+    // Init moving vectorKeyboard
+    core::vector3df vectorKeyboard(0,0,0);
+    u16 count=0;
+    //speed = 20;
+    u16 deceleration = 10;
+    u16 maxSpeed = 500;
+    // Min 0 / Max 500
+
+    // Check all key
+    if(keyevent->IsKeyDown(KEY_KEY_Z)){
+        vectorKeyboard.X += -speed;
+        vectorKeyboard.Z += -speed;
+        count++;
+    }
+    if(keyevent->IsKeyDown(KEY_KEY_S)){
+        vectorKeyboard.X += speed;
+        vectorKeyboard.Z += speed;
+        count++;
+    }
+    if(keyevent->IsKeyDown(KEY_KEY_Q)){
+        vectorKeyboard.X += speed;
+        vectorKeyboard.Z += -speed;
+        count++;
+    }
+    if(keyevent->IsKeyDown(KEY_KEY_D)){
+        vectorKeyboard.X += -speed;
+        vectorKeyboard.Z += speed;
+        count++;
+    }
+
+    if (count == 2){
+        vectorKeyboard.X /= 2;
+        vectorKeyboard.Z /= 2;
+    }
+    //cout << vectorKeyboard.X << "/" << vectorKeyboard.Y << "/" << vectorKeyboard.Z << endl;
+    // apply keyboard to inertie
+    inertie += vectorKeyboard;
+
+    // Deceleration naturel
+    if (inertie.X > 0){
+        inertie.X -= deceleration;
+        if (inertie.X < 0) inertie.X = 0;
+    } else if (inertie.X < 0) {
+        inertie.X += deceleration;
+        if (inertie.X > 0) inertie.X = 0;
+    }
+    if (inertie.X > maxSpeed) {
+        inertie.X = maxSpeed;
+    }else if (inertie.X < -maxSpeed){
+        inertie.X = -maxSpeed;
+    }
+
+    if (inertie.Z > 0){
+        inertie.Z -= deceleration;
+        if (inertie.Z < 0) inertie.Z = 0;
+    } else if (inertie.Z < 0) {
+        inertie.Z += deceleration;
+        if (inertie.Z > 0) inertie.Z = 0;
+    }
+    if (inertie.Z > maxSpeed) {
+        inertie.Z = maxSpeed;
+    } else if (inertie.Z < -maxSpeed){
+        inertie.Z = -maxSpeed;
+    }
+
+    inertie.Y = 0;
+    vector3df toMove = inertie * deltaTime;
+    toMove.Y = -7;
+    //std::cout << "inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl;
+    //std::cout << "toMove : " << toMove.X << "/" << toMove.Y << "/" << toMove.Z << std::endl<< std::endl;
+    updatePosition(toMove);
 }
 
 

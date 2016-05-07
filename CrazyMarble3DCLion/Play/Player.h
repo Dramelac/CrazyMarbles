@@ -9,6 +9,7 @@
 #include <irrlicht.h>
 
 #include "Entities.h"
+#include "../Utils/KeyboardEvent.h"
 
 using namespace irr;
 using namespace scene;
@@ -27,6 +28,9 @@ private:
 
 	s32 score;
 
+    vector3df inertie;
+    u16 speed;
+
 public:
 
 	Player(ISceneManager *sceneManager, const stringc& name, int health);
@@ -37,6 +41,7 @@ public:
     void addFinishLineCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
 	bool isFall();
 
+    void processMoving(KeyboardEvent *keyevent, f32 deltaTime);
     void updatePosition(vector3df vec);
 	void setPosition(vector3df pos);
 	void updateCamera();

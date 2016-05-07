@@ -45,7 +45,6 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
     player->enableCollision(metaMapSelector, sceneManager);                    // apply collision map to player
 
     metaMapSelector->drop();
-    speed = 250;
 }
 
 // Play select Map
@@ -88,8 +87,6 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
 
 
     //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
-
-    speed = 500;
 
 }
 
@@ -143,41 +140,9 @@ void Game::gameLoop() {
 }
 
 void Game::keyboardChecker(f32 deltaTime) {
-    // Init moving vector
-    core::vector3df vector(0.0f,0.0f,0.0f);
-    u16 count=0;
-
-    // Check all key
-    if(keyevent->IsKeyDown(KEY_KEY_Z)){
-        vector.X += -speed * deltaTime;
-        vector.Z += -speed * deltaTime;
-        count++;
-    }
-    else if(keyevent->IsKeyDown(KEY_KEY_S)){
-        vector.X += speed * deltaTime;
-        vector.Z += speed * deltaTime;
-        count++;
-    }
-    if(keyevent->IsKeyDown(KEY_KEY_Q)){
-        vector.X += speed * deltaTime;
-        vector.Z += -speed * deltaTime;
-        count++;
-    }
-    else if(keyevent->IsKeyDown(KEY_KEY_D)){
-        vector.X += -speed * deltaTime;
-        vector.Z += speed * deltaTime;
-        count++;
-    }
-
-    if (count == 2){
-        vector.X /= 2;
-        vector.Z /= 2;
-    }
-    vector.Y += -7;
-    //cout << vector.X << "/" << vector.Y << "/" << vector.Z << endl;
 
     // apply moving to player
-    player->updatePosition(vector);
+    player->processMoving(keyevent, deltaTime);
 
 
     if(keyevent->IsKeyDown(KEY_KEY_P)){
