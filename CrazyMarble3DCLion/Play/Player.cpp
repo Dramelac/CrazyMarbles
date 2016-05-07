@@ -155,3 +155,9 @@ ISceneNodeAnimatorCollisionResponse* Player::enableCustomCollision(ITriangleSele
     return temp;
 }
 
+vector3df Player::getPosition() {
+    return sceneNode->getPosition();
+}
+
+
+

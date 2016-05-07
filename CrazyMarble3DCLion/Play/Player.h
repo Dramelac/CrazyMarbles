@@ -44,6 +44,7 @@ public:
 	void updateFOV(f32 x);
 
     ISceneNodeAnimatorCollisionResponse* enableCustomCollision(ITriangleSelector *metaSelector, ISceneManager *sceneManager);
+    vector3df getPosition();
 
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
     bool checkFinish();

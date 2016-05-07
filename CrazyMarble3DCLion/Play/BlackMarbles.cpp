@@ -40,7 +40,12 @@ void BlackMarbles::setPlayer(ISceneManager *sceneManager, Player *myplayer) {
     animatorPlayerCollisionResponse->setCollisionCallback(this);
 }
 
-bool virtual BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animator) {
-    
+bool BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animator) {
+    vector3df tempA = player->getPosition();
+    std::cout << "A : " << tempA.X << "/" << tempA.Y << "/" << tempA.Z << std::endl;
+    vector3df tempB = sceneNode->getPosition();
+    std::cout << "B : " << tempB.X << "/" << tempB.Y << "/" << tempB.Z << std::endl;
+    vector3df diff = tempB - tempA;
+    std::cout << "diff : " << diff.X << "/" << diff.Y << "/" << diff.Z << std::endl << std::endl;
     return false;
 }
