@@ -33,8 +33,8 @@ private:
 
 public:
 
-	Player(ISceneManager *sceneManager, const std::string &name, int health);
-	Player(ISceneManager *sceneManager, const std::string &name, int health, Board* board);
+	Player(ISceneManager *sceneManager, const stringc& name, int health);
+	Player(ISceneManager *sceneManager, const stringc& name, int health, Board* board);
     Player(ISceneManager *sceneManager);
     ~Player();
 

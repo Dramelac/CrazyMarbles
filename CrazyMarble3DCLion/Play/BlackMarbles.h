@@ -7,7 +7,6 @@
 
 #include <irrlicht.h>
 #include "Entities.h"
-#include "../Utils/TextureLoader.h"
 
 using namespace irr;
 using namespace scene;

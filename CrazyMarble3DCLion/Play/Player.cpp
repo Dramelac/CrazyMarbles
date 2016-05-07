@@ -6,7 +6,7 @@
 #include "../Utils/TextureLoader.h"
 
 // Debug player
-Player::Player(ISceneManager *sceneManager, const std::string &name, int health)
+Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
         : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
 
     // MODEL
@@ -35,7 +35,7 @@ Player::Player(ISceneManager *sceneManager, const std::string &name, int health)
 }
 
 // Start new game
-Player::Player(ISceneManager *sceneManager, const std::string &name, int health, Board *board)
+Player::Player(ISceneManager *sceneManager, const stringc& name, int health, Board *board)
         : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
 
     // MODEL
@@ -111,7 +111,6 @@ void Player::updateFOV(f32 x) {
     f32 temp = fixeCamera->getFOV();
     std::cout << "fov old : " << temp;
     fixeCamera->setFOV(temp + x);
-    std::cout << "/ fov now : " << temp + x << endl;
 }
 
 void Player::setPosition(vector3df pos) {

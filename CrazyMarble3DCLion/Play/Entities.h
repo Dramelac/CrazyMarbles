@@ -6,17 +6,18 @@
 #define CRAZYMARBLE_ENTITIES_HPP
 
 
-#include <string>
+#include <irrlicht.h>
 
-using namespace std;
+using namespace irr;
+using namespace core;
 
 class Entities {
 protected:
-	std::string name;
+	stringc name;
 	int health;
 
 public:
-	Entities(const std::string &name, int health);
+	Entities(const stringc &name, int health);
 	Entities();
 };
 
