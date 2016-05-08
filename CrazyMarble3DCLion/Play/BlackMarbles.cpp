@@ -16,11 +16,9 @@ BlackMarbles::BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 
     sceneNode->setPosition(position);
 }
 
-BlackMarbles::BlackMarbles(IMeshSceneNode *node) {
+BlackMarbles::BlackMarbles(IMeshSceneNode *node) : Entities(node->getName(), 60) {
     sceneNode = node;
-    Entities(node->getName(), 60);
 }
-
 
 BlackMarbles::~BlackMarbles() {
     player->removeAnimator(animatorPlayerCollisionResponse);
