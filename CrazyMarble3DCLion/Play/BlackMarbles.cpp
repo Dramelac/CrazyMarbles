@@ -47,5 +47,9 @@ bool BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animat
     std::cout << "B : " << tempB.X << "/" << tempB.Y << "/" << tempB.Z << std::endl;
     vector3df diff = tempB - tempA;
     std::cout << "diff : " << diff.X << "/" << diff.Y << "/" << diff.Z << std::endl << std::endl;
+    std::cout << "old inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl;
+    inertie = diff;
+    std::cout << "inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl<< std::endl;
+
     return false;
 }
