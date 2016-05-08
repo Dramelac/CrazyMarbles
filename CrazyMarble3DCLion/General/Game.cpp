@@ -131,6 +131,10 @@ void Game::gameLoop() {
                 // player is fall
             }
 
+            if (not player->isAlive()){
+                // player is dead
+            }
+
             if (!play || player->checkFinish()){
                 break;
             }
