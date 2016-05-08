@@ -4,6 +4,7 @@
 
 #include "Game.h"
 
+// Debug construct
 Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
            unsigned int x, unsigned int y, bool day) :
         play(true){
@@ -21,11 +22,7 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
 
     setupSkyBox(day);
 
-    // SkyDome
-    //sceneManager->addSkyDomeSceneNode(driver->getTexture("data/../../irrlicht-1.8.3/media/skydome.jpg"),16,8,0.95f,2.0f);
-
-
-    this->player = new Player("Test", 20, sceneManager);
+    this->player = new Player(sceneManager, "Test", 20);
 
     this->board = new Board(x, y, sceneManager);
 
@@ -39,27 +36,6 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
     sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
 
 
-
-	// CAMERA
-    /*
-	SKeyMap keyMap[4];
-	keyMap[0].Action = EKA_MOVE_FORWARD;   // avancer
-	keyMap[0].KeyCode = KEY_KEY_Z;
-	keyMap[1].Action = EKA_MOVE_BACKWARD;  // reculer
-	keyMap[1].KeyCode = KEY_KEY_S;
-	keyMap[2].Action = EKA_STRAFE_LEFT;    // a gauche
-	keyMap[2].KeyCode = KEY_KEY_Q;
-	keyMap[3].Action = EKA_STRAFE_RIGHT;   // a droite
-	keyMap[3].KeyCode = KEY_KEY_D;
-    */
-    // To change
-
-    //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);    // create camera (to change /
-                                                                                        // fix to player)
-    //fpsCamera->setPosition(vector3df(x*Cell::size,600.0f,y*Cell::size));                // init camera pos
-    //fpsCamera->setPosition(vector3df(850,300,850));
-
-
     // COLLISION : GRAVITY
 
     // plateau de selector collision
@@ -70,7 +46,7 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
     speed = 250;
 }
 
-
+// Play select Map
 Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
         device(inDevice), keyevent(keyevent), play(true) {
 
@@ -83,33 +59,28 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
     IReadFile* map = createReadFile(pathMap);
     sceneManager->loadScene(map);
 
-    this->player = new Player("Test", 20, sceneManager);
-
     this->board  = new Board(sceneManager);
 
+    this->player = new Player(sceneManager, "Test", 20, board);
 
     //sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
 
     // COLLISION : GRAVITY
 
     // plateau de selector collision
-    IMetaTriangleSelector* metaSelector = board->getMapMetaSelectorFromNodes(sceneManager);      // create decor collision data
+    IMetaTriangleSelector* metaSelector = board->getMapMetaSelector(sceneManager);      // create decor collision data
 
     // Apply gravity to player :
     player->enableCollision(metaSelector, sceneManager);                    // apply collision map to player
-    /*
-    ICameraSceneNode* test = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
+    metaSelector->drop();
 
-    ISceneNodeAnimatorCollisionResponse* anim = sceneManager->createCollisionResponseAnimator(
-            metaSelector, // Map collision
-            test,  // object player to detect
-            vector3df(50,50,50), // hitbox
-            vector3df(0, -10, 0)  // gravity vector
-    );
-    test->addAnimator(anim);
-    anim->drop();
-    */
-    speed = 250;
+    IMetaTriangleSelector* metaFinishSelector = board->getMapMetaSelector(sceneManager, true);
+    player->addFinishLineCollision(metaFinishSelector, sceneManager);
+    metaFinishSelector->drop();
+
+    //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
+
+    speed = 500;
 
 }
 
@@ -149,7 +120,11 @@ void Game::gameLoop() {
             then = now;
             keyboardChecker(deltaTime);
 
-            if (!play){
+            if (player->isFall()){
+                // player is fall
+            }
+
+            if (!play || player->checkFinish()){
                 break;
             }
 
@@ -158,47 +133,39 @@ void Game::gameLoop() {
 
 }
 
-void Game::updateGameBoard() {
-    /*
-    board.drawBoard(&windows);
-    player.renderPlayer(&windows);
-
-    windows.display();
-    windows.clear();
-    */
-
-    driver->beginScene(true, true,
-                       video::SColor(                  // contient la couleur blanc
-                               255,                                   // composante A alpha (transparence)
-                               255,                                   // composante R rouge
-                               255,                                   // composante G verte
-                               255));
-    sceneManager->drawAll();                    // calcule le rendu
-    driver->endScene();
-
-}
-
 void Game::keyboardChecker(f32 deltaTime) {
     // Init moving vector
     core::vector3df vector(0.0f,0.0f,0.0f);
+    u16 count=0;
 
     // Check all key
     if(keyevent->IsKeyDown(KEY_KEY_Z)){
         vector.X += -speed * deltaTime;
         vector.Z += -speed * deltaTime;
+        count++;
     }
     else if(keyevent->IsKeyDown(KEY_KEY_S)){
         vector.X += speed * deltaTime;
         vector.Z += speed * deltaTime;
+        count++;
     }
     if(keyevent->IsKeyDown(KEY_KEY_Q)){
         vector.X += speed * deltaTime;
-        vector.Z += -speed/2 * deltaTime;
+        vector.Z += -speed * deltaTime;
+        count++;
     }
     else if(keyevent->IsKeyDown(KEY_KEY_D)){
         vector.X += -speed * deltaTime;
-        vector.Z += speed/2 * deltaTime;
+        vector.Z += speed * deltaTime;
+        count++;
     }
+
+    if (count == 2){
+        vector.X /= 2;
+        vector.Z /= 2;
+    }
+    vector.Y += -7;
+    //cout << vector.X << "/" << vector.Y << "/" << vector.Z << endl;
 
     // apply moving to player
     player->updatePosition(vector);
@@ -212,7 +179,7 @@ void Game::keyboardChecker(f32 deltaTime) {
 
     // quit event
 
-    if (keyevent->IsKeyDown(KEY_ESCAPE)){
+    if (keyevent->IsKeyDown(KEY_ESCAPE, true)){
         play = false;
     }
 
@@ -220,12 +187,11 @@ void Game::keyboardChecker(f32 deltaTime) {
 
 Game::~Game() {
 
-    sceneManager->clear();
-    //driver->drop();
+    delete player;
+    delete board;
 
-	delete player;
-    //delete board;
-    
+    sceneManager->clear();
+
 }
 
 void Game::setupSkyBox(bool day) {

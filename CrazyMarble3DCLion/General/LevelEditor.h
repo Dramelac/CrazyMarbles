@@ -9,6 +9,7 @@
 #include <string>
 #include "../Utils/KeyboardEvent.h"
 #include "../Plateau/Board.h"
+#include "../Play/Player.h"
 
 using namespace irr;
 using namespace scene;
@@ -18,12 +19,15 @@ using namespace io;
 
 class LevelEditor {
 private:
-    Board board;
     IrrlichtDevice* device;
     IVideoDriver* driver;
     ISceneManager *sceneManager;
 
-    ICameraSceneNode* fixeCamera;
+    Board* board;
+    Player* player;
+
+    ISceneNode* skyBox;
+    s32 skyId;
 
     IGUIEnvironment* gui;
 
@@ -45,18 +49,20 @@ private:
 
     IGUIButton* validate;
 
-    KeyboardEvent *keyevent;
+    KeyboardEvent *keyEvent;
 
     bool play;
-    s32 size;
 
     vector3di cursor;
     s16 currentType;
     vector3di currentRotation;
 
+    void setupGUI();
+
 public:
 
-    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 size=50, bool day = true);
+    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent);
+    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path pathMap);
 
     void gameLoop();
     void keyboardChecker();
@@ -64,10 +70,13 @@ public:
     void move(vector3di change);
     void updateCamera();
     void applySetup();
+    void setupSkyBox(s32 templateId);
 
     void save(path name="map.irr");
 
     ~LevelEditor();
+
+    static const u16 size;
 };
 
 

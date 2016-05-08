@@ -62,7 +62,7 @@ void Menu::loop() {
 
             driver->endScene();
 
-            if (exit->isPressed()){
+            if (exit->isPressed() || keyEvent->IsKeyDown(KEY_ESCAPE, true)){
                 device->closeDevice();
             } else if (play->isPressed()){
                 //Game game(device, keyEvent, 50, 50);
@@ -74,7 +74,8 @@ void Menu::loop() {
 
             } else if (levelEditor->isPressed()){
                 visibilityButons(false);
-                LevelEditor levelEditor(device, keyEvent);
+                //LevelEditor levelEditor(device, keyEvent);
+                LevelEditor levelEditor(device, keyEvent, "data/Maps/map.irr");
                 levelEditor.gameLoop();
                 visibilityButons(true);
             } else if (credit->isPressed()){
