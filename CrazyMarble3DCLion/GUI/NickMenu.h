@@ -32,6 +32,8 @@ private:
     IGUIButton* valide;
     IGUIButton* exit;
 
+    void visibilityButtons(bool status);
+
 public:
     NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent);
     const wchar_t* loop();

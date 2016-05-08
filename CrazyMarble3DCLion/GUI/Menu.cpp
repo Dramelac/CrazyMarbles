@@ -49,7 +49,7 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
 
     nickName = gui->addButton(rect<s32>(1700, 70, 1850, 120),0 ,104,L"");
     nickName->setImage(driver->getTexture("vert.png"));
-    nickName->setText(nickMenu.loop());
+    //nickName->setText(nickMenu.loop());
 
     gui->addStaticText(L"yolo",irr::core::rect<irr::s32>(1700,20,1820,60),true,true,0 , -1, true);
 
@@ -95,6 +95,7 @@ void Menu::visibilityButons(bool status) {
     levelEditor->setVisible(status);
     credit->setVisible(status);
     background->setVisible(status);
+
 }
 
 

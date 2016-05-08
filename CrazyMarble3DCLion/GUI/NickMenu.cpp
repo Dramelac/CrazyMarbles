@@ -50,6 +50,7 @@ const wchar_t* NickMenu::loop() {
 
             } else if (valide->isPressed()){
 
+                visibilityButtons(false)
                 const wchar_t *nickname  = editBox->getText();
                 //std::cout << nickname.w()  << std::endl ;
 
@@ -59,3 +60,12 @@ const wchar_t* NickMenu::loop() {
     }
     return nullptr;
 }
+
+void NickMenu::visibilityButtons(bool status) {
+    editBox->setVisible(status);
+    valide->setVisible(status);
+
+}
+
+
+
