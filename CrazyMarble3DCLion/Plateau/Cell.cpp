@@ -189,6 +189,11 @@ void Cell::setupPlayerToEntity(ISceneManager *sceneManager, Player* player) {
     }
 }
 
+void Cell::movinEentity(f32 deltaTime) {
+    if (isEntitySet){
+        entity->applyMove(deltaTime);
+    }
+}
 
 
 

@@ -44,6 +44,7 @@ public:
     void setEntity(IMeshSceneNode *node);
     void clearEntity();
     void enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
+    void movinEentity(f32 deltaTime);
 
     void setupPlayerToEntity(ISceneManager *sceneManager, Player* player);
 

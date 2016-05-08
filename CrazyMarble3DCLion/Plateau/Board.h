@@ -41,6 +41,8 @@ public:
 
     void setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
     void setPlayerToEntities(ISceneManager *sceneManager, Player* player);
+
+    void applyMovingOnEntities(f32 deltaTime);
 };
 
 

@@ -125,6 +125,7 @@ void Game::gameLoop() {
             f32 deltaTime = (f32)(now-then) / 1000.f;
             then = now;
             keyboardChecker(deltaTime);
+            board->applyMovingOnEntities(deltaTime);
 
             if (player->isFall()){
                 // player is fall
