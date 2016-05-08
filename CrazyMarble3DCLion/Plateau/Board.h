@@ -35,6 +35,14 @@ public:
 
     vector3df getStartPoint();
     s32 getCurrentLevel(vector3di cursor);
+
+    void addEnemie(ISceneManager* sceneManager, vector3di cursor);
+    void removeEnemie(vector3di cursor);
+
+    void setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
+    void setPlayerToEntities(ISceneManager *sceneManager, Player* player);
+
+    void applyMovingOnEntities(f32 deltaTime);
 };
 
 

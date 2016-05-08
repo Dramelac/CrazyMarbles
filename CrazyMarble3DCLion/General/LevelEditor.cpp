@@ -126,6 +126,14 @@ void LevelEditor::keyboardChecker() {
         setupSkyBox(skyId);
     }
 
+    if (keyEvent->IsKeyDown(KEY_KEY_C, true)){
+        board->removeEnemie(cursor);
+    }
+
+    if (keyEvent->IsKeyDown(KEY_KEY_B, true)){
+        board->addEnemie(sceneManager, cursor);
+    }
+
     if(rightRotation->isPressed() || keyEvent->IsKeyDown(KEY_KEY_I, true)){
         update = true;
         currentRotation.Y -= 90;

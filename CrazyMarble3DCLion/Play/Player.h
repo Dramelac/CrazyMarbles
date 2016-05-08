@@ -9,21 +9,17 @@
 #include <irrlicht.h>
 
 #include "Entities.h"
-#include "../Plateau/Board.h"
+#include "../Utils/KeyboardEvent.h"
 
-using namespace std;
 using namespace irr;
 using namespace scene;
 using namespace core;
 
 class Player : public Entities, public ICollisionCallback {
 private:
-	IAnimatedMesh* sphereMesh;
-	IMeshSceneNode* sphere_node;
 
 	ICameraSceneNode* fixeCamera;
 
-    ISceneNodeAnimatorCollisionResponse* animatorCollisionResponse;
     ISceneNodeAnimatorCollisionResponse* animatorFinishCollisionResponse;
 
     u32 finishTime;
@@ -32,22 +28,26 @@ private:
 
 	s32 score;
 
+    u16 speed;
+
 public:
 
-	Player(ISceneManager *sceneManager, const std::string &name, int health);
-	Player(ISceneManager *sceneManager, const std::string &name, int health, Board* board);
+	Player(ISceneManager *sceneManager, const stringc& name, int health);
+	Player(ISceneManager *sceneManager, const stringc& name, int health, vector3df startpos);
     Player(ISceneManager *sceneManager);
     ~Player();
 
-    void enableCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
     void addFinishLineCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
 	bool isFall();
 
-    void updatePosition(vector3df vec);
+    void processMoving(KeyboardEvent *keyevent, f32 deltaTime);
 	void setPosition(vector3df pos);
 	void updateCamera();
 
 	void updateFOV(f32 x);
+
+    ISceneNodeAnimatorCollisionResponse* enableCustomCollision(ITriangleSelector *metaSelector, ISceneManager *sceneManager);
+    vector3df getPosition();
 
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
     bool checkFinish();

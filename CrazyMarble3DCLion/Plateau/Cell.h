@@ -6,10 +6,11 @@
 #define TESTISO_CELL_HPP
 
 #include <irrlicht.h>
+#include "../Play/BlackMarbles.h"
 
 using namespace irr;
-using namespace irr::core;
-using namespace irr::scene;
+using namespace core;
+using namespace scene;
 
 class Cell {
 private:
@@ -19,6 +20,8 @@ private:
     bool isFinisCell;
     s32 currentLevel;
 
+    bool isEntitySet;
+    BlackMarbles* entity;
 
 public:
     Cell();
@@ -36,6 +39,14 @@ public:
 
     s32 getCurrentLevel(s32 cursorZ);
     void switchFinishType();
+
+    void setEntity(BlackMarbles *enemie);
+    void setEntity(IMeshSceneNode *node);
+    void clearEntity();
+    void enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
+    void movinEentity(f32 deltaTime);
+
+    void setupPlayerToEntity(ISceneManager *sceneManager, Player* player);
 
     static const float size;
 };

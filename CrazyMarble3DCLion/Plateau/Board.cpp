@@ -45,11 +45,17 @@ Board::Board(ISceneManager* sceneManager): heightNumber(LevelEditor::size), widt
     {
         ISceneNode * node = nodes[i];
         s32 id = node->getID();
-        if (id >= 1000){
+        if (id >= 3500) {
+            id -= 3500;
+            s32 X = id / 50;
+            s32 Y = id % 50;
+            board[X][Y].setEntity((IMeshSceneNode*) node);
+        }
+        else if (id >= 1000){
             id -= 1000;
             s32 X = id / 50;
             s32 Y = id % 50;
-            board[X][Y].setCell((scene::IMeshSceneNode*) node);
+            board[X][Y].setCell((IMeshSceneNode*) node);
         }
     }
 }
@@ -123,9 +129,45 @@ void Board::setupFinishCell(vector3di cursor) {
     board[cursor.X][cursor.Y].switchFinishType();
 }
 
+void Board::addEnemie(ISceneManager *sceneManager, vector3di cursor) {
+    board[cursor.X][cursor.Y].setEntity(new BlackMarbles(sceneManager,
+                                                         vector3df(cursor.X * Cell::size,
+                                                                   (cursor.Z * -Cell::size) - 200,
+                                                                   cursor.Y * Cell::size),
+                                                         (cursor.X * LevelEditor::size) + cursor.Y + 3500));
+}
 
+void Board::removeEnemie(vector3di cursor) {
+    board[cursor.X][cursor.Y].clearEntity();
+}
 
+void Board::setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
+    for (int row = 0; row < widthNumber; row++)
+    {
+        for (int column = 0; column < heightNumber; column++)
+        {
+            board[row][column].enableCollision(metaSelector, sceneManager);
+        }
+    }
+}
 
+void Board::setPlayerToEntities(ISceneManager *sceneManager, Player *player) {
+    for (int row = 0; row < widthNumber; row++)
+    {
+        for (int column = 0; column < heightNumber; column++)
+        {
+            board[row][column].setupPlayerToEntity(sceneManager, player);
+        }
+    }
+}
 
-
+void Board::applyMovingOnEntities(f32 deltaTime) {
+    for (int row = 0; row < widthNumber; row++)
+    {
+        for (int column = 0; column < heightNumber; column++)
+        {
+            board[row][column].movinEentity(deltaTime);
+        }
+    }
+}
 
