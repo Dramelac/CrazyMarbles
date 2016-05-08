@@ -50,7 +50,7 @@ const wchar_t* NickMenu::loop() {
 
             } else if (valide->isPressed()){
 
-                visibilityButtons(false)
+                visibilityButtons(false);
                 const wchar_t *nickname  = editBox->getText();
                 //std::cout << nickname.w()  << std::endl ;
 
