@@ -27,7 +27,6 @@ private:
 
     KeyboardEvent* keyEvent;
 
-    IGUIImage* welcome;
     IGUIImage* enterNick;
     IGUIButton* valide;
     IGUIButton* exit;
@@ -36,6 +35,8 @@ private:
 
 public:
     NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent);
+    virtual ~NickMenu();
+
     const wchar_t* loop();
 };
 

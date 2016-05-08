@@ -6,6 +6,7 @@
 
 Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
         : keyEvent(keyEvent){
+    
     device = inDevice;
     gui = device->getGUIEnvironment();
     driver = device->getVideoDriver();
@@ -13,12 +14,10 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     this->device->setWindowCaption(L"Crazy Marble  -  [MENU]");
     device->getCursorControl()->setVisible(true);
 
+    background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
 
     NickMenu nickMenu(device, keyEvent);
     const wchar_t* temp = nickMenu.loop();
-
-
-    background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
 
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
 
@@ -45,13 +44,10 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     credit->setPressedImage(driver->getTexture("data/GUI/Menu/bouton_main_menu_credits_pressed.png"));
     credit->setDrawBorder(false);
     credit->setUseAlphaChannel(true);
-    //play->setScaleImage(true);
 
     nickName = gui->addButton(rect<s32>(1700, 70, 1850, 120),0 ,104,L"");
     nickName->setImage(driver->getTexture("vert.png"));
     nickName->setText(temp);
-
-    //gui->addStaticText(L"yolo",irr::core::rect<irr::s32>(1700,20,1820,60),true,true,0 , -1, true);
 
 }
 
@@ -85,6 +81,7 @@ void Menu::loop() {
 
             } else if (nickName->isPressed()){
                 visibilityButons(false);
+                background->setVisible(true);
                 NickMenu nickMenu(device, keyEvent);
                 nickName->setText(nickMenu.loop());
                 visibilityButons(true);
@@ -100,7 +97,6 @@ void Menu::visibilityButons(bool status) {
     levelEditor->setVisible(status);
     credit->setVisible(status);
     background->setVisible(status);
-
 }
 
 
