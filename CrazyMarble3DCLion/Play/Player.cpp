@@ -196,5 +196,9 @@ vector3df Player::getPosition() {
     return sceneNode->getPosition();
 }
 
+ISceneNodeAnimatorCollisionResponse *Player::removeAnimator(ISceneNodeAnimator *animator) {
+    sceneNode->removeAnimator(animator);
+    return nullptr;
+}
 
 

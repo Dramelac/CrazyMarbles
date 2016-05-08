@@ -21,11 +21,11 @@ protected:
     ISceneNodeAnimatorCollisionResponse* animatorCollisionResponse;
 
 	stringc name;
-	u32 health;
+	s32 health;
     vector3df inertie;
 
 public:
-	Entities(const stringc &name, int health);
+	Entities(const stringc &name, s32 health);
 	Entities();
 
     bool isAlive();

@@ -17,6 +17,7 @@ class BlackMarbles : public Entities, public ICollisionCallback {
 
 private:
     Player* player;
+    bool isPlayerSet;
     ISceneNodeAnimatorCollisionResponse* animatorPlayerCollisionResponse;
 
 public:

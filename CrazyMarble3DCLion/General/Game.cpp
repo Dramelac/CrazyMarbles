@@ -131,6 +131,10 @@ void Game::gameLoop() {
                 // player is fall
             }
 
+            if (not player->isAlive()){
+                // player is dead
+            }
+
             if (!play || player->checkFinish()){
                 break;
             }
@@ -162,8 +166,8 @@ void Game::keyboardChecker(f32 deltaTime) {
 
 Game::~Game() {
 
-    delete player;
     delete board;
+    delete player;
 
     sceneManager->clear();
 
