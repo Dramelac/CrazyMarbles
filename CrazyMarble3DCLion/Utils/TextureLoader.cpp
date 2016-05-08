@@ -4,6 +4,7 @@
 ITexture* TextureLoader::tile;
 ITexture* TextureLoader::sphere;
 ITexture* TextureLoader::sphereRed;
+ITexture* TextureLoader::sphereBlack;
 ITexture* TextureLoader::finish_line;
 
 IAnimatedMesh* TextureLoader::cellMesh;
@@ -21,6 +22,7 @@ void TextureLoader::LoadingTextures(IVideoDriver* driver, ISceneManager* sceneMa
     tile = driver->getTexture("data/model/cube_tex.png");
     sphere = driver->getTexture("data/model/sphere_c.png");
     sphereRed = driver->getTexture("data/model/sphere_red.png");
+    sphereBlack = driver->getTexture("data/model/sphere_black.png");
     finish_line = driver->getTexture("data/model/cube_finish.png");
 
     cellMesh = sceneManager->getMesh("data/model/Cell_flat.3ds");

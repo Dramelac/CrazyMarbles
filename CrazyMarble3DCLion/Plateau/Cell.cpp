@@ -10,6 +10,7 @@ const float Cell::size = 150.0f;
 Cell::Cell() {
     isSet = false;
     isFinisCell = false;
+    isEntitySet = false;
     currentLevel = 0;
 }
 
@@ -27,6 +28,7 @@ void Cell::setCell(IMeshSceneNode *node) {
 
 void Cell::setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager) {
     int line = 0;
+    isSet = true;
 
     // Uni test pente / gravity / TO REMOVE LATER
     if ((row == 5 && column < 5) || (column == 5 && row < 5)){  // Artificial pente
@@ -103,6 +105,10 @@ void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector
     cell_node->setRotation(vector3df(rotation.X, rotation.Y, rotation.Z));
     currentLevel = cursor.Z;
     cell_node->setPosition(vector3df(cursor.X*size,-500.0f-(cursor.Z*size),cursor.Y*size));    // setup position
+
+    if (isEntitySet){
+        entity->setPosition(vector3df(cursor.X*size,-200-(cursor.Z*size),cursor.Y*size));
+    }
 }
 
 
@@ -118,6 +124,9 @@ s32 Cell::getCurrentLevel(s32 cursorZ) {
 Cell::~Cell() {
     if (isSet){
         cell_node->remove();
+    }
+    if (isEntitySet){
+        delete entity;
     }
 }
 
@@ -148,5 +157,44 @@ void Cell::switchFinishType() {
     }
 
 }
+
+void Cell::setEntity(BlackMarbles *enemie) {
+    if (isEntitySet){
+        delete entity;
+    }
+    entity = enemie;
+    isEntitySet = true;
+}
+
+void Cell::setEntity(IMeshSceneNode *node) {
+    setEntity(new BlackMarbles(node));
+}
+
+void Cell::clearEntity() {
+    if (isEntitySet){
+        delete entity;
+    }
+    isEntitySet = false;
+}
+
+void Cell::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
+    if (isEntitySet){
+        entity->enableCollision(metaSelector, sceneManager);
+    }
+}
+
+void Cell::setupPlayerToEntity(ISceneManager *sceneManager, Player* player) {
+    if (isEntitySet){
+        entity->setPlayer(sceneManager, player);
+    }
+}
+
+void Cell::movinEentity(f32 deltaTime) {
+    if (isEntitySet){
+        entity->applyMove(deltaTime);
+    }
+}
+
+
 
 
