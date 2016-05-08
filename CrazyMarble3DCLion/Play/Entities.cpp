@@ -4,7 +4,7 @@
 
 #include "Entities.h"
 
-Entities::Entities(const stringc &name, int health) : name(name), health(health) { }
+Entities::Entities(const stringc &name, s32 health) : name(name), health(health) { }
 
 
 Entities::Entities() : name(""), health(1) { }
