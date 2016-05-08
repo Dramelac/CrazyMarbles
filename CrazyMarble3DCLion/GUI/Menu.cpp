@@ -15,7 +15,7 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
 
 
     NickMenu nickMenu(device, keyEvent);
-    nickMenu.loop();
+    //nickMenu.loop();
 
 
     background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));

@@ -34,7 +34,7 @@ private:
 
 public:
     NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent);
-    void loop();
+    const wchar_t* loop();
 };
 
 
