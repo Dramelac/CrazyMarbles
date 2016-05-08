@@ -6,6 +6,7 @@
 
 Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
         : keyEvent(keyEvent){
+    
     device = inDevice;
     gui = device->getGUIEnvironment();
     driver = device->getVideoDriver();
@@ -13,8 +14,10 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     this->device->setWindowCaption(L"Crazy Marble  -  [MENU]");
     device->getCursorControl()->setVisible(true);
 
-
     background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
+
+    NickMenu nickMenu(device, keyEvent);
+    const wchar_t* temp = nickMenu.loop();
 
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
 
@@ -41,9 +44,10 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     credit->setPressedImage(driver->getTexture("data/GUI/Menu/bouton_main_menu_credits_pressed.png"));
     credit->setDrawBorder(false);
     credit->setUseAlphaChannel(true);
-    //play->setScaleImage(true);
-    //NickMenu nickMenu(device, keyEvent);
-    //string pseudo = nickMenu.loop();
+
+    nickName = gui->addButton(rect<s32>(1700, 70, 1850, 120),0 ,104,L"");
+    nickName->setImage(driver->getTexture("vert.png"));
+    nickName->setText(temp);
 
 }
 
@@ -66,6 +70,7 @@ void Menu::loop() {
                 game.gameLoop();
                 device->getCursorControl()->setVisible(true);
             } else if (scoreBoard->isPressed()){
+                
 
             } else if (levelEditor->isPressed()){
                 visibilityButons(false);
@@ -75,6 +80,12 @@ void Menu::loop() {
                 visibilityButons(true);
             } else if (credit->isPressed()){
 
+            } else if (nickName->isPressed()){
+                visibilityButons(false);
+                background->setVisible(true);
+                NickMenu nickMenu(device, keyEvent);
+                nickName->setText(nickMenu.loop());
+                visibilityButons(true);
             }
         }
     }

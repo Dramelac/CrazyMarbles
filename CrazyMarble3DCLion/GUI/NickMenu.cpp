@@ -3,6 +3,7 @@
 //
 
 #include "NickMenu.h"
+#include "iostream"
 
 
 NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
@@ -14,19 +15,17 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
     this->device->setWindowCaption(L"Crazy Marble  -  [MENU]");
     device->getCursorControl()->setVisible(true);
 
-
-    gui->addImage(driver->getTexture("data/GUI/BGCM.png"), position2d<int>(0, 0));
-
-    welcome = gui->addImage(driver->getTexture(""), position2d<int>(0, 0));
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
     valide = gui->addButton(rect<s32>(600,550,1320,650), 0, 103, L"Valider");
 
-
+    editBox = gui->addEditBox(L"", rect<irr::s32>(20,20,320,70));
+    //font = gui->getFont("data/GUI/Menu/fontlucida.png");
+    //editBox->setOverrideFont(font);
 
 }
 
 
-void NickMenu::loop() {
+const wchar_t* NickMenu::loop() {
     while (device->run()){
         if (device->isWindowActive())
         {
@@ -38,11 +37,25 @@ void NickMenu::loop() {
 
             if (exit->isPressed()){
                 device->closeDevice();
-
             } else if (valide->isPressed()){
-
-                return;
+                //visibilityButtons(false);
+                const wchar_t *nickname  = editBox->getText();
+                return nickname;
             }
         }
     }
+    return nullptr;
+}
+
+void NickMenu::visibilityButtons(bool status) {
+    editBox->setVisible(status);
+    valide->setVisible(status);
+    exit->setVisible(status);
+}
+
+
+NickMenu::~NickMenu() {
+    editBox->remove();
+    valide->remove();
+    exit->remove();
 }
