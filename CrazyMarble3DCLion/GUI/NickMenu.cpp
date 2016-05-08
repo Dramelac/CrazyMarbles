@@ -17,7 +17,7 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
     device->getCursorControl()->setVisible(true);
 
 
-    gui->addImage(driver->getTexture("data/GUI/Menu/BGCM.png"), position2d<int>(0, 0));
+    //gui->addImage(driver->getTexture("data/GUI/Menu/BGCM.png"), position2d<int>(0, 0));
 
     welcome = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
@@ -64,6 +64,8 @@ const wchar_t* NickMenu::loop() {
 void NickMenu::visibilityButtons(bool status) {
     editBox->setVisible(status);
     valide->setVisible(status);
+    welcome->setVisible(status);
+    exit->setVisible(status);
 
 }
 

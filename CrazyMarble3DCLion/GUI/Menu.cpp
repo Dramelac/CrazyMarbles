@@ -15,7 +15,7 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
 
 
     NickMenu nickMenu(device, keyEvent);
-    //nickMenu.loop();
+    const wchar_t* temp = nickMenu.loop();
 
 
     background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
@@ -49,9 +49,9 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
 
     nickName = gui->addButton(rect<s32>(1700, 70, 1850, 120),0 ,104,L"");
     nickName->setImage(driver->getTexture("vert.png"));
-    //nickName->setText(nickMenu.loop());
+    nickName->setText(temp);
 
-    gui->addStaticText(L"yolo",irr::core::rect<irr::s32>(1700,20,1820,60),true,true,0 , -1, true);
+    //gui->addStaticText(L"yolo",irr::core::rect<irr::s32>(1700,20,1820,60),true,true,0 , -1, true);
 
 }
 
@@ -83,6 +83,11 @@ void Menu::loop() {
                 visibilityButons(true);
             } else if (credit->isPressed()){
 
+            } else if (nickName->isPressed()){
+                visibilityButons(false);
+                NickMenu nickMenu(device, keyEvent);
+                nickName->setText(nickMenu.loop());
+                visibilityButons(true);
             }
         }
     }
