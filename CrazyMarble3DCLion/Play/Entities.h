@@ -21,12 +21,15 @@ protected:
     ISceneNodeAnimatorCollisionResponse* animatorCollisionResponse;
 
 	stringc name;
-	int health;
+	u32 health;
     vector3df inertie;
 
 public:
 	Entities(const stringc &name, int health);
 	Entities();
+
+    bool isAlive();
+    void takeDamage(u16 dmg);
 
     void enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
 
@@ -34,7 +37,7 @@ public:
     void updatePosition(vector3df vec);
 
     const vector3df & getInertie() const;
-    void setInertie(const vector3df &inertie);
+
 };
 
 

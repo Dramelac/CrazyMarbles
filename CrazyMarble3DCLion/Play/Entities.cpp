@@ -72,6 +72,11 @@ const vector3df &Entities::getInertie() const {
     return inertie;
 }
 
-void Entities::setInertie(const vector3df &inertie) {
-    Entities::inertie = inertie;
+bool Entities::isAlive() {
+    return health > 0;
 }
+
+void Entities::takeDamage(u16 dmg) {
+    health -= dmg;
+}
+
