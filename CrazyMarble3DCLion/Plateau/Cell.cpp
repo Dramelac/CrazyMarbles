@@ -191,7 +191,12 @@ void Cell::setupPlayerToEntity(ISceneManager *sceneManager, Player* player) {
 
 void Cell::movinEentity(f32 deltaTime) {
     if (isEntitySet){
-        entity->applyMove(deltaTime);
+        if (entity->isAlive()) {
+            entity->applyMove(deltaTime);
+        } else {
+            delete entity;
+            isEntitySet = false;
+        }
     }
 }
 

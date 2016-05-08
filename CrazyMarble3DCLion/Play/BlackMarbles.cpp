@@ -16,13 +16,13 @@ BlackMarbles::BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 
     sceneNode->setPosition(position);
 }
 
-BlackMarbles::BlackMarbles(IMeshSceneNode *node) {
+BlackMarbles::BlackMarbles(IMeshSceneNode *node) : Entities(node->getName(), 60) {
     sceneNode = node;
-    Entities(node->getName(), 60);
 }
 
-
 BlackMarbles::~BlackMarbles() {
+    player->removeAnimator(animatorPlayerCollisionResponse);
+    animatorCollisionResponse->drop();
     sceneNode->remove();
 }
 
@@ -50,6 +50,8 @@ bool BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animat
     //std::cout << "old inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl;
 
     vector3df pInertie = player->getInertie();
+    vector3df bang = pInertie + inertie;
+
     player->setInertie(-pInertie + inertie);
 
 
@@ -65,6 +67,16 @@ bool BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animat
     }
 
     inertie = (diff * pInertie) + 1;
+
+    u16 dmg = (u16)( (abs((s16) bang.X) + abs((s16)bang.Z)) /100);
+    //std::cout << "bang : " << bang.X << "/" << bang.Y << "/" << bang.Z << std::endl<< std::endl;
+    //std::cout << dmg << std::endl << std::endl;
+
+    std::cout << health << std::endl;
+    takeDamage(dmg);
+    player->takeDamage(dmg);
+    std::cout << health << std::endl<< std::endl;
+
     //std::cout << "inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl<< std::endl;
 
     return false;
