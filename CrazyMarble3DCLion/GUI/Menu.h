@@ -32,6 +32,9 @@ private:
     IGUIButton* credit;
 
 
+    IGUIButton* nickName;
+
+
     IGUIImage* background;
 
     void visibilityButons(bool status);
