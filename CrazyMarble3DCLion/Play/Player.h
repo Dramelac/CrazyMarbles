@@ -28,7 +28,6 @@ private:
 
 	s32 score;
 
-    vector3df inertie;
     u16 speed;
 
 public:
@@ -42,7 +41,6 @@ public:
 	bool isFall();
 
     void processMoving(KeyboardEvent *keyevent, f32 deltaTime);
-    void updatePosition(vector3df vec);
 	void setPosition(vector3df pos);
 	void updateCamera();
 

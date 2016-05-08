@@ -92,8 +92,6 @@ void Player::processMoving(KeyboardEvent *keyevent, f32 deltaTime) {
     core::vector3df vectorKeyboard(0,0,0);
     u16 count=0;
     //speed = 20;
-    u16 deceleration = 10;
-    u16 maxSpeed = 500;
     // Min 0 / Max 500
 
     // Check all key
@@ -125,47 +123,8 @@ void Player::processMoving(KeyboardEvent *keyevent, f32 deltaTime) {
     //cout << vectorKeyboard.X << "/" << vectorKeyboard.Y << "/" << vectorKeyboard.Z << endl;
     // apply keyboard to inertie
     inertie += vectorKeyboard;
-
-    // Deceleration naturel
-    if (inertie.X > 0){
-        inertie.X -= deceleration;
-        if (inertie.X < 0) inertie.X = 0;
-    } else if (inertie.X < 0) {
-        inertie.X += deceleration;
-        if (inertie.X > 0) inertie.X = 0;
-    }
-    if (inertie.X > maxSpeed) {
-        inertie.X = maxSpeed;
-    }else if (inertie.X < -maxSpeed){
-        inertie.X = -maxSpeed;
-    }
-
-    if (inertie.Z > 0){
-        inertie.Z -= deceleration;
-        if (inertie.Z < 0) inertie.Z = 0;
-    } else if (inertie.Z < 0) {
-        inertie.Z += deceleration;
-        if (inertie.Z > 0) inertie.Z = 0;
-    }
-    if (inertie.Z > maxSpeed) {
-        inertie.Z = maxSpeed;
-    } else if (inertie.Z < -maxSpeed){
-        inertie.Z = -maxSpeed;
-    }
-
-    inertie.Y = 0;
-    vector3df toMove = inertie * deltaTime;
-    toMove.Y = -7;
-    //std::cout << "inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl;
-    //std::cout << "toMove : " << toMove.X << "/" << toMove.Y << "/" << toMove.Z << std::endl<< std::endl;
-    updatePosition(toMove);
+    applyMove(deltaTime);
 }
-
-
-void Player::updatePosition(vector3df vec) {
-    sceneNode->setPosition(sceneNode->getPosition()+vec);
-}
-
 
 void Player::updateFOV(f32 x) {
     f32 temp = fixeCamera->getFOV();

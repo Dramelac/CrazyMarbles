@@ -22,12 +22,19 @@ protected:
 
 	stringc name;
 	int health;
+    vector3df inertie;
 
 public:
 	Entities(const stringc &name, int health);
 	Entities();
 
     void enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
+
+    void applyMove(f32 deltaTime);
+    void updatePosition(vector3df vec);
+
+    const vector3df & getInertie() const;
+    void setInertie(const vector3df &inertie);
 };
 
 
