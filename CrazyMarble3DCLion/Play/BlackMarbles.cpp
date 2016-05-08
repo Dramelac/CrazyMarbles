@@ -7,6 +7,7 @@
 
 
 BlackMarbles::BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 id) : Entities("BlackMarble", 60)  {
+    isPlayerSet = false;
     sceneMesh = TextureLoader::sphereMesh;
     sceneNode = sceneManager->addMeshSceneNode(sceneMesh);
     sceneNode->setMaterialTexture(0, TextureLoader::sphereBlack);
@@ -18,11 +19,14 @@ BlackMarbles::BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 
 
 BlackMarbles::BlackMarbles(IMeshSceneNode *node) : Entities(node->getName(), 60) {
     sceneNode = node;
+    isPlayerSet = false;
 }
 
 BlackMarbles::~BlackMarbles() {
-    player->removeAnimator(animatorPlayerCollisionResponse);
-    animatorCollisionResponse->drop();
+    if (isPlayerSet){
+        player->removeAnimator(animatorPlayerCollisionResponse);
+        animatorCollisionResponse->drop();
+    }
     sceneNode->remove();
 }
 
@@ -32,6 +36,7 @@ void BlackMarbles::setPosition(vector3df position) {
 
 void BlackMarbles::setPlayer(ISceneManager *sceneManager, Player *myplayer) {
     this->player = myplayer;
+    isPlayerSet = true;
 
     ITriangleSelector* selector = sceneManager->createTriangleSelector(this->sceneNode->getMesh(), this->sceneNode);
     this->sceneNode->setTriangleSelector(selector);
