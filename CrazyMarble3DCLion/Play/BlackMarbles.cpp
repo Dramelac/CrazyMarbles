@@ -42,14 +42,30 @@ void BlackMarbles::setPlayer(ISceneManager *sceneManager, Player *myplayer) {
 
 bool BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animator) {
     vector3df tempA = player->getPosition();
-    std::cout << "A : " << tempA.X << "/" << tempA.Y << "/" << tempA.Z << std::endl;
+    //std::cout << "A : " << tempA.X << "/" << tempA.Y << "/" << tempA.Z << std::endl;
     vector3df tempB = sceneNode->getPosition();
-    std::cout << "B : " << tempB.X << "/" << tempB.Y << "/" << tempB.Z << std::endl;
+    //std::cout << "B : " << tempB.X << "/" << tempB.Y << "/" << tempB.Z << std::endl;
     vector3df diff = tempB - tempA;
-    std::cout << "diff : " << diff.X << "/" << diff.Y << "/" << diff.Z << std::endl << std::endl;
-    std::cout << "old inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl;
-    inertie = diff;
-    std::cout << "inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl<< std::endl;
+    //std::cout << "diff : " << diff.X << "/" << diff.Y << "/" << diff.Z << std::endl << std::endl;
+    //std::cout << "old inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl;
+
+    vector3df pInertie = player->getInertie();
+    player->setInertie(-pInertie + inertie);
+
+
+    if (1 > diff.X >= 0) {
+        diff.X = 1;
+    } else if (0 > diff.X > -1){
+        diff.X = -1;
+    }
+    if (1 > diff.Z >= 0){
+        diff.Z = 1;
+    } else if (0 > diff.Z > -1){
+        diff.Z = -1;
+    }
+
+    inertie = (diff * pInertie) + 1;
+    //std::cout << "inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl<< std::endl;
 
     return false;
 }

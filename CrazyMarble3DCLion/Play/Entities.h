@@ -37,7 +37,7 @@ public:
     void updatePosition(vector3df vec);
 
     const vector3df & getInertie() const;
-
+    void setInertie(const vector3df &inertie);
 };
 
 

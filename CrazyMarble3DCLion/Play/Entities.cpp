@@ -80,3 +80,6 @@ void Entities::takeDamage(u16 dmg) {
     health -= dmg;
 }
 
+void Entities::setInertie(const vector3df &inertie) {
+    Entities::inertie = inertie;
+}
