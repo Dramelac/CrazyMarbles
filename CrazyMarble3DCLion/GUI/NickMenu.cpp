@@ -35,16 +35,14 @@ const wchar_t* NickMenu::loop() {
 
             driver->endScene();
 
-            if (exit->isPressed()){
-                device->closeDevice();
-            } else if (valide->isPressed()){
+            if (valide->isPressed() || exit->isPressed() || keyEvent->IsKeyDown(KEY_ESCAPE, true)){
                 //visibilityButtons(false);
                 const wchar_t *nickname  = editBox->getText();
                 return nickname;
             }
         }
     }
-    return nullptr;
+    return L"";
 }
 
 void NickMenu::visibilityButtons(bool status) {
