@@ -57,4 +57,5 @@ const wchar_t* NickMenu::loop() {
             }
         }
     }
+    return nullptr;
 }
