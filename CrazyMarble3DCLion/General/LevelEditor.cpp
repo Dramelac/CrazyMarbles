@@ -3,6 +3,7 @@
 //
 
 #include <stdio.h>
+#include <iostream>
 #include "LevelEditor.h"
 
 const u16 LevelEditor::size = 50;
@@ -289,9 +290,10 @@ void LevelEditor::save(path name) {
 
     io::IWriteFile* file = io::createWriteFile(name, false);
     sceneManager->saveScene(file);
-    std::string result = "data/Maps/";
-    result += name.c_str();
-    rename(name.c_str(), result.c_str());
+    //using temp symlink
+    //std::string result = "data/Maps/";
+    //result += name.c_str();
+    //rename(name.c_str(), result.c_str());
 }
 
 
