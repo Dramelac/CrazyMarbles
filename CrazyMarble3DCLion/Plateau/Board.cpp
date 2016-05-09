@@ -120,27 +120,6 @@ void Board::setupStartPoint(vector3di cursor) {
     startPoint->setPosition(point);
 }
 
-
-s32 Board::getCurrentLevel(vector3di cursor) {
-    return board[cursor.X][cursor.Y].getCurrentLevel(cursor.Z);
-}
-
-void Board::setupFinishCell(vector3di cursor) {
-    board[cursor.X][cursor.Y].switchFinishType();
-}
-
-void Board::addEnemie(ISceneManager *sceneManager, vector3di cursor) {
-    board[cursor.X][cursor.Y].setEntity(new BlackMarbles(sceneManager,
-                                                         vector3df(cursor.X * Cell::size,
-                                                                   (cursor.Z * -Cell::size) - 200,
-                                                                   cursor.Y * Cell::size),
-                                                         (cursor.X * LevelEditor::size) + cursor.Y + 3500));
-}
-
-void Board::removeEnemie(vector3di cursor) {
-    board[cursor.X][cursor.Y].clearEntity();
-}
-
 void Board::setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
     for (int row = 0; row < widthNumber; row++)
     {
