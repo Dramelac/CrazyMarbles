@@ -135,6 +135,7 @@ void LevelEditor::keyboardChecker() {
 
     if (cellEnemy->isPressed() || keyEvent->IsKeyDown(KEY_KEY_B, true)){
         board->addEnemie(sceneManager, cursor);
+        cellEnemy->setPressed(false);
     }
 
     if(rightRotation->isPressed() || keyEvent->IsKeyDown(KEY_KEY_I, true)){
