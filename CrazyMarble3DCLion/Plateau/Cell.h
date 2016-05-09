@@ -43,6 +43,8 @@ public:
     void setEntity(BlackMarbles *enemie);
     void setEntity(IMeshSceneNode *node);
     void clearEntity();
+    void switchEntity(BlackMarbles *enemie);
+
     void enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
     void movinEentity(f32 deltaTime);
 
