@@ -113,24 +113,27 @@ void LevelEditor::keyboardChecker() {
 
     bool update = false;
 
-    if (keyEvent->IsKeyDown(KEY_SPACE, true)){
+    if (cellStartBox->isPressed() ||keyEvent->IsKeyDown(KEY_SPACE, true)){
         board->setupStartPoint(cursor);
+        cellStartBox->setPressed(false);
     }
 
-    if (keyEvent->IsKeyDown(KEY_KEY_F, true)){
+    if (cellFinish->isPressed() || keyEvent->IsKeyDown(KEY_KEY_F, true)){
         board->setupFinishCell(cursor);
+        cellFinish->setPressed(false);
     }
 
-    if (keyEvent->IsKeyDown(KEY_KEY_S, true)){
+    if (skyBoxe->isPressed() || keyEvent->IsKeyDown(KEY_KEY_S, true)){
         skyId = (skyId + 1) % 3;
         setupSkyBox(skyId);
+        skyBoxe->setPressed(false);
     }
 
     if (keyEvent->IsKeyDown(KEY_KEY_C, true)){
         board->removeEnemie(cursor);
     }
 
-    if (keyEvent->IsKeyDown(KEY_KEY_B, true)){
+    if (cellEnemy->isPressed() || keyEvent->IsKeyDown(KEY_KEY_B, true)){
         board->addEnemie(sceneManager, cursor);
     }
 
