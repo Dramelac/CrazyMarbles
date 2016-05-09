@@ -313,6 +313,8 @@ LevelEditor::~LevelEditor() {
     cellPente->remove();
     cellAngle->remove();
     cellAngleInt->remove();
+    cellFinish->remove();
+    cellEnemy->remove();
 
     validate->remove();
 
