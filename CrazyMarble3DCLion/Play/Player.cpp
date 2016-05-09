@@ -141,6 +141,7 @@ bool Player::isFall() {
         fallDistance++;
         if (fallDistance > 50) {
             sceneNode->setPosition(startPos);
+            inertie = vector3df(0,0,0);
             animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
             fallDistance = 0;
             return true;
