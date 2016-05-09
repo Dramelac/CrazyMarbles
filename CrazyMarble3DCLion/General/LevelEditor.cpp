@@ -336,11 +336,15 @@ void LevelEditor::setupGUI() {
     lvlUp = gui->addButton(rect<s32>(1635,400,1685,500), 0, 102, L"P");
     lvlDown = gui->addButton(rect<s32>(1635,680,1685,780), 0, 102, L"M");
 
+    cellFinish = gui->addButton(rect<s32>(680,880,760,1080), 0, 102,L"Y");
     cellEmpty = gui->addButton(rect<s32>(760,880,840,1080), 0, 102, L"EMPTY");
     cellFlat = gui->addButton(rect<s32>(840,880,920,1080), 0, 102, L"A");
     cellPente = gui->addButton(rect<s32>(920,880,1000,1080), 0, 102, L"Z");
     cellAngle = gui->addButton(rect<s32>(1000,880,1080,1080), 0, 102, L"E");
     cellAngleInt = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"R");
+    cellEnemy = gui->addButton(rect<s32>(1160,880,1240,1080),0,102,L"T");
+
+
 
     validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Valider");
 
@@ -400,6 +404,11 @@ void LevelEditor::setupGUI() {
     cellAngle->setScaleImage();
     cellAngleInt->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_angle_int.png"));
     cellAngleInt->setScaleImage();
+    //cellFinish->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_finish.png"));
+    //cellFinish->setScaleImage();
+    //cellEnemy->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_enemy.png"));
+    //cellEnemy->setScaleImage();
+
 
 }
 
