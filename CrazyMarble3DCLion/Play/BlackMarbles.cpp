@@ -77,10 +77,10 @@ bool BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animat
     //std::cout << "bang : " << bang.X << "/" << bang.Y << "/" << bang.Z << std::endl<< std::endl;
     //std::cout << dmg << std::endl << std::endl;
 
-    std::cout << health << std::endl;
+    //std::cout << health << std::endl;
     takeDamage(dmg);
     player->takeDamage(dmg);
-    std::cout << health << std::endl<< std::endl;
+    //std::cout << health << std::endl<< std::endl;
 
     //std::cout << "inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl<< std::endl;
 
