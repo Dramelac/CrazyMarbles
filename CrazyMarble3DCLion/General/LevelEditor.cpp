@@ -291,7 +291,7 @@ void LevelEditor::save(path name) {
     io::IWriteFile* file = io::createWriteFile(name, false);
     sceneManager->saveScene(file);
     file->drop();
-    
+
     std::string result = "data/Maps/";
     result += name.c_str();
     rename(name.c_str(), result.c_str());
