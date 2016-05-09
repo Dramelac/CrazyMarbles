@@ -14,21 +14,35 @@ private:
 	int widthNumber;
 	int heightNumber;
 
+	ISceneNode* startPoint;
+
 	void initAllCellPlace(ISceneManager *sceneManager);
 public:
 	Board(const unsigned int hauteur, const unsigned int largeur, ISceneManager* sceneManager);
-    Board(u16 size);
-
+    Board(ISceneManager* sceneManager, u16 size);
+    Board(ISceneManager* sceneManager);
     ~Board();
 
-	int getLargeur() const;
-	int getHauteur() const;
 
     void setupCell(ISceneManager *sceneManager,
                    vector3di cursor,
                    s16 type=0, vector3di rotation=vector3di(0, 0, 0));
 
-	IMetaTriangleSelector* getMapMetaSelector(ISceneManager* sceneManager);
+    void setupStartPoint(vector3di cursor);
+    void setupFinishCell(vector3di cursor);
+
+	IMetaTriangleSelector* getMapMetaSelector(ISceneManager* sceneManager, bool filterFinish = false);
+
+    vector3df getStartPoint();
+    s32 getCurrentLevel(vector3di cursor);
+
+    void addEnemie(ISceneManager* sceneManager, vector3di cursor);
+    void removeEnemie(vector3di cursor);
+
+    void setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
+    void setPlayerToEntities(ISceneManager *sceneManager, Player* player);
+
+    void applyMovingOnEntities(f32 deltaTime);
 };
 
 

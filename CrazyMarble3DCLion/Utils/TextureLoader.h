@@ -12,6 +12,9 @@ public:
 
     static ITexture* tile;
     static ITexture* sphere;
+    static ITexture* sphereRed;
+    static ITexture* sphereBlack;
+    static ITexture* finish_line;
 
     static IAnimatedMesh* cellMesh;
     static IAnimatedMesh* cell_pente_Mesh;

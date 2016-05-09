@@ -6,18 +6,38 @@
 #define CRAZYMARBLE_ENTITIES_HPP
 
 
-#include <string>
+#include <irrlicht.h>
 
-using namespace std;
+using namespace irr;
+using namespace core;
+using namespace scene;
 
 class Entities {
 protected:
-	std::string name;
-	int health;
+
+    IAnimatedMesh* sceneMesh;
+    IMeshSceneNode* sceneNode;
+
+    ISceneNodeAnimatorCollisionResponse* animatorCollisionResponse;
+
+	stringc name;
+	s32 health;
+    vector3df inertie;
 
 public:
-	Entities(const std::string &name, int health);
+	Entities(const stringc &name, s32 health);
 	Entities();
+
+    bool isAlive();
+    void takeDamage(u16 dmg);
+
+    void enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
+
+    void applyMove(f32 deltaTime);
+    void updatePosition(vector3df vec);
+
+    const vector3df & getInertie() const;
+    void setInertie(const vector3df &inertie);
 };
 
 

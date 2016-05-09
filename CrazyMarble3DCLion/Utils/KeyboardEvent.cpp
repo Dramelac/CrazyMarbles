@@ -36,8 +36,17 @@ bool KeyboardEvent::OnEvent(const SEvent &event)
 }
 
 // Keyboard checker
-bool KeyboardEvent::IsKeyDown(EKEY_CODE keyCode) const  {
-    return keyPressedDown[keyCode];
+bool KeyboardEvent::IsKeyDown(EKEY_CODE keyCode, bool loop) {
+    if (loop){
+        if (keyPressedDown[keyCode]){
+            keyPressedDown[keyCode] = false;
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return keyPressedDown[keyCode];
+    }
 }
 
 void KeyboardEvent::setDevice(IrrlichtDevice *device) {

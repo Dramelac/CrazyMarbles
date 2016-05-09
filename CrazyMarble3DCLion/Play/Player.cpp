@@ -5,69 +5,201 @@
 #include "Player.h"
 #include "../Utils/TextureLoader.h"
 
-
-Player::Player(const std::string &name, int health, ISceneManager *sceneManager) : Entities(name, health), score(0) {
+// Debug player
+Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
+        : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
 
     // MODEL
 
-    sphereMesh = TextureLoader::sphereMesh;                             // load object sphere
+    sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
 
-    sphere_node = sceneManager->addMeshSceneNode(sphereMesh);           // add object to screen
-    //sphere_node->setScale(vector3df(1.0f,1.0f,1.0f));
-    sphere_node->setPosition(vector3df(25.0f,300.0f,25.0f));        // set init player pos (can be change if need)
-    //sphere_node->setPosition(vector3df(5*150.0f+50,300.0f,430.0f));
+    sceneNode = sceneManager->addMeshSceneNode(sceneMesh);           // add object to screen
+    //sceneNode->setScale(vector3df(1.0f,1.0f,1.0f));
+    sceneNode->setPosition(vector3df(25.0f,0.0f,25.0f));        // set init player pos (can be change if need)
+    //sceneNode->setPosition(vector3df(5*150.0f+50,300.0f,430.0f));
 
     // we used default texture with model : sphere_c.png
     // to force texture use :
-    //sphere_node->setMaterialTexture(0, TextureLoader::sphere);
+    //sceneNode->setMaterialTexture(0, TextureLoader::sphere);
 
 
     // Camera
 
-    fixeCamera = sceneManager->addCameraSceneNode(0, vector3df(50.0f,150.0f,50.0f), sphere_node->getPosition());
+    fixeCamera = sceneManager->addCameraSceneNode(sceneNode,
+                                                  vector3df(800.0f, 700.0f, 800.0f),
+                                                  sceneNode->getPosition());
 
     // Render distance
     // fixeCamera->setFarValue(5000);
 
 }
 
-void Player::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
+// Start new game
+Player::Player(ISceneManager *sceneManager, const stringc& name, int health, vector3df startpos)
+        : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
+    speed = 20;
+    inertie = vector3df(0,0,0);
 
-    // Animation collision
+    // MODEL
+    startPos = startpos;
+    sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
 
-    vector3df hitbox = sphere_node->getBoundingBox().MaxEdge;
-    std::cout << hitbox.X << "/" << hitbox.Y << "/" << hitbox.Z << std::endl;
+    sceneNode = sceneManager->addMeshSceneNode(sceneMesh);           // add object to screen
+    sceneNode->setPosition(startPos);
+    sceneNode->setID(10);
 
-    ISceneNodeAnimatorCollisionResponse* anim = sceneManager->createCollisionResponseAnimator(
-            metaSelector, // Map collision
-            sphere_node,  // object player to detect
-            hitbox, // hitbox
-            vector3df(5, -15, 5)  // gravity vector
-    );
-    sphere_node->addAnimator(anim);             // apply gravity / collision to player object
-    anim->drop();                               // drop temp anim
+    fixeCamera = sceneManager->addCameraSceneNode(sceneNode,
+                                                  vector3df(800.0f, 700.0f, 800.0f),
+                                                  sceneNode->getPosition());
 
+
+
+
+}
+
+// player Level Editor
+Player::Player(ISceneManager *sceneManager) : Entities(), fallDistance(0), finishTime(0) {
+    speed = 20;
+
+    sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
+
+    sceneNode = sceneManager->addMeshSceneNode(sceneMesh);           // add object to screen
+
+    sceneNode->setPosition(vector3df(0,-250,0));
+    sceneNode->setScale(vector3df(0.5,0.5,0.5));
+    sceneNode->setMaterialTexture(0, TextureLoader::sphereRed);
+
+    fixeCamera = sceneManager->addCameraSceneNode(sceneNode,
+                                                  vector3df(1600.0f, 1400.0f, 1600.0f),
+                                                  sceneNode->getPosition());
+    fixeCamera->setFarValue(15000);
+}
+
+
+Player::~Player() {
+    sceneNode->remove();
+    fixeCamera->remove();
 }
 
 
 void Player::updateCamera() {
-
-    vector3df cameraPos = sphere_node->getPosition();
-    cameraPos += vector3df(800.0f, 700.0f, 800.0f);
-    fixeCamera->setPosition(cameraPos);
-    fixeCamera->setTarget(sphere_node->getPosition());
-    //fixeCamera->setFarValue(5000);
+    fixeCamera->setTarget(sceneNode->getPosition());
 }
 
 
-void Player::updatePosition(vector3df vec) {
-    sphere_node->setPosition(sphere_node->getPosition()+vec);
-}
+void Player::processMoving(KeyboardEvent *keyevent, f32 deltaTime) {
+    // Init moving vectorKeyboard
+    core::vector3df vectorKeyboard(0,0,0);
+    u16 count=0;
+    //speed = 20;
+    // Min 0 / Max 500
 
+    // Check all key
+    if(keyevent->IsKeyDown(KEY_KEY_Z)){
+        vectorKeyboard.X += -speed;
+        vectorKeyboard.Z += -speed;
+        count++;
+    }
+    if(keyevent->IsKeyDown(KEY_KEY_S)){
+        vectorKeyboard.X += speed;
+        vectorKeyboard.Z += speed;
+        count++;
+    }
+    if(keyevent->IsKeyDown(KEY_KEY_Q)){
+        vectorKeyboard.X += speed;
+        vectorKeyboard.Z += -speed;
+        count++;
+    }
+    if(keyevent->IsKeyDown(KEY_KEY_D)){
+        vectorKeyboard.X += -speed;
+        vectorKeyboard.Z += speed;
+        count++;
+    }
+
+    if (count == 2){
+        vectorKeyboard.X /= 2;
+        vectorKeyboard.Z /= 2;
+    }
+    //cout << vectorKeyboard.X << "/" << vectorKeyboard.Y << "/" << vectorKeyboard.Z << endl;
+    // apply keyboard to inertie
+    inertie += vectorKeyboard;
+    applyMove(deltaTime);
+}
 
 void Player::updateFOV(f32 x) {
     f32 temp = fixeCamera->getFOV();
     std::cout << "fov old : " << temp;
     fixeCamera->setFOV(temp + x);
-    std::cout << "/ fov now : " << temp + x << endl;
 }
+
+void Player::setPosition(vector3df pos) {
+    sceneNode->setPosition(pos);
+}
+
+bool Player::isFall() {
+    if (animatorCollisionResponse->isFalling()){
+        fallDistance++;
+        if (fallDistance > 50) {
+            sceneNode->setPosition(startPos);
+            inertie = vector3df(0,0,0);
+            animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
+            fallDistance = 0;
+            return true;
+        }
+    } else {
+        //startPos = animatorCollisionResponse->getCollisionResultPosition();
+        //startPos = sceneNode->getPosition();
+        fallDistance = 0;
+    }
+    return false;
+}
+
+void Player::addFinishLineCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
+
+    vector3df hitBox = sceneNode->getBoundingBox().MaxEdge;
+    hitBox += vector3df(0.1,0.1,0.1);
+
+    animatorFinishCollisionResponse = sceneManager->createCollisionResponseAnimator(
+            metaSelector, // Map collision
+            sceneNode,  // object player to detect
+            hitBox, // hitBox
+            vector3df(0, 0, 0)  // gravity vector
+    );
+    sceneNode->addAnimator(animatorFinishCollisionResponse); // apply collision to player object
+    animatorFinishCollisionResponse->setCollisionCallback(this);
+
+}
+
+bool Player::onCollision(const ISceneNodeAnimatorCollisionResponse &animator) {
+    finishTime++;
+    return false;
+}
+
+bool Player::checkFinish() {
+    return finishTime > 20;
+}
+
+ISceneNodeAnimatorCollisionResponse* Player::enableCustomCollision(ITriangleSelector *metaSelector, ISceneManager *sceneManager) {
+    vector3df hitbox = sceneNode->getBoundingBox().MaxEdge;
+
+    ISceneNodeAnimatorCollisionResponse* temp = sceneManager->createCollisionResponseAnimator(
+            metaSelector, // Map collision
+            sceneNode,  // object player to detect
+            hitbox, // hitbox
+            vector3df(0, 0, 0)  // gravity vector
+    );
+    sceneNode->addAnimator(temp);             // apply gravity / collision to player object
+
+    return temp;
+}
+
+vector3df Player::getPosition() {
+    return sceneNode->getPosition();
+}
+
+ISceneNodeAnimatorCollisionResponse *Player::removeAnimator(ISceneNodeAnimator *animator) {
+    sceneNode->removeAnimator(animator);
+    return nullptr;
+}
+
+

@@ -20,17 +20,24 @@ private:
     IVideoDriver* driver;
     IGUIEnvironment* gui;
 
+    IGUIEditBox* editBox;
+    IGUIFont* font;
+
+    stringc* nickname;
 
     KeyboardEvent* keyEvent;
 
-    IGUIImage* welcome;
     IGUIImage* enterNick;
     IGUIButton* valide;
     IGUIButton* exit;
 
+    void visibilityButtons(bool status);
+
 public:
     NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent);
-    void loop();
+    virtual ~NickMenu();
+
+    const wchar_t* loop();
 };
 
 

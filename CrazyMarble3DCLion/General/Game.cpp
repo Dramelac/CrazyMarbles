@@ -4,7 +4,10 @@
 
 #include "Game.h"
 
-Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent, unsigned int x, unsigned int y, bool day) : play(true){
+// Debug construct
+Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
+           unsigned int x, unsigned int y, bool day) :
+        play(true){
 
 	
 	this->device = inDevice;
@@ -17,30 +20,9 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent, unsigned int x, un
 	this->sceneManager = this->device->getSceneManager();               // creation scene manager
 
 
-    // OPTIONAL
-    if (day){
-        sceneManager->addSkyBoxSceneNode(
-                driver->getTexture("data/skybox/day/top.png"),
-                driver->getTexture("data/skybox/day/bottom.png"),
-                driver->getTexture("data/skybox/day/front.png"),
-                driver->getTexture("data/skybox/day/back.png"),
-                driver->getTexture("data/skybox/day/left.png"),
-                driver->getTexture("data/skybox/day/right.png"));
-    } else {
-        sceneManager->addSkyBoxSceneNode(
-                driver->getTexture("data/skybox/night/top.png"),
-                driver->getTexture("data/skybox/night/bottom.png"),
-                driver->getTexture("data/skybox/night/front.png"),
-                driver->getTexture("data/skybox/night/back.png"),
-                driver->getTexture("data/skybox/night/left.png"),
-                driver->getTexture("data/skybox/night/right.png"));
-    }
+    setupSkyBox(day);
 
-    // SkyDome
-    //sceneManager->addSkyDomeSceneNode(driver->getTexture("data/../../irrlicht-1.8.3/media/skydome.jpg"),16,8,0.95f,2.0f);
-
-
-    this->player = new Player("Test", 20, sceneManager);
+    this->player = new Player(sceneManager, "Test", 100);
 
     this->board = new Board(x, y, sceneManager);
 
@@ -54,25 +36,35 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent, unsigned int x, un
     sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
 
 
+    // COLLISION : GRAVITY
 
-	// CAMERA
+    // plateau de selector collision
+    IMetaTriangleSelector* metaMapSelector = board->getMapMetaSelector(sceneManager);      // create decor collision data
 
-	SKeyMap keyMap[4];
-	keyMap[0].Action = EKA_MOVE_FORWARD;   // avancer
-	keyMap[0].KeyCode = KEY_KEY_Z;
-	keyMap[1].Action = EKA_MOVE_BACKWARD;  // reculer
-	keyMap[1].KeyCode = KEY_KEY_S;
-	keyMap[2].Action = EKA_STRAFE_LEFT;    // a gauche
-	keyMap[2].KeyCode = KEY_KEY_Q;
-	keyMap[3].Action = EKA_STRAFE_RIGHT;   // a droite
-	keyMap[3].KeyCode = KEY_KEY_D;
+    // Apply gravity to player :
+    player->enableCollision(metaMapSelector, sceneManager);                    // apply collision map to player
 
-    // To change
+    metaMapSelector->drop();
+}
 
-    //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);    // create camera (to change /
-                                                                                        // fix to player)
-    //fpsCamera->setPosition(vector3df(x*Cell::size,600.0f,y*Cell::size));                // init camera pos
-    //fpsCamera->setPosition(vector3df(850,300,850));
+// Play select Map
+Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
+        device(inDevice), keyevent(keyevent), play(true) {
+
+    this->device->setWindowCaption(L"Crazy Marble");                    // first windows name
+    device->getCursorControl()->setVisible(false);                      // curseur invisible
+
+    this->driver = this->device->getVideoDriver();                      // creation driver
+    this->sceneManager = this->device->getSceneManager();               // creation scene manager
+
+    IReadFile* map = createReadFile(pathMap);
+    sceneManager->loadScene(map);
+
+    this->board  = new Board(sceneManager);
+
+    this->player = new Player(sceneManager, "Test", 100, board->getStartPoint());
+
+    //sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
 
 
     // COLLISION : GRAVITY
@@ -82,9 +74,22 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent, unsigned int x, un
 
     // Apply gravity to player :
     player->enableCollision(metaSelector, sceneManager);                    // apply collision map to player
-    speed = 250;
+    board->setupCollisionEntity(metaSelector, sceneManager);
+    metaSelector->drop();
+
+    // collision finish line
+    IMetaTriangleSelector* metaFinishSelector = board->getMapMetaSelector(sceneManager, true);
+    player->addFinishLineCollision(metaFinishSelector, sceneManager);
+    metaFinishSelector->drop();
+
+    // collision player/entities
+    board->setPlayerToEntities(sceneManager, player);
+
+
+    //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
 
 }
+
 
 void Game::gameLoop() {
 
@@ -120,8 +125,17 @@ void Game::gameLoop() {
             f32 deltaTime = (f32)(now-then) / 1000.f;
             then = now;
             keyboardChecker(deltaTime);
+            board->applyMovingOnEntities(deltaTime);
 
-            if (!play){
+            if (player->isFall()){
+                // player is fall
+            }
+
+            if (not player->isAlive()){
+                // player is dead
+            }
+
+            if (!play || player->checkFinish()){
                 break;
             }
 
@@ -130,50 +144,10 @@ void Game::gameLoop() {
 
 }
 
-void Game::updateGameBoard() {
-    /*
-    board.drawBoard(&windows);
-    player.renderPlayer(&windows);
-
-    windows.display();
-    windows.clear();
-    */
-
-    driver->beginScene(true, true,
-                       video::SColor(                  // contient la couleur blanc
-                               255,                                   // composante A alpha (transparence)
-                               255,                                   // composante R rouge
-                               255,                                   // composante G verte
-                               255));
-    sceneManager->drawAll();                    // calcule le rendu
-    driver->endScene();
-
-}
-
 void Game::keyboardChecker(f32 deltaTime) {
-    // Init moving vector
-    core::vector3df vector(0.0f,0.0f,0.0f);
-
-    // Check all key
-    if(keyevent->IsKeyDown(KEY_KEY_Z)){
-        vector.X += -speed * deltaTime;
-        vector.Z += -speed * deltaTime;
-    }
-    else if(keyevent->IsKeyDown(KEY_KEY_S)){
-        vector.X += speed * deltaTime;
-        vector.Z += speed * deltaTime;
-    }
-    if(keyevent->IsKeyDown(KEY_KEY_Q)){
-        vector.X += speed * deltaTime;
-        vector.Z += -speed/2 * deltaTime;
-    }
-    else if(keyevent->IsKeyDown(KEY_KEY_D)){
-        vector.X += -speed * deltaTime;
-        vector.Z += speed/2 * deltaTime;
-    }
 
     // apply moving to player
-    player->updatePosition(vector);
+    player->processMoving(keyevent, deltaTime);
 
 
     if(keyevent->IsKeyDown(KEY_KEY_P)){
@@ -184,7 +158,7 @@ void Game::keyboardChecker(f32 deltaTime) {
 
     // quit event
 
-    if (keyevent->IsKeyDown(KEY_ESCAPE)){
+    if (keyevent->IsKeyDown(KEY_ESCAPE, true)){
         play = false;
     }
 
@@ -192,10 +166,32 @@ void Game::keyboardChecker(f32 deltaTime) {
 
 Game::~Game() {
 
-    sceneManager->clear();
-    driver->drop();
-
-	delete player;
     delete board;
-    
+    delete player;
+
+    sceneManager->clear();
+
 }
+
+void Game::setupSkyBox(bool day) {
+    if (day){
+        sceneManager->addSkyBoxSceneNode(
+                driver->getTexture("data/skybox/day/top.png"),
+                driver->getTexture("data/skybox/day/bottom.png"),
+                driver->getTexture("data/skybox/day/front.png"),
+                driver->getTexture("data/skybox/day/back.png"),
+                driver->getTexture("data/skybox/day/left.png"),
+                driver->getTexture("data/skybox/day/right.png"));
+    } else {
+        sceneManager->addSkyBoxSceneNode(
+                driver->getTexture("data/skybox/night/top.png"),
+                driver->getTexture("data/skybox/night/bottom.png"),
+                driver->getTexture("data/skybox/night/front.png"),
+                driver->getTexture("data/skybox/night/back.png"),
+                driver->getTexture("data/skybox/night/left.png"),
+                driver->getTexture("data/skybox/night/right.png"));
+    }
+}
+
+
+
