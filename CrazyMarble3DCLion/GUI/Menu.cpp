@@ -97,6 +97,7 @@ void Menu::visibilityButons(bool status) {
     scoreBoard->setVisible(status);
     levelEditor->setVisible(status);
     credit->setVisible(status);
+    nickName->setVisible(status);
     background->setVisible(status);
 }
 
