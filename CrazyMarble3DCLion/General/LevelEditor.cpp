@@ -119,7 +119,7 @@ void LevelEditor::keyboardChecker() {
     }
 
     if (cellFinish->isPressed() || keyEvent->IsKeyDown(KEY_KEY_F, true)){
-        board->setupFinishCell(cursor);
+        board->getCell(cursor)->switchFinishType();
         cellFinish->setPressed(false);
     }
 
@@ -129,12 +129,12 @@ void LevelEditor::keyboardChecker() {
         skyBoxe->setPressed(false);
     }
 
-    if (keyEvent->IsKeyDown(KEY_KEY_C, true)){
-        board->removeEnemie(cursor);
-    }
-
     if (cellEnemy->isPressed() || keyEvent->IsKeyDown(KEY_KEY_B, true)){
-        board->addEnemie(sceneManager, cursor);
+        board->getCell(cursor)->switchEntity(new BlackMarbles(sceneManager,
+                                                              vector3df(cursor.X * Cell::size,
+                                                                        (cursor.Z * -Cell::size) - 200,
+                                                                        cursor.Y * Cell::size),
+                                                              (cursor.X * LevelEditor::size) + cursor.Y + 3500));
         cellEnemy->setPressed(false);
     }
 
@@ -228,7 +228,7 @@ void LevelEditor::move(vector3di change) {
     if (cursor.Y < 0){
         cursor.Y = 0;
     }
-    cursor.Z = board->getCurrentLevel(cursor);
+    cursor.Z = board->getCell(cursor)->getCurrentLevel(cursor.Z);
     updateCamera();
 }
 
