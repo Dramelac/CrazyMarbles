@@ -68,4 +68,7 @@ NickMenu::~NickMenu() {
     editBox->remove();
     valide->remove();
     exit->remove();
+    crazyMarble->remove();
+    enterNick->remove();
+    
 }
