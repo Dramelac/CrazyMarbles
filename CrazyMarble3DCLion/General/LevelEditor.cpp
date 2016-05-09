@@ -349,8 +349,8 @@ void LevelEditor::setupGUI() {
     cellAngleInt = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"R");
     cellEnemy = gui->addButton(rect<s32>(1160,880,1240,1080),0,102,L"T");
 
-    cellStartBox = gui->addButton(rect<s32>(1160,880,1240,1080),0,102,L"U");
-    skyBoxe = gui->addButton(rect<s32>(1160,880,1240,1080),0,102,L"S");
+    cellStartBox = gui->addButton(rect<s32>(1240,880,1320,1080),0,102,L"U");
+    skyBoxe = gui->addButton(rect<s32>(20,320,60,360),0,102,L"S");
 
 
 
@@ -421,7 +421,7 @@ void LevelEditor::setupGUI() {
 
     //skyBoxe->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_sky_box.png"));
     //skyBoxe->setScaleImage();
-    
+
 
 
 }
