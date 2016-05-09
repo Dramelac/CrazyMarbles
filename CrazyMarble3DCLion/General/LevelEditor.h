@@ -48,6 +48,8 @@ private:
     IGUIButton* cellEmpty;
     IGUIButton* cellFinish;
     IGUIButton* cellEnemy;
+    IGUIButton* cellStartBox;
+    IGUIButton* skyBoxe;
 
 
     IGUIButton* validate;

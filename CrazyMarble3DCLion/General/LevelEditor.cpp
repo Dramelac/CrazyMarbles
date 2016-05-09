@@ -316,6 +316,9 @@ LevelEditor::~LevelEditor() {
     cellFinish->remove();
     cellEnemy->remove();
 
+    skyBoxe->remove();
+    cellStartBox->remove();
+
     validate->remove();
 
     sceneManager->clear();
@@ -345,6 +348,9 @@ void LevelEditor::setupGUI() {
     cellAngle = gui->addButton(rect<s32>(1000,880,1080,1080), 0, 102, L"E");
     cellAngleInt = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"R");
     cellEnemy = gui->addButton(rect<s32>(1160,880,1240,1080),0,102,L"T");
+
+    cellStartBox = gui->addButton(rect<s32>(1160,880,1240,1080),0,102,L"U");
+    skyBoxe = gui->addButton(rect<s32>(1160,880,1240,1080),0,102,L"S");
 
 
 
@@ -406,10 +412,16 @@ void LevelEditor::setupGUI() {
     cellAngle->setScaleImage();
     cellAngleInt->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_angle_int.png"));
     cellAngleInt->setScaleImage();
+    //cellStartBox->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_angle_int.png"));
+    //cellStartBox->setScaleImage();
     //cellFinish->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_finish.png"));
     //cellFinish->setScaleImage();
     //cellEnemy->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_enemy.png"));
     //cellEnemy->setScaleImage();
+
+    //skyBoxe->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_sky_box.png"));
+    //skyBoxe->setScaleImage();
+    
 
 
 }
