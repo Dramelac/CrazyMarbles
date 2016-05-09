@@ -171,3 +171,9 @@ void Board::applyMovingOnEntities(f32 deltaTime) {
     }
 }
 
+Cell* Board::getCell(vector3di cursor) {
+    return &board[cursor.X][cursor.Y];
+}
+
+
+
