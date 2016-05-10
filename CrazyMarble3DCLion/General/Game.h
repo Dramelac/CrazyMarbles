@@ -26,6 +26,7 @@ class Game {
 private:
 	Board* board;
 	IrrlichtDevice* device;
+	IGUIEnvironment* gui;
 	IVideoDriver* driver;
 	ISceneManager *sceneManager;
 

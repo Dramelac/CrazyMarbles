@@ -12,7 +12,7 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
 	
 	this->device = inDevice;
     this->keyevent = keyevent;
-
+    gui = device->getGUIEnvironment();
     this->device->setWindowCaption(L"Crazy Marble");                    // first windows name
     device->getCursorControl()->setVisible(false);                      // curseur invisible
 
@@ -109,7 +109,9 @@ void Game::gameLoop() {
 
             player->updateCamera();
 
-            sceneManager->drawAll();                                        // update display
+            sceneManager->drawAll();
+            // update display
+            gui->drawAll();
             driver->endScene();
 
 
