@@ -4,7 +4,7 @@
 
 #include "Chrono.h"
 
-Chrono::Chrono(int chrono=60) {
+Chrono::Chrono(s32 chrono=60) {
     this->chrono=chrono;
 }
 void Chrono::setTime(int chrono) {
