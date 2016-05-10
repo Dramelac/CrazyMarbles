@@ -5,6 +5,7 @@
 #ifndef CRAZYMARBLE3DCLION_CHRONO_H
 #define CRAZYMARBLE3DCLION_CHRONO_H
 #include <irrlicht.h>
+#include <string.h>
 
 using namespace irr;
 using namespace gui;
