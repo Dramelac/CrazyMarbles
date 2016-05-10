@@ -8,18 +8,19 @@
 
 using namespace irr;
 
-class Chrono : public ITimer{
+class Chrono {
 private:
     u32 chrono;
+    ITimer* timer;
 public:
 
-    Chrono(u32 chrono);
-    /*
-    virtual void setTime (int chrono);
-    virtual void getTime (int chrono);
-    virtual void start ();
-    virtual void stop ();
-*/
+    Chrono(IrrlichtDevice* inDevice, u32 chrono);
+
+    //void setTime (int chrono);
+    u32 getTime();
+    void start();
+    void stop();
+
 
 };
 

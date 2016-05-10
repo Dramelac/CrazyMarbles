@@ -2,26 +2,30 @@
 // Created by romain on 01/05/16.
 //
 
+#include <iostream>
 #include "Chrono.h"
 
-Chrono::Chrono(u32 chrono=60) {
+Chrono::Chrono(IrrlichtDevice* inDevice, u32 chrono=60) {
     this->chrono=chrono;
-    this->setTime(chrono);
-    this->getTime();
-    this->start();
-}
-/*
-void Chrono::setTime(int chrono) {
+    timer = inDevice->getTimer();
+    timer->setTime(this->chrono);
 
+    //timer->setSpeed(1);
+    // std::cout << timer->getSpeed() << std::endl;
 }
-void Chrono::getTime(int chrono) {
 
+u32 Chrono::getTime() {
+    std::cout << timer->getTime() << std::endl;
+    return timer->getTime();
 }
 
 void Chrono::start() {
-
+    std::cout << "start" << std::endl;
+    timer->start();
 }
 
 void Chrono::stop() {
+    std::cout << "stop" << std::endl;
+    timer->stop();
+}
 
-}*/

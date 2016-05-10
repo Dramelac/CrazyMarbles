@@ -88,13 +88,19 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
 
     //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
 
+    chrono = new Chrono(device, 60);
+
+
 }
 
 
 void Game::gameLoop() {
 
     int lastFPS = -1;
+
     u32 then = device->getTimer()->getTime();
+    chrono->start();
+
 	while (device->run()){
 
         if (device->isWindowActive()){                                      // check if windows is active
@@ -114,6 +120,9 @@ void Game::gameLoop() {
                 core::stringw title = L"Crazy Marble - 2DEV  [FPS:";
                 title += fps;
                 title += "]";
+
+                title += " / ";
+                title += chrono->getTime();
 
                 device->setWindowCaption(title.c_str());
                 lastFPS = fps;
@@ -141,6 +150,7 @@ void Game::gameLoop() {
 
         }
 	}
+    chrono->stop();
 
 }
 
@@ -165,6 +175,7 @@ void Game::keyboardChecker(f32 deltaTime) {
 }
 
 Game::~Game() {
+    delete chrono;
 
     delete board;
     delete player;

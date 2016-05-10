@@ -33,6 +33,7 @@ private:
     bool play;
 
     Player *player;
+	Chrono *chrono;
 
     void setupSkyBox(bool day);
 	void keyboardChecker(f32 deltaTime);
