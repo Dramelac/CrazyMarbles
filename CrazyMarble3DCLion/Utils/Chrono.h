@@ -15,8 +15,9 @@ private:
 public:
 
     Chrono(IrrlichtDevice* inDevice, u32 chrono);
+    virtual ~Chrono();
 
-    //void setTime (int chrono);
+//void setTime (int chrono);
     u32 getTime();
     void restart();
     void start();

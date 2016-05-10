@@ -8,6 +8,14 @@
 Chrono::Chrono(IrrlichtDevice* inDevice, u32 chrono=60) {
     this->chrono=chrono * 1000;
     timer = inDevice->getTimer();
+    timer->setTime(0);
+    timer->setSpeed(1);
+}
+
+Chrono::~Chrono() {
+    stop();
+    timer->setTime(0);
+    timer->setSpeed(1);
 }
 
 u32 Chrono::getTime() {
