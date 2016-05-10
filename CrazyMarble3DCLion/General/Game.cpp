@@ -121,6 +121,7 @@ void Game::gameLoop() {
                 title += fps;
                 title += "]";
 
+                // temp to remove
                 title += " / ";
                 title += chrono->getTime();
 

@@ -18,6 +18,7 @@ public:
 
     //void setTime (int chrono);
     u32 getTime();
+    void restart();
     void start();
     void stop();
 
