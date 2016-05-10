@@ -10,15 +10,16 @@ using namespace irr;
 
 class Chrono : public ITimer{
 private:
-    s32 chrono;
+    u32 chrono;
 public:
 
-    Chrono(s32 chrono);
+    Chrono(u32 chrono);
+    /*
     virtual void setTime (int chrono);
     virtual void getTime (int chrono);
     virtual void start ();
     virtual void stop ();
-
+*/
 
 };
 

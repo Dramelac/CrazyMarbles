@@ -4,9 +4,13 @@
 
 #include "Chrono.h"
 
-Chrono::Chrono(s32 chrono=60) {
+Chrono::Chrono(u32 chrono=60) {
     this->chrono=chrono;
+    this->setTime(chrono);
+    this->getTime();
+    this->start();
 }
+/*
 void Chrono::setTime(int chrono) {
 
 }
@@ -20,4 +24,4 @@ void Chrono::start() {
 
 void Chrono::stop() {
 
-}
+}*/
