@@ -7,11 +7,14 @@
 #include <irrlicht.h>
 
 using namespace irr;
+using namespace gui;
+using namespace core;
 
 class Chrono {
 private:
-    u32 chrono;
+        u32 chrono;
     ITimer* timer;
+    IGUIStaticText* displayChrono;
 public:
 
     Chrono(IrrlichtDevice* inDevice, u32 chrono);

@@ -10,12 +10,14 @@ Chrono::Chrono(IrrlichtDevice* inDevice, u32 chrono=60) {
     timer = inDevice->getTimer();
     timer->setTime(0);
     timer->setSpeed(1);
+    displayChrono = inDevice->getGUIEnvironment()->addStaticText(L"60",rect<s32>(885,20,935,80));
 }
 
 Chrono::~Chrono() {
     stop();
     timer->setTime(0);
     timer->setSpeed(1);
+    displayChrono->remove();
 }
 
 u32 Chrono::getTime() {
@@ -27,6 +29,8 @@ u32 Chrono::getTime() {
         stop();
         return 0;
     } else {
+        wchar_t text = temp;
+        displayChrono->setText(&text);
         return (u32)temp;
     }
 }
@@ -48,4 +52,5 @@ void Chrono::restart() {
     timer->setSpeed(1);
     start();
 }
+
 
