@@ -29,8 +29,9 @@ u32 Chrono::getTime() {
         stop();
         return 0;
     } else {
-        wchar_t text = temp;
-        displayChrono->setText(&text);
+        stringw text;
+        text += temp;
+        displayChrono->setText(text.c_str());
         return (u32)temp;
     }
 }

@@ -115,7 +115,7 @@ void Game::gameLoop() {
             gui->drawAll();
             driver->endScene();
 
-
+            chrono->getTime();
             // display frames per second in window title
             int fps = driver->getFPS();
             if (lastFPS != fps)
