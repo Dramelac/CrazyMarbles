@@ -65,10 +65,12 @@ void Menu::loop() {
             if (exit->isPressed() || keyEvent->IsKeyDown(KEY_ESCAPE, true)){
                 device->closeDevice();
             } else if (play->isPressed()){
+                visibilityButons(false);
                 //Game game(device, keyEvent, 50, 50);
                 Game game(device, keyEvent, "data/Maps/map.irr");
                 game.gameLoop();
                 device->getCursorControl()->setVisible(true);
+                visibilityButons(true);
             } else if (scoreBoard->isPressed()){
                 
 

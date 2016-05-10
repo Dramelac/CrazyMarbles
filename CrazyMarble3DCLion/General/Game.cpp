@@ -12,7 +12,7 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
 	
 	this->device = inDevice;
     this->keyevent = keyevent;
-    gui = device->getGUIEnvironment();
+
     this->device->setWindowCaption(L"Crazy Marble");                    // first windows name
     device->getCursorControl()->setVisible(false);                      // curseur invisible
 
@@ -57,6 +57,7 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
     this->driver = this->device->getVideoDriver();                      // creation driver
     this->sceneManager = this->device->getSceneManager();               // creation scene manager
 
+    gui = device->getGUIEnvironment();
     IReadFile* map = createReadFile(pathMap);
     sceneManager->loadScene(map);
 
