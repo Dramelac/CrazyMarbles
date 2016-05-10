@@ -35,7 +35,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 }
 
 // Start new game
-Player::Player(ISceneManager *sceneManager, const stringc& name, int health, vector3df startpos)
+Player::Player(ISceneManager *sceneManager,IGUIEnvironment* gui, const stringc& name, int health, vector3df startpos)
         : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
     speed = 20;
     inertie = vector3df(0,0,0);
@@ -52,7 +52,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health, vec
                                                   vector3df(800.0f, 700.0f, 800.0f),
                                                   sceneNode->getPosition());
 
-
+    displayScore = gui->addStaticText(L"Score : 0",rect<s32>(20,20,120,120));
 
 
 }
@@ -79,6 +79,7 @@ Player::Player(ISceneManager *sceneManager) : Entities(), fallDistance(0), finis
 Player::~Player() {
     sceneNode->remove();
     fixeCamera->remove();
+    displayScore->remove();
 }
 
 

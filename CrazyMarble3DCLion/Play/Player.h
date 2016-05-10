@@ -27,13 +27,15 @@ private:
     vector3df startPos;
 
 	s32 score;
+    IGUIStaticText* displayScore;
 
     u16 speed;
+
 
 public:
 
 	Player(ISceneManager *sceneManager, const stringc& name, int health);
-	Player(ISceneManager *sceneManager, const stringc& name, int health, vector3df startpos);
+	Player(ISceneManager *sceneManager,IGUIEnvironment* gui, const stringc& name, int health, vector3df startpos);
     Player(ISceneManager *sceneManager);
     ~Player();
 

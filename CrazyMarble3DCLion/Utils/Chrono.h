@@ -13,7 +13,7 @@ using namespace core;
 
 class Chrono {
 private:
-        u32 chrono;
+    u32 chrono;
     ITimer* timer;
     IGUIStaticText* displayChrono;
 public:

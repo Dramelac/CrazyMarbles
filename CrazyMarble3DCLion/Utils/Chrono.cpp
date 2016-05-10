@@ -25,13 +25,13 @@ u32 Chrono::getTime() {
         return 0;
     }
     s32 temp = ((s32)chrono - (s32)timer->getTime())/1000;
+    stringw text;
+    text += temp;
+    displayChrono->setText(text.c_str());
     if (temp <= 0){
         stop();
         return 0;
     } else {
-        stringw text;
-        text += temp;
-        displayChrono->setText(text.c_str());
         return (u32)temp;
     }
 }
