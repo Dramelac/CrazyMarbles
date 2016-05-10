@@ -107,7 +107,7 @@ void Game::gameLoop() {
         if (device->isWindowActive()){                                      // check if windows is active
 
             driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
-
+            chrono->start();
             player->updateCamera();
 
             sceneManager->drawAll();
@@ -152,6 +152,9 @@ void Game::gameLoop() {
                 break;
             }
 
+        }
+        else{
+            chrono->stop();
         }
 	}
     chrono->stop();

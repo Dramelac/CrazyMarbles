@@ -22,7 +22,7 @@ u32 Chrono::getTime() {
     if (timer->isStopped()){
         return 0;
     }
-    s32 temp = (chrono - timer->getTime())/1000;
+    s32 temp = ((s32)chrono - (s32)timer->getTime())/1000;
     if (temp <= 0){
         stop();
         return 0;

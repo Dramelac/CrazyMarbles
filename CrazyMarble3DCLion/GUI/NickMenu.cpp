@@ -19,8 +19,8 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
     valide = gui->addButton(rect<s32>(600,550,1320,650), 0, 103, L"Valider");
 
     editBox = gui->addEditBox(L"", rect<irr::s32>(20,20,320,70));
-    //font = gui->getFont("data/GUI/Menu/fontlucida.png");
-    //editBox->setOverrideFont(font);
+    font = gui->getFont("data/GUI/battlefieldv4.ttf");
+    editBox->setOverrideFont(font);
 
 }
 
