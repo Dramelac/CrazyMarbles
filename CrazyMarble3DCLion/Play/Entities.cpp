@@ -2,7 +2,7 @@
 // Created by mathieu on 03/03/16.
 //
 
-#include <iostream>
+
 #include "Entities.h"
 
 Entities::Entities(const stringc &name, s32 health) : name(name), health(health), fallDistance(0) { }
@@ -104,7 +104,7 @@ bool Entities::isFall(u16 level) {
         fallDistance++;
         if (fallDistance > level) {
             health = 0;
-            std::cout << "dead" << std::endl;
+            //std::cout << "dead" << std::endl;
             return true;
         }
     } else {
