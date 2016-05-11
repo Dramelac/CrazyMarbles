@@ -9,6 +9,7 @@ Entities::Entities(const stringc &name, s32 health) : name(name), health(health)
 
 Entities::Entities() : name(""), health(1) { }
 
+// enable map collision
 void Entities::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
     // Animation collision
 
@@ -23,6 +24,7 @@ void Entities::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManage
     sceneNode->addAnimator(animatorCollisionResponse);             // apply gravity / collision to player object
 }
 
+// moving process with inertie
 void Entities::applyMove(f32 deltaTime) {
 
     u16 deceleration = 10;
@@ -63,23 +65,32 @@ void Entities::applyMove(f32 deltaTime) {
     updatePosition(toMove);
 }
 
-
+// update current entity position
 void Entities::updatePosition(vector3df vec) {
     sceneNode->setPosition(sceneNode->getPosition()+vec);
 }
 
+// setup new pos (TP / respawn)
+void Entities::setPosition(vector3df position) {
+    sceneNode->setPosition(position);
+}
+
+// get inertie vector
 const vector3df &Entities::getInertie() const {
     return inertie;
 }
 
+// check entity alive status
 bool Entities::isAlive() {
     return health > 0;
 }
 
+// loose health point (damage)
 void Entities::takeDamage(u16 dmg) {
     health -= dmg;
 }
 
+// set inertie vector
 void Entities::setInertie(const vector3df &inertie) {
     Entities::inertie = inertie;
 }
