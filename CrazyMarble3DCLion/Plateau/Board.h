@@ -23,11 +23,6 @@ public:
     Board(ISceneManager* sceneManager);
     ~Board();
 
-
-    void setupCell(ISceneManager *sceneManager,
-                   vector3di cursor,
-                   s16 type=0, vector3di rotation=vector3di(0, 0, 0));
-
 	Cell* getCell(vector3di cursor);
 
     void setupStartPoint(vector3di cursor);

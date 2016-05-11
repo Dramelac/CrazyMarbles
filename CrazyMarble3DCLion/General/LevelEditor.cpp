@@ -40,7 +40,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent) :
 
 
     // TEMP
-    board->setupCell(sceneManager, cursor);
+    board->getCell(cursor)->setup(sceneManager, cursor);
 
 }
 
@@ -248,7 +248,7 @@ void LevelEditor::updateCamera() {
 
 
 void LevelEditor::applySetup() {
-    board->setupCell(sceneManager, cursor, currentType, currentRotation);
+    board->getCell(cursor)->setup(sceneManager, cursor, currentType, currentRotation);
     updateCamera();
 }
 

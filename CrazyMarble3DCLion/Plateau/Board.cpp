@@ -80,11 +80,6 @@ void Board::initAllCellPlace(scene::ISceneManager *sceneManager) {
 	}
 }
 
-
-void Board::setupCell(ISceneManager *sceneManager, vector3di cursor, s16 type, vector3di rotation) {
-    board[cursor.X][cursor.Y].setup(sceneManager, cursor, type, rotation);
-}
-
 // create map metaSelector (map collision)
 IMetaTriangleSelector *Board::getMapMetaSelector(ISceneManager *sceneManager, bool filterFinish) {
 
@@ -155,6 +150,7 @@ void Board::applyMovingOnEntities(f32 deltaTime) {
     }
 }
 
+// get cell object
 Cell* Board::getCell(vector3di cursor) {
     return &board[cursor.X][cursor.Y];
 }
