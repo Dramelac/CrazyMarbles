@@ -23,7 +23,6 @@ private:
     ISceneNodeAnimatorCollisionResponse* animatorFinishCollisionResponse;
 
     u32 finishTime;
-    u32 fallDistance;
     vector3df startPos;
 
 	s32 score;
@@ -38,7 +37,8 @@ public:
     ~Player();
 
     void addFinishLineCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
-	bool isFall();
+	//virtual bool isFall();
+	void respawn();
 
     void processMoving(KeyboardEvent *keyevent, f32 deltaTime);
 	void updateCamera();

@@ -29,7 +29,6 @@ public:
 
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse &animator);
 
-
 };
 
 
