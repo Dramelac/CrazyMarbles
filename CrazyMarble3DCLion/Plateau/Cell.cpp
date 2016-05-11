@@ -181,6 +181,18 @@ void Cell::clearEntity() {
     isEntitySet = false;
 }
 
+// add / remove entity
+void Cell::switchEntity(BlackMarbles *enemie) {
+    if (isEntitySet){
+        delete entity;
+        delete enemie;
+        isEntitySet = false;
+    } else {
+        entity = enemie;
+        isEntitySet = true;
+    }
+}
+
 // map collision to entity
 void Cell::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
     if (isEntitySet){

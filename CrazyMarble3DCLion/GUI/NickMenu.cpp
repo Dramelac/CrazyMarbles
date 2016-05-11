@@ -16,11 +16,20 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
     device->getCursorControl()->setVisible(true);
 
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
-    valide = gui->addButton(rect<s32>(600,550,1320,650), 0, 103, L"Valider");
+    valide = gui->addButton(rect<s32>(930,700,990,750), 0, 103, L"Valider");
 
-    editBox = gui->addEditBox(L"", rect<irr::s32>(20,20,320,70));
-    //font = gui->getFont("data/GUI/Menu/fontlucida.png");
-    //editBox->setOverrideFont(font);
+    enterNick = gui->addImage(rect<s32>(700,600,980,690),0,105);
+    enterNick->setImage(driver->getTexture("data/GUI/Menu/play_jaune_01.png"));
+    enterNick->setUseAlphaChannel(false);
+
+    crazyMarble = gui->addImage(rect<s32>(630,380,1320,580),0,104);
+    crazyMarble->setImage(driver->getTexture("data/GUI/Menu/BGCM2.png"));
+    crazyMarble->setUseAlphaChannel(false);
+
+
+    editBox = gui->addEditBox(L"", rect<irr::s32>(1000,610,1200,680));
+    font = gui->getFont("data/GUI/Menu/fontlucida.png");
+    editBox->setOverrideFont(font);
 
 }
 
@@ -49,6 +58,9 @@ void NickMenu::visibilityButtons(bool status) {
     editBox->setVisible(status);
     valide->setVisible(status);
     exit->setVisible(status);
+    crazyMarble->setVisible(status);
+    enterNick->setVisible(status);
+    //nickname->(status);
 }
 
 
@@ -56,4 +68,7 @@ NickMenu::~NickMenu() {
     editBox->remove();
     valide->remove();
     exit->remove();
+    crazyMarble->remove();
+    enterNick->remove();
+    
 }

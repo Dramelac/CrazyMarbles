@@ -27,6 +27,7 @@ private:
 
     KeyboardEvent* keyEvent;
 
+    IGUIImage* crazyMarble;
     IGUIImage* enterNick;
     IGUIButton* valide;
     IGUIButton* exit;

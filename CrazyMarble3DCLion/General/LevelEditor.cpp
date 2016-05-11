@@ -114,25 +114,29 @@ void LevelEditor::keyboardChecker() {
 
     bool update = false;
 
-    if (keyEvent->IsKeyDown(KEY_SPACE, true)){
+    if (cellStartBox->isPressed() ||keyEvent->IsKeyDown(KEY_SPACE, true)){
         board->setupStartPoint(cursor);
+        cellStartBox->setPressed(false);
     }
 
-    if (keyEvent->IsKeyDown(KEY_KEY_F, true)){
-        board->setupFinishCell(cursor);
+    if (cellFinish->isPressed() || keyEvent->IsKeyDown(KEY_KEY_F, true)){
+        board->getCell(cursor)->switchFinishType();
+        cellFinish->setPressed(false);
     }
 
-    if (keyEvent->IsKeyDown(KEY_KEY_S, true)){
+    if (skyBoxe->isPressed() || keyEvent->IsKeyDown(KEY_KEY_S, true)){
         skyId = (skyId + 1) % 3;
         setupSkyBox(skyId);
+        skyBoxe->setPressed(false);
     }
 
-    if (keyEvent->IsKeyDown(KEY_KEY_C, true)){
-        board->removeEnemie(cursor);
-    }
-
-    if (keyEvent->IsKeyDown(KEY_KEY_B, true)){
-        board->addEnemie(sceneManager, cursor);
+    if (cellEnemy->isPressed() || keyEvent->IsKeyDown(KEY_KEY_B, true)){
+        board->getCell(cursor)->switchEntity(new BlackMarbles(sceneManager,
+                                                              vector3df(cursor.X * Cell::size,
+                                                                        (cursor.Z * -Cell::size) - 200,
+                                                                        cursor.Y * Cell::size),
+                                                              (cursor.X * LevelEditor::size) + cursor.Y + 3500));
+        cellEnemy->setPressed(false);
     }
 
     if(rightRotation->isPressed() || keyEvent->IsKeyDown(KEY_KEY_I, true)){
@@ -225,7 +229,7 @@ void LevelEditor::move(vector3di change) {
     if (cursor.Y < 0){
         cursor.Y = 0;
     }
-    cursor.Z = board->getCurrentLevel(cursor);
+    cursor.Z = board->getCell(cursor)->getCurrentLevel(cursor.Z);
     updateCamera();
 }
 
@@ -316,6 +320,11 @@ LevelEditor::~LevelEditor() {
     cellPente->remove();
     cellAngle->remove();
     cellAngleInt->remove();
+    cellFinish->remove();
+    cellEnemy->remove();
+
+    skyBoxe->remove();
+    cellStartBox->remove();
 
     validate->remove();
 
@@ -339,11 +348,18 @@ void LevelEditor::setupGUI() {
     lvlUp = gui->addButton(rect<s32>(1635,400,1685,500), 0, 102, L"P");
     lvlDown = gui->addButton(rect<s32>(1635,680,1685,780), 0, 102, L"M");
 
+    cellFinish = gui->addButton(rect<s32>(680,880,760,1080), 0, 102,L"Y");
     cellEmpty = gui->addButton(rect<s32>(760,880,840,1080), 0, 102, L"EMPTY");
     cellFlat = gui->addButton(rect<s32>(840,880,920,1080), 0, 102, L"A");
     cellPente = gui->addButton(rect<s32>(920,880,1000,1080), 0, 102, L"Z");
     cellAngle = gui->addButton(rect<s32>(1000,880,1080,1080), 0, 102, L"E");
     cellAngleInt = gui->addButton(rect<s32>(1080,880,1160,1080), 0, 102, L"R");
+    cellEnemy = gui->addButton(rect<s32>(1160,880,1240,1080),0,102,L"T");
+
+    cellStartBox = gui->addButton(rect<s32>(1240,880,1320,1080),0,102,L"U");
+    skyBoxe = gui->addButton(rect<s32>(20,320,60,360),0,102,L"S");
+
+
 
     validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Valider");
 
@@ -403,6 +419,17 @@ void LevelEditor::setupGUI() {
     cellAngle->setScaleImage();
     cellAngleInt->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_angle_int.png"));
     cellAngleInt->setScaleImage();
+    //cellStartBox->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_angle_int.png"));
+    //cellStartBox->setScaleImage();
+    //cellFinish->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_finish.png"));
+    //cellFinish->setScaleImage();
+    //cellEnemy->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_enemy.png"));
+    //cellEnemy->setScaleImage();
+
+    //skyBoxe->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_sky_box.png"));
+    //skyBoxe->setScaleImage();
+
+
 
 }
 
