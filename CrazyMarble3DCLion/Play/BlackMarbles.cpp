@@ -19,6 +19,8 @@ BlackMarbles::BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 
 BlackMarbles::BlackMarbles(IMeshSceneNode *node) {
     sceneNode = node;
     Entities(node->getName(), 60);
+
+
 }
 
 
