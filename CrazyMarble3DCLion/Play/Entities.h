@@ -35,6 +35,7 @@ public:
 
     void applyMove(f32 deltaTime);
     void updatePosition(vector3df vec);
+	void setPosition(vector3df position);
 
     const vector3df & getInertie() const;
     void setInertie(const vector3df &inertie);

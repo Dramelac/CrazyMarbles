@@ -5,7 +5,7 @@
 #include "BlackMarbles.h"
 #include "../Utils/TextureLoader.h"
 
-
+// create object (Level editor)
 BlackMarbles::BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 id) : Entities("BlackMarble", 60)  {
     isPlayerSet = false;
     sceneMesh = TextureLoader::sphereMesh;
@@ -17,11 +17,13 @@ BlackMarbles::BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 
     sceneNode->setPosition(position);
 }
 
+// load object from node (map saving)
 BlackMarbles::BlackMarbles(IMeshSceneNode *node) : Entities(node->getName(), 60) {
     sceneNode = node;
     isPlayerSet = false;
 }
 
+// destructor
 BlackMarbles::~BlackMarbles() {
     if (isPlayerSet){
         player->removeAnimator(animatorPlayerCollisionResponse);
@@ -30,10 +32,7 @@ BlackMarbles::~BlackMarbles() {
     sceneNode->remove();
 }
 
-void BlackMarbles::setPosition(vector3df position) {
-    sceneNode->setPosition(position);
-}
-
+// setup player / enable collision with him
 void BlackMarbles::setPlayer(ISceneManager *sceneManager, Player *myplayer) {
     this->player = myplayer;
     isPlayerSet = true;
@@ -45,6 +44,7 @@ void BlackMarbles::setPlayer(ISceneManager *sceneManager, Player *myplayer) {
     animatorPlayerCollisionResponse->setCollisionCallback(this);
 }
 
+// collision player / dark marble : listener from ICollisionCallback
 bool BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animator) {
     vector3df tempA = player->getPosition();
     //std::cout << "A : " << tempA.X << "/" << tempA.Y << "/" << tempA.Z << std::endl;

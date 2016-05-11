@@ -81,12 +81,12 @@ Player::~Player() {
     fixeCamera->remove();
 }
 
-
+// update camera target (fixe player)
 void Player::updateCamera() {
     fixeCamera->setTarget(sceneNode->getPosition());
 }
 
-
+// procces keyboard input -> moving player / update inertie value
 void Player::processMoving(KeyboardEvent *keyevent, f32 deltaTime) {
     // Init moving vectorKeyboard
     core::vector3df vectorKeyboard(0,0,0);
@@ -126,16 +126,14 @@ void Player::processMoving(KeyboardEvent *keyevent, f32 deltaTime) {
     applyMove(deltaTime);
 }
 
+// testing fov feature
 void Player::updateFOV(f32 x) {
     f32 temp = fixeCamera->getFOV();
     std::cout << "fov old : " << temp;
     fixeCamera->setFOV(temp + x);
 }
 
-void Player::setPosition(vector3df pos) {
-    sceneNode->setPosition(pos);
-}
-
+// check player falling status
 bool Player::isFall() {
     if (animatorCollisionResponse->isFalling()){
         fallDistance++;
@@ -154,6 +152,7 @@ bool Player::isFall() {
     return false;
 }
 
+// setup finish line collision (detection end game)
 void Player::addFinishLineCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
 
     vector3df hitBox = sceneNode->getBoundingBox().MaxEdge;
@@ -170,15 +169,18 @@ void Player::addFinishLineCollision(IMetaTriangleSelector *metaSelector, ISceneM
 
 }
 
+// collision finish line listener
 bool Player::onCollision(const ISceneNodeAnimatorCollisionResponse &animator) {
     finishTime++;
     return false;
 }
 
+// check finish line time
 bool Player::checkFinish() {
     return finishTime > 20;
 }
 
+// enable specific collision (example : enemies collision)
 ISceneNodeAnimatorCollisionResponse* Player::enableCustomCollision(ITriangleSelector *metaSelector, ISceneManager *sceneManager) {
     vector3df hitbox = sceneNode->getBoundingBox().MaxEdge;
 
@@ -193,10 +195,12 @@ ISceneNodeAnimatorCollisionResponse* Player::enableCustomCollision(ITriangleSele
     return temp;
 }
 
+// get player vector position
 vector3df Player::getPosition() {
     return sceneNode->getPosition();
 }
 
+// remove specific collision (enemies die)
 ISceneNodeAnimatorCollisionResponse *Player::removeAnimator(ISceneNodeAnimator *animator) {
     sceneNode->removeAnimator(animator);
     return nullptr;

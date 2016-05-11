@@ -4,7 +4,7 @@
 
 #include "Game.h"
 
-// Debug construct
+// Debug construct (DEPRECATED)
 Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
            unsigned int x, unsigned int y, bool day) :
         play(true){
@@ -90,7 +90,7 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
 
 }
 
-
+// Game loop
 void Game::gameLoop() {
 
     int lastFPS = -1;
@@ -144,6 +144,7 @@ void Game::gameLoop() {
 
 }
 
+// keyboard event
 void Game::keyboardChecker(f32 deltaTime) {
 
     // apply moving to player
@@ -164,6 +165,7 @@ void Game::keyboardChecker(f32 deltaTime) {
 
 }
 
+// destructor
 Game::~Game() {
 
     delete board;
@@ -173,6 +175,7 @@ Game::~Game() {
 
 }
 
+// debug skybox (DEPRECATED)
 void Game::setupSkyBox(bool day) {
     if (day){
         sceneManager->addSkyBoxSceneNode(

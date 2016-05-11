@@ -25,7 +25,6 @@ public:
     BlackMarbles(IMeshSceneNode * node);
     virtual ~BlackMarbles();
 
-    void setPosition(vector3df position);
     void setPlayer(ISceneManager *sceneManager, Player *myplayer);
 
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse &animator);

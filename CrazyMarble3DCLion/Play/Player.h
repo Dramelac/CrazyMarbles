@@ -41,7 +41,6 @@ public:
 	bool isFall();
 
     void processMoving(KeyboardEvent *keyevent, f32 deltaTime);
-	void setPosition(vector3df pos);
 	void updateCamera();
 
 	void updateFOV(f32 x);
