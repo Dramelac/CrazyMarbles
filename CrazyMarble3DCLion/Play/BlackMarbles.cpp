@@ -57,23 +57,35 @@ bool BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animat
     //std::cout << "old inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl;
 
     vector3df pInertie = player->getInertie();
+    if (pInertie.X < 1 && pInertie.X >= 0) {
+        pInertie.X = 1;
+    } else if (pInertie.X > -1 && pInertie.X < 0) {
+        pInertie.X = -1;
+    }
+
+    if (pInertie.Z < 1 && pInertie.Z >= 0) {
+        pInertie.Z = 1;
+    } else if (pInertie.Z > -1 && pInertie.Z < 0) {
+        pInertie.Z = -1;
+    }
+
     vector3df bang = pInertie + inertie;
 
     player->setInertie(-pInertie + inertie);
 
 
-    if (1 > diff.X >= 0) {
+    if (diff.X < 1 && diff.X >= 0) {
         diff.X = 1;
-    } else if (0 > diff.X > -1){
+    } else if (diff.X > -1 && diff.X < 0){
         diff.X = -1;
     }
-    if (1 > diff.Z >= 0){
+    if (diff.Z < 1 && diff.Z >= 0){
         diff.Z = 1;
-    } else if (0 > diff.Z > -1){
+    } else if (diff.Z > -1 && diff.Z < 0){
         diff.Z = -1;
     }
 
-    inertie = (diff * pInertie) + 1;
+    inertie = (diff * pInertie);
 
     u16 dmg = (u16)( (abs((s16) bang.X) + abs((s16)bang.Z)) /100);
     //std::cout << "bang : " << bang.X << "/" << bang.Y << "/" << bang.Z << std::endl<< std::endl;
@@ -103,7 +115,7 @@ void BlackMarbles::moveBLackMarbles(IRandomizer* rand) {
 
         vector3df moveRand (origin.X + xprime,sceneNode->getPosition().Y, origin.Z + yprime);
         objectif = moveRand;
-        std::cout << origin.X << "->" << xprime << "/" << origin.Z << "->" << yprime << std::endl;
+        //std::cout << origin.X << "->" << xprime << "/" << origin.Z << "->" << yprime << std::endl;
     }
     objectifToInertie();
 }
@@ -138,9 +150,9 @@ void BlackMarbles::objectifToInertie() {
         tempMoving.Z /= 2;
     }
 
-    std::cout << "tempMoving : " << tempMoving.X << "/" << tempMoving.Y << "/" << tempMoving.Z << std::endl;
+    //std::cout << "tempMoving : " << tempMoving.X << "/" << tempMoving.Y << "/" << tempMoving.Z << std::endl;
     inertie += tempMoving;
-    std::cout << "inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl;
+    //std::cout << "inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl;
 
 
 }
