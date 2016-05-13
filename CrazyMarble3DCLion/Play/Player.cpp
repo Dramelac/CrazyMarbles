@@ -36,7 +36,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 
 // Start new game
 Player::Player(ISceneManager *sceneManager,IGUIEnvironment* gui, const stringc& name, int health, vector3df startpos)
-        : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
+        : Entities(name, health), score(0), finishTime(0) {
     speed = 20;
     inertie = vector3df(0,0,0);
 
