@@ -46,7 +46,6 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     credit->setUseAlphaChannel(true);
 
     nickName = gui->addButton(rect<s32>(1700, 70, 1850, 120),0 ,104,L"");
-    nickName->setImage(driver->getTexture("vert.png"));
     nickName->setText(temp);
 
 }

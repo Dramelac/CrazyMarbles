@@ -14,7 +14,7 @@ Cell::Cell() {
     currentLevel = 0;
 }
 
-
+// build cell from node
 void Cell::setCell(IMeshSceneNode *node) {
     cell_node = node;
     if (not strcmp(cell_node->getName(), "finish")) {
@@ -25,7 +25,7 @@ void Cell::setCell(IMeshSceneNode *node) {
     currentLevel = s32((cell_node->getPosition().Y + 500) / -Cell::size);
 }
 
-
+// Debug board building
 void Cell::setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager) {
     int line = 0;
     isSet = true;
@@ -58,7 +58,7 @@ void Cell::setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager) {
 
 }
 
-
+// setup cell settings from level editor
 void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector3di rotation) {
 
     switch (type){
@@ -111,7 +111,7 @@ void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector
     }
 }
 
-
+// get Cell level
 s32 Cell::getCurrentLevel(s32 cursorZ) {
     if (not isSet){
         return cursorZ;
@@ -120,7 +120,7 @@ s32 Cell::getCurrentLevel(s32 cursorZ) {
     }
 }
 
-
+// destructor
 Cell::~Cell() {
     if (isSet){
         cell_node->remove();
@@ -130,6 +130,7 @@ Cell::~Cell() {
     }
 }
 
+// get map cell selector
 ITriangleSelector* Cell::getSelector(ISceneManager *sceneManager, bool filterFinish) {
     if (not isSet){
         return nullptr;
@@ -143,6 +144,7 @@ ITriangleSelector* Cell::getSelector(ISceneManager *sceneManager, bool filterFin
     }
 }
 
+// mark cell as finish line or not (level editor feature)
 void Cell::switchFinishType() {
     if (isSet){
         if (isFinisCell){
@@ -158,6 +160,7 @@ void Cell::switchFinishType() {
 
 }
 
+// setup entity on cell
 void Cell::setEntity(BlackMarbles *enemie) {
     if (isEntitySet){
         delete entity;
@@ -170,6 +173,7 @@ void Cell::setEntity(IMeshSceneNode *node) {
     setEntity(new BlackMarbles(node));
 }
 
+// remove entity
 void Cell::clearEntity() {
     if (isEntitySet){
         delete entity;
@@ -177,21 +181,38 @@ void Cell::clearEntity() {
     isEntitySet = false;
 }
 
+// add / remove entity
+void Cell::switchEntity(BlackMarbles *enemie) {
+    if (isEntitySet){
+        delete entity;
+        delete enemie;
+        isEntitySet = false;
+    } else {
+        entity = enemie;
+        isEntitySet = true;
+    }
+}
+
+// map collision to entity
 void Cell::enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
     if (isEntitySet){
         entity->enableCollision(metaSelector, sceneManager);
     }
 }
 
+// collision player / entity to entity
 void Cell::setupPlayerToEntity(ISceneManager *sceneManager, Player* player) {
     if (isEntitySet){
         entity->setPlayer(sceneManager, player);
     }
 }
 
-void Cell::movinEentity(f32 deltaTime) {
+// update entity position (moving / innertie / collision)
+void Cell::updateEntityMoving(f32 deltaTime, IRandomizer *rand) {
     if (isEntitySet){
         if (entity->isAlive()) {
+
+            entity->moveBLackMarbles(rand);
             entity->applyMove(deltaTime);
         } else {
             delete entity;

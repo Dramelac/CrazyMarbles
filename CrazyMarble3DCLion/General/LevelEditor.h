@@ -46,6 +46,11 @@ private:
     IGUIButton* cellFlat;
     IGUIButton* cellPente;
     IGUIButton* cellEmpty;
+    IGUIButton* cellFinish;
+    IGUIButton* cellEnemy;
+    IGUIButton* cellStartBox;
+    IGUIButton* skyBoxe;
+
 
     IGUIButton* validate;
 

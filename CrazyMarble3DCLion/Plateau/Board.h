@@ -23,26 +23,18 @@ public:
     Board(ISceneManager* sceneManager);
     ~Board();
 
-
-    void setupCell(ISceneManager *sceneManager,
-                   vector3di cursor,
-                   s16 type=0, vector3di rotation=vector3di(0, 0, 0));
+	Cell* getCell(vector3di cursor);
 
     void setupStartPoint(vector3di cursor);
-    void setupFinishCell(vector3di cursor);
-
-	IMetaTriangleSelector* getMapMetaSelector(ISceneManager* sceneManager, bool filterFinish = false);
-
     vector3df getStartPoint();
-    s32 getCurrentLevel(vector3di cursor);
 
-    void addEnemie(ISceneManager* sceneManager, vector3di cursor);
-    void removeEnemie(vector3di cursor);
-
+    // Map meta selector / finish line collision
+	IMetaTriangleSelector* getMapMetaSelector(ISceneManager* sceneManager, bool filterFinish = false);
+    // entity map collision
     void setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
     void setPlayerToEntities(ISceneManager *sceneManager, Player* player);
 
-    void applyMovingOnEntities(f32 deltaTime);
+    void applyMovingOnEntities(f32 deltaTime,IRandomizer *rand);
 };
 
 
