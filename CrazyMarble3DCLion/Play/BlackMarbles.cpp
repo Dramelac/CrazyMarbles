@@ -49,43 +49,29 @@ void BlackMarbles::setPlayer(ISceneManager *sceneManager, Player *myplayer) {
 // collision player / dark marble : listener from ICollisionCallback
 bool BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animator) {
     vector3df tempA = player->getPosition();
-    //std::cout << "A : " << tempA.X << "/" << tempA.Y << "/" << tempA.Z << std::endl;
     vector3df tempB = sceneNode->getPosition();
-    //std::cout << "B : " << tempB.X << "/" << tempB.Y << "/" << tempB.Z << std::endl;
     vector3df diff = tempB - tempA;
-    //std::cout << "diff : " << diff.X << "/" << diff.Y << "/" << diff.Z << std::endl << std::endl;
-    //std::cout << "old inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl;
 
     vector3df pInertie = player->getInertie();
-    if (pInertie.X < 1 && pInertie.X >= 0) {
-        pInertie.X = 1;
-    } else if (pInertie.X > -1 && pInertie.X < 0) {
-        pInertie.X = -1;
+    if (pInertie.X < 15 && pInertie.X > 0) {
+        pInertie.X = 15;
+    } else if (pInertie.X > -15 && pInertie.X < 0) {
+        pInertie.X = -15;
     }
 
-    if (pInertie.Z < 1 && pInertie.Z >= 0) {
-        pInertie.Z = 1;
-    } else if (pInertie.Z > -1 && pInertie.Z < 0) {
-        pInertie.Z = -1;
+    if (pInertie.Z < 15 && pInertie.Z > 0) {
+        pInertie.Z = 15;
+    } else if (pInertie.Z > -15 && pInertie.Z < 0) {
+        pInertie.Z = -15;
     }
 
     vector3df bang = pInertie + inertie;
 
-    player->setInertie(-pInertie + inertie);
+    //player->setInertie(-pInertie + inertie);
+    player->setInertie(-(4 * diff)+ inertie);
 
 
-    if (diff.X < 1 && diff.X >= 0) {
-        diff.X = 1;
-    } else if (diff.X > -1 && diff.X < 0){
-        diff.X = -1;
-    }
-    if (diff.Z < 1 && diff.Z >= 0){
-        diff.Z = 1;
-    } else if (diff.Z > -1 && diff.Z < 0){
-        diff.Z = -1;
-    }
-
-    inertie = (diff * pInertie);
+    inertie = 5 * diff + pInertie;
 
     u16 dmg = (u16)( (abs((s16) bang.X) + abs((s16)bang.Z)) /100);
     //std::cout << "bang : " << bang.X << "/" << bang.Y << "/" << bang.Z << std::endl<< std::endl;
