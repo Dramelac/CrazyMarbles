@@ -55,7 +55,7 @@ public:
     vector3df getPosition();
 
 	void addKill();
-	void calculFinal(Chrono* chrono);
+	void calculFinal(u32 chrono);
 
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
     bool checkFinish();

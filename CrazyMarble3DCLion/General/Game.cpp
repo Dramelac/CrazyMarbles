@@ -145,8 +145,8 @@ void Game::gameLoop() {
             }
 
             if (!play || player->checkFinish()){
-                player->calculFinal(chrono);
-                //break;
+                player->calculFinal(chrono->getTime());
+                break;
             }
 
         }
