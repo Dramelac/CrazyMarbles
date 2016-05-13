@@ -125,14 +125,12 @@ void Game::gameLoop() {
             f32 deltaTime = (f32)(now-then) / 1000.f;
             then = now;
             keyboardChecker(deltaTime);
-            board->applyMovingOnEntities(deltaTime);
-
-            if (player->isFall()){
-                // player is fall
-            }
+            IRandomizer *rand = device->getRandomizer();
+            board->applyMovingOnEntities(deltaTime,rand);
 
             if (not player->isAlive()){
                 // player is dead
+                player->respawn();
             }
 
             if (!play || player->checkFinish()){
@@ -154,7 +152,7 @@ void Game::keyboardChecker(f32 deltaTime) {
     if(keyevent->IsKeyDown(KEY_KEY_P)){
         player->updateFOV(0.005);
     } else if(keyevent->IsKeyDown(KEY_KEY_O)){
-        player->updateFOV(-0.005);
+        player->updateFOV(f32(-0.005));
     }
 
     // quit event

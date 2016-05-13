@@ -140,12 +140,12 @@ void Board::setPlayerToEntities(ISceneManager *sceneManager, Player *player) {
 }
 
 // apply moving on all entities
-void Board::applyMovingOnEntities(f32 deltaTime) {
+void Board::applyMovingOnEntities(f32 deltaTime, IRandomizer *rand) {
     for (int row = 0; row < widthNumber; row++)
     {
         for (int column = 0; column < heightNumber; column++)
         {
-            board[row][column].updateEntityMoving(deltaTime);
+            board[row][column].updateEntityMoving(deltaTime,rand);
         }
     }
 }
