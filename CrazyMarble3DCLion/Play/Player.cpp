@@ -180,30 +180,9 @@ bool Player::checkFinish() {
     return finishTime > 20;
 }
 
-// enable specific collision (example : enemies collision)
-ISceneNodeAnimatorCollisionResponse* Player::enableCustomCollision(ITriangleSelector *metaSelector, ISceneManager *sceneManager) {
-    vector3df hitbox = sceneNode->getBoundingBox().MaxEdge;
-
-    ISceneNodeAnimatorCollisionResponse* temp = sceneManager->createCollisionResponseAnimator(
-            metaSelector, // Map collision
-            sceneNode,  // object player to detect
-            hitbox, // hitbox
-            vector3df(0, 0, 0)  // gravity vector
-    );
-    sceneNode->addAnimator(temp);             // apply gravity / collision to player object
-
-    return temp;
-}
-
 // get player vector position
 vector3df Player::getPosition() {
     return sceneNode->getPosition();
-}
-
-// remove specific collision (enemies die)
-ISceneNodeAnimatorCollisionResponse *Player::removeAnimator(ISceneNodeAnimator *animator) {
-    sceneNode->removeAnimator(animator);
-    return nullptr;
 }
 
 void Player::respawn() {

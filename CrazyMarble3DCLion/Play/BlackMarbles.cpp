@@ -29,7 +29,9 @@ BlackMarbles::BlackMarbles(IMeshSceneNode *node) : Entities(node->getName(), 60)
 BlackMarbles::~BlackMarbles() {
     if (isPlayerSet){
         player->removeAnimator(animatorPlayerCollisionResponse);
+        removeAnimator(animatorSelfPlayerCollisionResponse);
         animatorCollisionResponse->drop();
+        animatorSelfPlayerCollisionResponse->drop();
     }
     sceneNode->remove();
 }
@@ -39,11 +41,18 @@ void BlackMarbles::setPlayer(ISceneManager *sceneManager, Player *myplayer) {
     this->player = myplayer;
     isPlayerSet = true;
 
-    ITriangleSelector* selector = sceneManager->createTriangleSelector(this->sceneNode->getMesh(), this->sceneNode);
-    this->sceneNode->setTriangleSelector(selector);
-
+    // collision anim to player
+    ITriangleSelector* selector = this->getSelector(sceneManager);
     animatorPlayerCollisionResponse = player->enableCustomCollision(selector, sceneManager);
     animatorPlayerCollisionResponse->setCollisionCallback(this);
+    selector->drop();
+
+    // collision anim to self
+    selector = player->getSelector(sceneManager);
+    animatorSelfPlayerCollisionResponse = this->enableCustomCollision(selector, sceneManager);
+    animatorSelfPlayerCollisionResponse->setCollisionCallback(this);
+    selector->drop();
+
 }
 
 // collision player / dark marble : listener from ICollisionCallback

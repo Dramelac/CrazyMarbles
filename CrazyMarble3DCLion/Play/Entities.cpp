@@ -117,3 +117,37 @@ bool Entities::isFall(u16 level) {
     }
     return false;
 }
+
+// enable specific collision anim
+ISceneNodeAnimatorCollisionResponse *Entities::enableCustomCollision(ITriangleSelector *metaSelector,
+                                                                     ISceneManager *sceneManager) {
+    vector3df hitbox = sceneNode->getBoundingBox().MaxEdge;
+
+    ISceneNodeAnimatorCollisionResponse* temp = sceneManager->createCollisionResponseAnimator(
+            metaSelector, // Map collision
+            sceneNode,  // object player to detect
+            hitbox, // hitbox
+            vector3df(0, 0, 0)  // gravity vector
+    );
+    sceneNode->addAnimator(temp);             // apply gravity / collision to player object
+
+    return temp;
+}
+
+// remove animation
+void Entities::removeAnimator(ISceneNodeAnimator *animator) {
+    sceneNode->removeAnimator(animator);
+}
+
+// get current node selector
+ITriangleSelector *Entities::getSelector(ISceneManager *sceneManager) {
+    ITriangleSelector* selector = sceneManager->createTriangleSelector(sceneNode->getMesh(), sceneNode);
+    sceneNode->setTriangleSelector(selector);
+    return selector;
+}
+
+
+
+
+
+

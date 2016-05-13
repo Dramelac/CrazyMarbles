@@ -24,6 +24,7 @@ private:
     Player* player;
     bool isPlayerSet;
     ISceneNodeAnimatorCollisionResponse* animatorPlayerCollisionResponse;
+    ISceneNodeAnimatorCollisionResponse* animatorSelfPlayerCollisionResponse;
     void objectifToInertie();
 
 public:

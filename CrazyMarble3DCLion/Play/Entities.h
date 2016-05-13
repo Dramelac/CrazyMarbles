@@ -32,7 +32,11 @@ public:
     bool isAlive();
     void takeDamage(u64 dmg);
 
+    ITriangleSelector* getSelector(ISceneManager *sceneManager);
+
     void enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
+	ISceneNodeAnimatorCollisionResponse* enableCustomCollision(ITriangleSelector *metaSelector, ISceneManager *sceneManager);
+    void removeAnimator(ISceneNodeAnimator *animator);
 
     void applyMove(f32 deltaTime, u16 level=100);
     virtual bool isFall(u16 level=100);
