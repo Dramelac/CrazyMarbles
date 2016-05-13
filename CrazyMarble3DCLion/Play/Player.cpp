@@ -7,7 +7,7 @@
 
 // Debug player
 Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
-        : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
+        : Entities(name, health), score(0), finishTime(0) {
 
     // MODEL
 
@@ -36,7 +36,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 
 // Start new game
 Player::Player(ISceneManager *sceneManager, const stringc& name, int health, vector3df startpos)
-        : Entities(name, health), score(0), fallDistance(0), finishTime(0) {
+        : Entities(name, health), score(0), finishTime(0) {
     speed = 20;
     inertie = vector3df(0,0,0);
 
@@ -58,7 +58,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health, vec
 }
 
 // player Level Editor
-Player::Player(ISceneManager *sceneManager) : Entities(), fallDistance(0), finishTime(0) {
+Player::Player(ISceneManager *sceneManager) : Entities(), finishTime(0) {
     speed = 20;
 
     sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
@@ -81,12 +81,12 @@ Player::~Player() {
     fixeCamera->remove();
 }
 
-
+// update camera target (fixe player)
 void Player::updateCamera() {
     fixeCamera->setTarget(sceneNode->getPosition());
 }
 
-
+// procces keyboard input -> moving player / update inertie value
 void Player::processMoving(KeyboardEvent *keyevent, f32 deltaTime) {
     // Init moving vectorKeyboard
     core::vector3df vectorKeyboard(0,0,0);
@@ -123,24 +123,23 @@ void Player::processMoving(KeyboardEvent *keyevent, f32 deltaTime) {
     //cout << vectorKeyboard.X << "/" << vectorKeyboard.Y << "/" << vectorKeyboard.Z << endl;
     // apply keyboard to inertie
     inertie += vectorKeyboard;
-    applyMove(deltaTime);
+    applyMove(deltaTime, 75);
 }
 
+// testing fov feature
 void Player::updateFOV(f32 x) {
     f32 temp = fixeCamera->getFOV();
     std::cout << "fov old : " << temp;
     fixeCamera->setFOV(temp + x);
 }
 
-void Player::setPosition(vector3df pos) {
-    sceneNode->setPosition(pos);
-}
-
-bool Player::isFall() {
+// check player falling status (DEPRECATED)
+/*bool Player::isFall() {
     if (animatorCollisionResponse->isFalling()){
         fallDistance++;
         if (fallDistance > 50) {
             sceneNode->setPosition(startPos);
+            inertie = vector3df(0,0,0);
             animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
             fallDistance = 0;
             return true;
@@ -151,8 +150,9 @@ bool Player::isFall() {
         fallDistance = 0;
     }
     return false;
-}
+}*/
 
+// setup finish line collision (detection end game)
 void Player::addFinishLineCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
 
     vector3df hitBox = sceneNode->getBoundingBox().MaxEdge;
@@ -169,32 +169,33 @@ void Player::addFinishLineCollision(IMetaTriangleSelector *metaSelector, ISceneM
 
 }
 
+// collision finish line listener
 bool Player::onCollision(const ISceneNodeAnimatorCollisionResponse &animator) {
     finishTime++;
     return false;
 }
 
+// check finish line time
 bool Player::checkFinish() {
     return finishTime > 20;
 }
 
-ISceneNodeAnimatorCollisionResponse* Player::enableCustomCollision(ITriangleSelector *metaSelector, ISceneManager *sceneManager) {
-    vector3df hitbox = sceneNode->getBoundingBox().MaxEdge;
-
-    ISceneNodeAnimatorCollisionResponse* temp = sceneManager->createCollisionResponseAnimator(
-            metaSelector, // Map collision
-            sceneNode,  // object player to detect
-            hitbox, // hitbox
-            vector3df(0, 0, 0)  // gravity vector
-    );
-    sceneNode->addAnimator(temp);             // apply gravity / collision to player object
-
-    return temp;
-}
-
+// get player vector position
 vector3df Player::getPosition() {
     return sceneNode->getPosition();
 }
+
+void Player::respawn() {
+    sceneNode->setPosition(startPos);
+    inertie = vector3df(0,0,0);
+    animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
+    fallDistance = 0;
+    finishTime = 0;
+    health = 100;
+    // To change if need
+    score = 0;
+}
+
 
 
 

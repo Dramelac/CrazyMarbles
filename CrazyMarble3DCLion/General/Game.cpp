@@ -4,7 +4,7 @@
 
 #include "Game.h"
 
-// Debug construct
+// Debug construct (DEPRECATED)
 Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
            unsigned int x, unsigned int y, bool day) :
         play(true){
@@ -90,7 +90,7 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
 
 }
 
-
+// Game loop
 void Game::gameLoop() {
 
     int lastFPS = -1;
@@ -125,10 +125,12 @@ void Game::gameLoop() {
             f32 deltaTime = (f32)(now-then) / 1000.f;
             then = now;
             keyboardChecker(deltaTime);
-            board->applyMovingOnEntities(deltaTime);
+            IRandomizer *rand = device->getRandomizer();
+            board->applyMovingOnEntities(deltaTime,rand);
 
-            if (player->isFall()){
-                // player is fall
+            if (not player->isAlive()){
+                // player is dead
+                player->respawn();
             }
 
             if (!play || player->checkFinish()){
@@ -140,6 +142,7 @@ void Game::gameLoop() {
 
 }
 
+// keyboard event
 void Game::keyboardChecker(f32 deltaTime) {
 
     // apply moving to player
@@ -149,7 +152,7 @@ void Game::keyboardChecker(f32 deltaTime) {
     if(keyevent->IsKeyDown(KEY_KEY_P)){
         player->updateFOV(0.005);
     } else if(keyevent->IsKeyDown(KEY_KEY_O)){
-        player->updateFOV(-0.005);
+        player->updateFOV(f32(-0.005));
     }
 
     // quit event
@@ -160,15 +163,17 @@ void Game::keyboardChecker(f32 deltaTime) {
 
 }
 
+// destructor
 Game::~Game() {
 
-    delete player;
     delete board;
+    delete player;
 
     sceneManager->clear();
 
 }
 
+// debug skybox (DEPRECATED)
 void Game::setupSkyBox(bool day) {
     if (day){
         sceneManager->addSkyBoxSceneNode(

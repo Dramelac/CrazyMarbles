@@ -46,7 +46,7 @@ public:
     void switchEntity(BlackMarbles *enemie);
 
     void enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
-    void movinEentity(f32 deltaTime);
+    void updateEntityMoving(f32 deltaTime,IRandomizer *rand);
 
     void setupPlayerToEntity(ISceneManager *sceneManager, Player* player);
 

@@ -5,7 +5,7 @@
 #include "Board.h"
 #include "../General/LevelEditor.h"
 
-// debug construct
+// debug construct (DEPRECATED)
 Board::Board(unsigned int hauteur, unsigned int largeur, ISceneManager* sceneManager) : heightNumber(hauteur),
 																						widthNumber(largeur){
 	// init all Cell by default (to change with board loading)
@@ -60,7 +60,7 @@ Board::Board(ISceneManager* sceneManager): heightNumber(LevelEditor::size), widt
     }
 }
 
-
+// Destructor
 Board::~Board() {
     for (int i = 0; i < heightNumber; i++){
         delete[] board[i];
@@ -68,6 +68,7 @@ Board::~Board() {
     delete[] board;
 }
 
+// Debug build map (DEPRECATED)
 void Board::initAllCellPlace(scene::ISceneManager *sceneManager) {
 	// setup all cell with model pos etc
 	for (int row = 0; row < widthNumber; row++)
@@ -79,12 +80,7 @@ void Board::initAllCellPlace(scene::ISceneManager *sceneManager) {
 	}
 }
 
-
-void Board::setupCell(ISceneManager *sceneManager, vector3di cursor, s16 type, vector3di rotation) {
-    board[cursor.X][cursor.Y].setup(sceneManager, cursor, type, rotation);
-}
-
-
+// create map metaSelector (map collision)
 IMetaTriangleSelector *Board::getMapMetaSelector(ISceneManager *sceneManager, bool filterFinish) {
 
 	// plateau de selector collision
@@ -106,7 +102,7 @@ IMetaTriangleSelector *Board::getMapMetaSelector(ISceneManager *sceneManager, bo
 	return metaSelector;
 }
 
-
+// get start point position
 vector3df Board::getStartPoint() {
     if (startPoint != nullptr){
         return startPoint->getPosition();
@@ -115,11 +111,13 @@ vector3df Board::getStartPoint() {
     }
 }
 
+// setup start point (Level Editor)
 void Board::setupStartPoint(vector3di cursor) {
     vector3df point(cursor.X*Cell::size,-cursor.Z*Cell::size,cursor.Y*Cell::size);
     startPoint->setPosition(point);
 }
 
+// apply collision / gravity to all Entities
 void Board::setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
     for (int row = 0; row < widthNumber; row++)
     {
@@ -130,6 +128,7 @@ void Board::setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneMana
     }
 }
 
+// setup player / collision with entities
 void Board::setPlayerToEntities(ISceneManager *sceneManager, Player *player) {
     for (int row = 0; row < widthNumber; row++)
     {
@@ -140,16 +139,18 @@ void Board::setPlayerToEntities(ISceneManager *sceneManager, Player *player) {
     }
 }
 
-void Board::applyMovingOnEntities(f32 deltaTime) {
+// apply moving on all entities
+void Board::applyMovingOnEntities(f32 deltaTime, IRandomizer *rand) {
     for (int row = 0; row < widthNumber; row++)
     {
         for (int column = 0; column < heightNumber; column++)
         {
-            board[row][column].movinEentity(deltaTime);
+            board[row][column].updateEntityMoving(deltaTime,rand);
         }
     }
 }
 
+// get cell object
 Cell* Board::getCell(vector3di cursor) {
     return &board[cursor.X][cursor.Y];
 }
