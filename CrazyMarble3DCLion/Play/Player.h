@@ -10,6 +10,8 @@
 
 #include "Entities.h"
 #include "../Utils/KeyboardEvent.h"
+#include "../Utils/Chrono.h"
+
 
 using namespace irr;
 using namespace scene;
@@ -53,6 +55,8 @@ public:
     vector3df getPosition();
 
 	void addKill();
+	void calculFinal(Chrono* chrono);
+
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
     bool checkFinish();
 

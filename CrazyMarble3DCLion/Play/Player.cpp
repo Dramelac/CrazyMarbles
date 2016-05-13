@@ -210,6 +210,18 @@ void Player::addKill() {
     displayScore->setText(text.c_str());
 }
 
+void Player::calculFinal(Chrono *chrono) {
+    u32 bonusTime = chrono->getTime() * 20;
+    u32 bonusLIfe = (u32)this->health*4;
+    u32 totalBonus = bonusLIfe+bonusTime;
+    stringw text = L"Score : ";
+    text += score;
+    displayScore->setText(text.c_str());
+
+}
+
+
+
 
 
 
