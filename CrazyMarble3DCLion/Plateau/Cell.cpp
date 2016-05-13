@@ -208,9 +208,11 @@ void Cell::setupPlayerToEntity(ISceneManager *sceneManager, Player* player) {
 }
 
 // update entity position (moving / innertie / collision)
-void Cell::updateEntityMoving(f32 deltaTime) {
+void Cell::updateEntityMoving(f32 deltaTime, IRandomizer *rand) {
     if (isEntitySet){
         if (entity->isAlive()) {
+
+            entity->moveBLackMarbles(rand);
             entity->applyMove(deltaTime);
         } else {
             delete entity;

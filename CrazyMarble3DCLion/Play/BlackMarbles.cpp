@@ -21,6 +21,8 @@ BlackMarbles::BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 
 BlackMarbles::BlackMarbles(IMeshSceneNode *node) : Entities(node->getName(), 60) {
     sceneNode = node;
     isPlayerSet = false;
+    origin = sceneNode->getPosition();
+
 }
 
 // destructor
@@ -86,3 +88,15 @@ bool BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animat
 
     return false;
 }
+
+void BlackMarbles::moveBLackMarbles(IRandomizer* rand) {
+
+    f32 xprime = 250*rand->frand();
+    f32 yprime =250 - xprime;
+    vector3df moveRand (sceneNode->getPosition().X+xprime,sceneNode->getPosition().Y,sceneNode->getPosition().Z+yprime);
+    sceneNode->setPosition(moveRand);
+    std::cout<<xprime<<std::endl;
+    std::cout<<xprime<<std::endl;
+}
+
+

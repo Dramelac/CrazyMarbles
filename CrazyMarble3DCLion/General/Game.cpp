@@ -125,7 +125,8 @@ void Game::gameLoop() {
             f32 deltaTime = (f32)(now-then) / 1000.f;
             then = now;
             keyboardChecker(deltaTime);
-            board->applyMovingOnEntities(deltaTime);
+            IRandomizer *rand = device->getRandomizer();
+            board->applyMovingOnEntities(deltaTime,rand);
 
             if (not player->isAlive()){
                 // player is dead

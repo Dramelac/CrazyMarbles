@@ -8,6 +8,7 @@
 #include <irrlicht.h>
 #include "Entities.h"
 #include "Player.h"
+#include <IRandomizer.h>
 
 using namespace irr;
 using namespace scene;
@@ -16,6 +17,8 @@ using namespace core;
 class BlackMarbles : public Entities, public ICollisionCallback {
 
 private:
+
+    vector3df origin;
     Player* player;
     bool isPlayerSet;
     ISceneNodeAnimatorCollisionResponse* animatorPlayerCollisionResponse;
@@ -26,6 +29,8 @@ public:
     virtual ~BlackMarbles();
 
     void setPlayer(ISceneManager *sceneManager, Player *myplayer);
+
+    void moveBLackMarbles(IRandomizer* rand);
 
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse &animator);
 
