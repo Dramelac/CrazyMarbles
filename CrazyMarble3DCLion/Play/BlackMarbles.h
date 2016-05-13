@@ -22,6 +22,7 @@ private:
     Player* player;
     bool isPlayerSet;
     ISceneNodeAnimatorCollisionResponse* animatorPlayerCollisionResponse;
+    void
 
 public:
     BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 id);

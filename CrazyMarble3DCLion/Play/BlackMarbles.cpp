@@ -94,8 +94,9 @@ void BlackMarbles::moveBLackMarbles(IRandomizer* rand) {
 
     f32 xprime = R * rand->frand();
     f32 yprime = R - xprime;
+
     vector3df moveRand (origin.X + xprime,sceneNode->getPosition().Y, origin.Z + yprime);
-    sceneNode->setPosition(moveRand);
+    inertie = moveRand;
     std::cout<<xprime<<std::endl;
     std::cout<<xprime<<std::endl;
 }
