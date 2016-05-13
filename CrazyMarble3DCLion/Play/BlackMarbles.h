@@ -19,10 +19,12 @@ class BlackMarbles : public Entities, public ICollisionCallback {
 private:
 
     vector3df origin;
+    vector3df objectif;
+
     Player* player;
     bool isPlayerSet;
     ISceneNodeAnimatorCollisionResponse* animatorPlayerCollisionResponse;
-    void
+    void objectifToInertie();
 
 public:
     BlackMarbles(ISceneManager *sceneManager, vector3df position, s32 id);

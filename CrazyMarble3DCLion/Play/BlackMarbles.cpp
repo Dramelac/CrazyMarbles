@@ -90,15 +90,36 @@ bool BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animat
 }
 
 void BlackMarbles::moveBLackMarbles(IRandomizer* rand) {
-    f32 R = 250;
+    if (inertie == vector3df(0,0,0)){
+        f32 R = 250;
 
-    f32 xprime = R * rand->frand();
-    f32 yprime = R - xprime;
+        f32 xprime = R * rand->frand();
+        f32 yprime = R - xprime;
 
-    vector3df moveRand (origin.X + xprime,sceneNode->getPosition().Y, origin.Z + yprime);
-    inertie = moveRand;
-    std::cout<<xprime<<std::endl;
-    std::cout<<xprime<<std::endl;
+        vector3df moveRand (origin.X + xprime,sceneNode->getPosition().Y, origin.Z + yprime);
+        objectif = moveRand;
+        std::cout << origin.X << "->" << xprime << "/" << origin.Z << "->" << yprime << std::endl;
+    }
+    objectifToInertie();
 }
+
+
+void BlackMarbles::objectifToInertie() {
+    const vector3df* myPos = &sceneNode->getPosition();
+    if (objectif.X > myPos->X){
+        inertie.X -= 20;
+    } else if (objectif.X < myPos->X){
+        inertie.X += 20;
+    }
+
+    if (objectif.Y > myPos->Y){
+        inertie.Y -= 20;
+    } else if (objectif.Y < myPos->Y){
+        inertie.Y += 20;
+    }
+
+    objectif.Y = myPos->Y;
+}
+
 
 
