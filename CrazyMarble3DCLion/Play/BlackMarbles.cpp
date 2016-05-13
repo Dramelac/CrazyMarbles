@@ -91,10 +91,15 @@ bool BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animat
 
 void BlackMarbles::moveBLackMarbles(IRandomizer* rand) {
     if (inertie == vector3df(0,0,0)){
-        f32 R = 250;
-
-        f32 xprime = R * rand->frand();
-        f32 yprime = R - xprime;
+        f32 R = 100;
+        // 0 - 1 to -1 to 1
+        f32 xprime = R * (rand->frand()*2 - 1);
+        f32 yprime = 0;
+        if (rand->frand() > 0.5) {
+            yprime = R - xprime;
+        } else {
+            yprime = -1 * (R - xprime);
+        }
 
         vector3df moveRand (origin.X + xprime,sceneNode->getPosition().Y, origin.Z + yprime);
         objectif = moveRand;
@@ -105,20 +110,39 @@ void BlackMarbles::moveBLackMarbles(IRandomizer* rand) {
 
 
 void BlackMarbles::objectifToInertie() {
+    u16 fastUnit = 25;
+    u16 count = 0;
+
+    vector3df tempMoving(0,0,0);
     const vector3df* myPos = &sceneNode->getPosition();
+
+    //objectif.Y = myPos->Y;
     if (objectif.X > myPos->X){
-        inertie.X -= 20;
+        tempMoving.X += fastUnit;
+        count++;
     } else if (objectif.X < myPos->X){
-        inertie.X += 20;
+        tempMoving.X -= fastUnit;
+        count++;
     }
 
-    if (objectif.Y > myPos->Y){
-        inertie.Y -= 20;
-    } else if (objectif.Y < myPos->Y){
-        inertie.Y += 20;
+    if (objectif.Z > myPos->Z){
+        tempMoving.Z += fastUnit;
+        count++;
+    } else if (objectif.Z < myPos->Z){
+        tempMoving.Z -= fastUnit;
+        count++;
     }
 
-    objectif.Y = myPos->Y;
+    if (count >= 2){
+        tempMoving.X /= 2;
+        tempMoving.Z /= 2;
+    }
+
+    std::cout << "tempMoving : " << tempMoving.X << "/" << tempMoving.Y << "/" << tempMoving.Z << std::endl;
+    inertie += tempMoving;
+    std::cout << "inertie : " << inertie.X << "/" << inertie.Y << "/" << inertie.Z << std::endl;
+
+
 }
 
 
