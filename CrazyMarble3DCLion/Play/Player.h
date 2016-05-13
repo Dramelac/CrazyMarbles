@@ -52,6 +52,7 @@ public:
     ISceneNodeAnimatorCollisionResponse* removeAnimator(ISceneNodeAnimator *animator);
     vector3df getPosition();
 
+	void addKill();
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
     bool checkFinish();
 

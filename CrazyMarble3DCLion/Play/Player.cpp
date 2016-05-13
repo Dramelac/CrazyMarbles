@@ -203,4 +203,13 @@ ISceneNodeAnimatorCollisionResponse *Player::removeAnimator(ISceneNodeAnimator *
     return nullptr;
 }
 
+void Player::addKill() {
+    score +=50;
+    stringw text = L"Score : ";
+    text += score;
+    displayScore->setText(text.c_str());
+}
+
+
+
 

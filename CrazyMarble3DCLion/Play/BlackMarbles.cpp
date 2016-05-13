@@ -26,6 +26,7 @@ BlackMarbles::~BlackMarbles() {
     if (isPlayerSet){
         player->removeAnimator(animatorPlayerCollisionResponse);
         animatorCollisionResponse->drop();
+        player->addKill();
     }
     sceneNode->remove();
 }
