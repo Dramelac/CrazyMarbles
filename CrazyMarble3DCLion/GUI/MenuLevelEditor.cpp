@@ -5,10 +5,7 @@
 #include "MenuLevelEditor.h"
 
 MenuLevelEditor::MenuLevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, IGUIImage* background) :
-        device(device), keyEvent(keyEvent), background(background) {
-
-    gui = device->getGUIEnvironment();
-    driver = device->getVideoDriver();
+        GUIBase(device, keyEvent), background(background) {
 
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Go back");
     newMap = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"New Map");

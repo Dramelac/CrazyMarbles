@@ -6,15 +6,10 @@
 #define CRAZYMARBLE3DCLION_MENULEVELEDITOR_H
 
 #include "../General/LevelEditor.h"
+#include "GUIBase.h"
 
-class MenuLevelEditor {
+class MenuLevelEditor : public GUIBase{
 private:
-    IrrlichtDevice* device;
-    IVideoDriver* driver;
-    IGUIEnvironment* gui;
-
-    KeyboardEvent *keyEvent;
-
     IGUIImage* background;
     IGUIButton* newMap;
     IGUIButton* loadMap;
