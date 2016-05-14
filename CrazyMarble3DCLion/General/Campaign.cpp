@@ -56,8 +56,8 @@ void Campaign::removeMapAt(u16 placeNumber) {
 
 void Campaign::save() {
     ofstream myfile;
+    myfile.open ("data/Maps/campaign.path");
     if (myfile.is_open()){
-        myfile.open ("data/Maps/campaign.path");
         for (int i = 0; i < mapCycle.size(); ++i) {
             myfile << mapCycle[i].c_str() << "\n";
         }
@@ -69,14 +69,15 @@ void Campaign::save() {
 
 void Campaign::load() {
     ifstream myfile;
-    string str;
+    myfile.open ("data/Maps/campaign.path");
+    std::string str;
     if (myfile.is_open()){
-        myfile.open ("data/Maps/campaign.path");
         while (getline(myfile, str))
         {
-            mapCycle.push_back(str);
+            mapCycle.push_back(str.c_str());
         }
         myfile.close();
+        cout << mapCycle.size() << " maps loaded" << endl;
     } else {
         cout << "error loading campaign !" << endl;
     }
