@@ -14,8 +14,13 @@ MapSelector::MapSelector(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
     //generate all map
 
     array<stringc> fileListTemp = FileSystemUtils::parseDirectory("data/Maps");
+    u16 count = 0;
     for (u16 i = 0; i < fileListTemp.size(); ++i) {
-        myMapList.push_back(new MapButton(fileListTemp[i], i, gui));
+        path tempFile = fileListTemp[i];
+        if (tempFile.subString((u32)tempFile.findLastChar(".") + 1, tempFile.size()) == "irr") {
+            myMapList.push_back(new MapButton(fileListTemp[i], count, gui));
+            count++;
+        }
     }
 
 }
