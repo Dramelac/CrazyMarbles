@@ -9,20 +9,15 @@
 #include "../General/Game.h"
 #include "../General/LevelEditor.h"
 #include "NickMenu.h"
+#include "GUIBase.h"
 
 using namespace irr;
 using namespace video;
 using namespace core;
 using namespace gui;
 
-class Menu {
+class Menu : public GUIBase{
 private:
-    IrrlichtDevice* device;
-    IVideoDriver* driver;
-    IGUIEnvironment* gui;
-
-
-    KeyboardEvent* keyEvent;
 
     IGUIButton* exit;
     IGUIButton* play;
@@ -30,14 +25,11 @@ private:
     IGUIButton* levelEditor;
     IGUIButton* credit;
 
-
     IGUIButton* nickName;
-
 
     IGUIImage* background;
 
     void visibilityButons(bool status);
-
 
 public:
 

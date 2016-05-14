@@ -6,11 +6,7 @@
 #include "MenuLevelEditor.h"
 
 Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
-        : keyEvent(keyEvent){
-    
-    device = inDevice;
-    gui = device->getGUIEnvironment();
-    driver = device->getVideoDriver();
+        : GUIBase(inDevice, keyEvent) {
 
     this->device->setWindowCaption(L"Crazy Marble  -  [MENU]");
     device->getCursorControl()->setVisible(true);
