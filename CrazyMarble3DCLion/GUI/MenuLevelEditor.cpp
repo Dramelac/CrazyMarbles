@@ -3,6 +3,7 @@
 //
 
 #include "MenuLevelEditor.h"
+#include "MapMenu/MapSelector.h"
 
 MenuLevelEditor::MenuLevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, IGUIImage* background) :
         GUIBase(device, keyEvent), background(background) {
@@ -34,7 +35,9 @@ void MenuLevelEditor::loop() {
                 return;
             } else if (loadMap->isPressed()){
                 visibilityButtons(false);
-                LevelEditor levelEditor(device, keyEvent, "data/Maps/map.irr");
+                MapSelector mapSelect(device, keyEvent);
+                path map = mapSelect.mapSelector();
+                LevelEditor levelEditor(device, keyEvent, map);
                 levelEditor.gameLoop();
                 return;
             }
