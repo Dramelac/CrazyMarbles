@@ -13,9 +13,14 @@ using namespace io;
 
 class MapSelector : public GUIBase {
 private:
-    IGUIStaticText* title;
+
+    IGUIImage* title;
+
+    IGUIImage* background;
 public:
     MapSelector(IrrlichtDevice *device, KeyboardEvent *keyEvent);
+    virtual ~MapSelector();
+
     path mapSelector();
 };
 

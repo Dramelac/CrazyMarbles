@@ -7,9 +7,31 @@
 MapSelector::MapSelector(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
         GUIBase(device, keyEvent) {
 
-    title = gui->addStaticText(L"Map list : ", rect<s32>(200,100,600,400));
+    background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
+
+    title = gui->addImage(driver->getTexture("data/GUI/Menu/MapSelector/MapList.png"), position2d<int>(650, 150));
 }
 
 path MapSelector::mapSelector() {
+    while (device->run()){
+        if (device->isWindowActive())
+        {
+            driver->beginScene(true, true, SColor(0,200,200,200));
+
+            gui->drawAll();
+
+            driver->endScene();
+
+            if (keyEvent->IsKeyDown(KEY_ESCAPE, true)) {
+                return "";
+            }
+        }
+    }
+
     return "data/Maps/map.irr";
+}
+
+MapSelector::~MapSelector() {
+    title->remove();
+    background->remove();
 }

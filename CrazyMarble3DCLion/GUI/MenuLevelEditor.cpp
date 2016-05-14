@@ -35,8 +35,13 @@ void MenuLevelEditor::loop() {
                 return;
             } else if (loadMap->isPressed()){
                 visibilityButtons(false);
+
                 MapSelector mapSelect(device, keyEvent);
                 path map = mapSelect.mapSelector();
+                if (map == "") {
+                    return;
+                }
+
                 LevelEditor levelEditor(device, keyEvent, map);
                 levelEditor.gameLoop();
                 return;
