@@ -8,8 +8,8 @@ MapSelector::MapSelector(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
         GUIBase(device, keyEvent) {
 
     background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
-
     title = gui->addImage(driver->getTexture("data/GUI/Menu/MapSelector/MapList.png"), position2d<int>(650, 150));
+    exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Go back");
 }
 
 path MapSelector::mapSelector() {
@@ -22,7 +22,7 @@ path MapSelector::mapSelector() {
 
             driver->endScene();
 
-            if (keyEvent->IsKeyDown(KEY_ESCAPE, true)) {
+            if (exit->isPressed() || keyEvent->IsKeyDown(KEY_ESCAPE, true)) {
                 return "";
             }
 
@@ -38,6 +38,8 @@ path MapSelector::mapSelector() {
 }
 
 MapSelector::~MapSelector() {
+    myMapList.clear();
     title->remove();
     background->remove();
+    exit->remove();
 }

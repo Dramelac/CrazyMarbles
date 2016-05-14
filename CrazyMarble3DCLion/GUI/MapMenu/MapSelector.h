@@ -16,8 +16,8 @@ class MapSelector : public GUIBase {
 private:
 
     IGUIImage* title;
-
     IGUIImage* background;
+    IGUIButton* exit;
 
     array<MapButton> myMapList;
 
