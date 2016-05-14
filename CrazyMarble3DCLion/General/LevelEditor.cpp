@@ -8,13 +8,11 @@
 
 const u16 LevelEditor::size = 50;
 
-LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent) :
-        device(device), keyEvent(keyevent), play(true), cursor(vector3di(0, 0, 0)),
+LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
+        GUIBase(device, keyEvent), play(true), cursor(vector3di(0, 0, 0)),
         currentType(0), currentRotation(vector3di(0, 0, 0)) {
 
-    this->driver = this->device->getVideoDriver();                      // creation driver
     this->sceneManager = this->device->getSceneManager();               // creation scene manager
-    gui = device->getGUIEnvironment();
 
     board = new Board(sceneManager, size);
     player = new Player(sceneManager);
@@ -46,7 +44,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent) :
 
 
 LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path pathMap)
-        : device(device), keyEvent(keyEvent), play(true), cursor(vector3di(0, 0, 0)),
+        : GUIBase(device, keyEvent), play(true), cursor(vector3di(0, 0, 0)),
           currentType(0), currentRotation(vector3di(0, 0, 0)){
 
     this->driver = this->device->getVideoDriver();                      // creation driver

@@ -8,6 +8,7 @@
 #include "../Utils/KeyboardEvent.h"
 #include "../Plateau/Board.h"
 #include "../Play/Player.h"
+#include "../GUI/GUIBase.h"
 
 using namespace irr;
 using namespace scene;
@@ -15,10 +16,8 @@ using namespace core;
 using namespace video;
 using namespace io;
 
-class LevelEditor {
+class LevelEditor : public GUIBase{
 private:
-    IrrlichtDevice* device;
-    IVideoDriver* driver;
     ISceneManager *sceneManager;
 
     Board* board;
@@ -52,8 +51,6 @@ private:
 
     IGUIButton* validate;
 
-    KeyboardEvent *keyEvent;
-
     bool play;
 
     vector3di cursor;
@@ -64,7 +61,7 @@ private:
 
 public:
 
-    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent);
+    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent);
     LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path pathMap);
 
     void gameLoop();
