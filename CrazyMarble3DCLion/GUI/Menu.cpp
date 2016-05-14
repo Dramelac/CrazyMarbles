@@ -3,6 +3,7 @@
 //
 
 #include "Menu.h"
+#include "MenuLevelEditor.h"
 
 Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
         : keyEvent(keyEvent){
@@ -73,9 +74,12 @@ void Menu::loop() {
 
             } else if (levelEditor->isPressed()){
                 visibilityButons(false);
+                background->setVisible(true);
                 //LevelEditor levelEditor(device, keyEvent);
-                LevelEditor levelEditor(device, keyEvent, "data/Maps/map.irr");
-                levelEditor.gameLoop();
+                //LevelEditor levelEditor(device, keyEvent, "data/Maps/map.irr");
+                //levelEditor.gameLoop();
+                MenuLevelEditor menuIntermediate(device, keyEvent, background);
+                menuIntermediate.loop();
                 visibilityButons(true);
             } else if (credit->isPressed()){
 
