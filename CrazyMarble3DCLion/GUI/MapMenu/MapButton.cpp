@@ -17,6 +17,6 @@ const path &MapButton::getMap() const {
     return map;
 }
 
-virtual MapButton::~MapButton() {
+MapButton::~MapButton() {
     myButton->remove();
 }

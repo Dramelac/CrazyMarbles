@@ -7,6 +7,7 @@
 
 
 #include "../GUIBase.h"
+#include "MapButton.h"
 
 using namespace core;
 using namespace io;
@@ -17,6 +18,9 @@ private:
     IGUIImage* title;
 
     IGUIImage* background;
+
+    array<MapButton> myMapList;
+
 public:
     MapSelector(IrrlichtDevice *device, KeyboardEvent *keyEvent);
     virtual ~MapSelector();

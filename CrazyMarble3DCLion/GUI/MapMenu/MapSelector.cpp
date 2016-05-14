@@ -25,6 +25,12 @@ path MapSelector::mapSelector() {
             if (keyEvent->IsKeyDown(KEY_ESCAPE, true)) {
                 return "";
             }
+
+            for (int i = 0; i < myMapList.size(); ++i) {
+                if (myMapList[i].checkPressed()) {
+                    return myMapList[i].getMap();
+                }
+            }
         }
     }
 
