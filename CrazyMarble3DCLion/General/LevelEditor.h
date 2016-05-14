@@ -5,8 +5,6 @@
 #ifndef CRAZYMARBLE3DCLION_LEVELEDITOR_H
 #define CRAZYMARBLE3DCLION_LEVELEDITOR_H
 
-#include <irrlicht.h>
-#include <string>
 #include "../Utils/KeyboardEvent.h"
 #include "../Plateau/Board.h"
 #include "../Play/Player.h"

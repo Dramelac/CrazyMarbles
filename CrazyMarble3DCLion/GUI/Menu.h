@@ -5,7 +5,6 @@
 #ifndef CRAZYMARBLE3DCLION_MENU_HPP
 #define CRAZYMARBLE3DCLION_MENU_HPP
 
-#include <irrlicht.h>
 #include "../Utils/KeyboardEvent.h"
 #include "../General/Game.h"
 #include "../General/LevelEditor.h"

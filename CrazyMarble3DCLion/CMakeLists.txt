@@ -29,6 +29,7 @@ file(
         *.cpp
         *.h
         General/*
+        GUI/MapMenu/*
         GUI/*
         Utils/*
         Plateau/*
