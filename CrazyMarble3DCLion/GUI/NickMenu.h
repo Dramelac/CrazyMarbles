@@ -5,8 +5,9 @@
 #ifndef CRAZYMARBLE3DCLION_NICKMENU_H
 #define CRAZYMARBLE3DCLION_NICKMENU_H
 
-#include <irrlicht.h>
+
 #include "../Utils/KeyboardEvent.h"
+#include "GUIBase.h"
 
 using namespace irr;
 using namespace video;
@@ -14,18 +15,13 @@ using namespace core;
 using namespace gui;
 
 
-class NickMenu {
+class NickMenu : public GUIBase{
 private:
-    IrrlichtDevice* device;
-    IVideoDriver* driver;
-    IGUIEnvironment* gui;
 
     IGUIEditBox* editBox;
     IGUIFont* font;
 
     stringc* nickname;
-
-    KeyboardEvent* keyEvent;
 
     IGUIImage* crazyMarble;
     IGUIImage* enterNick;

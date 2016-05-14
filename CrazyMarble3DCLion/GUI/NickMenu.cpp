@@ -3,17 +3,10 @@
 //
 
 #include "NickMenu.h"
-#include "iostream"
 
 
-NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
-        device(device), keyEvent(keyEvent) {
-
-    gui = device->getGUIEnvironment();
-    driver = device->getVideoDriver();
-
-    this->device->setWindowCaption(L"Crazy Marble  -  [MENU]");
-    device->getCursorControl()->setVisible(true);
+NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent)
+        : GUIBase(device, keyEvent) {
 
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
     valide = gui->addButton(rect<s32>(930,700,990,750), 0, 103, L"Valider");
