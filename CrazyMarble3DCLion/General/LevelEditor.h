@@ -10,6 +10,7 @@
 #include "../Utils/KeyboardEvent.h"
 #include "../Plateau/Board.h"
 #include "../Play/Player.h"
+#include "Campaign.h"
 
 using namespace irr;
 using namespace scene;
@@ -25,6 +26,8 @@ private:
 
     Board* board;
     Player* player;
+
+    Campaign* campaign;
 
     ISceneNode* skyBox;
     s32 skyId;

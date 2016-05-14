@@ -42,6 +42,8 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent) :
     // TEMP
     board->getCell(cursor)->setup(sceneManager, cursor);
 
+    campaign = new Campaign(this->device, this->keyEvent);
+
 }
 
 
@@ -69,6 +71,8 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path p
 
     //fixeCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
     updateCamera();
+
+    campaign = new Campaign(this->device, this->keyEvent);
 
 }
 
