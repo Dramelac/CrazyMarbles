@@ -4,8 +4,10 @@
 
 #include "MapButton.h"
 
-MapButton::MapButton(const path &map, IGUIEnvironment* gui) : map(map) {
-    myButton = gui->addButton(rect<s32>(),0,-1,L"cc");
+MapButton::MapButton(const path &map, u16 nPos, IGUIEnvironment* gui) : map(map) {
+    vector2d<s32> pos((nPos%5)*350+150, (nPos/5)*200+250);
+    dimension2d<s32> size(250,100);
+    myButton = gui->addButton(rect<s32>(pos, size),0,-1,L"cc");
 }
 
 bool MapButton::checkPressed() {

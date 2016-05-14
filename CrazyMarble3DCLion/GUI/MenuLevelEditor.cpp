@@ -36,8 +36,9 @@ void MenuLevelEditor::loop() {
             } else if (loadMap->isPressed()){
                 visibilityButtons(false);
 
-                MapSelector mapSelect(device, keyEvent);
-                path map = mapSelect.mapSelector();
+                MapSelector* mapSelect = new MapSelector(device, keyEvent);
+                path map = mapSelect->mapSelector();
+                delete mapSelect;
                 if (map == "") {
                     return;
                 }

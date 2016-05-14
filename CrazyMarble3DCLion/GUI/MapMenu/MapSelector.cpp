@@ -8,8 +8,16 @@ MapSelector::MapSelector(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
         GUIBase(device, keyEvent) {
 
     background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
-    title = gui->addImage(driver->getTexture("data/GUI/Menu/MapSelector/MapList.png"), position2d<int>(650, 150));
+    title = gui->addImage(driver->getTexture("data/GUI/Menu/MapSelector/MapList.png"), position2d<int>(650, 50));
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Go back");
+
+    //generate all map
+
+    array<stringc> fileListTemp = FileSystemUtils::parseDirectory("data/Maps");
+    for (u16 i = 0; i < fileListTemp.size(); ++i) {
+        myMapList.push_back(new MapButton(fileListTemp[i], i, gui));
+    }
+
 }
 
 path MapSelector::mapSelector() {
@@ -27,8 +35,8 @@ path MapSelector::mapSelector() {
             }
 
             for (int i = 0; i < myMapList.size(); ++i) {
-                if (myMapList[i].checkPressed()) {
-                    return myMapList[i].getMap();
+                if (myMapList[i]->checkPressed()) {
+                    return myMapList[i]->getMap();
                 }
             }
         }
@@ -38,6 +46,9 @@ path MapSelector::mapSelector() {
 }
 
 MapSelector::~MapSelector() {
+    for (int i = 0; i < myMapList.size(); ++i) {
+        delete myMapList[i];
+    }
     myMapList.clear();
     title->remove();
     background->remove();
