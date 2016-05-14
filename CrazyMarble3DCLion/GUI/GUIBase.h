@@ -10,6 +10,7 @@
 
 using namespace irr;
 using namespace video;
+using namespace gui;
 
 class GUIBase {
 protected:

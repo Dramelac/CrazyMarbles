@@ -10,10 +10,8 @@
 #include "../Play/Player.h"
 #include "../GUI/GUIBase.h"
 
-using namespace irr;
 using namespace scene;
 using namespace core;
-using namespace video;
 using namespace io;
 
 class LevelEditor : public GUIBase{

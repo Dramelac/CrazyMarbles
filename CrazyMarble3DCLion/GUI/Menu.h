@@ -11,10 +11,7 @@
 #include "NickMenu.h"
 #include "GUIBase.h"
 
-using namespace irr;
-using namespace video;
 using namespace core;
-using namespace gui;
 
 class Menu : public GUIBase{
 private:

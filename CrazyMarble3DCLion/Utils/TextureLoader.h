@@ -1,9 +1,8 @@
 #include <irrlicht.h>
-#include <iostream>
 
 using namespace irr;
-using namespace irr::video;
-using namespace irr::scene;
+using namespace video;
+using namespace scene;
 
 class TextureLoader
 {

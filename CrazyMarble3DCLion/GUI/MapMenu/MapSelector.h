@@ -10,7 +10,7 @@
 
 class MapSelector : public GUIBase {
 private:
-
+    IGUIStaticText* title;
 public:
     MapSelector(IrrlichtDevice *device, KeyboardEvent *keyEvent);
 };
