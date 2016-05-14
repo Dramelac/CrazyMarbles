@@ -7,6 +7,12 @@
 
 #include <irrlicht.h>
 #include "../Utils/KeyboardEvent.h"
+#include "Game.h"
+
+#include <iostream>
+#include <fstream>
+
+using namespace std;
 
 using namespace irr;
 using namespace io;
@@ -21,11 +27,19 @@ private:
     KeyboardEvent* keyEvent;
 
     array<path> mapCycle;
+    void load();
 
 public:
     Campaign(IrrlichtDevice* device, KeyboardEvent* keyEvent);
 
     void play();
+
+    const array<path> & getMapCycle() const;
+    void setMapCycle(u16 placeNumber, path map);
+    void setMapCycle(path map);
+    void removeMapAt(u16 placeNumber);
+
+    void save();
 };
 
 
