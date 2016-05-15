@@ -41,14 +41,14 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
     board->getCell(cursor)->setup(sceneManager, cursor);
     name = "";
 
-    campaignMapList = SideMapList(device->getGUIEnvironment());
+    campaignMapList = new SideMapList(device->getGUIEnvironment());
 
 }
 
 
 LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path pathMap)
         : GUIBase(device, keyEvent), play(true), cursor(vector3di(0, 0, 0)),
-          currentType(0), currentRotation(vector3di(0, 0, 0)){
+          currentType(0), currentRotation(vector3di(0, 0, 0)) {
 
     this->driver = this->device->getVideoDriver();                      // creation driver
     this->sceneManager = this->device->getSceneManager();               // creation scene manager
@@ -71,7 +71,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path p
     //fixeCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
     updateCamera();
 
-    campaignMapList = SideMapList(device->getGUIEnvironment());
+    campaignMapList = new SideMapList(device->getGUIEnvironment());
 
     name = pathMap.subString((u32)pathMap.findLastChar("/") + 1, pathMap.size());
 
@@ -119,7 +119,7 @@ void LevelEditor::keyboardChecker() {
 
     bool update = false;
 
-    campaignMapList.checkEvent();
+    campaignMapList->checkEvent();
 
     if (cellStartBox->isPressed() ||keyEvent->IsKeyDown(KEY_SPACE, true)){
         board->setupStartPoint(cursor);
@@ -323,6 +323,7 @@ void LevelEditor::setupName() {
 
 LevelEditor::~LevelEditor() {
     delete board;
+    delete campaignMapList;
 
     goToRight->remove();
     goToLeft->remove();

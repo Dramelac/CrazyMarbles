@@ -23,7 +23,7 @@ private:
     Board* board;
     Player* player;
 
-    SideMapList campaignMapList;
+    SideMapList* campaignMapList;
 
     ISceneNode* skyBox;
     s32 skyId;
