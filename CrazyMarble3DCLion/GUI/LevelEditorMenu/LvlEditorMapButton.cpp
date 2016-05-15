@@ -22,8 +22,11 @@ LvlEditorMapButton::~LvlEditorMapButton() {
 
 void LvlEditorMapButton::checkEvent() {
     if (removeButton->isPressed()){
-        // remove map
+        // TODO remove map
+        // WARNING REFRESH BUTTON ORDER
     }
-    mapButton->checkPressed();
+    if (mapButton->checkPressed()){
+        // TODO change map
+    }
 }
 
