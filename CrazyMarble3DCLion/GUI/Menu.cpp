@@ -66,6 +66,7 @@ void Menu::loop() {
                 menuIntermediate.loop();
                 visibilityButons(true);
                 device->getCursorControl()->setVisible(true);
+                visibilityButons(true);
             } else if (scoreBoard->isPressed()){
                 
 

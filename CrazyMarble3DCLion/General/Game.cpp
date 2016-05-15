@@ -57,12 +57,14 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
     this->driver = this->device->getVideoDriver();                      // creation driver
     this->sceneManager = this->device->getSceneManager();               // creation scene manager
 
+    gui = device->getGUIEnvironment();
     IReadFile* map = createReadFile(pathMap);
     sceneManager->loadScene(map);
 
     this->board  = new Board(sceneManager);
 
     this->player = new Player(sceneManager, driver, device->getGUIEnvironment(), "Test", 100, board->getStartPoint());
+
 
     //sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
 
@@ -88,25 +90,33 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
 
     //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
 
+    chrono = new Chrono(device, 60);
+
+
 }
 
 // Game loop
-void Game::gameLoop() {
+s16 Game::gameLoop() {
 
     int lastFPS = -1;
+
     u32 then = device->getTimer()->getTime();
+    chrono->start();
+
 	while (device->run()){
 
         if (device->isWindowActive()){                                      // check if windows is active
 
             driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
-
+            chrono->start();
             player->updateCamera();
 
-            sceneManager->drawAll();                                        // update display
+            sceneManager->drawAll();
+            // update display
+            gui->drawAll();
             driver->endScene();
 
-
+            chrono->getTime();
             // display frames per second in window title
             int fps = driver->getFPS();
             if (lastFPS != fps)
@@ -134,11 +144,18 @@ void Game::gameLoop() {
             }
 
             if (!play || player->checkFinish()){
+                player->calculFinal(chrono->getTime());
                 break;
             }
 
         }
+        else{
+            chrono->stop();
+        }
 	}
+    chrono->stop();
+
+    return 0;
 
 }
 
@@ -165,6 +182,7 @@ void Game::keyboardChecker(f32 deltaTime) {
 
 // destructor
 Game::~Game() {
+    delete chrono;
 
     delete board;
     delete player;

@@ -31,6 +31,7 @@ file(
         General/*
         GUI/MapMenu/*
         GUI/IntermediateMenu/*
+        GUI/LevelEditorMenu/*
         GUI/*
         Utils/*
         Plateau/*

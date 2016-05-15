@@ -8,7 +8,9 @@
 #include "../Utils/KeyboardEvent.h"
 #include "../Plateau/Board.h"
 #include "../Play/Player.h"
+#include "Campaign.h"
 #include "../GUI/GUIBase.h"
+#include "../GUI/LevelEditorMenu/SideMapList.h"
 
 using namespace scene;
 using namespace core;
@@ -21,10 +23,10 @@ private:
     Board* board;
     Player* player;
 
+    SideMapList* campaignMapList;
+
     ISceneNode* skyBox;
     s32 skyId;
-
-    IGUIEnvironment* gui;
 
     IGUIButton* goToRight;
     IGUIButton* goToLeft;
@@ -47,6 +49,7 @@ private:
     IGUIButton* skyBoxe;
 
     IGUIButton* validate;
+    IGUIEditBox* mapName;
     path name;
 
     bool play;
@@ -56,7 +59,6 @@ private:
     vector3di currentRotation;
 
     void setupGUI();
-    void setupName();
 
 public:
 
@@ -71,7 +73,7 @@ public:
     void applySetup();
     void setupSkyBox(s32 templateId);
 
-    void save();
+    bool save();
 
     ~LevelEditor();
 

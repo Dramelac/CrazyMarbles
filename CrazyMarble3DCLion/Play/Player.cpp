@@ -2,6 +2,7 @@
 // Created by mathieu on 05/03/16.
 //
 
+#include <iostream>
 #include "Player.h"
 #include "../Utils/TextureLoader.h"
 
@@ -52,10 +53,12 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
                                                   vector3df(800.0f, 700.0f, 800.0f),
                                                   sceneNode->getPosition());
 
-
     vie = gui->addImage(rect<s32>(630,380,1320,580),0,104);
     vie->setImage(driver->getTexture("data/GUI/Menu/BGCM2.png"));
     vie->setUseAlphaChannel(false);
+
+    displayScore = gui->addStaticText(L"Score : 0",rect<s32>(20,20,120,120));
+
 
 
 }
@@ -82,6 +85,7 @@ Player::Player(ISceneManager *sceneManager) : Entities(), finishTime(0) {
 Player::~Player() {
     sceneNode->remove();
     fixeCamera->remove();
+    displayScore->remove();
 }
 
 // update camera target (fixe player)
@@ -196,8 +200,37 @@ void Player::respawn() {
     finishTime = 0;
     health = 100;
     // To change if need
-    score = 0;
+    score -= 10;
+    updateScore();
 }
+
+void Player::addKill() {
+    score +=50;
+    updateScore();
+}
+
+void Player::calculFinal(u32 chrono) {
+    u32 bonusTime = chrono * 20;
+    u32 bonusLIfe = (u32)this->health*4;
+    u32 totalBonus = bonusLIfe+bonusTime;
+    score += totalBonus;
+    stringw text = L"Score : ";
+    text += score;
+    displayScore->setText(text.c_str());
+    std::cout<<chrono<<" "<<this->health<<" "<<score<<std::endl;
+
+}
+
+void Player::updateScore() {
+    stringw text = L"Score : ";
+    text += score;
+    displayScore->setText(text.c_str());
+}
+
+
+
+
+
 
 
 

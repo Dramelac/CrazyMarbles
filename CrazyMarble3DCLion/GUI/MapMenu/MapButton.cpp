@@ -17,6 +17,17 @@ MapButton::MapButton(const path &map, u16 nPos, IGUIEnvironment* gui) : map(map)
     myButton = gui->addButton(rect<s32>(pos, size), 0, -1, fileName.c_str());
 }
 
+
+MapButton::MapButton(const path &map, IGUIEnvironment *gui, vector2d<s32> pos, dimension2d<s32> size) {
+    // get filename
+    stringw fileName = map.subString((u32)map.findLastChar("/") + 1, map.size());
+    fileName = fileName.subString(0, fileName.size()-4);
+
+    // create button
+    myButton = gui->addButton(rect<s32>(pos, size), 0, -1, fileName.c_str());
+}
+
+
 bool MapButton::checkPressed() {
     return myButton->isPressed();
 }
@@ -29,3 +40,15 @@ const path &MapButton::getMap() const {
 MapButton::~MapButton() {
     myButton->remove();
 }
+
+void MapButton::setPos(rect<s32> pos) {
+    myButton->setRelativePosition(pos);
+}
+
+void MapButton::setMapName(path map) {
+    // get filename
+    stringw fileName = map.subString((u32)map.findLastChar("/") + 1, map.size());
+    fileName = fileName.subString(0, fileName.size()-4);
+    myButton->setText(fileName.c_str());
+}
+

@@ -11,6 +11,8 @@
 
 #include "Entities.h"
 #include "../Utils/KeyboardEvent.h"
+#include "../Utils/Chrono.h"
+
 
 using namespace gui;
 using namespace video;
@@ -27,13 +29,17 @@ private:
     vector3df startPos;
 
 	s32 score;
+    IGUIStaticText* displayScore;
 
     u16 speed;
+	void updateScore();
+
 
 public:
 
 	Player(ISceneManager *sceneManager, const stringc& name, int health);
 	Player(ISceneManager *sceneManager,IVideoDriver *driver,IGUIEnvironment *gui, const stringc& name, int health, vector3df startpos);
+
     Player(ISceneManager *sceneManager);
     ~Player();
 
@@ -48,6 +54,9 @@ public:
 	void updateFOV(f32 x);
 
     vector3df getPosition();
+
+	void addKill();
+	void calculFinal(u32 chrono);
 
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
     bool checkFinish();

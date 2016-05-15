@@ -17,6 +17,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
     board = new Board(sceneManager, size);
     player = new Player(sceneManager);
 
+    name = "";
     setupGUI();
 
     skyBox = sceneManager->addSkyBoxSceneNode(
@@ -39,14 +40,15 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
 
     // TEMP
     board->getCell(cursor)->setup(sceneManager, cursor);
-    name = "";
+
+    campaignMapList = new SideMapList(device, keyEvent);
 
 }
 
 
 LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path pathMap)
         : GUIBase(device, keyEvent), play(true), cursor(vector3di(0, 0, 0)),
-          currentType(0), currentRotation(vector3di(0, 0, 0)){
+          currentType(0), currentRotation(vector3di(0, 0, 0)) {
 
     this->driver = this->device->getVideoDriver();                      // creation driver
     this->sceneManager = this->device->getSceneManager();               // creation scene manager
@@ -54,6 +56,9 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path p
 
     IReadFile* map = createReadFile(pathMap);
     sceneManager->loadScene(map);
+
+    name = pathMap.subString((u32)pathMap.findLastChar("/") + 1, pathMap.size());
+    name = name.subString(0, name.size()-4);
 
     board = new Board(sceneManager);
     player = new Player(sceneManager);
@@ -69,8 +74,8 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path p
     //fixeCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
     updateCamera();
 
-    // get file name
-    name = pathMap.subString((u32)pathMap.findLastChar("/") + 1, pathMap.size());
+    campaignMapList = new SideMapList(device, keyEvent);
+
 
 }
 
@@ -115,6 +120,8 @@ void LevelEditor::gameLoop() {
 void LevelEditor::keyboardChecker() {
 
     bool update = false;
+
+    campaignMapList->checkEvent();
 
     if (cellStartBox->isPressed() ||keyEvent->IsKeyDown(KEY_SPACE, true)){
         board->setupStartPoint(cursor);
@@ -205,8 +212,7 @@ void LevelEditor::keyboardChecker() {
     }
 
     if(validate->isPressed()){
-        save();
-        play = false;
+        play = save();
     }
 
     // quit event
@@ -289,13 +295,17 @@ void LevelEditor::setupSkyBox(s32 templateId) {
 }
 
 
-void LevelEditor::save() {
-    while (name == ""){
-        setupName();
+bool LevelEditor::save() {
+    name = mapName->getText();
+    if (name == "") {
+        gui->addMessageBox(L"Error map name", L"An error occured : you forget to name your map !");
+        return true;
     }
     //player->removePlayerNode();
     //player->removeCameraNode();
     delete player;
+
+    name += ".irr";
 
     io::IWriteFile* file = io::createWriteFile(name, false);
     sceneManager->saveScene(file);
@@ -304,20 +314,13 @@ void LevelEditor::save() {
     std::string result = "data/Maps/";
     result += name.c_str();
     rename(name.c_str(), result.c_str());
-}
-
-
-void LevelEditor::setupName() {
-    // TODO select name
-    name = "temp";
-
-    // add extension
-    name += ".irr";
+    return false;
 }
 
 
 LevelEditor::~LevelEditor() {
     delete board;
+    delete campaignMapList;
 
     goToRight->remove();
     goToLeft->remove();
@@ -341,6 +344,7 @@ LevelEditor::~LevelEditor() {
     cellStartBox->remove();
 
     validate->remove();
+    mapName->remove();
 
     sceneManager->clear();
 
@@ -376,6 +380,12 @@ void LevelEditor::setupGUI() {
 
 
     validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Valider");
+
+    stringw tempName = L"";
+    tempName += name;
+    mapName = gui->addEditBox(tempName.c_str(), rect<s32>(vector2d<s32>(1650,950),
+                                                    dimension2d<s32>(100,50)));
+
 
 
     /**
