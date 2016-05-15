@@ -17,6 +17,7 @@ MapSelector::MapSelector(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
     u16 count = 0;
     for (u16 i = 0; i < fileListTemp.size(); ++i) {
         path tempFile = fileListTemp[i];
+        // check .irr extension
         if (tempFile.subString((u32)tempFile.findLastChar(".") + 1, tempFile.size()) == "irr") {
             myMapList.push_back(new MapButton(fileListTemp[i], count, gui));
             count++;
@@ -52,7 +53,7 @@ path MapSelector::mapSelector() {
         }
     }
 
-    return "data/Maps/map.irr";
+    return "";
 }
 
 MapSelector::~MapSelector() {
