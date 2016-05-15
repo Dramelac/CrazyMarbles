@@ -195,14 +195,13 @@ void Player::respawn() {
     finishTime = 0;
     health = 100;
     // To change if need
-    score = 0;
+    score -= 10;
+    updateScore();
 }
 
 void Player::addKill() {
     score +=50;
-    stringw text = L"Score : ";
-    text += score;
-    displayScore->setText(text.c_str());
+    updateScore();
 }
 
 void Player::calculFinal(u32 chrono) {
@@ -216,6 +215,13 @@ void Player::calculFinal(u32 chrono) {
     std::cout<<chrono<<" "<<this->health<<" "<<score<<std::endl;
 
 }
+
+void Player::updateScore() {
+    stringw text = L"Score : ";
+    text += score;
+    displayScore->setText(text.c_str());
+}
+
 
 
 

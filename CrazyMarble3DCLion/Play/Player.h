@@ -27,6 +27,7 @@ private:
     IGUIStaticText* displayScore;
 
     u16 speed;
+	void updateScore();
 
 
 public:
