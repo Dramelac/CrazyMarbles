@@ -79,12 +79,18 @@ void Campaign::load() {
     std::string str;
     if (myfile.is_open()){
         bool toRefresh = false;
+        u16 loadCount = 0;
         while (getline(myfile, str))
         {
             if (checkValidity(str.c_str())) {
                 mapCycle.push_back(str.c_str());
+                loadCount++;
             } else {
                 toRefresh = true;
+            }
+            if (loadCount >= 10){
+                toRefresh = true;
+                break;
             }
         }
         myfile.close();
