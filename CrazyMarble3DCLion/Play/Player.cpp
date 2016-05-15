@@ -8,7 +8,7 @@
 
 // Debug player
 Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
-        : Entities(name, health), score(0), finishTime(0) {
+        : Entities(name, health), score(0), finishTime(0), isPlayable(false) {
 
     // MODEL
 
@@ -37,7 +37,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 
 // Start new game
 Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment *gui, const stringc& name, int health, vector3df startpos)
-        : Entities(name, health), score(0), finishTime(0) {
+        : Entities(name, health), score(0), finishTime(0), isPlayable(true) {
     speed = 20;
     inertie = vector3df(0,0,0);
 
@@ -74,7 +74,7 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
 }
 
 // player Level Editor
-Player::Player(ISceneManager *sceneManager) : Entities(), finishTime(0) {
+Player::Player(ISceneManager *sceneManager) : Entities(), finishTime(0), isPlayable(false) {
     speed = 20;
 
     sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
@@ -95,10 +95,12 @@ Player::Player(ISceneManager *sceneManager) : Entities(), finishTime(0) {
 Player::~Player() {
     sceneNode->remove();
     fixeCamera->remove();
-    displayScore->remove();
-    barrevie->remove();
-    vie->remove();
-    life->remove();
+    if (isPlayable){
+        displayScore->remove();
+        barrevie->remove();
+        vie->remove();
+        life->remove();
+    }
 }
 
 // update camera target (fixe player)

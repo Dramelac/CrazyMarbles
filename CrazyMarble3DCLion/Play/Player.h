@@ -30,6 +30,7 @@ private:
 
 	s32 score;
     IGUIStaticText* displayScore;
+    bool isPlayable;
 
     IGUIImage* barrevie;
     IGUIStaticText* life;
