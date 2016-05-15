@@ -6,10 +6,10 @@
 #define CRAZYMARBLE3DCLION_MENU_HPP
 
 #include "../Utils/KeyboardEvent.h"
-#include "../General/Game.h"
-#include "../General/LevelEditor.h"
 #include "NickMenu.h"
 #include "GUIBase.h"
+#include "IntermediateMenu/MenuLevelEditor.h"
+#include "IntermediateMenu/MenuPlayMode.h"
 
 using namespace core;
 

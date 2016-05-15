@@ -20,7 +20,7 @@ private:
 
 public:
     MenuPlayMode(IrrlichtDevice *device, KeyboardEvent *keyEvent, IGUIImage* background);
-    virtual ~MenuLevelEditor();
+    virtual ~MenuPlayMode();
 
     void loop();
     void visibilityButtons(bool status);

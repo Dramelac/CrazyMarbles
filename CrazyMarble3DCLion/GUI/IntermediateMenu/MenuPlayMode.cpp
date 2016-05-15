@@ -49,7 +49,7 @@ void MenuPlayMode::loop() {
     }
 }
 
-MenuPlayMode::~MenuLevelEditor() {
+MenuPlayMode::~MenuPlayMode() {
     campaignButton->remove();
     freeModeButton->remove();
     exit->remove();
