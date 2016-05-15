@@ -28,8 +28,6 @@ private:
     ISceneNode* skyBox;
     s32 skyId;
 
-    IGUIEnvironment* gui;
-
     IGUIButton* goToRight;
     IGUIButton* goToLeft;
     IGUIButton* goToTop;

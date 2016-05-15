@@ -7,6 +7,7 @@
 
 #include <irrlicht.h>
 #include "../../General/Campaign.h"
+#include "LvlEditorMapButton.h"
 
 using namespace irr;
 using namespace gui;
@@ -15,9 +16,14 @@ using namespace core;
 class SideMapList {
 private:
     Campaign campaign;
+    IGUIImage* title;
+
+    array<LvlEditorMapButton*> listButton;
 
 public:
-    SideMapList(IGUIEnvironment* gui);
+    SideMapList(IGUIEnvironment* gui, IVideoDriver* driver);
+    virtual ~SideMapList();
+
     void checkEvent();
 };
 
