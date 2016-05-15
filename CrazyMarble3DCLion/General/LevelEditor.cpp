@@ -8,13 +8,11 @@
 
 const u16 LevelEditor::size = 50;
 
-LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent) :
-        device(device), keyEvent(keyevent), play(true), cursor(vector3di(0, 0, 0)),
+LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
+        GUIBase(device, keyEvent), play(true), cursor(vector3di(0, 0, 0)),
         currentType(0), currentRotation(vector3di(0, 0, 0)) {
 
-    this->driver = this->device->getVideoDriver();                      // creation driver
     this->sceneManager = this->device->getSceneManager();               // creation scene manager
-    gui = device->getGUIEnvironment();
 
     board = new Board(sceneManager, size);
     player = new Player(sceneManager);
@@ -41,6 +39,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent) :
 
     // TEMP
     board->getCell(cursor)->setup(sceneManager, cursor);
+    name = "";
 
     campaign = new Campaign(this->device, this->keyEvent);
 
@@ -48,7 +47,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent) :
 
 
 LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path pathMap)
-        : device(device), keyEvent(keyEvent), play(true), cursor(vector3di(0, 0, 0)),
+        : GUIBase(device, keyEvent), play(true), cursor(vector3di(0, 0, 0)),
           currentType(0), currentRotation(vector3di(0, 0, 0)){
 
     this->driver = this->device->getVideoDriver();                      // creation driver
@@ -73,6 +72,8 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path p
     updateCamera();
 
     campaign = new Campaign(this->device, this->keyEvent);
+
+    name = pathMap.subString((u32)pathMap.findLastChar("/") + 1, pathMap.size());
 
 }
 
@@ -291,7 +292,10 @@ void LevelEditor::setupSkyBox(s32 templateId) {
 }
 
 
-void LevelEditor::save(path name) {
+void LevelEditor::save() {
+    while (name == ""){
+        setupName();
+    }
     //player->removePlayerNode();
     //player->removeCameraNode();
     delete player;
@@ -303,6 +307,15 @@ void LevelEditor::save(path name) {
     std::string result = "data/Maps/";
     result += name.c_str();
     rename(name.c_str(), result.c_str());
+}
+
+
+void LevelEditor::setupName() {
+    // TODO select name
+    name = "temp";
+
+    // add extension
+    name += ".irr";
 }
 
 

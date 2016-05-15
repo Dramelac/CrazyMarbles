@@ -22,7 +22,6 @@ BlackMarbles::BlackMarbles(IMeshSceneNode *node) : Entities(node->getName(), 60)
     sceneNode = node;
     isPlayerSet = false;
     origin = sceneNode->getPosition();
-
 }
 
 // destructor
