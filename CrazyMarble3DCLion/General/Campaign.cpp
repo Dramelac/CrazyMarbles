@@ -77,14 +77,33 @@ void Campaign::load() {
     myfile.open ("data/Maps/campaign.path");
     std::string str;
     if (myfile.is_open()){
+        bool toRefresh = false;
         while (getline(myfile, str))
         {
-            mapCycle.push_back(str.c_str());
+            if (checkValidity(str.c_str())) {
+                mapCycle.push_back(str.c_str());
+            } else {
+                toRefresh = true;
+            }
         }
         myfile.close();
         cout << mapCycle.size() << " maps loaded" << endl;
+        if (toRefresh) {
+            save();
+        }
     } else {
         cout << "error loading campaign !" << endl;
     }
+}
+
+bool Campaign::checkValidity(path map) {
+    ifstream myfile;
+    myfile.open(map.c_str());
+    if (not myfile.is_open()){
+        return false;
+    }
+    myfile.close();
+
+    return true;
 }
 
