@@ -53,7 +53,8 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
                                                   vector3df(800.0f, 700.0f, 800.0f),
                                                   sceneNode->getPosition());
 
-    vie = gui->addImage(rect<s32>(50,50,100,100),0,104);
+    vie = gui->addImage(rect<s32>(vector2d<s32>(100,950),
+                                  dimension2d<s32>(200,100)));
     vie->setImage(driver->getTexture("data/GUI/Menu/BGCM2.png"));
     vie->setUseAlphaChannel(false);
     vie->setScaleImage(true);
@@ -61,7 +62,7 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
     displayScore = gui->addStaticText(L"Score : 0",rect<s32>(20,20,120,120));
 
 
-    barrevie = gui->addImage(rect<s32>(200,50,400,100),0,104);
+    barrevie = gui->addImage(rect<s32>(vector2d<s32>(200,50),dimension2d<s32>(200,50)),0,104);
     barrevie->setImage(driver->getTexture("data/GUI/Menu/BGCM2.png"));
     barrevie->setUseAlphaChannel(false);
     barrevie->setScaleImage(true);
@@ -246,6 +247,10 @@ void Player::updateGui() {
     tempTexte += health ;
     tempTexte += "%";
     life->setText(tempTexte.c_str());
+
+    f32 tempSize = 200 * health/100;
+    barrevie->setRelativePosition(rect<s32>(vector2d<s32>(200,50),
+                                            dimension2d<f32>(tempSize,50)));
 }
 
 void Player::takeDamage(u64 dmg) {
