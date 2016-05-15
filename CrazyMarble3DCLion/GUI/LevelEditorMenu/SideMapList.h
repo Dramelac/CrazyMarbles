@@ -8,24 +8,26 @@
 #include <irrlicht.h>
 #include "../../General/Campaign.h"
 #include "LvlEditorMapButton.h"
+#include "../GUIBase.h"
 
 using namespace irr;
 using namespace gui;
 using namespace core;
 
-class SideMapList {
+class SideMapList : public GUIBase {
 private:
     Campaign campaign;
     IGUIImage* title;
-    IGUIButton* addMap;
+    IGUIButton* addMapButton;
     IGUIButton* saving;
 
     array<LvlEditorMapButton*> listButton;
 
     void setupAllPlace();
+    void addMap();
 
 public:
-    SideMapList(IGUIEnvironment* gui, IVideoDriver* driver);
+    SideMapList(IrrlichtDevice* device, KeyboardEvent* keyEvent);
     virtual ~SideMapList();
 
     void checkEvent();
