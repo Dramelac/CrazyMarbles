@@ -53,12 +53,21 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
                                                   vector3df(800.0f, 700.0f, 800.0f),
                                                   sceneNode->getPosition());
 
-    vie = gui->addImage(rect<s32>(630,380,1320,580),0,104);
+    vie = gui->addImage(rect<s32>(50,50,100,100),0,104);
     vie->setImage(driver->getTexture("data/GUI/Menu/BGCM2.png"));
     vie->setUseAlphaChannel(false);
+    vie->setScaleImage(true);
 
     displayScore = gui->addStaticText(L"Score : 0",rect<s32>(20,20,120,120));
 
+
+    barrevie = gui->addImage(rect<s32>(200,50,400,100),0,104);
+    barrevie->setImage(driver->getTexture("data/GUI/Menu/BGCM2.png"));
+    barrevie->setUseAlphaChannel(false);
+    barrevie->setScaleImage(true);
+
+    life = gui->addStaticText(L"100%",rect<s32>(vector2d<s32>(150,150),dimension2d<s32>(50,25)));
+    //life->getActiveFont("data/")
 
 
 }
@@ -86,6 +95,9 @@ Player::~Player() {
     sceneNode->remove();
     fixeCamera->remove();
     displayScore->remove();
+    barrevie->remove();
+    vie->remove();
+    life->remove();
 }
 
 // update camera target (fixe player)
@@ -202,6 +214,7 @@ void Player::respawn() {
     // To change if need
     score -= 10;
     updateScore();
+    updateGui();
 }
 
 void Player::addKill() {
@@ -226,6 +239,23 @@ void Player::updateScore() {
     text += score;
     displayScore->setText(text.c_str());
 }
+
+void Player::updateGui() {
+
+    stringw tempTexte = L"";
+    tempTexte += health ;
+    tempTexte += "%";
+    life->setText(tempTexte.c_str());
+}
+
+void Player::takeDamage(u64 dmg) {
+    Entities::takeDamage(dmg);
+    updateGui();
+}
+
+
+
+
 
 
 

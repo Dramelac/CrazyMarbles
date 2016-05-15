@@ -31,6 +31,8 @@ private:
 	s32 score;
     IGUIStaticText* displayScore;
 
+    IGUIImage* barrevie;
+    IGUIStaticText* life;
     u16 speed;
 	void updateScore();
 
@@ -47,6 +49,7 @@ public:
     void addFinishLineCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
 	//virtual bool isFall();
 	void respawn();
+    virtual void takeDamage(u64 dmg);
 
     void processMoving(KeyboardEvent *keyevent, f32 deltaTime);
 	void updateCamera();
@@ -61,6 +64,7 @@ public:
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
     bool checkFinish();
 
+    void updateGui();
 };
 
 
