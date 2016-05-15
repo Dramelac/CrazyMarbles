@@ -48,7 +48,7 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
 }
 
 // Play select Map
-Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
+Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stringc pseudo, s32 score) :
         device(inDevice), keyevent(keyevent), play(true) {
 
     this->device->setWindowCaption(L"Crazy Marble");                    // first windows name
@@ -57,12 +57,13 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
     this->driver = this->device->getVideoDriver();                      // creation driver
     this->sceneManager = this->device->getSceneManager();               // creation scene manager
 
+    gui = device->getGUIEnvironment();
     IReadFile* map = createReadFile(pathMap);
     sceneManager->loadScene(map);
 
     this->board  = new Board(sceneManager);
 
-    this->player = new Player(sceneManager, "Test", 100, board->getStartPoint());
+    this->player = new Player(sceneManager,gui, pseudo, 100, board->getStartPoint(), score);
 
     //sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
 
@@ -88,25 +89,36 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
 
     //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
 
+    chrono = new Chrono(device, 60);
+    player->updateScore();
+
+
 }
 
 // Game loop
 s16 Game::gameLoop() {
 
     int lastFPS = -1;
+
     u32 then = device->getTimer()->getTime();
+
 	while (device->run()){
 
         if (device->isWindowActive()){                                      // check if windows is active
 
             driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
-
             player->updateCamera();
 
-            sceneManager->drawAll();                                        // update display
+            sceneManager->drawAll();
+            // update display
+            gui->drawAll();
             driver->endScene();
 
+            chrono->start();
 
+            if (chrono->getTime() == 0){
+                //TODO Times up
+            }
             // display frames per second in window title
             int fps = driver->getFPS();
             if (lastFPS != fps)
@@ -134,11 +146,16 @@ s16 Game::gameLoop() {
             }
 
             if (!play || player->checkFinish()){
+                player->calculFinal(chrono->getTime());
                 break;
             }
 
         }
+        else{
+            chrono->stop();
+        }
 	}
+    chrono->stop();
 
     return 0;
 
@@ -167,6 +184,7 @@ void Game::keyboardChecker(f32 deltaTime) {
 
 // destructor
 Game::~Game() {
+    delete chrono;
 
     delete board;
     delete player;
@@ -194,6 +212,10 @@ void Game::setupSkyBox(bool day) {
                 driver->getTexture("data/skybox/night/left.png"),
                 driver->getTexture("data/skybox/night/right.png"));
     }
+}
+
+s32 Game::getScore() {
+    return player->getScore();
 }
 
 

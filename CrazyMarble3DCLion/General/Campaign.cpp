@@ -3,7 +3,9 @@
 //
 
 #include "Campaign.h"
-Campaign::Campaign(IrrlichtDevice* device, KeyboardEvent* keyEvent): playable(true) {
+Campaign::Campaign(IrrlichtDevice* device, KeyboardEvent* keyEvent, stringc pseudo):
+        playable(true), pseudo(pseudo) {
+
     this->device = device;
     driver = device->getVideoDriver();
     this->keyEvent = keyEvent;
@@ -19,14 +21,16 @@ Campaign::Campaign():playable(false) {
 
 void Campaign::play() {
     if (not playable) return;
+    s32 score = 0;
     for (int mapNumber = 0; mapNumber < mapCycle.size(); ++mapNumber) {
         bool restart = true;
         while (restart){
-            Game game(device, keyEvent, mapCycle[mapNumber]);
+            Game game(device, keyEvent, mapCycle[mapNumber], pseudo, score);
             switch (game.gameLoop()) {
                 // next level
                 case 0:
                     restart = false;
+                    score = game.getScore();
                     break;
                 // exit game
                 case -1:

@@ -10,6 +10,8 @@
 
 #include "Entities.h"
 #include "../Utils/KeyboardEvent.h"
+#include "../Utils/Chrono.h"
+
 
 class Player : public Entities, public ICollisionCallback {
 private:
@@ -22,13 +24,15 @@ private:
     vector3df startPos;
 
 	s32 score;
+    IGUIStaticText* displayScore;
 
     u16 speed;
+
 
 public:
 
 	Player(ISceneManager *sceneManager, const stringc& name, int health);
-	Player(ISceneManager *sceneManager, const stringc& name, int health, vector3df startpos);
+	Player(ISceneManager *sceneManager,IGUIEnvironment* gui, const stringc& name, int health, vector3df startpos, s32 score=0);
     Player(ISceneManager *sceneManager);
     ~Player();
 
@@ -43,9 +47,14 @@ public:
 
     vector3df getPosition();
 
+	void addKill();
+	void calculFinal(u32 chrono);
+    void updateScore();
+
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
     bool checkFinish();
 
+    s32 getScore() const;
 };
 
 

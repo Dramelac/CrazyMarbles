@@ -6,8 +6,8 @@
 #include "../../General/Game.h"
 #include "../../General/Campaign.h"
 
-MenuPlayMode::MenuPlayMode(IrrlichtDevice *device, KeyboardEvent *keyEvent, IGUIImage* background) :
-        GUIBase(device, keyEvent), background(background) {
+MenuPlayMode::MenuPlayMode(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc pseudo, IGUIImage* background) :
+        GUIBase(device, keyEvent), background(background), pseudo(pseudo) {
 
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Go back");
     campaignButton = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"Campaign");
@@ -30,7 +30,7 @@ void MenuPlayMode::loop() {
 
             if (campaignButton->isPressed()){
                 visibilityButtons(false);
-                Campaign campaign(device, keyEvent);
+                Campaign campaign(device, keyEvent, pseudo);
                 campaign.play();
                 return;
             } else if (freeModeButton->isPressed()){
@@ -43,7 +43,7 @@ void MenuPlayMode::loop() {
                     return;
                 }
 
-                Game game(device, keyEvent,map);
+                Game game(device, keyEvent, map, pseudo);
                 game.gameLoop();
                 return;
             }

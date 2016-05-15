@@ -8,11 +8,13 @@
 
 #include <iostream>
 
+#include <irrlicht.h>
+
+#include "../Utils/Chrono.h"
+
 #include "../Plateau/Board.h"
 #include "../Play/Player.h"
 #include "../Utils/KeyboardEvent.h"
-
-#include <irrlicht.h>
 
 using namespace irr;
 using namespace scene;
@@ -22,8 +24,8 @@ using namespace io;
 
 class Game {
 private:
-	Board* board;
 	IrrlichtDevice* device;
+	IGUIEnvironment* gui;
 	IVideoDriver* driver;
 	ISceneManager *sceneManager;
 
@@ -31,16 +33,19 @@ private:
     bool play;
 
     Player *player;
+	Board* board;
+	Chrono *chrono;
 
     void setupSkyBox(bool day);
 	void keyboardChecker(f32 deltaTime);
 public:
 	Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
 		 const unsigned int x, const unsigned int y, bool day = true);
-    Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap);
+    Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stringc pseudo, s32 score=0);
     ~Game();
 
 	s16 gameLoop();
+	s32 getScore();
 };
 
 

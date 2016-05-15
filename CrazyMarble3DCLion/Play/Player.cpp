@@ -35,8 +35,8 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 }
 
 // Start new game
-Player::Player(ISceneManager *sceneManager, const stringc& name, int health, vector3df startpos)
-        : Entities(name, health), score(0), finishTime(0) {
+Player::Player(ISceneManager *sceneManager,IGUIEnvironment* gui, const stringc& name, int health, vector3df startpos, s32 score)
+        : Entities(name, health), score(score), finishTime(0) {
     speed = 20;
     inertie = vector3df(0,0,0);
 
@@ -52,7 +52,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health, vec
                                                   vector3df(800.0f, 700.0f, 800.0f),
                                                   sceneNode->getPosition());
 
-
+    displayScore = gui->addStaticText(L"Score : 0",rect<s32>(20,20,120,120));
 
 
 }
@@ -79,6 +79,7 @@ Player::Player(ISceneManager *sceneManager) : Entities(), finishTime(0) {
 Player::~Player() {
     sceneNode->remove();
     fixeCamera->remove();
+    displayScore->remove();
 }
 
 // update camera target (fixe player)
@@ -193,9 +194,36 @@ void Player::respawn() {
     finishTime = 0;
     health = 100;
     // To change if need
-    score = 0;
+    score -= 10;
+    updateScore();
+}
+
+void Player::addKill() {
+    score +=50;
+    updateScore();
+}
+
+void Player::calculFinal(u32 chrono) {
+    u32 bonusTime = chrono * 20;
+    u32 bonusLIfe = (u32)this->health*4;
+
+    u32 totalBonus = bonusLIfe+bonusTime;
+    score += totalBonus;
+    stringw text = L"Score : ";
+    text += score;
+
+    displayScore->setText(text.c_str());
+    //std::cout<<chrono<<" "<<this->health<<" "<<score<<std::endl;
+
+}
+
+void Player::updateScore() {
+    stringw text = L"Score : ";
+    text += score;
+    displayScore->setText(text.c_str());
 }
 
 
-
-
+s32 Player::getScore() const {
+    return score;
+}
