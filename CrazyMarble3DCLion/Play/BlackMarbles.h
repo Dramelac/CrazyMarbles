@@ -10,9 +10,6 @@
 #include "Player.h"
 #include <IRandomizer.h>
 
-using namespace irr;
-using namespace scene;
-using namespace core;
 
 class BlackMarbles : public Entities, public ICollisionCallback {
 

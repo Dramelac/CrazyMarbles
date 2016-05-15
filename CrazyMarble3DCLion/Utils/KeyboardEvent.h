@@ -8,7 +8,6 @@
 #include <irrlicht.h>
 
 using namespace irr;
-using namespace gui;
 
 class KeyboardEvent : public IEventReceiver{
 

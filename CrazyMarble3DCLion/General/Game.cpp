@@ -95,7 +95,7 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
 }
 
 // Game loop
-void Game::gameLoop() {
+s16 Game::gameLoop() {
 
     int lastFPS = -1;
 
@@ -153,6 +153,8 @@ void Game::gameLoop() {
         }
 	}
     chrono->stop();
+
+    return 0;
 
 }
 

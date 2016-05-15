@@ -19,7 +19,7 @@ bool KeyboardEvent::OnEvent(const SEvent &event)
         keyPressedDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
     }
     else if (event.EventType == EET_GUI_EVENT){
-        if (event.GUIEvent.EventType == EGET_BUTTON_CLICKED){
+        if (event.GUIEvent.EventType == gui::EGET_BUTTON_CLICKED){
             switch (event.GUIEvent.Caller->getID()){
                 case 101:
                     //std::cout << "closing " << std::endl;

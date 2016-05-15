@@ -2,6 +2,7 @@
 // Created by mathieu on 05/03/16.
 //
 
+#include <iostream>
 #include "Player.h"
 #include "../Utils/TextureLoader.h"
 
@@ -130,7 +131,7 @@ void Player::processMoving(KeyboardEvent *keyevent, f32 deltaTime) {
 // testing fov feature
 void Player::updateFOV(f32 x) {
     f32 temp = fixeCamera->getFOV();
-    std::cout << "fov old : " << temp;
+    //std::cout << "fov old : " << temp;
     fixeCamera->setFOV(temp + x);
 }
 

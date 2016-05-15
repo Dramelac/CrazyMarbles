@@ -5,11 +5,7 @@
 #include "Menu.h"
 
 Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
-        : keyEvent(keyEvent){
-    
-    device = inDevice;
-    gui = device->getGUIEnvironment();
-    driver = device->getVideoDriver();
+        : GUIBase(inDevice, keyEvent) {
 
     this->device->setWindowCaption(L"Crazy Marble  -  [MENU]");
     device->getCursorControl()->setVisible(true);
@@ -65,9 +61,10 @@ void Menu::loop() {
                 device->closeDevice();
             } else if (play->isPressed()){
                 visibilityButons(false);
-                //Game game(device, keyEvent, 50, 50);
-                Game game(device, keyEvent, "data/Maps/map.irr");
-                game.gameLoop();
+                background->setVisible(true);
+                MenuPlayMode menuIntermediate(device, keyEvent, background);
+                menuIntermediate.loop();
+                visibilityButons(true);
                 device->getCursorControl()->setVisible(true);
                 visibilityButons(true);
             } else if (scoreBoard->isPressed()){
@@ -75,9 +72,9 @@ void Menu::loop() {
 
             } else if (levelEditor->isPressed()){
                 visibilityButons(false);
-                //LevelEditor levelEditor(device, keyEvent);
-                LevelEditor levelEditor(device, keyEvent, "data/Maps/map.irr");
-                levelEditor.gameLoop();
+                background->setVisible(true);
+                MenuLevelEditor menuIntermediate(device, keyEvent, background);
+                menuIntermediate.loop();
                 visibilityButons(true);
             } else if (credit->isPressed()){
 
