@@ -24,7 +24,6 @@ using namespace io;
 
 class Game {
 private:
-	Board* board;
 	IrrlichtDevice* device;
 	IGUIEnvironment* gui;
 	IVideoDriver* driver;
@@ -34,6 +33,7 @@ private:
     bool play;
 
     Player *player;
+	Board* board;
 	Chrono *chrono;
 
     void setupSkyBox(bool day);

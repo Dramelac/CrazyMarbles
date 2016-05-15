@@ -100,14 +100,12 @@ s16 Game::gameLoop() {
     int lastFPS = -1;
 
     u32 then = device->getTimer()->getTime();
-    chrono->start();
 
 	while (device->run()){
 
         if (device->isWindowActive()){                                      // check if windows is active
 
             driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
-            chrono->start();
             player->updateCamera();
 
             sceneManager->drawAll();
@@ -115,7 +113,11 @@ s16 Game::gameLoop() {
             gui->drawAll();
             driver->endScene();
 
-            chrono->getTime();
+            chrono->start();
+
+            if (chrono->getTime() == 0){
+                //TODO Times up
+            }
             // display frames per second in window title
             int fps = driver->getFPS();
             if (lastFPS != fps)
