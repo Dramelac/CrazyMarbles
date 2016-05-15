@@ -6,16 +6,19 @@
 #define CRAZYMARBLE3DCLION_SIDEMAPLIST_H
 
 #include <irrlicht.h>
+#include "../../General/Campaign.h"
 
 using namespace irr;
 using namespace gui;
 using namespace core;
 
 class SideMapList {
-
+private:
+    Campaign campaign;
 
 public:
     SideMapList(IGUIEnvironment* gui);
+    void checkEvent();
 };
 
 

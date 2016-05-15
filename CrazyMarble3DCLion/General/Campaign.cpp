@@ -3,7 +3,7 @@
 //
 
 #include "Campaign.h"
-Campaign::Campaign(IrrlichtDevice* device, KeyboardEvent* keyEvent) {
+Campaign::Campaign(IrrlichtDevice* device, KeyboardEvent* keyEvent): playable(true) {
     this->device = device;
     driver = device->getVideoDriver();
     this->keyEvent = keyEvent;
@@ -12,8 +12,13 @@ Campaign::Campaign(IrrlichtDevice* device, KeyboardEvent* keyEvent) {
 }
 
 
-void Campaign::play() {
+Campaign::Campaign():playable(false) {
+    load();
+}
 
+
+void Campaign::play() {
+    if (not playable) return;
     for (int mapNumber = 0; mapNumber < mapCycle.size(); ++mapNumber) {
         bool restart = true;
         while (restart){

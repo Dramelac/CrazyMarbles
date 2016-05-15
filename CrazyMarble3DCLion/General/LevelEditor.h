@@ -10,6 +10,7 @@
 #include "../Play/Player.h"
 #include "Campaign.h"
 #include "../GUI/GUIBase.h"
+#include "../GUI/LevelEditorMenu/SideMapList.h"
 
 using namespace scene;
 using namespace core;
@@ -22,7 +23,7 @@ private:
     Board* board;
     Player* player;
 
-    Campaign* campaign;
+    SideMapList campaignMapList;
 
     ISceneNode* skyBox;
     s32 skyId;

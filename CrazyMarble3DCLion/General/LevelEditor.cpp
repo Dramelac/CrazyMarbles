@@ -41,7 +41,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
     board->getCell(cursor)->setup(sceneManager, cursor);
     name = "";
 
-    campaign = new Campaign(this->device, this->keyEvent);
+    campaignMapList = SideMapList(device->getGUIEnvironment());
 
 }
 
@@ -71,7 +71,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path p
     //fixeCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
     updateCamera();
 
-    campaign = new Campaign(this->device, this->keyEvent);
+    campaignMapList = SideMapList(device->getGUIEnvironment());
 
     name = pathMap.subString((u32)pathMap.findLastChar("/") + 1, pathMap.size());
 
@@ -118,6 +118,8 @@ void LevelEditor::gameLoop() {
 void LevelEditor::keyboardChecker() {
 
     bool update = false;
+
+    campaignMapList.checkEvent();
 
     if (cellStartBox->isPressed() ||keyEvent->IsKeyDown(KEY_SPACE, true)){
         board->setupStartPoint(cursor);

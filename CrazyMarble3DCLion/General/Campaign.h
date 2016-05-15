@@ -25,12 +25,14 @@ private:
     IrrlichtDevice* device;
     IVideoDriver* driver;
     KeyboardEvent* keyEvent;
+    bool playable;
 
     array<path> mapCycle;
     void load();
 
 public:
     Campaign(IrrlichtDevice* device, KeyboardEvent* keyEvent);
+    Campaign();
 
     void play();
 
