@@ -48,7 +48,7 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
 }
 
 // Play select Map
-Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
+Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stringc pseudo, s32 score) :
         device(inDevice), keyevent(keyevent), play(true) {
 
     this->device->setWindowCaption(L"Crazy Marble");                    // first windows name
@@ -63,8 +63,7 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
 
     this->board  = new Board(sceneManager);
 
-    this->player = new Player(sceneManager, driver, device->getGUIEnvironment(), "Test", 100, board->getStartPoint());
-
+    this->player = new Player(sceneManager, driver, device->getGUIEnvironment(), pseudo, 100, board->getStartPoint(), score);
 
     //sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
 
@@ -91,6 +90,7 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
     //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
 
     chrono = new Chrono(device, 60);
+    player->updateScore();
 
 
 }
@@ -101,14 +101,12 @@ s16 Game::gameLoop() {
     int lastFPS = -1;
 
     u32 then = device->getTimer()->getTime();
-    chrono->start();
 
 	while (device->run()){
 
         if (device->isWindowActive()){                                      // check if windows is active
 
             driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
-            chrono->start();
             player->updateCamera();
 
             sceneManager->drawAll();
@@ -116,7 +114,11 @@ s16 Game::gameLoop() {
             gui->drawAll();
             driver->endScene();
 
-            chrono->getTime();
+            chrono->start();
+
+            if (chrono->getTime() == 0){
+                //TODO Times up
+            }
             // display frames per second in window title
             int fps = driver->getFPS();
             if (lastFPS != fps)
@@ -210,6 +212,10 @@ void Game::setupSkyBox(bool day) {
                 driver->getTexture("data/skybox/night/left.png"),
                 driver->getTexture("data/skybox/night/right.png"));
     }
+}
+
+s32 Game::getScore() {
+    return player->getScore();
 }
 
 

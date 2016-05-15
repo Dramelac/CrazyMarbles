@@ -2,7 +2,6 @@
 // Created by mathieu on 05/03/16.
 //
 
-#include <iostream>
 #include "Player.h"
 #include "../Utils/TextureLoader.h"
 
@@ -36,8 +35,8 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 }
 
 // Start new game
-Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment *gui, const stringc& name, int health, vector3df startpos)
-        : Entities(name, health), score(0), finishTime(0), isPlayable(true) {
+Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment *gui, const stringc& name, int health, vector3df startpos, s32 score)
+        : Entities(name, health), score(score), finishTime(0), isPlayable(true) {
     speed = 20;
     inertie = vector3df(0,0,0);
 
@@ -228,12 +227,14 @@ void Player::addKill() {
 void Player::calculFinal(u32 chrono) {
     u32 bonusTime = chrono * 20;
     u32 bonusLIfe = (u32)this->health*4;
+
     u32 totalBonus = bonusLIfe+bonusTime;
     score += totalBonus;
     stringw text = L"Score : ";
     text += score;
+
     displayScore->setText(text.c_str());
-    std::cout<<chrono<<" "<<this->health<<" "<<score<<std::endl;
+    //std::cout<<chrono<<" "<<this->health<<" "<<score<<std::endl;
 
 }
 
@@ -260,16 +261,6 @@ void Player::takeDamage(u64 dmg) {
     updateGui();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+s32 Player::getScore() const {
+    return score;
+}
