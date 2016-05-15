@@ -18,6 +18,7 @@ private:
     IGUIButton* myButton;
 public:
     MapButton(const path &map, u16 nPos, IGUIEnvironment* gui);
+    MapButton(const path &map, IGUIEnvironment* gui, vector2d<s32> pos, dimension2d<s32> size);
     virtual ~MapButton();
 
     bool checkPressed();
