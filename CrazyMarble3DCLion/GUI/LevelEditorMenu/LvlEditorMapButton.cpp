@@ -38,5 +38,10 @@ void LvlEditorMapButton::setupPos(u16 nPos) {
                                 dimension2d<s32>(100,50)));
 }
 
+void LvlEditorMapButton::setMapName(path map) {
+    mapButton->setMapName(map);
+}
+
+
 
 

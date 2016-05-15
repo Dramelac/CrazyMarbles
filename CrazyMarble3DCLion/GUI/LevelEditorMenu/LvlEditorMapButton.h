@@ -25,6 +25,7 @@ public:
     bool checkChange();
 
     void setupPos(u16 nPos);
+    void setMapName(path map);
 };
 
 

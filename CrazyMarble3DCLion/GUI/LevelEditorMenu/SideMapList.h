@@ -24,7 +24,9 @@ private:
     array<LvlEditorMapButton*> listButton;
 
     void setupAllPlace();
+    path getSelectMap();
     void addMap();
+    void changeMap(u16 pos);
 
 public:
     SideMapList(IrrlichtDevice* device, KeyboardEvent* keyEvent);

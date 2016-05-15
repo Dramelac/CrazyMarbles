@@ -42,7 +42,7 @@ SideMapList::~SideMapList() {
 void SideMapList::checkEvent() {
     for (u16 i = 0; i < listButton.size(); ++i) {
         if (listButton[i]->checkChange()){
-            // TODO change map
+            changeMap(i);
         }
         else if (listButton[i]->checkRemove()){
             campaign.removeMapAt(i);
@@ -70,14 +70,28 @@ void SideMapList::setupAllPlace() {
 }
 
 void SideMapList::addMap() {
-    MapSelector selector(device, keyEvent);
-    path map = selector.mapSelector();
+    path map = getSelectMap();
     if (map == "") return;
 
     campaign.setMapCycle(map);
     listButton.push_back(new LvlEditorMapButton(gui, driver, map, 0));
     setupAllPlace();
 }
+
+path SideMapList::getSelectMap() {
+    MapSelector selector(device, keyEvent);
+    return selector.mapSelector();
+}
+
+void SideMapList::changeMap(u16 pos) {
+    path map = getSelectMap();
+    if (map == "") return;
+
+    campaign.setMapCycle(pos, map);
+    listButton[pos]->setMapName(map);
+}
+
+
 
 
 

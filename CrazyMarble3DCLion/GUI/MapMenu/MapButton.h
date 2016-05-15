@@ -24,6 +24,7 @@ public:
     bool checkPressed();
     const path & getMap() const;
     void setPos(rect<s32> pos);
+    void setMapName(path map);
 };
 
 

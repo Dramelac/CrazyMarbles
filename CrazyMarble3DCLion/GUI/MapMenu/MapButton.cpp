@@ -44,3 +44,11 @@ MapButton::~MapButton() {
 void MapButton::setPos(rect<s32> pos) {
     myButton->setRelativePosition(pos);
 }
+
+void MapButton::setMapName(path map) {
+    // get filename
+    stringw fileName = map.subString((u32)map.findLastChar("/") + 1, map.size());
+    fileName = fileName.subString(0, fileName.size()-4);
+    myButton->setText(fileName.c_str());
+}
+
