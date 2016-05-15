@@ -4,6 +4,7 @@
 
 #include "MenuPlayMode.h"
 #include "../../General/Game.h"
+#include "../../General/Campaign.h"
 
 MenuPlayMode::MenuPlayMode(IrrlichtDevice *device, KeyboardEvent *keyEvent, IGUIImage* background) :
         GUIBase(device, keyEvent), background(background) {
@@ -29,7 +30,8 @@ void MenuPlayMode::loop() {
 
             if (campaignButton->isPressed()){
                 visibilityButtons(false);
-                // TODO need to merge campaign branch
+                Campaign campaign(device, keyEvent);
+                campaign.play();
                 return;
             } else if (freeModeButton->isPressed()){
                 visibilityButtons(false);
