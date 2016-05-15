@@ -96,7 +96,14 @@ bool BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animat
 }
 
 void BlackMarbles::moveBLackMarbles(IRandomizer* rand) {
-    if (inertie == vector3df(0,0,0)){
+    vector3df playerPos = player->getPosition();
+    s16 distanceAgro = 250;
+
+    if (playerPos.getDistanceFrom(origin) < distanceAgro ||
+            playerPos.getDistanceFrom(sceneNode->getPosition()) < distanceAgro){
+        objectif = playerPos;
+    }
+    else if (inertie == vector3df(0,0,0)){
         f32 R = 100;
         // 0 - 1 to -1 to 1
         f32 xprime = R * (rand->frand()*2 - 1);
