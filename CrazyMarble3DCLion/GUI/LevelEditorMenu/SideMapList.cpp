@@ -14,16 +14,32 @@ SideMapList::SideMapList(IGUIEnvironment* gui, IVideoDriver* driver) {
 
 }
 
-void SideMapList::checkEvent() {
-    for (int i = 0; i < listButton.size(); ++i) {
-        listButton[i]->checkEvent();
-    }
-}
-
 SideMapList::~SideMapList() {
+    campaign.save();
     title->remove();
     for (int i = 0; i < listButton.size(); ++i) {
         delete listButton[i];
     }
     listButton.clear();
 }
+
+void SideMapList::checkEvent() {
+    for (u16 i = 0; i < listButton.size(); ++i) {
+        if (listButton[i]->checkChange()){
+            // TODO change map
+        }
+        else if (listButton[i]->checkRemove()){
+            campaign.removeMapAt(i);
+            delete listButton[i];
+            listButton.erase(i);
+            setupAllPlace();
+        }
+    }
+}
+
+void SideMapList::setupAllPlace() {
+    for (u16 i = 0; i < listButton.size(); ++i) {
+        listButton[i]->setupPos(i);
+    }
+}
+

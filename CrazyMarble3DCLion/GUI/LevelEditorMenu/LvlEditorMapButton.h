@@ -14,14 +14,17 @@ using namespace io;
 using namespace video;
 
 class LvlEditorMapButton {
+private:
     IGUIButton* removeButton;
     MapButton* mapButton;
-    u16 pos;
 public:
     LvlEditorMapButton(IGUIEnvironment* gui, IVideoDriver* driver, const path &map, u16 nPos);
     virtual ~LvlEditorMapButton();
 
-    void checkEvent();
+    bool checkRemove();
+    bool checkChange();
+
+    void setupPos(u16 nPos);
 };
 
 

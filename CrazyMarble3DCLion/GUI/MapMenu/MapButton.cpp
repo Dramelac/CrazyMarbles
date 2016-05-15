@@ -40,3 +40,7 @@ const path &MapButton::getMap() const {
 MapButton::~MapButton() {
     myButton->remove();
 }
+
+void MapButton::setPos(rect<s32> pos) {
+    myButton->setRelativePosition(pos);
+}

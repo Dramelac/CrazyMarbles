@@ -20,6 +20,8 @@ private:
 
     array<LvlEditorMapButton*> listButton;
 
+    void setupAllPlace();
+
 public:
     SideMapList(IGUIEnvironment* gui, IVideoDriver* driver);
     virtual ~SideMapList();
