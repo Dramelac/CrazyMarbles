@@ -13,6 +13,7 @@
 #include "../Utils/KeyboardEvent.h"
 
 using namespace gui;
+using namespace video;
 
 class Player : public Entities, public ICollisionCallback {
 private:
@@ -32,7 +33,7 @@ private:
 public:
 
 	Player(ISceneManager *sceneManager, const stringc& name, int health);
-	Player(ISceneManager *sceneManager,IrrlichtDevice *driver,IrrlichtDevice *gui, const stringc& name, int health, vector3df startpos);
+	Player(ISceneManager *sceneManager,IVideoDriver *driver,IGUIEnvironment *gui, const stringc& name, int health, vector3df startpos);
     Player(ISceneManager *sceneManager);
     ~Player();
 
