@@ -30,6 +30,7 @@ file(
         *.h
         General/*
         GUI/MapMenu/*
+        GUI/IntermediateMenu/*
         GUI/*
         Utils/*
         Plateau/*
