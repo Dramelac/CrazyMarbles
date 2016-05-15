@@ -24,6 +24,7 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent)
     font = gui->getFont("data/GUI/Menu/fontlucida.png");
     editBox->setOverrideFont(font);
 
+
 }
 
 

@@ -23,7 +23,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
     //sceneNode->setMaterialTexture(0, TextureLoader::sphere);
 
 
-    // Camera
+            // Camera
 
     fixeCamera = sceneManager->addCameraSceneNode(sceneNode,
                                                   vector3df(800.0f, 700.0f, 800.0f),
@@ -195,6 +195,17 @@ void Player::respawn() {
     // To change if need
     score = 0;
 }
+
+Player::Player(IrrlichtDevice *device) {
+    device->getVideoDriver();
+    vie = gui->addImage(rect<s32>(630,380,1320,580),0,104);
+    vie->setImage(driver->getTexture("data/GUI/Menu/BGCM2.png"));
+    vie->setUseAlphaChannel(false);
+
+
+}
+
+
 
 
 

@@ -8,8 +8,11 @@
 #include <string>
 #include <irrlicht.h>
 
+
 #include "Entities.h"
 #include "../Utils/KeyboardEvent.h"
+
+using namespace gui;
 
 class Player : public Entities, public ICollisionCallback {
 private:
@@ -18,6 +21,7 @@ private:
 
     ISceneNodeAnimatorCollisionResponse* animatorFinishCollisionResponse;
 
+	IGUIImage* vie;
     u32 finishTime;
     vector3df startPos;
 
@@ -31,6 +35,7 @@ public:
 	Player(ISceneManager *sceneManager, const stringc& name, int health, vector3df startpos);
     Player(ISceneManager *sceneManager);
     ~Player();
+	Player(IrrlichtDevice *device);
 
     void addFinishLineCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
 	//virtual bool isFall();
