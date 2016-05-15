@@ -17,9 +17,10 @@ private:
     IGUIButton* campaignButton;
     IGUIButton* freeModeButton;
     IGUIButton* exit;
+    stringc pseudo;
 
 public:
-    MenuPlayMode(IrrlichtDevice *device, KeyboardEvent *keyEvent, IGUIImage* background);
+    MenuPlayMode(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc pseudo, IGUIImage* background);
     virtual ~MenuPlayMode();
 
     void loop();

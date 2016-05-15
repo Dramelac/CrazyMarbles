@@ -36,8 +36,8 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 }
 
 // Start new game
-Player::Player(ISceneManager *sceneManager,IGUIEnvironment* gui, const stringc& name, int health, vector3df startpos)
-        : Entities(name, health), score(0), finishTime(0) {
+Player::Player(ISceneManager *sceneManager,IGUIEnvironment* gui, const stringc& name, int health, vector3df startpos, s32 score)
+        : Entities(name, health), score(score), finishTime(0) {
     speed = 20;
     inertie = vector3df(0,0,0);
 
@@ -223,10 +223,6 @@ void Player::updateScore() {
 }
 
 
-
-
-
-
-
-
-
+s32 Player::getScore() const {
+    return score;
+}

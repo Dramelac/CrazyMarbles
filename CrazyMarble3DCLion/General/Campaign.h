@@ -26,13 +26,14 @@ private:
     IVideoDriver* driver;
     KeyboardEvent* keyEvent;
     bool playable;
+    stringc pseudo;
 
     array<path> mapCycle;
     void load();
     bool checkValidity(path map);
 
 public:
-    Campaign(IrrlichtDevice* device, KeyboardEvent* keyEvent);
+    Campaign(IrrlichtDevice* device, KeyboardEvent* keyEvent, stringc pseudo);
     Campaign();
 
     void play();

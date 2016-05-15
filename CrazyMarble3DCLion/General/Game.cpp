@@ -48,7 +48,7 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
 }
 
 // Play select Map
-Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
+Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stringc pseudo, s32 score) :
         device(inDevice), keyevent(keyevent), play(true) {
 
     this->device->setWindowCaption(L"Crazy Marble");                    // first windows name
@@ -63,7 +63,7 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
 
     this->board  = new Board(sceneManager);
 
-    this->player = new Player(sceneManager,gui, "Test", 100, board->getStartPoint());
+    this->player = new Player(sceneManager,gui, pseudo, 100, board->getStartPoint(), score);
 
     //sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
 
@@ -90,6 +90,7 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap) :
     //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
 
     chrono = new Chrono(device, 60);
+    player->updateScore();
 
 
 }
@@ -211,6 +212,10 @@ void Game::setupSkyBox(bool day) {
                 driver->getTexture("data/skybox/night/left.png"),
                 driver->getTexture("data/skybox/night/right.png"));
     }
+}
+
+s32 Game::getScore() {
+    return player->getScore();
 }
 
 
