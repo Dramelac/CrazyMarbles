@@ -32,10 +32,10 @@ private:
 public:
 
 	Player(ISceneManager *sceneManager, const stringc& name, int health);
-	Player(ISceneManager *sceneManager, const stringc& name, int health, vector3df startpos);
+	Player(ISceneManager *sceneManager,IrrlichtDevice *driver,IrrlichtDevice *gui, const stringc& name, int health, vector3df startpos);
     Player(ISceneManager *sceneManager);
     ~Player();
-	Player(IrrlichtDevice *device);
+
 
     void addFinishLineCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
 	//virtual bool isFall();
