@@ -5,9 +5,23 @@
 #ifndef CRAZYMARBLE3DCLION_LVLEDITORMAPBUTTON_H
 #define CRAZYMARBLE3DCLION_LVLEDITORMAPBUTTON_H
 
+#include <irrlicht.h>
+#include "../MapMenu/MapButton.h"
+
+using namespace irr;
+using namespace gui;
+using namespace io;
+using namespace video;
 
 class LvlEditorMapButton {
+    IGUIButton* removeButton;
+    MapButton* mapButton;
+    u16 pos;
+public:
+    LvlEditorMapButton(IGUIEnvironment* gui, IVideoDriver* driver, const path &map, u16 nPos);
+    virtual ~LvlEditorMapButton();
 
+    void checkEvent();
 };
 
 
