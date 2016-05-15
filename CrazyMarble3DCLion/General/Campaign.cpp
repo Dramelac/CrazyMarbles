@@ -32,6 +32,7 @@ void Campaign::play() {
                 case -1:
                     return;
                 // restart game
+                case 1:
                 default:
                     break;
             }
