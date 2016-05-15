@@ -46,8 +46,8 @@ private:
     IGUIButton* cellStartBox;
     IGUIButton* skyBoxe;
 
-
     IGUIButton* validate;
+    path name;
 
     bool play;
 
@@ -56,6 +56,7 @@ private:
     vector3di currentRotation;
 
     void setupGUI();
+    void setupName();
 
 public:
 
@@ -70,7 +71,7 @@ public:
     void applySetup();
     void setupSkyBox(s32 templateId);
 
-    void save(path name="map.irr");
+    void save();
 
     ~LevelEditor();
 

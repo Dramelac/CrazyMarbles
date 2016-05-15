@@ -26,7 +26,7 @@ MapSelector::MapSelector(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
 
     if (count >= 25) {
         // too many file
-        // ascenseur to add
+        // TODO add ascenseur ^ / v
     }
 
 }

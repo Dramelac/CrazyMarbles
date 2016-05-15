@@ -39,6 +39,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
 
     // TEMP
     board->getCell(cursor)->setup(sceneManager, cursor);
+    name = "";
 
 }
 
@@ -67,6 +68,9 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path p
 
     //fixeCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
     updateCamera();
+
+    // get file name
+    name = pathMap.subString((u32)pathMap.findLastChar("/") + 1, pathMap.size());
 
 }
 
@@ -285,7 +289,10 @@ void LevelEditor::setupSkyBox(s32 templateId) {
 }
 
 
-void LevelEditor::save(path name) {
+void LevelEditor::save() {
+    while (name == ""){
+        setupName();
+    }
     //player->removePlayerNode();
     //player->removeCameraNode();
     delete player;
@@ -297,6 +304,15 @@ void LevelEditor::save(path name) {
     std::string result = "data/Maps/";
     result += name.c_str();
     rename(name.c_str(), result.c_str());
+}
+
+
+void LevelEditor::setupName() {
+    // TODO select name
+    name = "temp";
+
+    // add extension
+    name += ".irr";
 }
 
 
