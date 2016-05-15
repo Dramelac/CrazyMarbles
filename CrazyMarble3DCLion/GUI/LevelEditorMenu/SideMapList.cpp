@@ -12,11 +12,13 @@ SideMapList::SideMapList(IGUIEnvironment* gui, IVideoDriver* driver) {
         listButton.push_back(new LvlEditorMapButton(gui, driver, pathList[i], i));
     }
 
+    saving = gui->addButton(rect<s32>(vector2d<s32>(1500,15), dimension2d<s32>(100,50)),0,-1,L"Saving campaign");
+
 }
 
 SideMapList::~SideMapList() {
-    campaign.save();
     title->remove();
+    saving->remove();
     for (int i = 0; i < listButton.size(); ++i) {
         delete listButton[i];
     }
@@ -34,6 +36,10 @@ void SideMapList::checkEvent() {
             listButton.erase(i);
             setupAllPlace();
         }
+    }
+
+    if (saving->isPressed()){
+        campaign.save();
     }
 }
 

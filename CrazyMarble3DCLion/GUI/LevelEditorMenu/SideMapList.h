@@ -17,6 +17,8 @@ class SideMapList {
 private:
     Campaign campaign;
     IGUIImage* title;
+    IGUIButton* addMap;
+    IGUIButton* saving;
 
     array<LvlEditorMapButton*> listButton;
 
