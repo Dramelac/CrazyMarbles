@@ -98,7 +98,7 @@ bool BlackMarbles::onCollision(const ISceneNodeAnimatorCollisionResponse &animat
 
 void BlackMarbles::moveBLackMarbles(IRandomizer* rand) {
     vector3df playerPos = player->getPosition();
-    s16 distanceAgro = 250;
+    s16 distanceAgro = 550;
 
     if (playerPos.getDistanceFrom(origin) < distanceAgro ||
             playerPos.getDistanceFrom(sceneNode->getPosition()) < distanceAgro){
