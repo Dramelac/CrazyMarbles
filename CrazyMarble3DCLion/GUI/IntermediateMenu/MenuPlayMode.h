@@ -6,7 +6,24 @@
 #define CRAZYMARBLE3DCLION_MENUPLAYMODE_H
 
 
-class MenuPlayMode {
+#include "../GUIBase.h"
+#include "../MapMenu/MapSelector.h"
+
+using namespace core;
+
+class MenuPlayMode : public GUIBase {
+private:
+    IGUIImage* background;
+    IGUIButton* campaignButton;
+    IGUIButton* freeModeButton;
+    IGUIButton* exit;
+
+public:
+    MenuPlayMode(IrrlichtDevice *device, KeyboardEvent *keyEvent, IGUIImage* background);
+    virtual ~MenuLevelEditor();
+
+    void loop();
+    void visibilityButtons(bool status);
 
 };
 
