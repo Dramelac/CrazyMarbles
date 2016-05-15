@@ -30,7 +30,7 @@ public:
 	Entities();
 
     bool isAlive();
-    void takeDamage(u64 dmg);
+    virtual void takeDamage(u64 dmg);
 
     ITriangleSelector* getSelector(ISceneManager *sceneManager);
 

@@ -62,10 +62,11 @@ void Menu::loop() {
             } else if (play->isPressed()){
                 visibilityButons(false);
                 background->setVisible(true);
-                MenuPlayMode menuIntermediate(device, keyEvent, background);
+                MenuPlayMode menuIntermediate(device, keyEvent, nickName->getText(), background);
                 menuIntermediate.loop();
                 visibilityButons(true);
                 device->getCursorControl()->setVisible(true);
+                visibilityButons(true);
             } else if (scoreBoard->isPressed()){
                 
 
