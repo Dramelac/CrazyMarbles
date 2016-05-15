@@ -3,7 +3,7 @@
 //
 
 #include "MenuLevelEditor.h"
-#include "MapMenu/MapSelector.h"
+#include "../MapMenu/MapSelector.h"
 
 MenuLevelEditor::MenuLevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, IGUIImage* background) :
         GUIBase(device, keyEvent), background(background) {

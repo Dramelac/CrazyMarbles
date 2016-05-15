@@ -5,8 +5,8 @@
 #ifndef CRAZYMARBLE3DCLION_MENULEVELEDITOR_H
 #define CRAZYMARBLE3DCLION_MENULEVELEDITOR_H
 
-#include "../General/LevelEditor.h"
-#include "GUIBase.h"
+#include "../../General/LevelEditor.h"
+#include "../GUIBase.h"
 
 class MenuLevelEditor : public GUIBase{
 private:

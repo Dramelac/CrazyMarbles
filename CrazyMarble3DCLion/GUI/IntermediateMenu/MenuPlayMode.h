@@ -1,0 +1,14 @@
+//
+// Created by mathieu on 15/05/16.
+//
+
+#ifndef CRAZYMARBLE3DCLION_MENUPLAYMODE_H
+#define CRAZYMARBLE3DCLION_MENUPLAYMODE_H
+
+
+class MenuPlayMode {
+
+};
+
+
+#endif //CRAZYMARBLE3DCLION_MENUPLAYMODE_H
