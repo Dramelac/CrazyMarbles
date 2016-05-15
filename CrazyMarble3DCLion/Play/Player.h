@@ -11,10 +11,6 @@
 #include "Entities.h"
 #include "../Utils/KeyboardEvent.h"
 
-using namespace irr;
-using namespace scene;
-using namespace core;
-
 class Player : public Entities, public ICollisionCallback {
 private:
 

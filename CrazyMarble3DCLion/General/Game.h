@@ -40,7 +40,7 @@ public:
     Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap);
     ~Game();
 
-	void gameLoop();
+	s16 gameLoop();
 };
 
 

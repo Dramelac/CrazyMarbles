@@ -5,31 +5,28 @@
 #ifndef CRAZYMARBLE3DCLION_LEVELEDITOR_H
 #define CRAZYMARBLE3DCLION_LEVELEDITOR_H
 
-#include <irrlicht.h>
-#include <string>
 #include "../Utils/KeyboardEvent.h"
 #include "../Plateau/Board.h"
 #include "../Play/Player.h"
+#include "Campaign.h"
+#include "../GUI/GUIBase.h"
+#include "../GUI/LevelEditorMenu/SideMapList.h"
 
-using namespace irr;
 using namespace scene;
 using namespace core;
-using namespace video;
 using namespace io;
 
-class LevelEditor {
+class LevelEditor : public GUIBase{
 private:
-    IrrlichtDevice* device;
-    IVideoDriver* driver;
     ISceneManager *sceneManager;
 
     Board* board;
     Player* player;
 
+    SideMapList* campaignMapList;
+
     ISceneNode* skyBox;
     s32 skyId;
-
-    IGUIEnvironment* gui;
 
     IGUIButton* goToRight;
     IGUIButton* goToLeft;
@@ -51,10 +48,8 @@ private:
     IGUIButton* cellStartBox;
     IGUIButton* skyBoxe;
 
-
     IGUIButton* validate;
-
-    KeyboardEvent *keyEvent;
+    path name;
 
     bool play;
 
@@ -63,10 +58,11 @@ private:
     vector3di currentRotation;
 
     void setupGUI();
+    void setupName();
 
 public:
 
-    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent);
+    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent);
     LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path pathMap);
 
     void gameLoop();
@@ -77,7 +73,7 @@ public:
     void applySetup();
     void setupSkyBox(s32 templateId);
 
-    void save(path name="map.irr");
+    void save();
 
     ~LevelEditor();
 
