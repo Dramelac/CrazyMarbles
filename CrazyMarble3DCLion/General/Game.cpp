@@ -63,7 +63,7 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stri
 
     this->board  = new Board(sceneManager);
 
-    this->player = new Player(sceneManager,gui, pseudo, 100, board->getStartPoint(), score);
+    this->player = new Player(sceneManager, driver, device->getGUIEnvironment(), pseudo, 100, board->getStartPoint(), score);
 
     //sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
 

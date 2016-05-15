@@ -7,7 +7,7 @@
 
 // Debug player
 Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
-        : Entities(name, health), score(0), finishTime(0) {
+        : Entities(name, health), score(0), finishTime(0), isPlayable(false) {
 
     // MODEL
 
@@ -23,7 +23,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
     //sceneNode->setMaterialTexture(0, TextureLoader::sphere);
 
 
-    // Camera
+            // Camera
 
     fixeCamera = sceneManager->addCameraSceneNode(sceneNode,
                                                   vector3df(800.0f, 700.0f, 800.0f),
@@ -35,8 +35,8 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 }
 
 // Start new game
-Player::Player(ISceneManager *sceneManager,IGUIEnvironment* gui, const stringc& name, int health, vector3df startpos, s32 score)
-        : Entities(name, health), score(score), finishTime(0) {
+Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment *gui, const stringc& name, int health, vector3df startpos, s32 score)
+        : Entities(name, health), score(score), finishTime(0), isPlayable(true) {
     speed = 20;
     inertie = vector3df(0,0,0);
 
@@ -52,13 +52,28 @@ Player::Player(ISceneManager *sceneManager,IGUIEnvironment* gui, const stringc& 
                                                   vector3df(800.0f, 700.0f, 800.0f),
                                                   sceneNode->getPosition());
 
+    vie = gui->addImage(rect<s32>(vector2d<s32>(100,950),
+                                  dimension2d<s32>(200,100)));
+    vie->setImage(driver->getTexture("data/GUI/Menu/BGCM2.png"));
+    vie->setUseAlphaChannel(false);
+    vie->setScaleImage(true);
+
     displayScore = gui->addStaticText(L"Score : 0",rect<s32>(20,20,120,120));
+
+
+    barrevie = gui->addImage(rect<s32>(vector2d<s32>(200,50),dimension2d<s32>(200,50)),0,104);
+    barrevie->setImage(driver->getTexture("data/GUI/Menu/BGCM2.png"));
+    barrevie->setUseAlphaChannel(false);
+    barrevie->setScaleImage(true);
+
+    life = gui->addStaticText(L"100%",rect<s32>(vector2d<s32>(150,150),dimension2d<s32>(50,25)));
+    //life->getActiveFont("data/")
 
 
 }
 
 // player Level Editor
-Player::Player(ISceneManager *sceneManager) : Entities(), finishTime(0) {
+Player::Player(ISceneManager *sceneManager) : Entities(), finishTime(0), isPlayable(false) {
     speed = 20;
 
     sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
@@ -79,7 +94,12 @@ Player::Player(ISceneManager *sceneManager) : Entities(), finishTime(0) {
 Player::~Player() {
     sceneNode->remove();
     fixeCamera->remove();
-    displayScore->remove();
+    if (isPlayable){
+        displayScore->remove();
+        barrevie->remove();
+        vie->remove();
+        life->remove();
+    }
 }
 
 // update camera target (fixe player)
@@ -196,6 +216,7 @@ void Player::respawn() {
     // To change if need
     score -= 10;
     updateScore();
+    updateGui();
 }
 
 void Player::addKill() {
@@ -223,6 +244,22 @@ void Player::updateScore() {
     displayScore->setText(text.c_str());
 }
 
+void Player::updateGui() {
+
+    stringw tempTexte = L"";
+    tempTexte += health ;
+    tempTexte += "%";
+    life->setText(tempTexte.c_str());
+
+    f32 tempSize = 200 * health/100;
+    barrevie->setRelativePosition(rect<s32>(vector2d<s32>(200,50),
+                                            dimension2d<f32>(tempSize,50)));
+}
+
+void Player::takeDamage(u64 dmg) {
+    Entities::takeDamage(dmg);
+    updateGui();
+}
 
 s32 Player::getScore() const {
     return score;
