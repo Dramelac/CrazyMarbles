@@ -3,8 +3,8 @@
 //
 
 #include "Campaign.h"
-Campaign::Campaign(IrrlichtDevice* device, KeyboardEvent* keyEvent, stringc pseudo):
-        playable(true), pseudo(pseudo) {
+Campaign::Campaign(IrrlichtDevice* device, KeyboardEvent* keyEvent, stringc pseudo)
+        : playable(true), pseudo(pseudo) {
 
     this->device = device;
     driver = device->getVideoDriver();
@@ -13,6 +13,17 @@ Campaign::Campaign(IrrlichtDevice* device, KeyboardEvent* keyEvent, stringc pseu
     load();
 }
 
+Campaign::Campaign(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc pseudo, path map) : pseudo(pseudo) {
+    this->device = device;
+    driver = device->getVideoDriver();
+    this->keyEvent = keyEvent;
+
+    if (checkValidity(map)){
+        playable = true;
+        mapCycle.push_back(map);
+    }
+
+}
 
 Campaign::Campaign():playable(false) {
     load();

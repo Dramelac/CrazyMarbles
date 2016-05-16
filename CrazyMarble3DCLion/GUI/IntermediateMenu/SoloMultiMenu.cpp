@@ -38,8 +38,8 @@ void SoloMultiMenu::loop() {
 
             if (solo->isPressed()){
                 visibilityButtons(false);
-                Game game(device, keyEvent, map, pseudo);
-                game.gameLoop();
+                Campaign game(device, keyEvent, pseudo, map);
+                game.play();
                 return;
             } else if (multi->isPressed()){
                 //visibilityButtons(false);
