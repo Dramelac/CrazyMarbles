@@ -147,7 +147,10 @@ s16 Game::gameLoop() {
             }
 
             if (chrono->getTime() == 0){
-                //TODO Times up
+                chrono->stop();
+                player->resetGravity();
+                WinLooseChoose popup(device, keyevent, "TIMES UP");
+                return popup.loop();
             }
 
             if (player->checkFinish()){
