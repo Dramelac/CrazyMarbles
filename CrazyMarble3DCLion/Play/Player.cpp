@@ -212,17 +212,18 @@ vector3df Player::getPosition() {
     return sceneNode->getPosition();
 }
 
-void Player::respawn() {
-    sceneNode->setPosition(startPos);
+void Player::resetGravity() {
+    //sceneNode->setPosition(startPos);
     inertie = vector3df(0,0,0);
-    animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
-    fallDistance = 0;
-    finishTime = 0;
-    health = 100;
+    //animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
+    animatorCollisionResponse->setGravity(vector3df(0, 0, 0));
+    //fallDistance = 0;
+    //finishTime = 0;
+    //health = 100;
     // To change if need
-    score -= 10;
-    updateScore();
-    updateGui();
+    //score -= 10;
+    //updateScore();
+    //updateGui();
 }
 
 void Player::addKill() {

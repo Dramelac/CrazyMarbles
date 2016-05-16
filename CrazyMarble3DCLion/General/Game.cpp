@@ -117,9 +117,6 @@ s16 Game::gameLoop() {
 
             chrono->start();
 
-            if (chrono->getTime() == 0){
-                //TODO Times up
-            }
             // display frames per second in window title
             int fps = driver->getFPS();
             if (lastFPS != fps)
@@ -144,8 +141,13 @@ s16 Game::gameLoop() {
             if (not player->isAlive()){
                 // player is dead
                 chrono->stop();
+                player->resetGravity();
                 WinLooseChoose popup(device, keyevent);
                 return popup.loop();
+            }
+
+            if (chrono->getTime() == 0){
+                //TODO Times up
             }
 
             if (player->checkFinish()){

@@ -49,7 +49,7 @@ public:
 
     void addFinishLineCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
 	//virtual bool isFall();
-	void respawn();
+	void resetGravity();
     virtual void takeDamage(u64 dmg);
 
     void processMoving(KeyboardEvent *keyevent, f32 deltaTime);
