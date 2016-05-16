@@ -12,6 +12,10 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
 
     background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
 
+    IGUISkin* skin = gui->getSkin();
+    skin->setFont(gui->getFont("data/GUI/fonts/font15px.png"), EGDF_DEFAULT);
+    skin->setColor(EGDC_BUTTON_TEXT, SColor(255,255,255,255));
+
     NickMenu nickMenu(device, keyEvent);
     const wchar_t* temp = nickMenu.loop();
 

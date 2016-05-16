@@ -25,6 +25,7 @@ private:
     ISceneNodeAnimatorCollisionResponse* animatorFinishCollisionResponse;
 
 	IGUIImage* hearth;
+	u32 enemyKill ;
     u32 finishTime;
     vector3df startPos;
 
@@ -49,7 +50,7 @@ public:
 
     void addFinishLineCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
 	//virtual bool isFall();
-	void respawn();
+	void resetGravity();
     virtual void takeDamage(u64 dmg);
 
     void processMoving(KeyboardEvent *keyevent, f32 deltaTime);
@@ -60,7 +61,7 @@ public:
     vector3df getPosition();
 
 	void addKill();
-	void calculFinal(u32 chrono);
+	stringw calculFinal(u32 chrono);
     void updateScore();
 
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);

@@ -3,6 +3,7 @@
 //
 
 #include "Game.h"
+#include "../GUI/PlayMessage/WinLooseChoose.h"
 
 // Debug construct (DEPRECATED)
 Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
@@ -116,9 +117,6 @@ s16 Game::gameLoop() {
 
             chrono->start();
 
-            if (chrono->getTime() == 0){
-                //TODO Times up
-            }
             // display frames per second in window title
             int fps = driver->getFPS();
             if (lastFPS != fps)
@@ -142,22 +140,48 @@ s16 Game::gameLoop() {
 
             if (not player->isAlive()){
                 // player is dead
-                player->respawn();
+                chrono->stop();
+                player->resetGravity();
+                WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU DIED !");
+                return popup.loop();
             }
 
-            if (!play || player->checkFinish()){
-                player->calculFinal(chrono->getTime());
-                break;
+            if (chrono->getTime() == 0){
+                chrono->stop();
+                player->resetGravity();
+                WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t TIMES UP !");
+                return popup.loop();
+            }
+
+            if (player->checkFinish()){
+                // player win
+                WinLooseChoose popup(device, keyevent, player->calculFinal(chrono->getTime()), true);
+                chrono->stop();
+                return popup.loop();
+            }
+
+            if (!play){
+                s16 temp = pause();
+                if (temp == 0) {
+                    chrono->start();
+                    play = true;
+                } else {
+                    return temp;
+                }
             }
 
         }
         else{
-            chrono->stop();
+            s16 temp = pause();
+            if (temp == 0) {
+                chrono->start();
+            } else {
+                return temp;
+            }
         }
 	}
-    chrono->stop();
 
-    return 0;
+    return -1;
 
 }
 
@@ -216,6 +240,12 @@ void Game::setupSkyBox(bool day) {
 
 s32 Game::getScore() {
     return player->getScore();
+}
+
+s16 Game::pause() {
+    chrono->stop();
+    WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t PAUSE ", false, true);
+    return popup.loop();
 }
 
 

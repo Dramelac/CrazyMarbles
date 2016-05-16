@@ -36,7 +36,7 @@ public:
     Campaign(IrrlichtDevice* device, KeyboardEvent* keyEvent, stringc pseudo);
     Campaign();
 
-    void play();
+    s32 play();
 
     const array<path> & getMapCycle() const;
     void setMapCycle(u16 placeNumber, path map);
