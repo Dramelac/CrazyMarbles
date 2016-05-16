@@ -61,12 +61,12 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
     hearth->setScaleImage(true);
 
     healthBarBG = gui->addImage(rect<s32>(vector2d<s32>(200,925),
-                                       dimension2d<s32>(679,50)),0,104);
+                                       dimension2d<s32>(400,50)),0,104);
     healthBarBG->setImage(driver->getTexture("data/GUI/Menu/play/healthBar-bg.png"));
     healthBarBG->setUseAlphaChannel(true);
 
     healthBarFG = gui->addImage(rect<s32>(vector2d<s32>(200,925),
-                                          dimension2d<s32>(679,50)),0,104);
+                                          dimension2d<s32>(400,50)),0,104);
     healthBarFG->setImage(driver->getTexture("data/GUI/Menu/play/healthBar-fg.png"));
     healthBarFG->setUseAlphaChannel(true);
 
@@ -257,7 +257,7 @@ void Player::updateGui() {
     tempTexte += "%";
     lifeCount->setText(tempTexte.c_str());
 
-    f32 tempSize = 679 * health/100;
+    f32 tempSize = 400 * health/100;
     healthBarFG->setRelativePosition(rect<s32>(vector2d<s32>(200,925),
                                                dimension2d<f32>(tempSize,50)));
 }
