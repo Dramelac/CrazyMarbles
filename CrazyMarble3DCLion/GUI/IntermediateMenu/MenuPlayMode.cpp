@@ -9,7 +9,7 @@
 MenuPlayMode::MenuPlayMode(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc pseudo, IGUIImage* background) :
         GUIBase(device, keyEvent), background(background), pseudo(pseudo) {
 
-    exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Go back");
+    exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"Go back");
     campaignButton = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"Campaign");
     freeModeButton = gui->addButton(rect<s32>(657, 700, 1263, 845), 0, 103, L"Free Mode");
 }

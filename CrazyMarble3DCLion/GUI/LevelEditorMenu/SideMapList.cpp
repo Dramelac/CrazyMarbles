@@ -25,7 +25,7 @@ SideMapList::SideMapList(IrrlichtDevice* device, KeyboardEvent* keyEvent)
         addMapButton->setVisible(false);
     }
 
-    saving = gui->addButton(rect<s32>(vector2d<s32>(1500,15), dimension2d<s32>(100,50)),0,-1,L"Saving campaign");
+    saving = gui->addButton(rect<s32>(vector2d<s32>(1500,15), dimension2d<s32>(300,50)),0,-1,L"Saving campaign");
 
 }
 
