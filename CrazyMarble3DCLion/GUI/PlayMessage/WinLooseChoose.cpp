@@ -4,8 +4,8 @@
 
 #include "WinLooseChoose.h"
 
-WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent)
-        : GUIBase(device, keyEvent) {
+WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, bool win)
+        : GUIBase(device, keyEvent), win(win) {
 
     device->getCursorControl()->setVisible(true);
     sceneManager = device->getSceneManager();
@@ -13,13 +13,17 @@ WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent)
 
     restart = gui->addButton(rect<s32>(vector2d<s32>(30,200), dimension2d<s32>(125,50)), background, -1, L"Restart");
     quit = gui->addButton(rect<s32>(vector2d<s32>(175,200), dimension2d<s32>(125,50)), background, -1, L"Exit");
-    next = gui->addButton(rect<s32>(vector2d<s32>(320,200), dimension2d<s32>(125,50)), background, -1, L"Next Level");
+    if (win) {
+        next = gui->addButton(rect<s32>(vector2d<s32>(320,200), dimension2d<s32>(125,50)), background, -1, L"Next Level");
+    }
 }
 
 WinLooseChoose::~WinLooseChoose() {
     background->removeChild(restart);
     background->removeChild(quit);
-    background->removeChild(next);
+    if (win) {
+        background->removeChild(next);
+    }
     background->remove();
     device->getCursorControl()->setVisible(false);
 }
@@ -33,8 +37,14 @@ s16 WinLooseChoose::loop() {
 
         driver->endScene();
 
-        if (keyEvent->IsKeyDown(KEY_ESCAPE, true)){
+        if (quit->isPressed() ||keyEvent->IsKeyDown(KEY_ESCAPE, true)){
+            return -1;
+        }
+        if (win && next->isPressed()){
             return 0;
+        }
+        if (restart->isPressed()){
+            return 1;
         }
     }
     return 0;

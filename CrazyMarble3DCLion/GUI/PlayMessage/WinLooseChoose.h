@@ -20,8 +20,10 @@ private:
     IGUIButton* quit;
     IGUIButton* next;
 
+    bool win;
+
 public:
-    WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent);
+    WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, bool win=false);
     virtual ~WinLooseChoose();
 
     s16 loop();

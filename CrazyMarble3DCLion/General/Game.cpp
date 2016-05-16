@@ -145,8 +145,14 @@ s16 Game::gameLoop() {
                 // player is dead
                 chrono->stop();
                 WinLooseChoose popup(device, keyevent);
-                popup.loop();
-                player->respawn();
+                return popup.loop();
+            }
+
+            if (player->checkFinish()){
+                // player win
+                chrono->stop();
+                WinLooseChoose popup(device, keyevent, true);
+                return popup.loop();
             }
 
             if (!play || player->checkFinish()){
