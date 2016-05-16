@@ -14,11 +14,12 @@ WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, 
     restart = gui->addButton(rect<s32>(vector2d<s32>(30,200), dimension2d<s32>(125,50)), background, -1, L"Restart");
     quit = gui->addButton(rect<s32>(vector2d<s32>(175,200), dimension2d<s32>(125,50)), background, -1, L"Exit");
     if (win) {
+
         next = gui->addButton(rect<s32>(vector2d<s32>(320,200), dimension2d<s32>(125,50)), background, -1, L"Next Level");
     } else if (resume){
         next = gui->addButton(rect<s32>(vector2d<s32>(320,200), dimension2d<s32>(125,50)), background, -1, L"Resume");
     }
-    this->message = gui->addStaticText(message.c_str(),rect<s32>(vector2d<s32>(200,100), dimension2d<s32>(200,100)), false, true, background);
+    this->message = gui->addStaticText(message.c_str(),rect<s32>(vector2d<s32>(200,80), dimension2d<s32>(200,400)), false, true, background);
 }
 
 WinLooseChoose::~WinLooseChoose() {
@@ -53,4 +54,7 @@ s16 WinLooseChoose::loop() {
     }
     return 0;
 }
+
+
+
 

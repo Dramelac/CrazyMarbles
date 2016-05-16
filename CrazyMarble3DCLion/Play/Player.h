@@ -25,6 +25,7 @@ private:
     ISceneNodeAnimatorCollisionResponse* animatorFinishCollisionResponse;
 
 	IGUIImage* hearth;
+	u32 enemyKill ;
     u32 finishTime;
     vector3df startPos;
 
@@ -60,7 +61,7 @@ public:
     vector3df getPosition();
 
 	void addKill();
-	void calculFinal(u32 chrono);
+	stringw calculFinal(u32 chrono);
     void updateScore();
 
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
