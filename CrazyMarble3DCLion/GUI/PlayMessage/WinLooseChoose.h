@@ -8,12 +8,17 @@
 
 #include "../GUIBase.h"
 
+using namespace core;
+
 class WinLooseChoose : public GUIBase {
 private:
-    
+    IGUIImage* background;
 
 public:
     WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent);
+    virtual ~WinLooseChoose();
+
+    s16 loop();
 };
 
 
