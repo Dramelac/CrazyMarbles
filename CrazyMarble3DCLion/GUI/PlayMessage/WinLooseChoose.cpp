@@ -13,13 +13,12 @@ WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, 
 
     this->message = gui->addStaticText(message.c_str(),rect<s32>(vector2d<s32>(25,25), dimension2d<s32>(480,250)), false, true, background);
 
-    restart = gui->addButton(rect<s32>(vector2d<s32>(100,260), dimension2d<s32>(125,50)), background, -1, L"Restart");
-    quit = gui->addButton(rect<s32>(vector2d<s32>(245,260), dimension2d<s32>(125,50)), background, -1, L"Exit");
+    restart = gui->addButton(rect<s32>(vector2d<s32>(25,260), dimension2d<s32>(175,50)), background, -1, L"Restart");
+    quit = gui->addButton(rect<s32>(vector2d<s32>(225,260), dimension2d<s32>(175,50)), background, -1, L"Exit");
     if (win) {
-
-        next = gui->addButton(rect<s32>(vector2d<s32>(390,260), dimension2d<s32>(125,50)), background, -1, L"Next Level");
+        next = gui->addButton(rect<s32>(vector2d<s32>(425,260), dimension2d<s32>(175,50)), background, -1, L"Next Level");
     } else if (resume){
-        next = gui->addButton(rect<s32>(vector2d<s32>(390,260), dimension2d<s32>(125,50)), background, -1, L"Resume");
+        next = gui->addButton(rect<s32>(vector2d<s32>(425,260), dimension2d<s32>(175,50)), background, -1, L"Resume");
     }
 }
 
