@@ -37,7 +37,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 
 // Start new game
 Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment *gui, const stringc& name, int health, vector3df startpos, s32 score)
-        : Entities(name, health), score(score), finishTime(0), isPlayable(true) {
+        : Entities(name, health), score(score), enemyKill(0), finishTime(0), isPlayable(true) {
     speed = 20;
     inertie = vector3df(0,0,0);
 
