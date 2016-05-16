@@ -5,6 +5,7 @@
 #include "MenuPlayMode.h"
 #include "../../General/Game.h"
 #include "../../General/Campaign.h"
+#include "SoloMultiMenu.h"
 
 MenuPlayMode::MenuPlayMode(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc pseudo, IGUIImage* background) :
         GUIBase(device, keyEvent), background(background), pseudo(pseudo) {
@@ -43,8 +44,8 @@ void MenuPlayMode::loop() {
                     return;
                 }
 
-                Game game(device, keyEvent, map, pseudo);
-                game.gameLoop();
+                SoloMultiMenu game(device, keyEvent, background, pseudo, map);
+                game.loop();
                 return;
             }
         }

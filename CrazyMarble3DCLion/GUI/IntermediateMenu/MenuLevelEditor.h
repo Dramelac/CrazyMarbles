@@ -14,7 +14,6 @@ private:
     IGUIButton* newMap;
     IGUIButton* loadMap;
     IGUIButton* exit;
-    IGUIFont* font;
 
     void visibilityButtons(bool status);
 

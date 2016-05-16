@@ -8,10 +8,28 @@
 
 #include "../GUIBase.h"
 
+using namespace core;
+using namespace io;
+
 class SoloMultiMenu : public GUIBase {
+private:
+    IGUIImage* background;
+    IGUIButton* solo;
+    IGUIButton* multi;
+    IGUIButton* exit;
+
+    stringc pseudo;
+    path map;
+
+    void visibilityButtons(bool status);
 
 public:
-    SoloMultiMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent);
+    SoloMultiMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent,
+                  IGUIImage* background, stringc pseudo, path map);
+    virtual ~SoloMultiMenu();
+
+    void loop();
+
 };
 
 
