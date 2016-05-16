@@ -3,6 +3,7 @@
 //
 
 #include "Game.h"
+#include "../GUI/PlayMessage/WinLooseChoose.h"
 
 // Debug construct (DEPRECATED)
 Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
@@ -142,6 +143,9 @@ s16 Game::gameLoop() {
 
             if (not player->isAlive()){
                 // player is dead
+                chrono->stop();
+                WinLooseChoose popup(device, keyevent);
+                popup.loop();
                 player->respawn();
             }
 
@@ -155,7 +159,6 @@ s16 Game::gameLoop() {
             chrono->stop();
         }
 	}
-    chrono->stop();
 
     return 0;
 

@@ -9,10 +9,16 @@
 #include "../GUIBase.h"
 
 using namespace core;
+using namespace scene;
 
 class WinLooseChoose : public GUIBase {
 private:
     IGUIImage* background;
+    ISceneManager *sceneManager;
+
+    IGUIButton* restart;
+    IGUIButton* quit;
+    IGUIButton* next;
 
 public:
     WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent);
