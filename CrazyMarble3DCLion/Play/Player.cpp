@@ -242,21 +242,21 @@ stringw Player::calculFinal(u32 chrono) {
     stringw text = L"Score : ";
     text += score;
 
-    stringw resume = L" YOU WIN ! \n";
-    resume += L"EnemyKill";
+    stringw resume = L"\t\t\t\t\t\t\t\t\t\t\t\t\t\t YOU WIN ! \n";
+    resume += L"\t\t\t\t\t\tEnemyKill : ";
     resume += enemyKill;
     resume += L" * 50 = ";
     resume += bonusEnemy;
-    /*resume += L"BonusTime : ";
+    resume += L"\n\t\t\t\tBonusTime : ";
     resume += chrono;
     resume += L" * 20 = ";
     resume += bonusTime;
-    resume += L"BonusLife : ";
+    resume += L"\n\t\t\t\t\t\tBonusLife : ";
     resume += (u32)this->health;
     resume += L" * 4 = ";
     resume += bonusLIfe;
-    resume += L"Your score : ";
-    resume +=score;*/
+    resume += L"\n\t\t\t\t\t\t\t\t\tYour score : ";
+    resume +=score;
 
     displayScore->setText(text.c_str());
     //std::cout<<chrono<<" "<<this->health<<" "<<score<<std::endl;

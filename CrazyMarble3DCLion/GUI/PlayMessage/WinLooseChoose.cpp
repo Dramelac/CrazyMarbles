@@ -9,17 +9,17 @@ WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, 
 
     device->getCursorControl()->setVisible(true);
     sceneManager = device->getSceneManager();
-    background = gui->addImage(driver->getTexture("data/GUI/Menu/play/popup-background-1.png"), vector2d<s32>(750,400));
+    background = gui->addImage(driver->getTexture("data/GUI/Menu/play/popup-background-1.png"), vector2d<s32>(650,300));
 
     this->message = gui->addStaticText(message.c_str(),rect<s32>(vector2d<s32>(25,25), dimension2d<s32>(480,250)), false, true, background);
 
-    restart = gui->addButton(rect<s32>(vector2d<s32>(30,200), dimension2d<s32>(125,50)), background, -1, L"Restart");
-    quit = gui->addButton(rect<s32>(vector2d<s32>(175,200), dimension2d<s32>(125,50)), background, -1, L"Exit");
+    restart = gui->addButton(rect<s32>(vector2d<s32>(100,260), dimension2d<s32>(125,50)), background, -1, L"Restart");
+    quit = gui->addButton(rect<s32>(vector2d<s32>(245,260), dimension2d<s32>(125,50)), background, -1, L"Exit");
     if (win) {
 
-        next = gui->addButton(rect<s32>(vector2d<s32>(320,200), dimension2d<s32>(125,50)), background, -1, L"Next Level");
+        next = gui->addButton(rect<s32>(vector2d<s32>(390,260), dimension2d<s32>(125,50)), background, -1, L"Next Level");
     } else if (resume){
-        next = gui->addButton(rect<s32>(vector2d<s32>(320,200), dimension2d<s32>(125,50)), background, -1, L"Resume");
+        next = gui->addButton(rect<s32>(vector2d<s32>(390,260), dimension2d<s32>(125,50)), background, -1, L"Resume");
     }
 }
 
