@@ -2,12 +2,13 @@
 // Created by mathieu on 05/03/16.
 //
 
+#include <iostream>
 #include "Player.h"
 #include "../Utils/TextureLoader.h"
 
 // Debug player
 Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
-        : Entities(name, health), score(0), finishTime(0), isPlayable(false) {
+        : Entities(name, health), score(0), enemyKill(0), finishTime(0), isPlayable(false) {
 
     // MODEL
 
@@ -36,7 +37,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 
 // Start new game
 Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment *gui, const stringc& name, int health, vector3df startpos, s32 score)
-        : Entities(name, health), score(score), finishTime(0), isPlayable(true) {
+        : Entities(name, health), score(score), enemyKill(0), finishTime(0), isPlayable(true) {
     speed = 20;
     inertie = vector3df(0,0,0);
 
@@ -52,7 +53,7 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
                                                   vector3df(800.0f, 700.0f, 800.0f),
                                                   sceneNode->getPosition());
 
-    displayScore = gui->addStaticText(L"Score : 0",rect<s32>(20,20,120,120));
+    displayScore = gui->addStaticText(L"Score : 0",rect<s32>(20,20,220,220));
 
     hearth = gui->addImage(rect<s32>(vector2d<s32>(100,900),
                                   dimension2d<s32>(100,100)));
@@ -70,10 +71,8 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
     healthBarFG->setImage(driver->getTexture("data/GUI/Menu/play/healthBar-fg.png"));
     healthBarFG->setUseAlphaChannel(true);
 
-    lifeCount = gui->addStaticText(L"100%",rect<s32>(vector2d<s32>(40,40),
-                                                dimension2d<s32>(50,25)), false, true, hearth);
-    //lifeCount->getActiveFont("data/")
-
+    lifeCount = gui->addStaticText(L"100%",rect<s32>(vector2d<s32>(15,40),
+                                                dimension2d<s32>(70,25)), false, true, hearth);
 
 }
 
@@ -212,25 +211,29 @@ vector3df Player::getPosition() {
     return sceneNode->getPosition();
 }
 
-void Player::respawn() {
-    sceneNode->setPosition(startPos);
+void Player::resetGravity() {
+    //sceneNode->setPosition(startPos);
     inertie = vector3df(0,0,0);
-    animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
-    fallDistance = 0;
-    finishTime = 0;
-    health = 100;
+    //animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
+    animatorCollisionResponse->setGravity(vector3df(0, 0, 0));
+    //fallDistance = 0;
+    //finishTime = 0;
+    //health = 100;
     // To change if need
-    score -= 10;
-    updateScore();
-    updateGui();
+    //score -= 10;
+    //updateScore();
+    //updateGui();
 }
 
 void Player::addKill() {
     score +=50;
+    enemyKill ++;
     updateScore();
 }
 
-void Player::calculFinal(u32 chrono) {
+stringw Player::calculFinal(u32 chrono) {
+
+    u32 bonusEnemy = enemyKill*50;
     u32 bonusTime = chrono * 20;
     u32 bonusLIfe = (u32)this->health*4;
 
@@ -239,12 +242,30 @@ void Player::calculFinal(u32 chrono) {
     stringw text = L"Score : ";
     text += score;
 
+    stringw resume = L"\t\t\t\t\t\t\t\t\t\t\t\t\t\t YOU WIN ! \n";
+    resume += L"\t\t\t\t\t\tEnemyKill : ";
+    resume += enemyKill;
+    resume += L" * 50 = ";
+    resume += bonusEnemy;
+    resume += L"\n\t\t\t\tBonusTime : ";
+    resume += chrono;
+    resume += L" * 20 = ";
+    resume += bonusTime;
+    resume += L"\n\t\t\t\t\t\tBonusLife : ";
+    resume += (u32)this->health;
+    resume += L" * 4 = ";
+    resume += bonusLIfe;
+    resume += L"\n\t\t\t\t\t\t\t\t\tYour score : ";
+    resume +=score;
+
     displayScore->setText(text.c_str());
     //std::cout<<chrono<<" "<<this->health<<" "<<score<<std::endl;
+    return resume ;
 
 }
 
 void Player::updateScore() {
+
     stringw text = L"Score : ";
     text += score;
     displayScore->setText(text.c_str());
@@ -256,6 +277,8 @@ void Player::updateGui() {
     tempTexte += health ;
     tempTexte += "%";
     lifeCount->setText(tempTexte.c_str());
+    lifeCount->setRelativePosition(rect<s32>(vector2d<s32>(20,40),
+                                             dimension2d<s32>(70,25)));
 
     f32 tempSize = 679 * health/100;
     healthBarFG->setRelativePosition(rect<s32>(vector2d<s32>(200,925),

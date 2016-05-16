@@ -19,8 +19,8 @@ Campaign::Campaign():playable(false) {
 }
 
 
-void Campaign::play() {
-    if (not playable) return;
+s32 Campaign::play() {
+    if (not playable) return -1;
     s32 score = 0;
     for (int mapNumber = 0; mapNumber < mapCycle.size(); ++mapNumber) {
         bool restart = true;
@@ -34,7 +34,7 @@ void Campaign::play() {
                     break;
                 // exit game
                 case -1:
-                    return;
+                    return score;
                 // restart game
                 case 1:
                 default:
@@ -42,6 +42,7 @@ void Campaign::play() {
             }
         }
     }
+    return score;
 }
 
 const array<path> &Campaign::getMapCycle() const {
