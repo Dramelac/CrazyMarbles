@@ -3,3 +3,11 @@
 //
 
 #include "NetworkMain.h"
+
+NetworkMain::NetworkMain() {
+
+    RakNet::RakPeerInterface *peer = RakNet::RakPeerInterface::GetInstance();
+    bool isServer;
+    RakNet::Packet *packet;
+
+}

@@ -5,9 +5,14 @@
 #ifndef CRAZYMARBLE3DCLION_NETWORKMAIN_H
 #define CRAZYMARBLE3DCLION_NETWORKMAIN_H
 
+#include <RakPeerInterface.h>
+#include <MessageIdentifiers.h>
 
 class NetworkMain {
 
+
+public:
+    NetworkMain();
 };
 
 
