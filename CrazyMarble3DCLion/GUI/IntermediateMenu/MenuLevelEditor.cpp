@@ -8,12 +8,10 @@
 MenuLevelEditor::MenuLevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, IGUIImage* background) :
         GUIBase(device, keyEvent), background(background) {
 
-    exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Go back");
+    exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"Go back");
     newMap = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"New Map");
     loadMap = gui->addButton(rect<s32>(657, 700, 1263, 845), 0, 103, L"Load Existing Map");
-    font = gui->getFont("data/GUI/Menu/fontlucida.png");
-    //newMap->setOverrideFont(font);
-    //loadMap->setOverrideFont(font);
+
 }
 
 void MenuLevelEditor::loop() {

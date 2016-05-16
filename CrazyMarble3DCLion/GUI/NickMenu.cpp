@@ -9,7 +9,7 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent)
         : GUIBase(device, keyEvent) {
 
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
-    valide = gui->addButton(rect<s32>(930,700,990,750), 0, 103, L"Valider");
+    valide = gui->addButton(rect<s32>(890,700,1010,750), 0, 103, L"Valider");
 
     enterNick = gui->addImage(rect<s32>(700,600,980,690),0,105);
     enterNick->setImage(driver->getTexture("data/GUI/Menu/button/play_jaune_01.png"));
@@ -23,6 +23,7 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent)
     editBox = gui->addEditBox(L"", rect<irr::s32>(1000,610,1200,680));
     font = gui->getFont("data/GUI/Menu/fontlucida.png");
     editBox->setOverrideFont(font);
+    editBox->setOverrideColor(SColor(255,0,0,0));
 
 
 }
@@ -38,10 +39,14 @@ const wchar_t* NickMenu::loop() {
 
             driver->endScene();
 
-            if (valide->isPressed() || exit->isPressed() || keyEvent->IsKeyDown(KEY_ESCAPE, true)){
+            if (valide->isPressed() || keyEvent->IsKeyDown(KEY_ESCAPE, true)){
                 //visibilityButtons(false);
                 const wchar_t *nickname  = editBox->getText();
                 return nickname;
+            }
+            if (exit->isPressed()){
+                device->closeDevice();
+                return L"";
             }
         }
     }
