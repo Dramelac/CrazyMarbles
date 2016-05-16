@@ -17,7 +17,7 @@ private:
     bool isClient;
 
 public:
-    NetWorkMain(IrrlichtDevice* device, bool isClient);
+    NetWorkMain(IrrlichtDevice* device);
     virtual ~NetWorkMain();
 };
 

@@ -4,16 +4,10 @@
 
 #include "NetWorkMain.h"
 
-NetWorkMain::NetWorkMain(IrrlichtDevice* device, bool isClient): isClient(isClient) {
+NetWorkMain::NetWorkMain(IrrlichtDevice* device) {
 
     netManager = new INetManager(device);
     netManager->setVerbose(1);
-
-    if (isClient){
-        netManager->setUpClient();
-    } else {
-        netManager->setUpServer();
-    }
 }
 
 NetWorkMain::~NetWorkMain() {

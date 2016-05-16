@@ -11,7 +11,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(IRRLICHT_PATH_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/../irrlicht-1.8.3/include)
 set(IRRNET_PATH_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/../irrnet-code-8/base)
-set(ENET_PATH_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/../enet-1.2.5/include)
 
 set(IRRLICHT_PATH_LIB ${CMAKE_CURRENT_SOURCE_DIR}/../irrlicht-1.8.3/lib/Linux)
 
@@ -19,7 +18,7 @@ set(IRRLICHT_PATH_LIB ${CMAKE_CURRENT_SOURCE_DIR}/../irrlicht-1.8.3/lib/Linux)
 #======INCLUSION D'IRRLICHT========
 #==================================
 #inclure le repertoire contenant les entetes de irrlicht
-include_directories(${IRRLICHT_PATH_INCLUDE} ${IRRNET_PATH_INCLUDE} ${ENET_PATH_INCLUDE})
+include_directories(${IRRLICHT_PATH_INCLUDE} ${IRRNET_PATH_INCLUDE})
 #inlude les bibliothèque compiles
 link_directories(${IRRLICHT_PATH_LIB})
 
