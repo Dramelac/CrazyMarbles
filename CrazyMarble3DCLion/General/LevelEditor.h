@@ -49,6 +49,7 @@ private:
     IGUIButton* skyBoxe;
 
     IGUIButton* validate;
+    IGUIButton* cancel;
     IGUIEditBox* mapName;
     path name;
 

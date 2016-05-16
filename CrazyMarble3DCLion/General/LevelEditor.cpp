@@ -108,7 +108,7 @@ void LevelEditor::gameLoop() {
 
             keyboardChecker();
 
-            if (!play){
+            if (!play || cancel->isPressed()){
                 break;
             }
 
@@ -344,6 +344,7 @@ LevelEditor::~LevelEditor() {
     cellStartBox->remove();
 
     validate->remove();
+    cancel->remove();
     mapName->remove();
 
     sceneManager->clear();
@@ -383,6 +384,7 @@ void LevelEditor::setupGUI() {
     skyBoxe->setDrawBorder(false);
 
     validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Valider");
+    cancel = gui->addButton(rect<s32>(50,950,150,1000), 0, 101, L"Cancel");
 
     stringw tempName = L"";
     tempName += name;
