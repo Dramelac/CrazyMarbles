@@ -23,7 +23,7 @@ private:
     bool win;
 
 public:
-    WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, bool win=false);
+    WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, bool win=false, bool resume=false);
     virtual ~WinLooseChoose();
 
     s16 loop();

@@ -150,23 +150,23 @@ s16 Game::gameLoop() {
 
             if (player->checkFinish()){
                 // player win
+                player->calculFinal(chrono->getTime());
                 chrono->stop();
                 WinLooseChoose popup(device, keyevent, true);
                 return popup.loop();
             }
 
-            if (!play || player->checkFinish()){
-                player->calculFinal(chrono->getTime());
-                break;
+            if (!play){
+                return pause();
             }
 
         }
         else{
-            chrono->stop();
+            return pause();
         }
 	}
 
-    return 0;
+    return -1;
 
 }
 
@@ -225,6 +225,12 @@ void Game::setupSkyBox(bool day) {
 
 s32 Game::getScore() {
     return player->getScore();
+}
+
+s16 Game::pause() {
+    chrono->stop();
+    WinLooseChoose popup(device, keyevent, false, true);
+    return popup.loop();
 }
 
 

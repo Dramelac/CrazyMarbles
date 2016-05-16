@@ -38,6 +38,8 @@ private:
 
     void setupSkyBox(bool day);
 	void keyboardChecker(f32 deltaTime);
+
+	s16 pause();
 public:
 	Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
 		 const unsigned int x, const unsigned int y, bool day = true);

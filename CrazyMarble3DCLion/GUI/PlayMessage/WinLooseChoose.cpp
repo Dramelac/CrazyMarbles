@@ -4,7 +4,7 @@
 
 #include "WinLooseChoose.h"
 
-WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, bool win)
+WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, bool win, bool resume)
         : GUIBase(device, keyEvent), win(win) {
 
     device->getCursorControl()->setVisible(true);
