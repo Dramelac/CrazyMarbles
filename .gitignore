@@ -29,6 +29,7 @@
 .idea
 irrlicht-1.8.3
 irrnet-code-8
+enet-1.2.5
 *.opensdf
 glut-3.7
 glew-1.13.0
