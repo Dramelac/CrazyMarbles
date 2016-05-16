@@ -53,7 +53,7 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
                                                   vector3df(800.0f, 700.0f, 800.0f),
                                                   sceneNode->getPosition());
 
-    displayScore = gui->addStaticText(L"Score : 0",rect<s32>(20,20,120,120));
+    displayScore = gui->addStaticText(L"Score : 0",rect<s32>(20,20,220,220));
 
     hearth = gui->addImage(rect<s32>(vector2d<s32>(100,900),
                                   dimension2d<s32>(100,100)));
