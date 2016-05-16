@@ -34,6 +34,7 @@ private:
 
 public:
     Campaign(IrrlichtDevice* device, KeyboardEvent* keyEvent, stringc pseudo);
+    Campaign(IrrlichtDevice* device, KeyboardEvent* keyEvent, stringc pseudo, path map);
     Campaign();
 
     s32 play();

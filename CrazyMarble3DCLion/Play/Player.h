@@ -50,7 +50,7 @@ public:
 
     void addFinishLineCollision(IMetaTriangleSelector* metaSelector, ISceneManager *sceneManager);
 	//virtual bool isFall();
-	void resetGravity();
+	void setGravity(s32 Y=-20);
     virtual void takeDamage(u64 dmg);
 
     void processMoving(KeyboardEvent *keyevent, f32 deltaTime);
