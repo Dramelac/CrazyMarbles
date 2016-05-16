@@ -375,9 +375,12 @@ void LevelEditor::setupGUI() {
     cellEnemy = gui->addButton(rect<s32>(1160,880,1240,1080),0,102,L"T");
 
     cellStartBox = gui->addButton(rect<s32>(1240,880,1320,1080),0,102,L"U");
-    skyBoxe = gui->addButton(rect<s32>(20,320,60,360),0,102,L"S");
 
-
+    skyBoxe = gui->addButton(rect<s32>(20,320,60,360),0,102, L"S");
+    skyBoxe->setImage(driver->getTexture("data/GUI/LevelEditor/Menu/sun.png"));
+    skyBoxe->setUseAlphaChannel(true);
+    skyBoxe->setScaleImage(true);
+    skyBoxe->setDrawBorder(false);
 
     validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Valider");
 

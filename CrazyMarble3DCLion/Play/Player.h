@@ -24,7 +24,7 @@ private:
 
     ISceneNodeAnimatorCollisionResponse* animatorFinishCollisionResponse;
 
-	IGUIImage* vie;
+	IGUIImage* hearth;
     u32 finishTime;
     vector3df startPos;
 
@@ -32,8 +32,9 @@ private:
     IGUIStaticText* displayScore;
     bool isPlayable;
 
-    IGUIImage* barrevie;
-    IGUIStaticText* life;
+    IGUIImage* healthBarBG;
+    IGUIImage* healthBarFG;
+    IGUIStaticText* lifeCount;
     u16 speed;
 
 
