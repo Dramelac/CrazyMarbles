@@ -152,9 +152,8 @@ s16 Game::gameLoop() {
 
             if (player->checkFinish()){
                 // player win
-                player->calculFinal(chrono->getTime());
+                WinLooseChoose popup(device, keyevent, player->calculFinal(chrono->getTime()), true);
                 chrono->stop();
-                WinLooseChoose popup(device, keyevent, "YOU WIN", true);
                 return popup.loop();
             }
 

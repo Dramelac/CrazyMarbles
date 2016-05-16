@@ -7,6 +7,7 @@
 
 
 #include "../GUIBase.h"
+#include "../../Play/Player.h"
 
 using namespace core;
 using namespace scene;
@@ -27,7 +28,6 @@ public:
     WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent,
                    stringw message , bool win=false, bool resume=false);
     virtual ~WinLooseChoose();
-
     s16 loop();
 };
 

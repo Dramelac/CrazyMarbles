@@ -2,12 +2,13 @@
 // Created by mathieu on 05/03/16.
 //
 
+#include <iostream>
 #include "Player.h"
 #include "../Utils/TextureLoader.h"
 
 // Debug player
 Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
-        : Entities(name, health), score(0), finishTime(0), isPlayable(false) {
+        : Entities(name, health), score(0), enemyKill(0), finishTime(0), isPlayable(false) {
 
     // MODEL
 
@@ -36,7 +37,7 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 
 // Start new game
 Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment *gui, const stringc& name, int health, vector3df startpos, s32 score)
-        : Entities(name, health), score(score), finishTime(0), isPlayable(true) {
+        : Entities(name, health), score(score), enemyKill(0), finishTime(0), isPlayable(true) {
     speed = 20;
     inertie = vector3df(0,0,0);
 
@@ -228,10 +229,13 @@ void Player::resetGravity() {
 
 void Player::addKill() {
     score +=50;
+    enemyKill ++;
     updateScore();
 }
 
-void Player::calculFinal(u32 chrono) {
+stringw Player::calculFinal(u32 chrono) {
+
+    u32 bonusEnemy = enemyKill*50;
     u32 bonusTime = chrono * 20;
     u32 bonusLIfe = (u32)this->health*4;
 
@@ -240,12 +244,30 @@ void Player::calculFinal(u32 chrono) {
     stringw text = L"Score : ";
     text += score;
 
+    stringw resume = L"\t\tYOU WIN !\n";
+    resume += L"\nEnemy kill :";
+    resume += enemyKill;
+    resume += L" * 50 = ";
+    resume += bonusEnemy;
+    resume += L"\nBonusTime : ";
+    resume += chrono;
+    resume += L" * 20 = ";
+    resume += bonusTime;
+    resume += L"\nBonusLife : ";
+    resume += (u32)this->health;
+    resume += L" * 4 = ";
+    resume += bonusLIfe;
+    resume += L"\n\tYour score : ";
+    resume +=score;
+
     displayScore->setText(text.c_str());
     //std::cout<<chrono<<" "<<this->health<<" "<<score<<std::endl;
+    return resume ;
 
 }
 
 void Player::updateScore() {
+
     stringw text = L"Score : ";
     text += score;
     displayScore->setText(text.c_str());
