@@ -141,14 +141,14 @@ s16 Game::gameLoop() {
             if (not player->isAlive()){
                 // player is dead
                 chrono->stop();
-                player->resetGravity();
+                player->setGravity();
                 WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU DIED !");
                 return popup.loop();
             }
 
             if (chrono->getTime() == 0){
                 chrono->stop();
-                player->resetGravity();
+                player->setGravity();
                 WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t TIMES UP !");
                 return popup.loop();
             }
@@ -244,8 +244,11 @@ s32 Game::getScore() {
 
 s16 Game::pause() {
     chrono->stop();
+    player->setGravity(0);
     WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t PAUSE ", false, true);
-    return popup.loop();
+    s16 tempReturn = popup.loop();
+    player->setGravity();
+    return tempReturn;
 }
 
 

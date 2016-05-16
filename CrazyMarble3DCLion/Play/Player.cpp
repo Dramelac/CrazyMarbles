@@ -211,11 +211,11 @@ vector3df Player::getPosition() {
     return sceneNode->getPosition();
 }
 
-void Player::resetGravity() {
+void Player::setGravity(s32 Y) {
     //sceneNode->setPosition(startPos);
     inertie = vector3df(0,0,0);
     //animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
-    animatorCollisionResponse->setGravity(vector3df(0, 0, 0));
+    animatorCollisionResponse->setGravity(vector3df(0, Y, 0));
     //fallDistance = 0;
     //finishTime = 0;
     //health = 100;
