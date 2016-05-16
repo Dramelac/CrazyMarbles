@@ -32,6 +32,7 @@ file(
         GUI/MapMenu/*
         GUI/IntermediateMenu/*
         GUI/LevelEditorMenu/*
+        GUI/PlayMessage/*
         GUI/*
         Utils/*
         Plateau/*
