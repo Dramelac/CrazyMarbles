@@ -157,12 +157,23 @@ s16 Game::gameLoop() {
             }
 
             if (!play){
-                return pause();
+                s16 temp = pause();
+                if (temp == 0) {
+                    chrono->start();
+                    play = true;
+                } else {
+                    return temp;
+                }
             }
 
         }
         else{
-            return pause();
+            s16 temp = pause();
+            if (temp == 0) {
+                chrono->start();
+            } else {
+                return temp;
+            }
         }
 	}
 

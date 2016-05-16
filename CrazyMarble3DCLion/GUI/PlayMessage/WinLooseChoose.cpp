@@ -5,7 +5,7 @@
 #include "WinLooseChoose.h"
 
 WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, bool win, bool resume)
-        : GUIBase(device, keyEvent), win(win) {
+        : GUIBase(device, keyEvent), win(win || resume) {
 
     device->getCursorControl()->setVisible(true);
     sceneManager = device->getSceneManager();
@@ -15,6 +15,8 @@ WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, 
     quit = gui->addButton(rect<s32>(vector2d<s32>(175,200), dimension2d<s32>(125,50)), background, -1, L"Exit");
     if (win) {
         next = gui->addButton(rect<s32>(vector2d<s32>(320,200), dimension2d<s32>(125,50)), background, -1, L"Next Level");
+    } else if (resume){
+        next = gui->addButton(rect<s32>(vector2d<s32>(320,200), dimension2d<s32>(125,50)), background, -1, L"Resume");
     }
 }
 
