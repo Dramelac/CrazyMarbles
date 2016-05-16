@@ -48,7 +48,7 @@ s16 WinLooseChoose::loop() {
         if (quit->isPressed()){
             return -1;
         }
-        if (win && next->isPressed()){
+        if (win && (next->isPressed() || keyEvent->IsKeyDown(KEY_ESCAPE, true))){
             return 0;
         }
         if (restart->isPressed()){
