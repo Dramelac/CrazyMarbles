@@ -11,6 +11,8 @@ WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, 
     sceneManager = device->getSceneManager();
     background = gui->addImage(driver->getTexture("data/GUI/Menu/play/popup-background-1.png"), vector2d<s32>(750,400));
 
+    this->message = gui->addStaticText(message.c_str(),rect<s32>(vector2d<s32>(200,80), dimension2d<s32>(200,400)), false, true, background);
+
     restart = gui->addButton(rect<s32>(vector2d<s32>(30,200), dimension2d<s32>(125,50)), background, -1, L"Restart");
     quit = gui->addButton(rect<s32>(vector2d<s32>(175,200), dimension2d<s32>(125,50)), background, -1, L"Exit");
     if (win) {
@@ -19,7 +21,6 @@ WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, 
     } else if (resume){
         next = gui->addButton(rect<s32>(vector2d<s32>(320,200), dimension2d<s32>(125,50)), background, -1, L"Resume");
     }
-    this->message = gui->addStaticText(message.c_str(),rect<s32>(vector2d<s32>(200,80), dimension2d<s32>(200,400)), false, true, background);
 }
 
 WinLooseChoose::~WinLooseChoose() {
