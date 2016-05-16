@@ -4,7 +4,7 @@
 
 #include "WinLooseChoose.h"
 
-WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, bool win, bool resume)
+WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringw message, bool win, bool resume)
         : GUIBase(device, keyEvent), win(win || resume) {
 
     device->getCursorControl()->setVisible(true);
@@ -18,9 +18,11 @@ WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, 
     } else if (resume){
         next = gui->addButton(rect<s32>(vector2d<s32>(320,200), dimension2d<s32>(125,50)), background, -1, L"Resume");
     }
+    this->message = gui->addStaticText(message.c_str(),rect<s32>(vector2d<s32>(200,100), dimension2d<s32>(200,100)), false, true, background);
 }
 
 WinLooseChoose::~WinLooseChoose() {
+    background->removeChild(message);
     background->removeChild(restart);
     background->removeChild(quit);
     if (win) {

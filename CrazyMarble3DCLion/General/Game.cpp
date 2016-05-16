@@ -142,7 +142,7 @@ s16 Game::gameLoop() {
                 // player is dead
                 chrono->stop();
                 player->resetGravity();
-                WinLooseChoose popup(device, keyevent);
+                WinLooseChoose popup(device, keyevent, "YOU DIED");
                 return popup.loop();
             }
 
@@ -154,7 +154,7 @@ s16 Game::gameLoop() {
                 // player win
                 player->calculFinal(chrono->getTime());
                 chrono->stop();
-                WinLooseChoose popup(device, keyevent, true);
+                WinLooseChoose popup(device, keyevent, "YOU WIN", true);
                 return popup.loop();
             }
 
@@ -242,7 +242,7 @@ s32 Game::getScore() {
 
 s16 Game::pause() {
     chrono->stop();
-    WinLooseChoose popup(device, keyevent, false, true);
+    WinLooseChoose popup(device, keyevent, "PAUSE", false, true);
     return popup.loop();
 }
 

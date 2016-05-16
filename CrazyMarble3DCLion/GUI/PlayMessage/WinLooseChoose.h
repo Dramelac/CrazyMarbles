@@ -19,11 +19,13 @@ private:
     IGUIButton* restart;
     IGUIButton* quit;
     IGUIButton* next;
+    IGUIStaticText* message;
 
     bool win;
 
 public:
-    WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, bool win=false, bool resume=false);
+    WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent,
+                   stringw message , bool win=false, bool resume=false);
     virtual ~WinLooseChoose();
 
     s16 loop();
