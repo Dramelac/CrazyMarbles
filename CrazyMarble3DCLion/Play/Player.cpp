@@ -52,22 +52,27 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
                                                   vector3df(800.0f, 700.0f, 800.0f),
                                                   sceneNode->getPosition());
 
-    vie = gui->addImage(rect<s32>(vector2d<s32>(100,950),
-                                  dimension2d<s32>(200,100)));
-    vie->setImage(driver->getTexture("data/GUI/Menu/BGCM2.png"));
-    vie->setUseAlphaChannel(false);
-    vie->setScaleImage(true);
-
     displayScore = gui->addStaticText(L"Score : 0",rect<s32>(20,20,120,120));
 
+    hearth = gui->addImage(rect<s32>(vector2d<s32>(100,900),
+                                  dimension2d<s32>(100,100)));
+    hearth->setImage(driver->getTexture("data/GUI/Menu/play/vie.png"));
+    hearth->setUseAlphaChannel(true);
+    hearth->setScaleImage(true);
 
-    barrevie = gui->addImage(rect<s32>(vector2d<s32>(200,50),dimension2d<s32>(200,50)),0,104);
-    barrevie->setImage(driver->getTexture("data/GUI/Menu/BGCM2.png"));
-    barrevie->setUseAlphaChannel(false);
-    barrevie->setScaleImage(true);
+    healthBarBG = gui->addImage(rect<s32>(vector2d<s32>(200,925),
+                                       dimension2d<s32>(679,50)),0,104);
+    healthBarBG->setImage(driver->getTexture("data/GUI/Menu/play/healthBar-bg.png"));
+    healthBarBG->setUseAlphaChannel(true);
 
-    life = gui->addStaticText(L"100%",rect<s32>(vector2d<s32>(150,150),dimension2d<s32>(50,25)));
-    //life->getActiveFont("data/")
+    healthBarFG = gui->addImage(rect<s32>(vector2d<s32>(200,925),
+                                          dimension2d<s32>(679,50)),0,104);
+    healthBarFG->setImage(driver->getTexture("data/GUI/Menu/play/healthBar-fg.png"));
+    healthBarFG->setUseAlphaChannel(true);
+
+    lifeCount = gui->addStaticText(L"100%",rect<s32>(vector2d<s32>(40,40),
+                                                dimension2d<s32>(50,25)), false, true, hearth);
+    //lifeCount->getActiveFont("data/")
 
 
 }
@@ -96,9 +101,10 @@ Player::~Player() {
     fixeCamera->remove();
     if (isPlayable){
         displayScore->remove();
-        barrevie->remove();
-        vie->remove();
-        life->remove();
+        healthBarBG->remove();
+        healthBarFG->remove();
+        lifeCount->remove();
+        hearth->remove();
     }
 }
 
@@ -249,11 +255,11 @@ void Player::updateGui() {
     stringw tempTexte = L"";
     tempTexte += health ;
     tempTexte += "%";
-    life->setText(tempTexte.c_str());
+    lifeCount->setText(tempTexte.c_str());
 
-    f32 tempSize = 200 * health/100;
-    barrevie->setRelativePosition(rect<s32>(vector2d<s32>(200,50),
-                                            dimension2d<f32>(tempSize,50)));
+    f32 tempSize = 679 * health/100;
+    healthBarFG->setRelativePosition(rect<s32>(vector2d<s32>(200,925),
+                                               dimension2d<f32>(tempSize,50)));
 }
 
 void Player::takeDamage(u64 dmg) {

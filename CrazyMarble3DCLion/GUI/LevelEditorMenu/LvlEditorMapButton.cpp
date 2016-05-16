@@ -12,7 +12,10 @@ LvlEditorMapButton::LvlEditorMapButton(IGUIEnvironment* gui, IVideoDriver* drive
 
     removeButton = gui->addButton(rect<s32>(vector2d<s32>(nPos*100+575, 15),
                                             dimension2d<s32>(25,25)));
-    removeButton->setImage(driver->getTexture("data/GUI/LevelEditor/Menu/remove.png"));
+    removeButton->setImage(driver->getTexture("data/GUI/LevelEditor/Menu/close.png"));
+    removeButton->setUseAlphaChannel(true);
+    removeButton->setScaleImage(true);
+    removeButton->setDrawBorder(false);
 
 }
 

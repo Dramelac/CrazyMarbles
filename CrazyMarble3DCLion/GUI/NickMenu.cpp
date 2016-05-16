@@ -12,7 +12,7 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent)
     valide = gui->addButton(rect<s32>(930,700,990,750), 0, 103, L"Valider");
 
     enterNick = gui->addImage(rect<s32>(700,600,980,690),0,105);
-    enterNick->setImage(driver->getTexture("data/GUI/Menu/play_jaune_01.png"));
+    enterNick->setImage(driver->getTexture("data/GUI/Menu/button/play_jaune_01.png"));
     enterNick->setUseAlphaChannel(false);
 
     crazyMarble = gui->addImage(rect<s32>(630,380,1320,580),0,104);
