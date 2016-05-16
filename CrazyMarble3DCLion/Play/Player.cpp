@@ -71,8 +71,8 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
     healthBarFG->setImage(driver->getTexture("data/GUI/Menu/play/healthBar-fg.png"));
     healthBarFG->setUseAlphaChannel(true);
 
-    lifeCount = gui->addStaticText(L"100%",rect<s32>(vector2d<s32>(20,40),
-                                                dimension2d<s32>(50,25)), false, true, hearth);
+    lifeCount = gui->addStaticText(L"100%",rect<s32>(vector2d<s32>(15,40),
+                                                dimension2d<s32>(70,25)), false, true, hearth);
 
 }
 
@@ -277,6 +277,8 @@ void Player::updateGui() {
     tempTexte += health ;
     tempTexte += "%";
     lifeCount->setText(tempTexte.c_str());
+    lifeCount->setRelativePosition(rect<s32>(vector2d<s32>(20,40),
+                                             dimension2d<s32>(70,25)));
 
     f32 tempSize = 679 * health/100;
     healthBarFG->setRelativePosition(rect<s32>(vector2d<s32>(200,925),

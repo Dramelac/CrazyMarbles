@@ -91,6 +91,9 @@ bool Entities::isAlive() {
 // loose health point (damage)
 void Entities::takeDamage(u64 dmg) {
     health -= dmg;
+    if (health < 0){
+        health = 0;
+    }
 }
 
 // set inertie vector
