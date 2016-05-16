@@ -1,0 +1,14 @@
+//
+// Created by mathieu on 17/05/16.
+//
+
+#ifndef CRAZYMARBLE3DCLION_NETWORKMAIN_H
+#define CRAZYMARBLE3DCLION_NETWORKMAIN_H
+
+
+class NetworkMain {
+
+};
+
+
+#endif //CRAZYMARBLE3DCLION_NETWORKMAIN_H

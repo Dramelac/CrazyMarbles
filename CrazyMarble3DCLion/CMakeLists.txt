@@ -29,6 +29,7 @@ file(
         *.cpp
         *.h
         General/*
+        General/Network/*
         GUI/MapMenu/*
         GUI/IntermediateMenu/*
         GUI/LevelEditorMenu/*
