@@ -5,14 +5,59 @@
 #ifndef CRAZYMARBLE3DCLION_NETWORKMAIN_H
 #define CRAZYMARBLE3DCLION_NETWORKMAIN_H
 
+#include <irrlicht.h>
+
 #include <RakPeerInterface.h>
 #include <MessageIdentifiers.h>
+#include <BitStream.h>
+#include <RakNetTypes.h>
+
+#include <iostream>
+#include <ctime>//for clock()
+
+using namespace std;
+using namespace irr;
+using namespace core;
+
+using namespace RakNet;
 
 class NetworkMain {
+private:
+    // creation de nos propre ID
+    const unsigned char PACKET_ID_DEPLACEMENT = 101;
+    const unsigned char PACKET_ID_ANIMATION = 102;
+    const unsigned char PACKET_ID_ID_JOUEUR = 103;
 
+    // Server static properties
+    const short portServeur = 6668;
+
+    bool isServer;
+    RakPeerInterface *peer;
+    int ID_Player;
+
+    clock_t tempsActuel;
+    clock_t tempsEcouler;
+
+    // player information
+    vector3df positionJoueur[2];
+    vector3df rotationJoueur[2];
+
+    void updatePacket();
+    void processPacketServer(Packet *packet);
+
+    void processPacketClient(Packet *packet);
+
+    void send_a_ID_joueur(RakPeerInterface *serveur, int ID_player);
+    void send_animation(RakPeerInterface *serveur, Packet *packet,
+                        int ID_joueur, bool il_marche);
 
 public:
-    NetworkMain();
+    NetworkMain(bool isServer=true);
+
+    virtual ~NetworkMain();
+
+    void updateNetwork();
+
 };
 
 
