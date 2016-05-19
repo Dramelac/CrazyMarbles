@@ -53,7 +53,7 @@ private:
     void updatePacket();
     void processPacketServer(Packet *packet);
 
-    void checkCo(Packet *packet);
+    void checkConnection(Packet *packet);
     void processPacketClient(Packet *packet);
 
     void send_a_ID_joueur(RakPeerInterface *serveur, int ID_player);

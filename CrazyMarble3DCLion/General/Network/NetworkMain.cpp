@@ -89,7 +89,7 @@ void NetworkMain::updateNetwork() {
     {
         packet = peer->Receive();
         do{
-            checkCo(packet);
+            checkConnection(packet);
         }while(my_Id<0);
 
         processPacketClient(packet);
@@ -188,7 +188,7 @@ void NetworkMain::processPacketClient(Packet *packet) {
                 dataStream.Read(un_Id);
                 dataStream.Read(he_walks);
                 if(he_walks){
-                    player[un_Id]->setGravity();
+                    
 
                 }
                 break;
@@ -203,7 +203,7 @@ void NetworkMain::processPacketClient(Packet *packet) {
     }
 }
 
-void NetworkMain::checkCo(Packet *packet) {
+void NetworkMain::checkConnection(Packet *packet) {
 
     if(packet != NULL)
     {
@@ -215,6 +215,9 @@ void NetworkMain::checkCo(Packet *packet) {
                 break;
             case ID_CONNECTION_ATTEMPT_FAILED :
                 dataStream.Read(my_Id);
+                break;
+
+            default:
                 break;
 
         }
