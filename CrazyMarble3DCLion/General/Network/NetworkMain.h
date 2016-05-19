@@ -24,9 +24,6 @@ using namespace RakNet;
 class NetworkMain {
 private:
     // creation de nos propre ID
-    const unsigned char PACKET_ID_DEPLACEMENT = 101;
-    const unsigned char PACKET_ID_ANIMATION = 102;
-    const unsigned char PACKET_ID_ID_JOUEUR = 103;
 
     // Server static properties
     const short portServeur = 6668;
@@ -57,6 +54,11 @@ public:
     virtual ~NetworkMain();
 
     void updateNetwork();
+
+
+    const static unsigned char PACKET_ID_DEPLACEMENT;
+    const static unsigned char PACKET_ID_ANIMATION;
+    const static unsigned char PACKET_ID_ID_JOUEUR;
 
 };
 

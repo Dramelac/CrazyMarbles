@@ -4,6 +4,10 @@
 
 #include "NetworkMain.h"
 
+const unsigned char NetworkMain::PACKET_ID_DEPLACEMENT = 101;
+const unsigned char NetworkMain::PACKET_ID_ANIMATION = 102;
+const unsigned char NetworkMain::PACKET_ID_ID_JOUEUR = 103;
+
 
 NetworkMain::NetworkMain(bool isServer) : isServer(isServer) {
 
@@ -116,7 +120,7 @@ void NetworkMain::processPacketServer(Packet *packet) {
                 dataStream.Read(rotationJoueur[other_ID_Player]);
                 break;
             case PACKET_ID_ANIMATION:
-                bool walking = false;
+                bool walking;
                 dataStream.Read(other_ID_Player);
                 dataStream.Read(walking);
                 send_animation(peer, packet, other_ID_Player, walking);
