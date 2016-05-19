@@ -48,7 +48,7 @@ private:
     vector3df positionJoueur[2];
     vector3df inertieJoueur[2];
 
-    Player player[2];
+    Player* player[2];
 
     void updatePacket();
     void processPacketServer(Packet *packet);

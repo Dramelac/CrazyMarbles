@@ -101,12 +101,7 @@ void NetworkMain::updateNetwork() {
 }
 
 NetworkMain::~NetworkMain() {
-    if (isServer){
-        RakPeerInterface::DestroyInstance(peer);
-    }else
-    {
-        RakPeerInterface::DestroyInstance(peer);
-    }
+    RakPeerInterface::DestroyInstance(peer);
 }
 
 void NetworkMain::updatePacket() {
@@ -183,8 +178,8 @@ void NetworkMain::processPacketClient(Packet *packet) {
 
                 if(un_Id != my_Id)
                 {
-                    player[un_Id].setPosition(positionJoueur[un_Id]);
-                    player[un_Id].setInertie(inertieJoueur[un_Id]);
+                    player[un_Id]->setPosition(positionJoueur[un_Id]);
+                    player[un_Id]->setInertie(inertieJoueur[un_Id]);
 
                 }
                 break;
@@ -193,7 +188,7 @@ void NetworkMain::processPacketClient(Packet *packet) {
                 dataStream.Read(un_Id);
                 dataStream.Read(he_walks);
                 if(he_walks){
-                    player[un_Id].setGravity();
+                    player[un_Id]->setGravity();
 
                 }
                 break;
