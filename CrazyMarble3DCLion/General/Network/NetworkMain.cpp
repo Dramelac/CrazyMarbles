@@ -12,18 +12,12 @@ const unsigned char NetworkMain::PACKET_ID_ID_JOUEUR = 103;
 NetworkMain::NetworkMain(bool isServer) : isServer(isServer) {
 
     peer = RakPeerInterface::GetInstance();
-    const char test = 0;
     if (isServer){
 
-        SocketDescriptor servDesc;
-        servDesc.port=portServeur;
-        strcpy(servDesc.hostAddress, "0");
-
         unsigned short maxClient = 2;
-        peer->Startup(maxClient, &servDesc, 1);
+        peer->Startup(maxClient, new SocketDescriptor(portServeur, 0), 1);
         peer->SetMaximumIncomingConnections(maxClient);
         ID_Player = 0;
-
 
         tempsActuel = clock();
         tempsEcouler = clock();
@@ -34,16 +28,11 @@ NetworkMain::NetworkMain(bool isServer) : isServer(isServer) {
         cout<<"Entrer l'adresse ip du serveur : ";
         cin>>IP_serveur;
 
-        SocketDescriptor clientDesc;
-        peer->Startup(1,&clientDesc,1);
+        peer->Startup(1,new SocketDescriptor(),1);
         peer->Connect(IP_serveur,portServeur,0,0);
-
-
 
         tempsActuel = clock();
         tempsEcouler = clock();
-
-
 
 
     }
