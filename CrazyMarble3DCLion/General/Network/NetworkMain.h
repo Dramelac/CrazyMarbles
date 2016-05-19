@@ -7,6 +7,7 @@
 
 #include <irrlicht.h>
 
+
 #include <RakPeerInterface.h>
 #include <MessageIdentifiers.h>
 #include <BitStream.h>
@@ -14,6 +15,8 @@
 
 #include <iostream>
 #include <ctime>//for clock()
+
+#include "../../Play/Player.h"
 
 using namespace std;
 using namespace irr;
@@ -32,16 +35,25 @@ private:
     RakPeerInterface *peer;
     int ID_Player;
 
+
+    bool I_walk =false;
+    bool he_walks =false;
+    int my_Id =0;
+    int un_Id=0;
+
     clock_t tempsActuel;
     clock_t tempsEcouler;
 
     // player information
     vector3df positionJoueur[2];
-    vector3df rotationJoueur[2];
+    vector3df inertieJoueur[2];
+
+    Player player[2];
 
     void updatePacket();
     void processPacketServer(Packet *packet);
 
+    void checkCo(Packet *packet);
     void processPacketClient(Packet *packet);
 
     void send_a_ID_joueur(RakPeerInterface *serveur, int ID_player);

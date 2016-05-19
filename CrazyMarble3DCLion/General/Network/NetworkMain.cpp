@@ -28,6 +28,24 @@ NetworkMain::NetworkMain(bool isServer) : isServer(isServer) {
         tempsActuel = clock();
         tempsEcouler = clock();
 
+    }else{
+        char IP_serveur[20]; //mb mettre en attribut
+
+        cout<<"Entrer l'adresse ip du serveur : ";
+        cin>>IP_serveur;
+
+        SocketDescriptor clientDesc;
+        peer->Startup(1,&clientDesc,1);
+        peer->Connect(IP_serveur,portServeur,0,0);
+
+
+
+        tempsActuel = clock();
+        tempsEcouler = clock();
+
+
+
+
     }
 
 }
@@ -67,13 +85,26 @@ void NetworkMain::updateNetwork() {
 
         updatePacket();
 
-    } else {
+    } else
+    {
+        packet = peer->Receive();
+        do{
+            checkCo(packet);
+        }while(my_Id<0);
+
+        processPacketClient(packet);
+
+        peer->DeallocatePacket(packet);
+        
 
     }
 }
 
 NetworkMain::~NetworkMain() {
     if (isServer){
+        RakPeerInterface::DestroyInstance(peer);
+    }else
+    {
         RakPeerInterface::DestroyInstance(peer);
     }
 }
@@ -90,7 +121,7 @@ void NetworkMain::updatePacket() {
             data.Write(PACKET_ID_DEPLACEMENT);
             data.Write(i);
             data.Write(positionJoueur[i]);
-            data.Write(rotationJoueur[i]);
+            data.Write(inertieJoueur[i]);
             peer->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
         }
         tempsActuel = clock();
@@ -117,7 +148,7 @@ void NetworkMain::processPacketServer(Packet *packet) {
             case PACKET_ID_DEPLACEMENT:
                 dataStream.Read(other_ID_Player);
                 dataStream.Read(positionJoueur[other_ID_Player]);
-                dataStream.Read(rotationJoueur[other_ID_Player]);
+                dataStream.Read(inertieJoueur[other_ID_Player]);
                 break;
             case PACKET_ID_ANIMATION:
                 bool walking;
@@ -138,8 +169,67 @@ void NetworkMain::processPacketServer(Packet *packet) {
 }
 
 void NetworkMain::processPacketClient(Packet *packet) {
+    if(packet != NULL)
+    {
+        unsigned char packetID;
+        RakNet::BitStream dataStream(packet->data, packet->length,false);
+        dataStream.Read(packetID);
+        switch(packetID)
+        {
+            case PACKET_ID_DEPLACEMENT:
+                dataStream.Read(un_Id);
+                dataStream.Read(positionJoueur[un_Id]);
+                dataStream.Read(inertieJoueur[un_Id]);
+
+                if(un_Id != my_Id)
+                {
+                    player[un_Id].setPosition(positionJoueur[un_Id]);
+                    player[un_Id].setInertie(inertieJoueur[un_Id]);
+
+                }
+                break;
+
+            case PACKET_ID_ANIMATION:
+                dataStream.Read(un_Id);
+                dataStream.Read(he_walks);
+                if(he_walks){
+                    player[un_Id].setGravity();
+
+                }
+                break;
+
+            default:
+                cout << "Server connection accepted\n" << int(packetID) << endl;
+                break;
+        }
+
+
+
+    }
+}
+
+void NetworkMain::checkCo(Packet *packet) {
+
+    if(packet != NULL)
+    {
+        unsigned char packetID;
+        RakNet::BitStream dataStream(packet->data, packet->length, false);
+        dataStream.Read(packetID);
+        switch (packetID) {
+            case ID_CONNECTION_REQUEST_ACCEPTED:
+                break;
+            case ID_CONNECTION_ATTEMPT_FAILED :
+                dataStream.Read(my_Id);
+                break;
+
+        }
+
+    }
 
 }
+
+
+
 
 
 
