@@ -1,6 +1,3 @@
-//
-// Created by mathieu on 17/05/16.
-//
 
 #ifndef CRAZYMARBLE3DCLION_NETWORKMAIN_H
 #define CRAZYMARBLE3DCLION_NETWORKMAIN_H
@@ -67,6 +64,7 @@ public:
 
     void updateNetwork();
 
+    bool playerSendData(bool I_walk);
 
     const static unsigned char PACKET_ID_DEPLACEMENT;
     const static unsigned char PACKET_ID_ANIMATION;

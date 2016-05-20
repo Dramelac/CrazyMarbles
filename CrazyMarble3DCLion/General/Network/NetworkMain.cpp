@@ -1,6 +1,3 @@
-//
-// Created by mathieu on 17/05/16.
-//
 
 #include "NetworkMain.h"
 
@@ -214,6 +211,24 @@ void NetworkMain::checkConnection(Packet *packet) {
     }
 
 }
+
+bool NetworkMain::playerSendData(bool I_walk) {
+
+    if(!I_walk)//on verifie si on ne marchait pas deja avant
+    {             //car si c'est le cas, on l'a deja dit au serveur
+        I_walk = true;
+        // on envoie notre statue au serveur
+        RakNet::BitStream data;
+        data.Write(PACKET_ID_ANIMATION);
+        data.Write(my_Id);//on ecrit notre ID_joueur pour que le serveur sait de qui il s'agit
+        data.Write(I_walk);//on dit si on est entrain de marcher
+        //et on envoie ça au serveur
+        peer->Send(&data, MEDIUM_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+    }
+    return I_walk;
+}
+
+
 
 
 

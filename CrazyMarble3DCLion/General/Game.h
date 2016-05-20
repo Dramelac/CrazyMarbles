@@ -1,6 +1,3 @@
-//
-// Created by mathieu on 23/02/16.
-//
 
 #ifndef TESTISO_GAME_HPP
 #define TESTISO_GAME_HPP
