@@ -32,11 +32,6 @@ private:
     RakPeerInterface *peer;
     int ID_Player;
 
-
-    bool I_walk =false;
-    bool he_walks =false;
-    int un_Id=0;
-
     clock_t tempsActuel;
     clock_t tempsEcouler;
 

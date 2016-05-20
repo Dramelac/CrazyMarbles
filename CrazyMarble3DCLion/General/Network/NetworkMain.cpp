@@ -153,14 +153,22 @@ void NetworkMain::processPacketClient(Packet *packet) {
         switch(packetID)
         {
             case PACKET_ID_DEPLACEMENT:
-                dataStream.Read(un_Id);
-                dataStream.Read(positionJoueur[un_Id]);
-                dataStream.Read(inertieJoueur[un_Id]);
+                //temp var
+                int ID_Node;
+                vector3df positionNode;
+                vector3df inertieJoueur;
+                dataStream.Read(ID_Node);
+                dataStream.Read(positionNode);
+                dataStream.Read(inertieJoueur);
 
-                if(un_Id != ID_Player)
+                if(ID_Node != ID_Player && ID_Node < 1000)
                 {
-                    player[un_Id]->setPosition(positionJoueur[un_Id]);
-                    player[un_Id]->setInertie(inertieJoueur[un_Id]);
+                    /*
+                    player[ID_Node]->setPosition(positionJoueur[ID_Node]);
+                    player[ID_Node]->setInertie(inertieJoueur[ID_Node]);
+                     */
+                    ISceneNode* selectNode = sceneManager->getSceneNodeFromId(ID_Node);
+
 
                 }
                 break;
