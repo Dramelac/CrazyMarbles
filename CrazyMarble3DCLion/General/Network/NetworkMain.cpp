@@ -76,7 +76,7 @@ void NetworkMain::updateNetwork() {
         packet = peer->Receive();
         do{
             checkConnection(packet);
-        }while(my_Id<0);
+        }while(ID_Player<0);
 
         processPacketClient(packet);
 
@@ -131,12 +131,6 @@ void NetworkMain::processPacketServer(Packet *packet) {
                 dataStream.Read(positionJoueur[other_ID_Player]);
                 dataStream.Read(inertieJoueur[other_ID_Player]);
                 break;
-            case PACKET_ID_ANIMATION:
-                bool walking;
-                dataStream.Read(other_ID_Player);
-                dataStream.Read(walking);
-                send_animation(peer, packet, other_ID_Player, walking);
-                break;
             case ID_NO_FREE_INCOMING_CONNECTIONS:
                 cout << "Server full" << endl;
                 break;
@@ -162,19 +156,10 @@ void NetworkMain::processPacketClient(Packet *packet) {
                 dataStream.Read(positionJoueur[un_Id]);
                 dataStream.Read(inertieJoueur[un_Id]);
 
-                if(un_Id != my_Id)
+                if(un_Id != ID_Player)
                 {
                     player[un_Id]->setPosition(positionJoueur[un_Id]);
                     player[un_Id]->setInertie(inertieJoueur[un_Id]);
-
-                }
-                break;
-
-            case PACKET_ID_ANIMATION:
-                dataStream.Read(un_Id);
-                dataStream.Read(he_walks);
-                if(he_walks){
-                    
 
                 }
                 break;
@@ -200,7 +185,7 @@ void NetworkMain::checkConnection(Packet *packet) {
             case ID_CONNECTION_REQUEST_ACCEPTED:
                 break;
             case ID_CONNECTION_ATTEMPT_FAILED :
-                dataStream.Read(my_Id);
+                dataStream.Read(ID_Player);
                 break;
 
             default:
@@ -212,20 +197,25 @@ void NetworkMain::checkConnection(Packet *packet) {
 
 }
 
-bool NetworkMain::playerSendData(bool I_walk) {
+clock_t NetworkMain::playerSendData(clock_t tempsEcouler) {
 
-    if(!I_walk)//on verifie si on ne marchait pas deja avant
-    {             //car si c'est le cas, on l'a deja dit au serveur
-        I_walk = true;
-        // on envoie notre statue au serveur
+    tempsActuel = clock();//mise a jour du temps ecouler
+    if(tempsActuel - tempsEcouler > 30)//si ça fait plus de 30 ms qui se sont ecoulé
+    {
         RakNet::BitStream data;
-        data.Write(PACKET_ID_ANIMATION);
-        data.Write(my_Id);//on ecrit notre ID_joueur pour que le serveur sait de qui il s'agit
-        data.Write(I_walk);//on dit si on est entrain de marcher
-        //et on envoie ça au serveur
-        peer->Send(&data, MEDIUM_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+        data.Write(PACKET_ID_DEPLACEMENT);//on ecrit l'ID du packet
+        data.Write(ID_Player);//on ecrit notre ID_joueur pour que le serveur sait de qui il s'agit
+        positionJoueur[ID_Player] = player[ID_Player]->getPosition();//on recupere notre position
+        data.Write(positionJoueur[ID_Player]);//on l'ecrit dans notre packet
+        inertieJoueur[ID_Player] = player[ID_Player]->getInertie();//on recupere notre innertie
+        data.Write(inertieJoueur[ID_Player]);//on ecrit notre rotation dans notre packet
+        //et on envoie tout ça
+        peer->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+
+        tempsEcouler = clock();//on remet le temps a jour
     }
-    return I_walk;
+
+    return tempsEcouler;
 }
 
 

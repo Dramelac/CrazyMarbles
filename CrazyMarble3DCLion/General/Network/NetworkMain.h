@@ -35,7 +35,6 @@ private:
 
     bool I_walk =false;
     bool he_walks =false;
-    int my_Id =0;
     int un_Id=0;
 
     clock_t tempsActuel;
@@ -64,7 +63,7 @@ public:
 
     void updateNetwork();
 
-    bool playerSendData(bool I_walk);
+    clock_t playerSendData(clock_t tempsEcouler);
 
     const static unsigned char PACKET_ID_DEPLACEMENT;
     const static unsigned char PACKET_ID_ANIMATION;
