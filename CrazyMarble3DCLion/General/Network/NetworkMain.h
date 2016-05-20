@@ -44,6 +44,7 @@ private:
     vector3df positionJoueur[2];
     vector3df inertieJoueur[2];
 
+    ISceneManager* sceneManager;
     Player* player[2];
 
     void updatePacket();
@@ -57,7 +58,7 @@ private:
                         int ID_joueur, bool il_marche);
 
 public:
-    NetworkMain(bool isServer=true);
+    NetworkMain(bool isServer=true, ISceneManager* sceneManager );
 
     virtual ~NetworkMain();
 

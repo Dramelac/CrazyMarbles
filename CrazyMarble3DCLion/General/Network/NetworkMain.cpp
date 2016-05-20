@@ -6,8 +6,9 @@ const unsigned char NetworkMain::PACKET_ID_ANIMATION = 102;
 const unsigned char NetworkMain::PACKET_ID_ID_JOUEUR = 103;
 
 
-NetworkMain::NetworkMain(bool isServer) : isServer(isServer) {
+NetworkMain::NetworkMain(bool isServer ,ISceneManager* sceneManager) : isServer(isServer) {
 
+    this->sceneManager = sceneManager;
     peer = RakPeerInterface::GetInstance();
     if (isServer){
 
