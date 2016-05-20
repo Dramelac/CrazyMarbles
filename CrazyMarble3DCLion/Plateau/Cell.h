@@ -50,6 +50,8 @@ public:
 
     void setupPlayerToEntity(ISceneManager *sceneManager, Player* player);
 
+    BlackMarbles * getEntity() const;
+
     static const float size;
 };
 

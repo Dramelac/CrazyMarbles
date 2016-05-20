@@ -6,9 +6,10 @@ const unsigned char NetworkMain::PACKET_ID_ANIMATION = 102;
 const unsigned char NetworkMain::PACKET_ID_ID_JOUEUR = 103;
 
 
-NetworkMain::NetworkMain(bool isServer ,ISceneManager* sceneManager) : isServer(isServer) {
+NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
+                         path pathMap, stringc pseudo, bool isServer)
+        : isServer(isServer), device(device), keyEvent(keyEvent), pathMap(pathMap), pseudo(pseudo) {
 
-    this->sceneManager = sceneManager;
     peer = RakPeerInterface::GetInstance();
     if (isServer){
 
@@ -155,22 +156,28 @@ void NetworkMain::processPacketClient(Packet *packet) {
             case PACKET_ID_DEPLACEMENT:
                 //temp var
                 int ID_Node;
-                vector3df positionNode;
-                vector3df inertieJoueur;
+                vector3df* positionNode;
+                vector3df* inertieNode;
                 dataStream.Read(ID_Node);
                 dataStream.Read(positionNode);
-                dataStream.Read(inertieJoueur);
+                dataStream.Read(inertieNode);
 
                 if(ID_Node != ID_Player && ID_Node < 1000)
                 {
-                    /*
-                    player[ID_Node]->setPosition(positionJoueur[ID_Node]);
-                    player[ID_Node]->setInertie(inertieJoueur[ID_Node]);
-                     */
-                    ISceneNode* selectNode = sceneManager->getSceneNodeFromId(ID_Node);
 
+                    player[ID_Node]->setPosition(*positionNode);
+                    player[ID_Node]->setInertie(*inertieNode);
 
                 }
+                /* else if (3500 <= ID_Node <= 6000 ) {
+                 *     setupBlackMarbleAt(vector3di cursor, vector3df innertie, vector3df position)
+                 *}
+                 */
+
+                // TO CHECK
+                delete positionNode;
+                delete inertieNode;
+                // MAY SEGFAULT -> IF CASE : TO REMOVE
                 break;
 
             default:
@@ -227,11 +234,31 @@ clock_t NetworkMain::playerSendData(clock_t tempsEcouler) {
     return tempsEcouler;
 }
 
+void NetworkMain::play() {
+    game = new Game(device, keyEvent, pseudo, pathMap);
+    //game.setup2P();   // setup 2P entities - add 2P collision (map + dark marble) - player / 2P collision
+    clock_t tempsEcouler = clock();
+    while (device->run()) {
+        if (device->isWindowActive()) {                                      // check if windows is active
 
+            // check order
+            updateNetwork();
 
+            //game->networkGameLoop();
 
+            playerSendData(tempsEcouler);
+        }
+    }
+}
 
+void NetworkMain::setupBlackMarbleAt(vector3di cursor, vector3df innertie, vector3df position) {
+    BlackMarbles* tempEntity = game->getBoard()->getCell(cursor)->getEntity();
+    if (tempEntity != nullptr){
+        tempEntity->setInertie(innertie);
+        tempEntity->setPosition(position);
+    }
 
+}
 
 
 

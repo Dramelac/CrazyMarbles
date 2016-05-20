@@ -252,4 +252,6 @@ s16 Game::pause() {
 }
 
 
-
+Board *Game::getBoard() const {
+    return board;
+}

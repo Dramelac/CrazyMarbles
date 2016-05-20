@@ -222,5 +222,10 @@ void Cell::updateEntityMoving(f32 deltaTime, IRandomizer *rand) {
 }
 
 
-
-
+BlackMarbles *Cell::getEntity() const {
+    if (isEntitySet) {
+        return entity;
+    } else {
+        return nullptr;
+    }
+}

@@ -14,15 +14,25 @@
 #include <ctime>//for clock()
 
 #include "../../Play/Player.h"
+#include "../Game.h"
 
 using namespace std;
 using namespace irr;
 using namespace core;
+using namespace io;
 
 using namespace RakNet;
 
 class NetworkMain {
 private:
+    // Game Irrlicht
+    IrrlichtDevice* device;
+    KeyboardEvent* keyEvent;
+
+    path pathMap;
+    stringc pseudo;
+    Game* game;
+
     // creation de nos propre ID
 
     // Server static properties
@@ -39,7 +49,6 @@ private:
     vector3df positionJoueur[2];
     vector3df inertieJoueur[2];
 
-    ISceneManager* sceneManager;
     Player* player[2];
 
     void updatePacket();
@@ -52,10 +61,14 @@ private:
     void send_animation(RakPeerInterface *serveur, Packet *packet,
                         int ID_joueur, bool il_marche);
 
-public:
-    NetworkMain(bool isServer=true, ISceneManager* sceneManager );
+    void setupBlackMarbleAt(vector3di cursor, vector3df innertie, vector3df position);
 
+public:
+    NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
+                path pathMap, stringc pseudo, bool isServer=true);
     virtual ~NetworkMain();
+
+    void play();
 
     void updateNetwork();
 
