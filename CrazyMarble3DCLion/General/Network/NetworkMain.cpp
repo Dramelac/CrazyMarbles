@@ -86,7 +86,9 @@ void NetworkMain::updateNetwork() {
 
     }
 
-    updatePacket();
+    if (isGameStart) {
+        updatePacket();
+    }
 }
 
 NetworkMain::~NetworkMain() {
@@ -132,7 +134,7 @@ void NetworkMain::processPacketServer(Packet *packet) {
                 startGame();
                 break;
             case PACKET_ID_DEPLACEMENT:
-                proccessDeplacementPacket(dataStream);
+                proccessDeplacementPacket(&dataStream);
                 break;
             case ID_NO_FREE_INCOMING_CONNECTIONS:
                 cout << "Server full" << endl;
@@ -186,7 +188,7 @@ void NetworkMain::processPacketClient(Packet *packet) {
                 delete inertieNode;
                 // MAY SEGFAULT -> IF CASE : TO REMOVE
                 */
-                proccessDeplacementPacket(dataStream);
+                proccessDeplacementPacket(&dataStream);
                 break;
 
             default:
@@ -196,12 +198,12 @@ void NetworkMain::processPacketClient(Packet *packet) {
     }
 }
 
-void NetworkMain::proccessDeplacementPacket(BitStream dataStream) {
+void NetworkMain::proccessDeplacementPacket(BitStream* dataStream) {
     vector3df positionTemp;
     vector3df innertieTemp;
-    dataStream.Read(other_ID_Player);
-    dataStream.Read(positionTemp);
-    dataStream.Read(innertieTemp);
+    dataStream->Read(other_ID_Player);
+    dataStream->Read(positionTemp);
+    dataStream->Read(innertieTemp);
     game->getPlayer2()->setPosition(positionTemp);
     game->getPlayer2()->setPosition(innertieTemp);
 }
@@ -247,7 +249,6 @@ void NetworkMain::play() {
 
             if (isGameStart){
                 game->networkGameLoop();
-                playerSendData(tempsEcouler);
             }
         }
     }

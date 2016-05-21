@@ -50,7 +50,7 @@ private:
 
     void updatePacket();
 
-    void proccessDeplacementPacket(BitStream dataStream);
+    void proccessDeplacementPacket(BitStream* dataStream);
     void processPacketServer(Packet *packet);
 
     void checkClientConnection(Packet *packet);
