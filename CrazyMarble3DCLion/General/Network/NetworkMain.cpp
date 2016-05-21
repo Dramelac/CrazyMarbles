@@ -171,10 +171,15 @@ void NetworkMain::processPacketClient(Packet *packet) {
                     player[ID_Node]->setInertie(*inertieNode);
 
                 }
-                /* else if (3500 <= ID_Node <= 6000 ) {
-                 *     setupBlackMarbleAt(vector3di cursor, vector3df innertie, vector3df position)
-                 *}
-                 */
+                else if (3500 <= ID_Node && ID_Node <= 6000 )
+                {
+                    ID_Node -= 3500;
+                    s32 X = ID_Node / 50;
+                    s32 Y = ID_Node % 50;
+                    vector3di cursor = vector3di(X,0,Y) ;
+                    setupBlackMarbleAt( cursor , vector3df innertie, vector3df position)
+                }
+
 
                 // TO CHECK
                 delete positionNode;
@@ -238,7 +243,7 @@ clock_t NetworkMain::playerSendData(clock_t tempsEcouler) {
 
 void NetworkMain::play() {
     game = new Game(device, keyEvent, pseudo, pathMap);
-    //game.setup2P();   // setup 2P entities - add 2P collision (map + dark marble) - player / 2P collision
+    game->setup2P();
     clock_t tempsEcouler = clock();
     while (device->run()) {
         if (device->isWindowActive()) {                                      // check if windows is active
