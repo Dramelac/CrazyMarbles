@@ -7,6 +7,7 @@
 
 
 #include "../GUIBase.h"
+#include "NetworkMain.h"
 using namespace core;
 
 class MenuServer : public GUIBase {

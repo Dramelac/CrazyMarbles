@@ -3,6 +3,7 @@
 //
 
 #include "MenuServer.h"
+#include "../../General/Network/NetworkMain.h"
 
 
 MenuServer::MenuServer(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc pseudo, IGUIImage* background) :
@@ -35,6 +36,11 @@ void MenuServer::loop() {
             driver->endScene();
 
             if (exit->isPressed() || keyEvent->IsKeyDown(KEY_ESCAPE, true)){
+                return;
+            }
+            else if (valide->isPressed()){
+                visibilityButtons(false);
+                NetworkMain networkMain = new NetworkMain(device,keyEvent,"",pseudo, false);
                 return;
             }
 
