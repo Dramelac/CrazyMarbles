@@ -42,7 +42,7 @@ NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
 //pour envoyer un ID a notre joueur qui vient de se connecter
 void NetworkMain::send_a_ID_joueur(RakPeerInterface *server, int ID_player)
 {
-    RakNet::BitStream data;// creation de nos data a envoyer
+    BitStream data;// creation de nos data a envoyer
     data.Write(PACKET_ID_ID_JOUEUR);// on ecrit l'ID de notre packet
     data.Write(ID_player);// l'ID du joueur a envoyer
     server->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
@@ -53,7 +53,7 @@ void NetworkMain::send_a_ID_joueur(RakPeerInterface *server, int ID_player)
 //l'avait envoyer (packet->systemAddress)
 void NetworkMain::send_animation(RakPeerInterface *serveur, Packet *packet, int ID_joueur, bool il_marche)
 {
-    RakNet::BitStream data;
+    BitStream data;
     data.Write(PACKET_ID_ANIMATION);
     data.Write(ID_joueur);
     data.Write(il_marche);
@@ -149,7 +149,7 @@ void NetworkMain::processPacketClient(Packet *packet) {
     if(packet != NULL)
     {
         unsigned char packetID;
-        RakNet::BitStream dataStream(packet->data, packet->length,false);
+        BitStream dataStream(packet->data, packet->length,false);
         dataStream.Read(packetID);
         switch(packetID)
         {
@@ -195,7 +195,7 @@ void NetworkMain::checkClientConnection(Packet *packet) {
     if(packet != NULL)
     {
         unsigned char packetID;
-        RakNet::BitStream dataStream(packet->data, packet->length, false);
+        BitStream dataStream(packet->data, packet->length, false);
         dataStream.Read(packetID);
         switch (packetID) {
             case ID_CONNECTION_REQUEST_ACCEPTED:
@@ -218,7 +218,7 @@ clock_t NetworkMain::playerSendData(clock_t tempsEcouler) {
     tempsActuel = clock();//mise a jour du temps ecouler
     if(tempsActuel - tempsEcouler > 30)//si ça fait plus de 30 ms qui se sont ecoulé
     {
-        RakNet::BitStream data;
+        BitStream data;
         data.Write(PACKET_ID_DEPLACEMENT);//on ecrit l'ID du packet
         data.Write(ID_Player);//on ecrit notre ID_joueur pour que le serveur sait de qui il s'agit
         positionJoueur[ID_Player] = player[ID_Player]->getPosition();//on recupere notre position
