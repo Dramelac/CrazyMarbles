@@ -89,7 +89,7 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stri
 
 
     //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
-
+    isNetwork =false;
     chrono = new Chrono(device, 60);
     player->updateScore();
 

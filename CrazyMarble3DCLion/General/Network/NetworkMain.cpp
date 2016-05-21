@@ -75,6 +75,7 @@ void NetworkMain::updateNetwork() {
 
     } else
     {
+
         packet = peer->Receive();
         do{
             checkClientConnection(packet);
