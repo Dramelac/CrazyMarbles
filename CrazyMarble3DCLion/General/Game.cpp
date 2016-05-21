@@ -256,26 +256,26 @@ Board *Game::getBoard() const {
     return board;
 }
 
-void Game::setup2P(bool isNetwork) {
+void Game::setup2P() {
 
-    if(isNetwork){
+    isNetwork=true;
 
-        IMetaTriangleSelector* metaSelector = board->getMapMetaSelector(sceneManager);
+    IMetaTriangleSelector* metaSelector = board->getMapMetaSelector(sceneManager);
+    player2->enableCollision(metaSelector, sceneManager);
+    metaSelector->drop();
 
-        player2->enableCollision(metaSelector, sceneManager);
-        board->setupCollisionEntity(metaSelector, sceneManager);
-        metaSelector->drop();
+    IMetaTriangleSelector* metaFinishSelector = board->getMapMetaSelector(sceneManager, true);
+    player2->addFinishLineCollision(metaFinishSelector, sceneManager);
+    metaFinishSelector->drop();
 
-        IMetaTriangleSelector* metaFinishSelector = board->getMapMetaSelector(sceneManager, true);
-        player2->addFinishLineCollision(metaFinishSelector, sceneManager);
-        metaFinishSelector->drop();
+    board->setPlayerToEntities(sceneManager, player2);
+    ITriangleSelector* player1Selector = player->getSelector(sceneManager);
+    player2->enableCustomCollision(player1Selector,sceneManager);
+    player1Selector->drop();
 
-        board->setPlayerToEntities(sceneManager, player2);
-        ITriangleSelector* player1Selector = player->getSelector(sceneManager);
-        player2->enableCustomCollision(player1Selector,sceneManager);
-        player1Selector->drop();
-
-    }
+    ITriangleSelector* player2Selector = player2->getSelector(sceneManager);
+    player->enableCustomCollision(player2Selector,sceneManager);
+    player2Selector->drop();
 
 
 
