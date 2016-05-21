@@ -270,5 +270,7 @@ void NetworkMain::startGame(stringc pseudoP2) {
     isGameStart = true;
     game = new Game(device, keyEvent, pathMap, pseudo);
     game->setup2P(pseudoP2);
+    int lastFPS = -1;
+    u32 then = device->getTimer()->getTime();
 }
 

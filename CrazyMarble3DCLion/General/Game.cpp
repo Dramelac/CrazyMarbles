@@ -282,7 +282,60 @@ void Game::setup2P(stringc pseudo) {
 
 }
 
-void Game::networkGameLoop() {
+void Game::networkGameLoop(int lastFPS,u32 then ) {
+
+    driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
+    player->updateCamera();
+
+    sceneManager->drawAll();
+    // update display
+    gui->drawAll();
+    driver->endScene();
+
+    chrono->start();
+
+    // display frames per second in window title
+    int fps = driver->getFPS();
+    if (lastFPS != fps)
+    {
+        core::stringw title = L"Crazy Marble - 2DEV  [FPS:";
+        title += fps;
+        title += "]";
+
+        device->setWindowCaption(title.c_str());
+        lastFPS = fps;
+    }
+
+    //updateGameBoard();                    //to implement later
+    // Move time
+    u32 now = device->getTimer()->getTime();
+    f32 deltaTime = (f32)(now-then) / 1000.f;
+    then = now;
+    keyboardChecker(deltaTime);
+    IRandomizer *rand = device->getRandomizer();
+    board->applyMovingOnEntities(deltaTime,rand);
+
+    if (not player->isAlive()){
+        // player is dead
+        chrono->stop();
+        player->setGravity();
+        WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU DIED !");
+        return popup.loop();
+    }
+
+    if (chrono->getTime() == 0){
+        chrono->stop();
+        player->setGravity();
+        WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t TIMES UP !");
+        return popup.loop();
+    }
+
+    if (player->checkFinish()){
+        // player win
+        WinLooseChoose popup(device, keyevent, player->calculFinal(chrono->getTime()), true);
+        chrono->stop();
+        return popup.loop();
+    }
 
 }
 
