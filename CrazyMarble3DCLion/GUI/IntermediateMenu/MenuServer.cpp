@@ -40,7 +40,7 @@ void MenuServer::loop() {
             }
             else if (valide->isPressed()){
                 visibilityButtons(false);
-                NetworkMain networkMain = new NetworkMain(device,keyEvent,"",pseudo, false);
+                NetworkMain* networkMain = new NetworkMain(device,keyEvent,"",pseudo, false);
                 return;
             }
 
