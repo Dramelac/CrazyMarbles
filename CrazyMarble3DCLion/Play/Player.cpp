@@ -77,7 +77,7 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
 }
 // network player
 Player::Player(ISceneManager *sceneManager, IVideoDriver *driver, const stringc &name, int health, vector3df startpos, s32 score)
-    : Entities(name, health), score(score), enemyKill(0), finishTime(0), isPlayable(true) {
+    : Entities(name, health), score(score), enemyKill(0), finishTime(0), isPlayable(false) {
         speed = 20;
         inertie = vector3df(0,0,0);
 
@@ -117,7 +117,9 @@ Player::Player(ISceneManager *sceneManager) : Entities(), finishTime(0), isPlaya
 
 Player::~Player() {
     sceneNode->remove();
-    fixeCamera->remove();
+    if (fixeCamera){
+        fixeCamera->remove();
+    }
     if (isPlayable){
         displayScore->remove();
         healthBarBG->remove();

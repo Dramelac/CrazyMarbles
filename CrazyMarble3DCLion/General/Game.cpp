@@ -212,6 +212,9 @@ Game::~Game() {
 
     delete board;
     delete player;
+    if (isNetwork){
+        delete player2;
+    }
 
     sceneManager->clear();
 
@@ -285,7 +288,7 @@ void Game::setup2P(stringc pseudo) {
 
 void Game::networkGameLoop() {
 
-    driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
+    driver->beginScene(true,true, video::SColor(255,150,150,150));        // font default color
     player->updateCamera();
 
     sceneManager->drawAll();

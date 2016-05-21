@@ -33,7 +33,7 @@ NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
 
 
         Packet * packet = NULL;
-
+        ID_Player = -1;
         do{
             packet = peer->Receive();
             checkClientConnection(packet);
@@ -132,7 +132,6 @@ void NetworkMain::processPacketServer(Packet *packet) {
                 cout << "New Player connection !" << endl;
                 cout << "Update ID_Player to " << ID_Player << endl;
                 cout << "Update other_ID_Player to " << other_ID_Player << endl;
-                cout << "Starting game ..." << endl;
                 startGame("DefaultPseudo");
                 break;
             case PACKET_ID_DEPLACEMENT:
@@ -140,6 +139,11 @@ void NetworkMain::processPacketServer(Packet *packet) {
                 break;
             case ID_NO_FREE_INCOMING_CONNECTIONS:
                 cout << "Server full" << endl;
+                break;
+            case ID_DISCONNECTION_NOTIFICATION:
+            case ID_CONNECTION_LOST:
+                cout << "Client disconnected ..." << endl;
+                mainPlay = false;
                 break;
 
             default:
@@ -229,13 +233,13 @@ void NetworkMain::checkClientConnection(Packet *packet) {
                 dataStream.Read(ID_Player);
                 dataStream.Read(pathMap);
                 dataStream.Read(pseudoP2);
-                other_ID_Player = ID_Player -1;
+                other_ID_Player = ID_Player + 1;
                 cout << "Connection get ID " << ID_Player << endl;
                 cout << "Update other_ID_Player to " << other_ID_Player << endl;
-                cout << "Starting game ..." << endl;
                 startGame(*pseudoP2);
                 break;
             default:
+                cout << "ping ..." << endl;
                 break;
 
         }
@@ -246,8 +250,7 @@ void NetworkMain::checkClientConnection(Packet *packet) {
 
 void NetworkMain::play() {
     cout << "Starting network main play" << endl;
-    int lastFPS = -1;
-    u32 then = device->getTimer()->getTime();
+    mainPlay = true;
     while (device->run()) {
         // check order
         updateNetwork();
@@ -256,7 +259,9 @@ void NetworkMain::play() {
         if (isGameStart){
             game->networkGameLoop();
         }
-
+        if (!mainPlay){
+            return;
+        }
     }
 }
 
@@ -271,9 +276,8 @@ void NetworkMain::setupBlackMarbleAt(vector3di cursor, vector3df innertie, vecto
 
 void NetworkMain::startGame(stringc pseudoP2) {
     isGameStart = true;
+    cout << "Starting game ..." << pathMap.c_str() << endl;
     game = new Game(device, keyEvent, pathMap, pseudo);
     game->setup2P(pseudoP2);
-    int lastFPS = -1;
-    u32 then = device->getTimer()->getTime();
 }
 

@@ -53,6 +53,7 @@ void MenuServer::loop() {
 }
 
 void MenuServer::visibilityButtons(bool status) {
+    background->setVisible(status);
     ipText->setVisible(status);
     editBox->setVisible(status);
     valide->setVisible(status);

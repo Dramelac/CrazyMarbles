@@ -34,6 +34,7 @@ private:
     Game* game;
 
     bool isGameStart;
+    bool mainPlay;
 
     // creation de nos propre ID
 
@@ -48,13 +49,13 @@ private:
     clock_t tempsActuel;
     clock_t tempsEcouler;
 
+    void updateNetwork();
     void updatePacket();
 
-    void proccessDeplacementPacket(BitStream* dataStream);
     void processPacketServer(Packet *packet);
-
     void checkClientConnection(Packet *packet);
     void processPacketClient(Packet *packet);
+    void proccessDeplacementPacket(BitStream* dataStream);
 
     void send_a_ID_joueur(RakPeerInterface *serveur, int ID_player);
     void send_animation(RakPeerInterface *serveur, Packet *packet,
@@ -63,7 +64,6 @@ private:
     void setupBlackMarbleAt(vector3di cursor, vector3df innertie, vector3df position);
     void startGame(stringc pseudoP2);
 
-    void updateNetwork();
 
 public:
     NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
