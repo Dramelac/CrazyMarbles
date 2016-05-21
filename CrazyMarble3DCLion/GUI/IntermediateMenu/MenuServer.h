@@ -14,6 +14,10 @@ private:
     IGUIImage* background;
     stringc pseudo;
     IGUIButton* exit;
+    IGUIButton* valide;
+    IGUIEditBox* editBox;
+
+
 public:
     MenuServer(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc pseudo, IGUIImage* background);
     ~MenuServer();
