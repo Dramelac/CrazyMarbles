@@ -177,7 +177,7 @@ void NetworkMain::processPacketClient(Packet *packet) {
                     s32 X = ID_Node / 50;
                     s32 Y = ID_Node % 50;
                     vector3di cursor = vector3di(X,0,Y) ;
-                    setupBlackMarbleAt( cursor , vector3df innertie, vector3df position)
+                    setupBlackMarbleAt( cursor , *inertieNode, *positionNode);
                 }
 
 
