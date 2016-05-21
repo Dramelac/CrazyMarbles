@@ -225,14 +225,14 @@ void NetworkMain::checkClientConnection(Packet *packet) {
                 cout << "Failed connection :(" << endl;
                 break;
             case PACKET_ID_ID_JOUEUR:
-                stringc pseudoP2;
+                stringc* pseudoP2;
                 dataStream.Read(ID_Player);
                 dataStream.Read(pseudoP2);
                 other_ID_Player = ID_Player -1;
                 cout << "Connection get ID " << ID_Player << endl;
                 cout << "Update other_ID_Player to " << other_ID_Player << endl;
                 cout << "Starting game ..." << endl;
-                startGame(pseudoP2);
+                startGame(*pseudoP2);
                 break;
             default:
                 break;
