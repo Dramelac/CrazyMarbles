@@ -76,8 +76,9 @@ void NetworkMain::updateNetwork() {
     } else
     {
 
-        packet = peer->Receive();
+
         do{
+            packet = peer->Receive();
             checkClientConnection(packet);
         }while(ID_Player<0);
 
