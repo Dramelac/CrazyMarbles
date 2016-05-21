@@ -36,6 +36,9 @@ private:
 	Board* board;
 	Chrono *chrono;
 
+    int lastFPS;
+    u32 then;
+
     void setupSkyBox(bool day);
 	void keyboardChecker(f32 deltaTime);
 
@@ -47,7 +50,7 @@ public:
     ~Game();
 	void setup2P(stringc pseudo="NetworkPlayer");
 
-    void networkGameLoop(int lastFPS,u32 then);
+    void networkGameLoop();
 
 
 	Board * getBoard() const;

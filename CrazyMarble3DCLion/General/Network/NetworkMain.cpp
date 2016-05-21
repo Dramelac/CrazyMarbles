@@ -246,9 +246,12 @@ void NetworkMain::checkClientConnection(Packet *packet) {
 
 void NetworkMain::play() {
     cout << "Starting network main play" << endl;
+    int lastFPS = -1;
+    u32 then = device->getTimer()->getTime();
     while (device->run()) {
         // check order
         updateNetwork();
+
         
         if (isGameStart){
             game->networkGameLoop();

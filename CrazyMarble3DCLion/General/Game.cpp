@@ -99,9 +99,9 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stri
 // Game loop
 s16 Game::gameLoop() {
 
-    int lastFPS = -1;
+    lastFPS = -1;
 
-    u32 then = device->getTimer()->getTime();
+    then = device->getTimer()->getTime();
 
 	while (device->run()){
 
@@ -278,11 +278,12 @@ void Game::setup2P(stringc pseudo) {
     player->enableCustomCollision(player2Selector,sceneManager);
     player2Selector->drop();
 
-
+    lastFPS = -1;
+    then = device->getTimer()->getTime();
 
 }
 
-void Game::networkGameLoop(int lastFPS,u32 then) {
+void Game::networkGameLoop() {
 
     driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
     player->updateCamera();
@@ -319,20 +320,20 @@ void Game::networkGameLoop(int lastFPS,u32 then) {
         // player is dead
         chrono->stop();
         player->setGravity();
-        WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU DIED !");
+        //WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU DIED !");
         player->respawn();
     }
 
     if (chrono->getTime() == 0){
         chrono->stop();
         player->setGravity();
-        WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t TIMES UP !");
+        //WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t TIMES UP !");
         //return popup.loop();
     }
 
     if (player->checkFinish()){
         // player win
-        WinLooseChoose popup(device, keyevent, player->calculFinal(chrono->getTime()), true);
+        //WinLooseChoose popup(device, keyevent, player->calculFinal(chrono->getTime()), true);
         chrono->stop();
         //return popup.loop();
     }
