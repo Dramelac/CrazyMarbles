@@ -7,7 +7,7 @@ const unsigned char NetworkMain::PACKET_ID_ID_JOUEUR = 103;
 
 
 NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
-                         path pathMap, stringc pseudo, bool isServer)
+                         path pathMap, stringc pseudo, bool isServer, char IP_serveur[20])
         : isServer(isServer), device(device), keyEvent(keyEvent),
           pathMap(pathMap), pseudo(pseudo), isGameStart(false) {
 
@@ -23,10 +23,11 @@ NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
         tempsEcouler = clock();
 
     }else{
-        char IP_serveur[20]; //mb mettre en attribut
+        //char IP_serveur[20]; //mb mettre en attribut
 
-        cout<<"Entrer l'adresse ip du serveur : ";
-        cin>>IP_serveur;
+        cout<<"IP : " << IP_serveur << endl;
+        //cin>>IP_serveur;
+        cout<<"Connection en cours ..." << endl;
 
         peer->Startup(1,new SocketDescriptor(),1);
         peer->Connect(IP_serveur,portServeur,0,0);
@@ -157,8 +158,8 @@ void NetworkMain::processPacketClient(Packet *packet) {
         switch(packetID)
         {
             case PACKET_ID_DEPLACEMENT:
-                //temp var
                 /*
+                //temp var
                 int ID_Node;
                 vector3df* positionNode;
                 vector3df* inertieNode;
