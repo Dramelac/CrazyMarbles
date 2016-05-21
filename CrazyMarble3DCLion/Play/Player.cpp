@@ -75,6 +75,26 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
                                                 dimension2d<s32>(70,25)), false, true, hearth);
 
 }
+// network player
+Player::Player(ISceneManager *sceneManager, IVideoDriver *driver, const stringc &name, int health, vector3df startpos, s32 score)
+    : Entities(name, health), score(score), enemyKill(0), finishTime(0), isPlayable(true) {
+        speed = 20;
+        inertie = vector3df(0,0,0);
+
+        // MODEL
+        startPos = startpos;
+        sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
+
+        sceneNode = sceneManager->addMeshSceneNode(sceneMesh);           // add object to screen
+        sceneNode->setPosition(startPos);
+        sceneNode->setID(10);
+
+        fixeCamera = sceneManager->addCameraSceneNode(sceneNode,
+                                                      vector3df(800.0f, 700.0f, 800.0f),
+                                                      sceneNode->getPosition());
+
+
+    }
 
 // player Level Editor
 Player::Player(ISceneManager *sceneManager) : Entities(), finishTime(0), isPlayable(false) {
@@ -293,3 +313,7 @@ void Player::takeDamage(u64 dmg) {
 s32 Player::getScore() const {
     return score;
 }
+
+
+
+

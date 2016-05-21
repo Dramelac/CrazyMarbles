@@ -259,6 +259,7 @@ Board *Game::getBoard() const {
 void Game::setup2P() {
 
     isNetwork=true;
+    player2 = new Player(sceneManager,driver,"NetworkPlayer",100,board->getStartPoint(),0);
 
     IMetaTriangleSelector* metaSelector = board->getMapMetaSelector(sceneManager);
     player2->enableCollision(metaSelector, sceneManager);
