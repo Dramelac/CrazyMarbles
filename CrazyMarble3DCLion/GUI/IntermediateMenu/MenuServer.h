@@ -16,7 +16,9 @@ private:
     IGUIButton* exit;
 public:
     MenuServer(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc pseudo, IGUIImage* background);
-
+    ~MenuServer();
+    void loop();
+    void visibilityButtons(bool status);
 
 };
 
