@@ -55,6 +55,7 @@ void NetworkMain::send_a_ID_joueur(RakPeerInterface *server, int ID_player)
     BitStream data;// creation de nos data a envoyer
     data.Write(PACKET_ID_ID_JOUEUR);// on ecrit l'ID de notre packet
     data.Write(ID_player);// l'ID du joueur a envoyer
+    data.Write(pathMap);// pseudo to send
     data.Write(pseudo);// pseudo to send
     server->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
 }
@@ -227,6 +228,7 @@ void NetworkMain::checkClientConnection(Packet *packet) {
             case PACKET_ID_ID_JOUEUR:
                 stringc* pseudoP2;
                 dataStream.Read(ID_Player);
+                dataStream.Read(pathMap);
                 dataStream.Read(pseudoP2);
                 other_ID_Player = ID_Player -1;
                 cout << "Connection get ID " << ID_Player << endl;
