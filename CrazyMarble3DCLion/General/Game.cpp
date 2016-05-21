@@ -287,4 +287,14 @@ void Game::networkGameLoop() {
 }
 
 
+Player *Game::getPlayer() const {
+    return player;
+}
 
+Player *Game::getPlayer2() const {
+    if (isNetwork) {
+        return player2;
+    } else {
+        return player;
+    }
+}

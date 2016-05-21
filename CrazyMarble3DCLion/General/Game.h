@@ -49,8 +49,10 @@ public:
 
     void networkGameLoop();
 	Board * getBoard() const;
+	Player * getPlayer() const;
+    Player * getPlayer2() const;
 
-	s16 gameLoop();
+    s16 gameLoop();
 	s32 getScore();
 };
 

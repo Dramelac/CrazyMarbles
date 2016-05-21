@@ -43,17 +43,14 @@ private:
     bool isServer;
     RakPeerInterface *peer;
     int ID_Player;
+    int other_ID_Player;
 
     clock_t tempsActuel;
     clock_t tempsEcouler;
 
-    // player information
-    vector3df positionJoueur[2];
-    vector3df inertieJoueur[2];
-
-    Player* player[2];
-
     void updatePacket();
+
+    void proccessDeplacementPacket(BitStream dataStream);
     void processPacketServer(Packet *packet);
 
     void checkClientConnection(Packet *packet);
@@ -74,8 +71,6 @@ public:
     void play();
 
     void updateNetwork();
-
-    clock_t playerSendData(clock_t tempsEcouler);
 
     const static unsigned char PACKET_ID_DEPLACEMENT;
     const static unsigned char PACKET_ID_ANIMATION;

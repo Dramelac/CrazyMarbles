@@ -78,8 +78,6 @@ void NetworkMain::updateNetwork() {
         processPacketServer(packet);
         peer->DeallocatePacket(packet);
 
-        updatePacket();
-
     } else {
 
         packet = peer->Receive();
@@ -87,6 +85,8 @@ void NetworkMain::updateNetwork() {
         peer->DeallocatePacket(packet);
 
     }
+
+    updatePacket();
 }
 
 NetworkMain::~NetworkMain() {
@@ -97,17 +97,15 @@ void NetworkMain::updatePacket() {
 
     tempsEcouler = clock();
 
-    if(tempsEcouler - tempsActuel > 40)
+    if(tempsEcouler - tempsActuel > 30)
     {
-        for(int i = 0; i < 2; i++)
-        {
-            BitStream data;
-            data.Write(PACKET_ID_DEPLACEMENT);
-            data.Write(i);
-            data.Write(positionJoueur[i]);
-            data.Write(inertieJoueur[i]);
-            peer->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
-        }
+        BitStream data;
+        data.Write(PACKET_ID_DEPLACEMENT);
+        data.Write(other_ID_Player);
+        data.Write(game->getPlayer()->getPosition());
+        data.Write(game->getPlayer()->getInertie());
+        peer->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+
         tempsActuel = clock();
     }
 
@@ -122,20 +120,19 @@ void NetworkMain::processPacketServer(Packet *packet) {
 
         dataStream.Read(packetID);
 
-        int other_ID_Player;
-
         switch (packetID){
             case ID_NEW_INCOMING_CONNECTION:
                 send_a_ID_joueur(peer, ID_Player);
+                other_ID_Player = ID_Player;
                 ID_Player++;
-                cout << "New Player connection !" << endl << "Update ID_Player to " << ID_Player << endl;
+                cout << "New Player connection !" << endl;
+                cout << "Update ID_Player to " << ID_Player << endl;
+                cout << "Update other_ID_Player to " << other_ID_Player << endl;
                 cout << "Starting game ..." << endl;
                 startGame();
                 break;
             case PACKET_ID_DEPLACEMENT:
-                dataStream.Read(other_ID_Player);
-                dataStream.Read(positionJoueur[other_ID_Player]);
-                dataStream.Read(inertieJoueur[other_ID_Player]);
+                proccessDeplacementPacket(dataStream);
                 break;
             case ID_NO_FREE_INCOMING_CONNECTIONS:
                 cout << "Server full" << endl;
@@ -159,6 +156,7 @@ void NetworkMain::processPacketClient(Packet *packet) {
         {
             case PACKET_ID_DEPLACEMENT:
                 //temp var
+                /*
                 int ID_Node;
                 vector3df* positionNode;
                 vector3df* inertieNode;
@@ -187,16 +185,25 @@ void NetworkMain::processPacketClient(Packet *packet) {
                 delete positionNode;
                 delete inertieNode;
                 // MAY SEGFAULT -> IF CASE : TO REMOVE
+                */
+                proccessDeplacementPacket(dataStream);
                 break;
 
             default:
                 cout << "Server connection accepted\n" << int(packetID) << endl;
                 break;
         }
-
-
-
     }
+}
+
+void NetworkMain::proccessDeplacementPacket(BitStream dataStream) {
+    vector3df positionTemp;
+    vector3df innertieTemp;
+    dataStream.Read(other_ID_Player);
+    dataStream.Read(positionTemp);
+    dataStream.Read(innertieTemp);
+    game->getPlayer2()->setPosition(positionTemp);
+    game->getPlayer2()->setPosition(innertieTemp);
 }
 
 void NetworkMain::checkClientConnection(Packet *packet) {
@@ -215,7 +222,10 @@ void NetworkMain::checkClientConnection(Packet *packet) {
                 break;
             case PACKET_ID_ID_JOUEUR:
                 dataStream.Read(ID_Player);
+                other_ID_Player = ID_Player -1;
                 cout << "Connection get ID " << ID_Player << endl;
+                cout << "Update other_ID_Player to " << other_ID_Player << endl;
+                cout << "Starting game ..." << endl;
                 startGame();
                 break;
             default:
@@ -225,27 +235,6 @@ void NetworkMain::checkClientConnection(Packet *packet) {
 
     }
 
-}
-
-clock_t NetworkMain::playerSendData(clock_t tempsEcouler) {
-
-    tempsActuel = clock();//mise a jour du temps ecouler
-    if(tempsActuel - tempsEcouler > 30)//si ça fait plus de 30 ms qui se sont ecoulé
-    {
-        BitStream data;
-        data.Write(PACKET_ID_DEPLACEMENT);//on ecrit l'ID du packet
-        data.Write(ID_Player);//on ecrit notre ID_joueur pour que le serveur sait de qui il s'agit
-        positionJoueur[ID_Player] = player[ID_Player]->getPosition();//on recupere notre position
-        data.Write(positionJoueur[ID_Player]);//on l'ecrit dans notre packet
-        inertieJoueur[ID_Player] = player[ID_Player]->getInertie();//on recupere notre innertie
-        data.Write(inertieJoueur[ID_Player]);//on ecrit notre rotation dans notre packet
-        //et on envoie tout ça
-        peer->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
-
-        tempsEcouler = clock();//on remet le temps a jour
-    }
-
-    return tempsEcouler;
 }
 
 void NetworkMain::play() {
