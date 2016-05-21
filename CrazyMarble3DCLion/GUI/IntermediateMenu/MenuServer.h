@@ -1,0 +1,14 @@
+//
+// Created by romain on 21/05/16.
+//
+
+#ifndef CRAZYMARBLE3DCLION_MENUSERVER_H
+#define CRAZYMARBLE3DCLION_MENUSERVER_H
+
+
+class MenuServer {
+
+};
+
+
+#endif //CRAZYMARBLE3DCLION_MENUSERVER_H
