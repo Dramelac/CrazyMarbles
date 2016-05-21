@@ -128,7 +128,7 @@ void NetworkMain::processPacketServer(Packet *packet) {
             case ID_NEW_INCOMING_CONNECTION:
                 send_a_ID_joueur(peer, ID_Player);
                 ID_Player++;
-                isGameStart = true;
+                startGame();
                 break;
             case PACKET_ID_DEPLACEMENT:
                 dataStream.Read(other_ID_Player);
@@ -210,7 +210,10 @@ void NetworkMain::checkClientConnection(Packet *packet) {
             case ID_CONNECTION_ATTEMPT_FAILED :
                 dataStream.Read(ID_Player);
                 break;
-
+            case PACKET_ID_ID_JOUEUR:
+                dataStream.Read(ID_Player);
+                startGame();
+                break;
             default:
                 break;
 
@@ -242,8 +245,6 @@ clock_t NetworkMain::playerSendData(clock_t tempsEcouler) {
 }
 
 void NetworkMain::play() {
-    game = new Game(device, keyEvent, pseudo, pathMap);
-    game->setup2P();
     clock_t tempsEcouler = clock();
     while (device->run()) {
         if (device->isWindowActive()) {                                      // check if windows is active
@@ -252,7 +253,7 @@ void NetworkMain::play() {
             updateNetwork();
 
             if (isGameStart){
-                //game->networkGameLoop();
+                game->networkGameLoop();
                 playerSendData(tempsEcouler);
             }
         }
@@ -268,6 +269,9 @@ void NetworkMain::setupBlackMarbleAt(vector3di cursor, vector3df innertie, vecto
 
 }
 
-
-
+void NetworkMain::startGame() {
+    isGameStart = true;
+    game = new Game(device, keyEvent, pseudo, pathMap);
+    game->setup2P();
+}
 
