@@ -282,7 +282,7 @@ void Game::setup2P(stringc pseudo) {
 
 }
 
-void Game::networkGameLoop(int lastFPS,u32 then ) {
+void Game::networkGameLoop(int lastFPS,u32 then) {
 
     driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
     player->updateCamera();
@@ -320,21 +320,21 @@ void Game::networkGameLoop(int lastFPS,u32 then ) {
         chrono->stop();
         player->setGravity();
         WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU DIED !");
-        return popup.loop();
+        player->respawn();
     }
 
     if (chrono->getTime() == 0){
         chrono->stop();
         player->setGravity();
         WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t TIMES UP !");
-        return popup.loop();
+        //return popup.loop();
     }
 
     if (player->checkFinish()){
         // player win
         WinLooseChoose popup(device, keyevent, player->calculFinal(chrono->getTime()), true);
         chrono->stop();
-        return popup.loop();
+        //return popup.loop();
     }
 
 }

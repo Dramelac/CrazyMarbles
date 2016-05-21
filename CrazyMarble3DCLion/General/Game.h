@@ -48,6 +48,8 @@ public:
 	void setup2P(stringc pseudo="NetworkPlayer");
 
     void networkGameLoop(int lastFPS,u32 then);
+
+
 	Board * getBoard() const;
 	Player * getPlayer() const;
     Player * getPlayer2() const;

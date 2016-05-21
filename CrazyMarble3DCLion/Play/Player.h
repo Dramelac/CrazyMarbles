@@ -70,6 +70,8 @@ public:
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
     bool checkFinish();
 
+    void respawn();
+
 
     s32 getScore() const;
     void updateGui();
