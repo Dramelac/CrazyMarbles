@@ -6,7 +6,17 @@
 #define CRAZYMARBLE3DCLION_MENUSERVER_H
 
 
-class MenuServer {
+#include "../GUIBase.h"
+using namespace core;
+
+class MenuServer : public GUIBase {
+private:
+    IGUIImage* background;
+    stringc pseudo;
+    IGUIButton* exit;
+public:
+    MenuServer(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc pseudo, IGUIImage* background);
+
 
 };
 

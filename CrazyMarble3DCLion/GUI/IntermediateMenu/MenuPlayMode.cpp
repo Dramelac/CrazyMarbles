@@ -3,9 +3,6 @@
 //
 
 #include "MenuPlayMode.h"
-#include "../../General/Game.h"
-#include "../../General/Campaign.h"
-#include "SoloMultiMenu.h"
 
 MenuPlayMode::MenuPlayMode(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc pseudo, IGUIImage* background) :
         GUIBase(device, keyEvent), background(background), pseudo(pseudo) {
@@ -50,6 +47,8 @@ void MenuPlayMode::loop() {
                 return;
             }else if (joinServerButton->isPressed()) {
                 visibilityButtons(false);
+                MenuServer menuServer(device,keyEvent,pseudo,background);
+                return;
             }
         }
     }
