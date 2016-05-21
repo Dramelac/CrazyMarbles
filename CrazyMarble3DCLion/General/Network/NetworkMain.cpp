@@ -249,12 +249,11 @@ void NetworkMain::play() {
     while (device->run()) {
         // check order
         updateNetwork();
-        if (device->isWindowActive()) {                                      // check if windows is active
-
-            if (isGameStart){
-                game->networkGameLoop();
-            }
+        
+        if (isGameStart){
+            game->networkGameLoop();
         }
+
     }
 }
 
