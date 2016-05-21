@@ -129,12 +129,12 @@ void Board::setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneMana
 }
 
 // setup player / collision with entities
-void Board::setPlayerToEntities(ISceneManager *sceneManager, Player *player) {
+void Board::setPlayerToEntities(ISceneManager *sceneManager, Player *player, bool activePlayer) {
     for (int row = 0; row < widthNumber; row++)
     {
         for (int column = 0; column < heightNumber; column++)
         {
-            board[row][column].setupPlayerToEntity(sceneManager, player);
+            board[row][column].setupPlayerToEntity(sceneManager, player, activePlayer);
         }
     }
 }

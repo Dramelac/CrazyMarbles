@@ -32,6 +32,7 @@ private:
 	s32 score;
     IGUIStaticText* displayScore;
     bool isPlayable;
+    bool isNetworkPlayer;
 
     IGUIImage* healthBarBG;
     IGUIImage* healthBarFG;

@@ -46,7 +46,7 @@ void SoloMultiMenu::loop() {
                 visibilityButtons(false);
                 NetworkMain game(device, keyEvent, map, pseudo, true);
                 game.play();
-                //return;
+                return;
             }
         }
     }

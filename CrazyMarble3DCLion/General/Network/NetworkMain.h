@@ -57,7 +57,7 @@ private:
     void processPacketClient(Packet *packet);
     void proccessDeplacementPacket(BitStream* dataStream);
 
-    void send_a_ID_joueur(RakPeerInterface *serveur, int ID_player);
+    void sendConnectClientSetting(RakPeerInterface *serveur, int ID_player);
     void send_animation(RakPeerInterface *serveur, Packet *packet,
                         int ID_joueur, bool il_marche);
 

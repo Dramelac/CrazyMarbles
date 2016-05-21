@@ -41,6 +41,7 @@ void MenuServer::loop() {
             else if (valide->isPressed()){
                 visibilityButtons(false);
                 stringc temp = editBox->getText();
+                temp = "127.0.0.1";
                 NetworkMain* networkMain = new NetworkMain(device,keyEvent,"",pseudo, false, temp.c_str());
                 networkMain->play();
                 delete networkMain;

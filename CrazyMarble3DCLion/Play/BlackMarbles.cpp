@@ -37,21 +37,40 @@ BlackMarbles::~BlackMarbles() {
 }
 
 // setup player / enable collision with him
-void BlackMarbles::setPlayer(ISceneManager *sceneManager, Player *myplayer) {
-    this->player = myplayer;
-    isPlayerSet = true;
+void BlackMarbles::setPlayer(ISceneManager *sceneManager, Player *myplayer, bool playerActif) {
+    if (playerActif) {
+        this->player = myplayer;
+        isPlayerSet = true;
 
-    // collision anim to player
-    ITriangleSelector* selector = this->getSelector(sceneManager);
-    animatorPlayerCollisionResponse = player->enableCustomCollision(selector, sceneManager);
-    animatorPlayerCollisionResponse->setCollisionCallback(this);
-    selector->drop();
+        // collision anim to player
+        ITriangleSelector* selector = this->getSelector(sceneManager);
+        animatorPlayerCollisionResponse = player->enableCustomCollision(selector, sceneManager);
+        animatorPlayerCollisionResponse->setCollisionCallback(this);
+        selector->drop();
 
-    // collision anim to self
-    selector = player->getSelector(sceneManager);
-    animatorSelfPlayerCollisionResponse = this->enableCustomCollision(selector, sceneManager);
-    animatorSelfPlayerCollisionResponse->setCollisionCallback(this);
-    selector->drop();
+        // collision anim to self
+        selector = player->getSelector(sceneManager);
+        animatorSelfPlayerCollisionResponse = this->enableCustomCollision(selector, sceneManager);
+        animatorSelfPlayerCollisionResponse->setCollisionCallback(this);
+        selector->drop();
+    }
+    else {
+        // to reactive later
+        /*
+        ITriangleSelector* selector = this->getSelector(sceneManager);
+        ISceneNodeAnimatorCollisionResponse* tempAnimator = myplayer->enableCustomCollision(selector, sceneManager);
+        tempAnimator->setCollisionCallback(this);
+        selector->drop();
+        tempAnimator->drop();
+
+        // collision anim to self
+        selector = player->getSelector(sceneManager);
+        tempAnimator = this->enableCustomCollision(selector, sceneManager);
+        tempAnimator->setCollisionCallback(this);
+        selector->drop();
+        tempAnimator->drop();
+         */
+    }
 
 }
 

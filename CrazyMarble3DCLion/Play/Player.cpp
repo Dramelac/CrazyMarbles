@@ -38,6 +38,9 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 // Start new game
 Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment *gui, const stringc& name, int health, vector3df startpos, s32 score)
         : Entities(name, health), score(score), enemyKill(0), finishTime(0), isPlayable(true) {
+
+    isNetworkPlayer = false;
+
     speed = 20;
     inertie = vector3df(0,0,0);
 
@@ -78,26 +81,25 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
 // network player
 Player::Player(ISceneManager *sceneManager, IVideoDriver *driver, const stringc &name, int health, vector3df startpos, s32 score)
     : Entities(name, health), score(score), enemyKill(0), finishTime(0), isPlayable(false) {
-        speed = 20;
-        inertie = vector3df(0,0,0);
 
-        // MODEL
-        startPos = startpos;
-        sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
+    isNetworkPlayer = true;
+    speed = 20;
+    inertie = vector3df(0,0,0);
 
-        sceneNode = sceneManager->addMeshSceneNode(sceneMesh);           // add object to screen
-        sceneNode->setPosition(startPos);
-        sceneNode->setID(10);
+    // MODEL
+    startPos = startpos;
+    sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
 
-        fixeCamera = sceneManager->addCameraSceneNode(sceneNode,
-                                                      vector3df(800.0f, 700.0f, 800.0f),
-                                                      sceneNode->getPosition());
+    sceneNode = sceneManager->addMeshSceneNode(sceneMesh);           // add object to screen
+    sceneNode->setPosition(startPos);
+    sceneNode->setID(10);
 
 
-    }
+}
 
 // player Level Editor
 Player::Player(ISceneManager *sceneManager) : Entities(), finishTime(0), isPlayable(false) {
+    isNetworkPlayer = false;
     speed = 20;
 
     sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
@@ -117,7 +119,7 @@ Player::Player(ISceneManager *sceneManager) : Entities(), finishTime(0), isPlaya
 
 Player::~Player() {
     sceneNode->remove();
-    if (fixeCamera){
+    if (!isNetworkPlayer){
         fixeCamera->remove();
     }
     if (isPlayable){

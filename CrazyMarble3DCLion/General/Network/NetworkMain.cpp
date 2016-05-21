@@ -49,13 +49,13 @@ NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
 
 
 //pour envoyer un ID a notre joueur qui vient de se connecter
-void NetworkMain::send_a_ID_joueur(RakPeerInterface *server, int ID_player)
+void NetworkMain::sendConnectClientSetting(RakPeerInterface *server, int ID_player)
 {
     BitStream data;// creation de nos data a envoyer
     data.Write(PACKET_ID_ID_JOUEUR);// on ecrit l'ID de notre packet
     data.Write(ID_player);// l'ID du joueur a envoyer
-    data.Write(pathMap);// pseudo to send
-    data.Write(pseudo);// pseudo to send
+    data.Write(pathMap.c_str());// pseudo to send
+    data.Write(pseudo.c_str());// pseudo to send
     server->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
 }
 
@@ -94,6 +94,9 @@ void NetworkMain::updateNetwork() {
 }
 
 NetworkMain::~NetworkMain() {
+    if (isGameStart) {
+        delete game;
+    }
     RakPeerInterface::DestroyInstance(peer);
 }
 
@@ -126,7 +129,7 @@ void NetworkMain::processPacketServer(Packet *packet) {
 
         switch (packetID){
             case ID_NEW_INCOMING_CONNECTION:
-                send_a_ID_joueur(peer, ID_Player);
+                sendConnectClientSetting(peer, ID_Player);
                 other_ID_Player = ID_Player;
                 ID_Player++;
                 cout << "New Player connection !" << endl;
@@ -223,7 +226,7 @@ void NetworkMain::checkClientConnection(Packet *packet) {
         dataStream.Read(packetID);
         switch (packetID) {
             case ID_CONNECTION_REQUEST_ACCEPTED:
-                cout << "Success connection :(" << endl;
+                cout << "Success connection" << endl;
                 break;
             case ID_CONNECTION_ATTEMPT_FAILED :
                 cout << "Failed connection :(" << endl;
@@ -236,6 +239,7 @@ void NetworkMain::checkClientConnection(Packet *packet) {
                 other_ID_Player = ID_Player + 1;
                 cout << "Connection get ID " << ID_Player << endl;
                 cout << "Update other_ID_Player to " << other_ID_Player << endl;
+                cout << "Setting : pathMap-" << pathMap.c_str() << " / pseudo2-" << pseudoP2->c_str() << endl;
                 startGame(*pseudoP2);
                 break;
             default:

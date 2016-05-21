@@ -272,7 +272,9 @@ void Game::setup2P(stringc pseudo) {
     player2->addFinishLineCollision(metaFinishSelector, sceneManager);
     metaFinishSelector->drop();
 
-    board->setPlayerToEntities(sceneManager, player2);
+    board->setPlayerToEntities(sceneManager, player2, false);
+
+
     ITriangleSelector* player1Selector = player->getSelector(sceneManager);
     player2->enableCustomCollision(player1Selector,sceneManager);
     player1Selector->drop();

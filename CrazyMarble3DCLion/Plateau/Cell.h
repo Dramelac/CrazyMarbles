@@ -48,7 +48,7 @@ public:
     void enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
     void updateEntityMoving(f32 deltaTime,IRandomizer *rand);
 
-    void setupPlayerToEntity(ISceneManager *sceneManager, Player* player);
+    void setupPlayerToEntity(ISceneManager *sceneManager, Player* player, bool activePlayer=true);
 
     BlackMarbles * getEntity() const;
 
