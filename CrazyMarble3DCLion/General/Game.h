@@ -30,6 +30,9 @@ private:
     bool play;
 
     Player *player;
+	Player *player2;
+	bool isNetwork=false;
+
 	Board* board;
 	Chrono *chrono;
 
@@ -42,7 +45,9 @@ public:
 		 const unsigned int x, const unsigned int y, bool day = true);
     Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stringc pseudo, s32 score=0);
     ~Game();
+	void setup2P(bool isNetwork = false);
 
+    void networkGameLoop();
 	Board * getBoard() const;
 
 	s16 gameLoop();

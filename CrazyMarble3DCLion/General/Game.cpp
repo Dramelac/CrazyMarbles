@@ -255,3 +255,35 @@ s16 Game::pause() {
 Board *Game::getBoard() const {
     return board;
 }
+
+void Game::setup2P(bool isNetwork) {
+
+    if(isNetwork){
+
+        IMetaTriangleSelector* metaSelector = board->getMapMetaSelector(sceneManager);
+
+        player2->enableCollision(metaSelector, sceneManager);
+        board->setupCollisionEntity(metaSelector, sceneManager);
+        metaSelector->drop();
+
+        IMetaTriangleSelector* metaFinishSelector = board->getMapMetaSelector(sceneManager, true);
+        player2->addFinishLineCollision(metaFinishSelector, sceneManager);
+        metaFinishSelector->drop();
+
+        board->setPlayerToEntities(sceneManager, player2);
+        ITriangleSelector* player1Selector = player->getSelector(sceneManager);
+        player2->enableCustomCollision(player1Selector,sceneManager);
+        player1Selector->drop();
+
+    }
+
+
+
+}
+
+void Game::networkGameLoop() {
+
+}
+
+
+
