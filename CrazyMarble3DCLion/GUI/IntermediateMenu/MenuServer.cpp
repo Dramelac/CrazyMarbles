@@ -3,7 +3,6 @@
 //
 
 #include "MenuServer.h"
-#include "../../General/Network/NetworkMain.h"
 
 
 MenuServer::MenuServer(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc pseudo, IGUIImage* background) :

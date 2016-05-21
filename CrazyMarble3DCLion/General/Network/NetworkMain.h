@@ -63,6 +63,8 @@ private:
     void setupBlackMarbleAt(vector3di cursor, vector3df innertie, vector3df position);
     void startGame(stringc pseudoP2);
 
+    void updateNetwork();
+
 public:
     NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
                 path pathMap, stringc pseudo, bool isServer=true,
@@ -70,8 +72,6 @@ public:
     virtual ~NetworkMain();
 
     void play();
-
-    void updateNetwork();
 
     const static unsigned char PACKET_ID_DEPLACEMENT;
     const static unsigned char PACKET_ID_ANIMATION;
