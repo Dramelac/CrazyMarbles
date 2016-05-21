@@ -247,10 +247,9 @@ void NetworkMain::checkClientConnection(Packet *packet) {
 void NetworkMain::play() {
     cout << "Starting network main play" << endl;
     while (device->run()) {
+        // check order
+        updateNetwork();
         if (device->isWindowActive()) {                                      // check if windows is active
-
-            // check order
-            updateNetwork();
 
             if (isGameStart){
                 game->networkGameLoop();
