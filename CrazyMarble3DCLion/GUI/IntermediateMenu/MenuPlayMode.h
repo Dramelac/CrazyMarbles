@@ -16,6 +16,7 @@ private:
     IGUIImage* background;
     IGUIButton* campaignButton;
     IGUIButton* freeModeButton;
+    IGUIButton* joinServerButton;
     IGUIButton* exit;
     stringc pseudo;
 
