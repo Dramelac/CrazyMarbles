@@ -48,6 +48,7 @@ void MenuPlayMode::loop() {
             }else if (joinServerButton->isPressed()) {
                 visibilityButtons(false);
                 MenuServer menuServer(device,keyEvent,pseudo,background);
+                menuServer.loop();
                 return;
             }
         }

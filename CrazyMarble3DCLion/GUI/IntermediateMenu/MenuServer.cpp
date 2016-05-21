@@ -11,12 +11,16 @@ MenuServer::MenuServer(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc 
     background->setVisible(true);
     exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"Go back");
 
-    editBox = gui->addEditBox(L"", rect<irr::s32>(1000,610,1200,680));
+    ipText = gui->addStaticText(L"Enter Ip : ",rect<s32>(800,630,1200,670));
+    ipText->setOverrideColor(SColor(255,0,0,0));
+    editBox = gui->addEditBox(L"", rect<s32>(1000,610,1260,680));
     editBox->setOverrideColor(SColor(255,0,0,0));
-
     valide = gui->addButton(rect<s32>(890,700,1010,750), 0, 103, L"Valider");
 }
 MenuServer::~MenuServer() {
+    ipText->remove();
+    editBox->remove();
+    valide->remove();
     exit->remove();
 }
 
@@ -40,6 +44,9 @@ void MenuServer::loop() {
 }
 
 void MenuServer::visibilityButtons(bool status) {
+    ipText->setVisible(status);
+    editBox->setVisible(status);
+    valide->setVisible(status);
     exit->setVisible(status);
 }
 

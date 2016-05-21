@@ -16,6 +16,7 @@ private:
     IGUIButton* exit;
     IGUIButton* valide;
     IGUIEditBox* editBox;
+    IGUIStaticText* ipText;
 
 
 public:
