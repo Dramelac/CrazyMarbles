@@ -31,7 +31,7 @@ private:
 
     Player *player;
 	Player *player2;
-	bool isNetwork=false;
+	bool isNetwork;
 
 	Board* board;
 	Chrono *chrono;

@@ -128,6 +128,8 @@ void NetworkMain::processPacketServer(Packet *packet) {
             case ID_NEW_INCOMING_CONNECTION:
                 send_a_ID_joueur(peer, ID_Player);
                 ID_Player++;
+                cout << "New Player connection !" << endl << "Update ID_Player to " << ID_Player << endl;
+                cout << "Starting game ..." << endl;
                 startGame();
                 break;
             case PACKET_ID_DEPLACEMENT:
@@ -206,12 +208,14 @@ void NetworkMain::checkClientConnection(Packet *packet) {
         dataStream.Read(packetID);
         switch (packetID) {
             case ID_CONNECTION_REQUEST_ACCEPTED:
+                cout << "Success connection :(" << endl;
                 break;
             case ID_CONNECTION_ATTEMPT_FAILED :
-                dataStream.Read(ID_Player);
+                cout << "Failed connection :(" << endl;
                 break;
             case PACKET_ID_ID_JOUEUR:
                 dataStream.Read(ID_Player);
+                cout << "Connection get ID " << ID_Player << endl;
                 startGame();
                 break;
             default:
