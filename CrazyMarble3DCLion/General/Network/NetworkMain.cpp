@@ -77,7 +77,7 @@ void NetworkMain::updateNetwork() {
     {
         packet = peer->Receive();
         do{
-            checkConnection(packet);
+            checkClientConnection(packet);
         }while(ID_Player<0);
 
         processPacketClient(packet);
@@ -190,7 +190,7 @@ void NetworkMain::processPacketClient(Packet *packet) {
     }
 }
 
-void NetworkMain::checkConnection(Packet *packet) {
+void NetworkMain::checkClientConnection(Packet *packet) {
 
     if(packet != NULL)
     {
