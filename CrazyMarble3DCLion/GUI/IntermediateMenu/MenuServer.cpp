@@ -7,8 +7,14 @@
 
 MenuServer::MenuServer(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc pseudo, IGUIImage* background) :
         GUIBase(device, keyEvent), background(background), pseudo(pseudo) {
-        background->setVisible(true);
-        exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"Go back");
+
+    background->setVisible(true);
+    exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"Go back");
+
+    editBox = gui->addEditBox(L"", rect<irr::s32>(1000,610,1200,680));
+    editBox->setOverrideColor(SColor(255,0,0,0));
+
+    valide = gui->addButton(rect<s32>(890,700,1010,750), 0, 103, L"Valider");
 }
 MenuServer::~MenuServer() {
     exit->remove();
@@ -30,11 +36,6 @@ void MenuServer::loop() {
 
         }
     }
-
-        editBox = gui->addEditBox(L"", rect<irr::s32>(1000,610,1200,680));
-        editBox->setOverrideColor(SColor(255,0,0,0));
-
-        valide = gui->addButton(rect<s32>(890,700,1010,750), 0, 103, L"Valider");
 
 }
 

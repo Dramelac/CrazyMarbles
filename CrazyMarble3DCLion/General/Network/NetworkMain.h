@@ -65,7 +65,8 @@ private:
 
 public:
     NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
-                path pathMap, stringc pseudo, bool isServer=true, char IP_serveur[20]="");
+                path pathMap, stringc pseudo, bool isServer=true,
+                char IP_serveur[20]=0);
     virtual ~NetworkMain();
 
     void play();
