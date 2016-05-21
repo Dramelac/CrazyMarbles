@@ -17,6 +17,7 @@ MenuServer::MenuServer(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc 
     editBox->setOverrideColor(SColor(255,0,0,0));
     valide = gui->addButton(rect<s32>(890,700,1010,750), 0, 103, L"Valider");
 }
+
 MenuServer::~MenuServer() {
     ipText->remove();
     editBox->remove();
@@ -39,8 +40,10 @@ void MenuServer::loop() {
             }
             else if (valide->isPressed()){
                 visibilityButtons(false);
-                NetworkMain* networkMain = new NetworkMain(device,keyEvent,"",pseudo, false);
+                stringc temp = editBox->getText();
+                NetworkMain* networkMain = new NetworkMain(device,keyEvent,"",pseudo, false, temp.c_str());
                 networkMain->play();
+                delete networkMain;
                 return;
             }
 

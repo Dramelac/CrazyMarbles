@@ -7,7 +7,7 @@ const unsigned char NetworkMain::PACKET_ID_ID_JOUEUR = 103;
 
 
 NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
-                         path pathMap, stringc pseudo, bool isServer, char IP_serveur[20])
+                         path pathMap, stringc pseudo, bool isServer, stringc IP_serveur)
         : isServer(isServer), device(device), keyEvent(keyEvent),
           pathMap(pathMap), pseudo(pseudo), isGameStart(false) {
 
@@ -23,14 +23,13 @@ NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
         tempsEcouler = clock();
 
     }else{
-        //char IP_serveur[20]; //mb mettre en attribut
 
-        cout<<"IP : " << IP_serveur << endl;
+        cout<<"IP : " << IP_serveur.c_str() << endl;
         //cin>>IP_serveur;
         cout<<"Connection en cours ..." << endl;
 
         peer->Startup(1,new SocketDescriptor(),1);
-        peer->Connect(IP_serveur,portServeur,0,0);
+        peer->Connect(IP_serveur.c_str(),portServeur,0,0);
 
 
         Packet * packet = NULL;
@@ -246,7 +245,7 @@ void NetworkMain::checkClientConnection(Packet *packet) {
 }
 
 void NetworkMain::play() {
-    clock_t tempsEcouler = clock();
+    cout << "Starting network main play" << endl;
     while (device->run()) {
         if (device->isWindowActive()) {                                      // check if windows is active
 
