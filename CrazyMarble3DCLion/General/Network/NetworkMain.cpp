@@ -8,7 +8,8 @@ const unsigned char NetworkMain::PACKET_ID_ID_JOUEUR = 103;
 
 NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
                          path pathMap, stringc pseudo, bool isServer)
-        : isServer(isServer), device(device), keyEvent(keyEvent), pathMap(pathMap), pseudo(pseudo) {
+        : isServer(isServer), device(device), keyEvent(keyEvent),
+          pathMap(pathMap), pseudo(pseudo), isGameStart(false) {
 
     peer = RakPeerInterface::GetInstance();
     if (isServer){
@@ -29,6 +30,14 @@ NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
 
         peer->Startup(1,new SocketDescriptor(),1);
         peer->Connect(IP_serveur,portServeur,0,0);
+
+
+        Packet * packet = NULL;
+
+        do{
+            packet = peer->Receive();
+            checkClientConnection(packet);
+        }while(ID_Player<0);
 
         tempsActuel = clock();
         tempsEcouler = clock();
@@ -66,26 +75,16 @@ void NetworkMain::updateNetwork() {
     if (isServer){
 
         packet = peer->Receive();
-
         processPacketServer(packet);
-
         peer->DeallocatePacket(packet);
 
         updatePacket();
 
-    } else
-    {
+    } else {
 
-
-        do{
-            packet = peer->Receive();
-            checkClientConnection(packet);
-        }while(ID_Player<0);
-
+        packet = peer->Receive();
         processPacketClient(packet);
-
         peer->DeallocatePacket(packet);
-        
 
     }
 }
@@ -129,6 +128,7 @@ void NetworkMain::processPacketServer(Packet *packet) {
             case ID_NEW_INCOMING_CONNECTION:
                 send_a_ID_joueur(peer, ID_Player);
                 ID_Player++;
+                isGameStart = true;
                 break;
             case PACKET_ID_DEPLACEMENT:
                 dataStream.Read(other_ID_Player);
@@ -251,9 +251,10 @@ void NetworkMain::play() {
             // check order
             updateNetwork();
 
-            //game->networkGameLoop();
-
-            playerSendData(tempsEcouler);
+            if (isGameStart){
+                //game->networkGameLoop();
+                playerSendData(tempsEcouler);
+            }
         }
     }
 }

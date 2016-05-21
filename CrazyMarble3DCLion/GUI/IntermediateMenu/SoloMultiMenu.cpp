@@ -43,8 +43,9 @@ void SoloMultiMenu::loop() {
                 game.play();
                 return;
             } else if (multi->isPressed()){
-                //visibilityButtons(false);
+                visibilityButtons(false);
                 NetworkMain game(device, keyEvent, pseudo, map, true);
+                game.play();
                 //return;
             }
         }

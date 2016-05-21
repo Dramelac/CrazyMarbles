@@ -33,6 +33,8 @@ private:
     stringc pseudo;
     Game* game;
 
+    bool isGameStart;
+
     // creation de nos propre ID
 
     // Server static properties
