@@ -45,7 +45,7 @@ public:
 		 const unsigned int x, const unsigned int y, bool day = true);
     Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stringc pseudo, s32 score=0);
     ~Game();
-	void setup2P();
+	void setup2P(stringc pseudo="NetworkPlayer");
 
     void networkGameLoop();
 	Board * getBoard() const;

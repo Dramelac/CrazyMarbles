@@ -55,6 +55,7 @@ void NetworkMain::send_a_ID_joueur(RakPeerInterface *server, int ID_player)
     BitStream data;// creation de nos data a envoyer
     data.Write(PACKET_ID_ID_JOUEUR);// on ecrit l'ID de notre packet
     data.Write(ID_player);// l'ID du joueur a envoyer
+    data.Write(pseudo);// pseudo to send
     server->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
 }
 
@@ -132,7 +133,7 @@ void NetworkMain::processPacketServer(Packet *packet) {
                 cout << "Update ID_Player to " << ID_Player << endl;
                 cout << "Update other_ID_Player to " << other_ID_Player << endl;
                 cout << "Starting game ..." << endl;
-                startGame();
+                startGame("DefaultPseudo");
                 break;
             case PACKET_ID_DEPLACEMENT:
                 proccessDeplacementPacket(&dataStream);
@@ -224,12 +225,14 @@ void NetworkMain::checkClientConnection(Packet *packet) {
                 cout << "Failed connection :(" << endl;
                 break;
             case PACKET_ID_ID_JOUEUR:
+                stringc pseudoP2;
                 dataStream.Read(ID_Player);
+                dataStream.Read(pseudoP2);
                 other_ID_Player = ID_Player -1;
                 cout << "Connection get ID " << ID_Player << endl;
                 cout << "Update other_ID_Player to " << other_ID_Player << endl;
                 cout << "Starting game ..." << endl;
-                startGame();
+                startGame(pseudoP2);
                 break;
             default:
                 break;
@@ -264,9 +267,9 @@ void NetworkMain::setupBlackMarbleAt(vector3di cursor, vector3df innertie, vecto
 
 }
 
-void NetworkMain::startGame() {
+void NetworkMain::startGame(stringc pseudoP2) {
     isGameStart = true;
-    game = new Game(device, keyEvent, pseudo, pathMap);
-    game->setup2P();
+    game = new Game(device, keyEvent, pathMap, pseudo);
+    game->setup2P(pseudoP2);
 }
 

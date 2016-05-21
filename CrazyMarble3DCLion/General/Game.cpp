@@ -256,10 +256,10 @@ Board *Game::getBoard() const {
     return board;
 }
 
-void Game::setup2P() {
+void Game::setup2P(stringc pseudo) {
 
     isNetwork=true;
-    player2 = new Player(sceneManager,driver,"NetworkPlayer",100,board->getStartPoint(),0);
+    player2 = new Player(sceneManager, driver, pseudo, 100, board->getStartPoint());
 
     IMetaTriangleSelector* metaSelector = board->getMapMetaSelector(sceneManager);
     player2->enableCollision(metaSelector, sceneManager);

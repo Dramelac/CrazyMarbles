@@ -61,7 +61,7 @@ private:
                         int ID_joueur, bool il_marche);
 
     void setupBlackMarbleAt(vector3di cursor, vector3df innertie, vector3df position);
-    void startGame();
+    void startGame(stringc pseudoP2);
 
 public:
     NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
