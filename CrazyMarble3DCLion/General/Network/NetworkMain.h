@@ -9,6 +9,7 @@
 #include <MessageIdentifiers.h>
 #include <BitStream.h>
 #include <RakNetTypes.h>
+#include <StringCompressor.h>
 
 #include <iostream>
 #include <ctime>//for clock()
@@ -31,6 +32,7 @@ private:
 
     path pathMap;
     stringc pseudo;
+    stringc pseudoP2;
     Game* game;
 
     bool isGameStart;
@@ -49,15 +51,29 @@ private:
     clock_t tempsActuel;
     clock_t tempsEcouler;
 
+    ////////////////////////////////
+    //          METHOD
+    ///////////////////////////////
+
+    // PASSIVE
+
+    void WriteStringToBitStream(stringc myString, BitStream *output);
+    void WriteBitStreamToString(char *myString, BitStream *input);
+
+    // ACTIVE
+
     void updateNetwork();
     void updatePacket();
 
     void processPacketServer(Packet *packet);
-    void checkClientConnection(Packet *packet);
     void processPacketClient(Packet *packet);
+
     void proccessDeplacementPacket(BitStream* dataStream);
 
     void sendConnectClientSetting(RakPeerInterface *serveur, int ID_player);
+    void checkClientConnection(Packet *packet);
+
+
     void send_animation(RakPeerInterface *serveur, Packet *packet,
                         int ID_joueur, bool il_marche);
 
@@ -76,6 +92,8 @@ public:
     const static unsigned char PACKET_ID_DEPLACEMENT;
     const static unsigned char PACKET_ID_ANIMATION;
     const static unsigned char PACKET_ID_ID_JOUEUR;
+    const static unsigned char PACKET_PATHMAP;
+    const static unsigned char PACKET_PSEUDO;
 
 };
 

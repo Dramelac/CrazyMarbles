@@ -4,6 +4,8 @@
 const unsigned char NetworkMain::PACKET_ID_DEPLACEMENT = 101;
 const unsigned char NetworkMain::PACKET_ID_ANIMATION = 102;
 const unsigned char NetworkMain::PACKET_ID_ID_JOUEUR = 103;
+const unsigned char NetworkMain::PACKET_PATHMAP = 104;
+const unsigned char NetworkMain::PACKET_PSEUDO = 105;
 
 
 NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
@@ -51,12 +53,27 @@ NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
 //pour envoyer un ID a notre joueur qui vient de se connecter
 void NetworkMain::sendConnectClientSetting(RakPeerInterface *server, int ID_player)
 {
-    BitStream data;// creation de nos data a envoyer
-    data.Write(PACKET_ID_ID_JOUEUR);// on ecrit l'ID de notre packet
-    data.Write(ID_player);// l'ID du joueur a envoyer
-    data.Write(pathMap.c_str());// pseudo to send
-    data.Write(pseudo.c_str());// pseudo to send
-    server->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+    BitStream* data = new BitStream();// creation de nos data a envoyer
+    data->Write((MessageID)PACKET_PATHMAP);
+    RakString tempStr = pathMap.c_str();
+    cout << "pathMap: " << tempStr.C_String() << endl;
+    data->Write(tempStr.C_String());// pseudo to send
+    server->Send(data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+    delete data;
+
+    data = new BitStream();
+    // ID player - end connection
+    data->Write((MessageID)PACKET_PSEUDO);// on ecrit l'ID de notre packet
+    tempStr = pseudo.c_str();
+    cout << "pseudo: " << tempStr.C_String() << endl;
+    data->Write(tempStr.C_String());// pseudo to send
+    server->Send(data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+    delete data;
+
+    data = new BitStream();
+    data->Write(PACKET_ID_ID_JOUEUR);
+    data->Write(ID_player);// l'ID du joueur a envoyer
+    server->Send(data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
 }
 
 //**un fonction pour envoyer l'animation de notre ninja au client
@@ -232,15 +249,26 @@ void NetworkMain::checkClientConnection(Packet *packet) {
                 cout << "Failed connection :(" << endl;
                 break;
             case PACKET_ID_ID_JOUEUR:
-                stringc* pseudoP2;
                 dataStream.Read(ID_Player);
-                dataStream.Read(pathMap);
-                dataStream.Read(pseudoP2);
                 other_ID_Player = ID_Player + 1;
                 cout << "Connection get ID " << ID_Player << endl;
                 cout << "Update other_ID_Player to " << other_ID_Player << endl;
-                cout << "Setting : pathMap-" << pathMap.c_str() << " / pseudo2-" << pseudoP2->c_str() << endl;
-                startGame(*pseudoP2);
+                cout << "Setting : pathMap-" << pathMap.c_str() << " / pseudo2-" << pseudoP2.c_str() << endl;
+                startGame(pseudoP2);
+                break;
+            case PACKET_PATHMAP:
+                RakString* tempPathStr;
+                dataStream.IgnoreBytes(sizeof(MessageID));
+                dataStream.Read(tempPathStr);
+                cout << "pathMap: " << tempPathStr->C_String() << endl;
+                pathMap = tempPathStr->C_String();
+                break;
+            case PACKET_PSEUDO:
+                RakString* tempPseudoStr;
+                dataStream.IgnoreBytes(sizeof(MessageID));
+                dataStream.Read(tempPseudoStr);
+                cout << "pseudo: " << tempPseudoStr->C_String() << endl;
+                pseudoP2 = tempPseudoStr->C_String();
                 break;
             default:
                 cout << "ping ..." << endl;
@@ -285,3 +313,12 @@ void NetworkMain::startGame(stringc pseudoP2) {
     game->setup2P(pseudoP2);
 }
 
+void NetworkMain::WriteStringToBitStream(stringc myString, BitStream *output) {
+    StringCompressor stringCompressor;
+    stringCompressor.EncodeString(myString.c_str(), 256, output);
+}
+
+void NetworkMain::WriteBitStreamToString(char *myString, BitStream *input) {
+    StringCompressor stringCompressor;
+    stringCompressor.DecodeString(myString, 256, input);
+}
