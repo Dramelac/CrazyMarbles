@@ -55,6 +55,8 @@ void NetworkMain::sendConnectClientSetting(RakPeerInterface *server, int ID_play
 {
     BitStream* data = new BitStream();// creation de nos data a envoyer
     data->Write((MessageID)PACKET_PATHMAP);
+    /*const std::string writePath = pathMap.c_str();
+    writeString(data,writePath);*/
     RakString tempStr = pathMap.c_str();
     cout << "pathMap: " << tempStr.C_String() << endl;
     data->Write(tempStr.C_String());// pseudo to send
@@ -259,6 +261,9 @@ void NetworkMain::checkClientConnection(Packet *packet) {
             case PACKET_PATHMAP:
                 RakString* tempPathStr;
                 dataStream.IgnoreBytes(sizeof(MessageID));
+                /*std::string testPath ="";
+                readString(&dataStream,testPath);
+                cout<<  "testPath : "<< testPath<<endl;*/
                 dataStream.Read(tempPathStr);
                 cout << "pathMap: " << tempPathStr->C_String() << endl;
                 pathMap = tempPathStr->C_String();
