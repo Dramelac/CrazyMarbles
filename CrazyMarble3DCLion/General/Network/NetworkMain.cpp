@@ -322,3 +322,23 @@ void NetworkMain::WriteBitStreamToString(char *myString, BitStream *input) {
     StringCompressor stringCompressor;
     stringCompressor.DecodeString(myString, 256, input);
 }
+
+void NetworkMain::readString(BitStream *bitStream,std::string &string) {
+
+    char str[255];
+
+    StringCompressor::Instance()->DecodeString(str,255,bitStream);
+
+    string = str;
+
+}
+
+void NetworkMain::writeString(BitStream *bitStream, const std::string &string) {
+    const char *str = string.c_str();
+
+    StringCompressor::Instance()->EncodeString(str,255,bitStream);
+
+}
+
+
+
