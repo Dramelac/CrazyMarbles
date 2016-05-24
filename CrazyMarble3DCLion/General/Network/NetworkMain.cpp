@@ -119,8 +119,6 @@ void NetworkMain::updatePacket() {
         BitStream data;
         vector3df positionTemp = game->getPlayer()->getPosition();
         vector3df innertieTemp = game->getPlayer()->getInertie();
-        cout << "Pos send : " << positionTemp.X << "/" << positionTemp.Y << "/" << positionTemp.Z << endl;
-        cout << "Innertie send : " << innertieTemp.X << "/" << innertieTemp.Y << "/" << innertieTemp.Z << endl;
         data.Write(PACKET_ID_DEPLACEMENT);
         data.Write(other_ID_Player);
         data.Write(positionTemp);
@@ -244,8 +242,6 @@ void NetworkMain::proccessDeplacementPacket(BitStream* dataStream) {
     dataStream->Read(other_ID_Player);
     dataStream->Read(positionTemp);
     dataStream->Read(innertieTemp);
-    cout << "Pos received : " << positionTemp.X << "/" << positionTemp.Y << "/" << positionTemp.Z << endl;
-    cout << "Innertie received : " << innertieTemp.X << "/" << innertieTemp.Y << "/" << innertieTemp.Z << endl;
     game->getPlayer2()->setPosition(positionTemp);
     game->getPlayer2()->setInertie(innertieTemp);
 }
