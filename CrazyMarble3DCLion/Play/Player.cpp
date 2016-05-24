@@ -319,7 +319,7 @@ s32 Player::getScore() const {
 }
 
 void Player::respawn() {
-   sceneNode->setPosition(startPos);
+   setPosition(startPos);
    //animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
    fallDistance = 0;
    finishTime = 0;
