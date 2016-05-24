@@ -18,6 +18,8 @@ public:
     NetworkMessage(IrrlichtDevice *device, KeyboardEvent *keyEvent
             , stringw message, stringw button="");
     virtual ~NetworkMessage();
+
+    bool checkStatus();
 };
 
 

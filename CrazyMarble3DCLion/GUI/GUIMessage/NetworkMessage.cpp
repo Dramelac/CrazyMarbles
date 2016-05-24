@@ -20,4 +20,9 @@ NetworkMessage::NetworkMessage(IrrlichtDevice *device, KeyboardEvent *keyEvent, 
 virtual NetworkMessage::~NetworkMessage() {
     text->remove();
     exit->remove();
-} 
+}
+
+bool NetworkMessage::checkStatus() {
+    return exit->isPressed();
+}
+
