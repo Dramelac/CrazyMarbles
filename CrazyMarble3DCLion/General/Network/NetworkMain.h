@@ -67,12 +67,13 @@ private:
 
     void processPacketServer(Packet *packet);
     void processPacketClient(Packet *packet);
+    void processPacketCommun(BitStream *dataStream, unsigned char packetID);
 
     void proccessDeplacementPacket(BitStream* dataStream);
 
-    void sendConnectClientSetting(RakPeerInterface *serveur, int ID_player);
+    void sendConnectClientSetting();
     void checkClientConnection(Packet *packet);
-
+    void sendPseudo();
 
     void send_animation(RakPeerInterface *serveur, Packet *packet,
                         int ID_joueur, bool il_marche);

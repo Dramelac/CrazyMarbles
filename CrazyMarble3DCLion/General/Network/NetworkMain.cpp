@@ -51,25 +51,30 @@ NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
 
 
 //pour envoyer un ID a notre joueur qui vient de se connecter
-void NetworkMain::sendConnectClientSetting(RakPeerInterface *server, int ID_player)
+void NetworkMain::sendConnectClientSetting()
 {
     BitStream* data = new BitStream();// creation de nos data a envoyer
     data->Write((MessageID)PACKET_PATHMAP);
     writeString(data, pathMap);
-    server->Send(data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
-    delete data;
-
-    data = new BitStream();
-    data->Write((MessageID)PACKET_PSEUDO);// on ecrit l'ID de notre packet
-    writeString(data, pseudo);
-    server->Send(data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+    peer->Send(data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
     delete data;
 
     data = new BitStream();
     data->Write(PACKET_ID_ID_JOUEUR);
-    data->Write(ID_player);// l'ID du joueur a envoyer
-    server->Send(data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+    data->Write(ID_Player);// l'ID du joueur a envoyer
+    peer->Send(data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+
+    sendPseudo();
 }
+
+void NetworkMain::sendPseudo() {
+    BitStream* data = new BitStream();
+    data->Write((MessageID)PACKET_PSEUDO);// on ecrit l'ID de notre packet
+    writeString(data, pseudo);
+    peer->Send(data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+    delete data;
+}
+
 
 
 void NetworkMain::send_animation(RakPeerInterface *serveur, Packet *packet, int ID_joueur, bool il_marche)
@@ -83,20 +88,14 @@ void NetworkMain::send_animation(RakPeerInterface *serveur, Packet *packet, int 
 
 void NetworkMain::updateNetwork() {
     Packet * packet = NULL;
+    packet = peer->Receive();
 
     if (isServer){
-
-        packet = peer->Receive();
         processPacketServer(packet);
-        peer->DeallocatePacket(packet);
-
     } else {
-
-        packet = peer->Receive();
         processPacketClient(packet);
-        peer->DeallocatePacket(packet);
-
     }
+    peer->DeallocatePacket(packet);
 
     if (isGameStart) {
         updatePacket();
@@ -139,7 +138,7 @@ void NetworkMain::processPacketServer(Packet *packet) {
 
         switch (packetID){
             case ID_NEW_INCOMING_CONNECTION:
-                sendConnectClientSetting(peer, ID_Player);
+                sendConnectClientSetting();
                 other_ID_Player = ID_Player;
                 ID_Player++;
                 cout << "New Player connection !" << endl;
@@ -160,7 +159,8 @@ void NetworkMain::processPacketServer(Packet *packet) {
                 break;
 
             default:
-                cout << "Error, server full\n" << int(packetID) << endl;
+                processPacketCommun(&dataStream, packetID);
+                //cout << "This is not specific packet server\n" << int(packetID) << endl;
                 break;
         }
     }
@@ -211,11 +211,27 @@ void NetworkMain::processPacketClient(Packet *packet) {
                 break;
 
             default:
-                cout << "Server connection accepted\n" << int(packetID) << endl;
+                processPacketCommun(&dataStream, packetID);
+                //cout << "This is not client Specific packet\n" << int(packetID) << endl;
                 break;
         }
     }
 }
+
+
+void NetworkMain::processPacketCommun(BitStream *dataStream, unsigned char packetID) {
+    switch (packetID){
+        case PACKET_PSEUDO:
+            pseudoP2 = readString(dataStream);
+            cout << "pseudo: " << pseudoP2.c_str() << endl;
+            break;
+        default:
+            cout << "Error packet not handle !\n" << int(packetID) << endl;
+            break;
+    }
+
+}
+
 
 void NetworkMain::proccessDeplacementPacket(BitStream* dataStream) {
     vector3df positionTemp;
@@ -247,15 +263,12 @@ void NetworkMain::checkClientConnection(Packet *packet) {
                 cout << "Connection get ID " << ID_Player << endl;
                 cout << "Update other_ID_Player to " << other_ID_Player << endl;
                 cout << "Setting : pathMap-" << pathMap.c_str() << " / pseudo2-" << pseudoP2.c_str() << endl;
+                sendPseudo();
                 startGame(pseudoP2);
                 break;
             case PACKET_PATHMAP:
                 pathMap = readString(&dataStream);
                 cout<<  "Map : "<< pathMap.c_str() <<endl;
-                break;
-            case PACKET_PSEUDO:
-                pseudoP2 = readString(&dataStream);
-                cout << "pseudo: " << pseudoP2.c_str() << endl;
                 break;
             default:
                 cout << "ping ..." << endl;
