@@ -35,7 +35,7 @@ file(
         GUI/MapMenu/*
         GUI/IntermediateMenu/*
         GUI/LevelEditorMenu/*
-        GUI/PlayMessage/*
+        GUI/GUIMessage/*
         GUI/*
         Utils/*
         Plateau/*

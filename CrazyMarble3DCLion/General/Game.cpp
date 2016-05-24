@@ -322,10 +322,6 @@ void Game::networkGameLoop() {
     board->applyMovingOnEntities(deltaTime,rand);
 
     if (not player->isAlive()){
-        // player is dead
-        //chrono->stop();
-        //player->setGravity();
-        //WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU DIED !");
         player->respawn();
     }
 
