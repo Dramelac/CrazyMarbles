@@ -22,6 +22,7 @@ NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
 
         tempsActuel = clock();
         tempsEcouler = clock();
+        message = new NetworkMessage(device, keyEvent, "Waiting for player ...", "Cancel");
 
     }else{
 
@@ -95,6 +96,8 @@ void NetworkMain::updateNetwork() {
 NetworkMain::~NetworkMain() {
     if (isGameStart) {
         delete game;
+    } else {
+        delete message;
     }
     RakPeerInterface::DestroyInstance(peer);
 }
@@ -282,7 +285,10 @@ void NetworkMain::play() {
         
         if (isGameStart){
             game->networkGameLoop();
+        } else if (isServer && message->checkStatus()) {
+            mainPlay = false;
         }
+
         if (!mainPlay){
             return;
         }
@@ -300,6 +306,7 @@ void NetworkMain::setupBlackMarbleAt(vector3di cursor, vector3df innertie, vecto
 
 void NetworkMain::startGame(stringc pseudoP2) {
     isGameStart = true;
+    delete message;
     cout << "Starting game ..." << pathMap.c_str() << endl;
     game = new Game(device, keyEvent, pathMap, pseudo);
     game->setup2P(pseudoP2);

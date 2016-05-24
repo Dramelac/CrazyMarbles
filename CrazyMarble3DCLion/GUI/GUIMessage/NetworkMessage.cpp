@@ -4,11 +4,14 @@
 
 #include "NetworkMessage.h"
 
-NetworkMessage::NetworkMessage(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringw message, stringw button="")
+NetworkMessage::NetworkMessage(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringw message, stringw button)
         : GUIBase(device, keyEvent) {
 
-    text = gui->addStaticText(message.c_str(), rect<s32>(vector2d<s32>(200,200), dimension2d<s32>(1000,250)));
-    exit = gui->addButton(rect<s32>(vector2d<s32>(500,400), dimension2d<s32>(200,100)));
+    background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
+    text = gui->addStaticText(message.c_str(), rect<s32>(vector2d<s32>(300,500), dimension2d<s32>(1320,150)));
+    text->setTextAlignment(EGUIA_CENTER,EGUIA_CENTER);
+    text->setDrawBackground(true);
+    exit = gui->addButton(rect<s32>(vector2d<s32>(850,800), dimension2d<s32>(200,75)));
     if (button == ""){
         exit->setVisible(false);
     } else {
@@ -17,12 +20,21 @@ NetworkMessage::NetworkMessage(IrrlichtDevice *device, KeyboardEvent *keyEvent, 
 
 }
 
-virtual NetworkMessage::~NetworkMessage() {
+NetworkMessage::~NetworkMessage() {
+    background->remove();
     text->remove();
     exit->remove();
 }
 
 bool NetworkMessage::checkStatus() {
+    driver->beginScene(true,true, video::SColor(255,150,150,150));        // font default color
+    gui->drawAll();
+    driver->endScene();
     return exit->isPressed();
 }
+
+void NetworkMessage::setMessage(stringw message) {
+    text->setText(message.c_str());
+}
+
 

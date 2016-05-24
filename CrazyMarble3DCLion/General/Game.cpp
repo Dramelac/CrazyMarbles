@@ -3,7 +3,6 @@
 //
 
 #include "Game.h"
-#include "../GUI/PlayMessage/WinLooseChoose.h"
 
 // Debug construct (DEPRECATED)
 Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,

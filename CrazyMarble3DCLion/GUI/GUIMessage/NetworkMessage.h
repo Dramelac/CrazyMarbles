@@ -12,12 +12,15 @@ using namespace core;
 
 class NetworkMessage : public GUIBase {
 private:
+    IGUIImage* background;
     IGUIStaticText* text;
     IGUIButton* exit;
 public:
     NetworkMessage(IrrlichtDevice *device, KeyboardEvent *keyEvent
             , stringw message, stringw button="");
     virtual ~NetworkMessage();
+
+    void setMessage(stringw message);
 
     bool checkStatus();
 };

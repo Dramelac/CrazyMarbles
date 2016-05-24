@@ -16,6 +16,7 @@
 
 #include "../../Play/Player.h"
 #include "../Game.h"
+#include "../../GUI/GUIMessage/NetworkMessage.h"
 
 using namespace std;
 using namespace irr;
@@ -42,6 +43,7 @@ private:
 
     // Server static properties
     const short portServeur = 6668;
+    NetworkMessage* message;
 
     bool isServer;
     RakPeerInterface *peer;

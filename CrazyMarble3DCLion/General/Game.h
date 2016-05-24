@@ -12,6 +12,7 @@
 #include "../Plateau/Board.h"
 #include "../Play/Player.h"
 #include "../Utils/KeyboardEvent.h"
+#include "../GUI/GUIMessage/WinLooseChoose.h"
 
 using namespace irr;
 using namespace scene;
