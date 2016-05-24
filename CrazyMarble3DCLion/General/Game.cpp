@@ -274,7 +274,7 @@ void Game::setup2P(stringc pseudo) {
 
     board->setPlayerToEntities(sceneManager, player2, false);
 
-
+/*
     ITriangleSelector* player1Selector = player->getSelector(sceneManager);
     player2->enableCustomCollision(player1Selector,sceneManager);
     player1Selector->drop();
@@ -282,7 +282,7 @@ void Game::setup2P(stringc pseudo) {
     ITriangleSelector* player2Selector = player2->getSelector(sceneManager);
     player->enableCustomCollision(player2Selector,sceneManager);
     player2Selector->drop();
-
+*/
     lastFPS = -1;
     then = device->getTimer()->getTime();
 
@@ -323,15 +323,15 @@ void Game::networkGameLoop() {
 
     if (not player->isAlive()){
         // player is dead
-        chrono->stop();
-        player->setGravity();
+        //chrono->stop();
+        //player->setGravity();
         //WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU DIED !");
         player->respawn();
     }
 
     if (chrono->getTime() == 0){
-        chrono->stop();
-        player->setGravity();
+        //chrono->stop();
+        //player->setGravity();
         //WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t TIMES UP !");
         //return popup.loop();
     }
@@ -339,7 +339,7 @@ void Game::networkGameLoop() {
     if (player->checkFinish()){
         // player win
         //WinLooseChoose popup(device, keyevent, player->calculFinal(chrono->getTime()), true);
-        chrono->stop();
+        //chrono->stop();
         //return popup.loop();
     }
 
@@ -354,6 +354,6 @@ Player *Game::getPlayer2() const {
     if (isNetwork) {
         return player2;
     } else {
-        return player;
+        return nullptr;
     }
 }

@@ -72,9 +72,10 @@ public:
     bool checkFinish();
 
     void respawn();
+	virtual void setPosition(vector3df position);
 
 
-    s32 getScore() const;
+	s32 getScore() const;
     void updateGui();
 };
 
