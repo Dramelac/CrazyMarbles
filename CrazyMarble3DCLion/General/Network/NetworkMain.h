@@ -72,7 +72,7 @@ private:
     void proccessDeplacementPacket(BitStream* dataStream);
 
     void sendConnectClientSetting();
-    void checkClientConnection(Packet *packet);
+    bool checkClientConnection(Packet *packet);
     void sendPseudo();
 
     void send_animation(RakPeerInterface *serveur, Packet *packet,

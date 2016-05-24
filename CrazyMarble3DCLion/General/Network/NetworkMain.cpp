@@ -11,8 +11,7 @@ const unsigned char NetworkMain::PACKET_PSEUDO = 105;
 NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
                          path pathMap, stringc pseudo, bool isServer, stringc IP_serveur)
         : isServer(isServer), device(device), keyEvent(keyEvent),
-          pathMap(pathMap), pseudo(pseudo), isGameStart(false) {
-
+          pathMap(pathMap), pseudo(pseudo), isGameStart(false), mainPlay(true) {
     peer = RakPeerInterface::GetInstance();
     if (isServer){
 
@@ -27,7 +26,6 @@ NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
     }else{
 
         cout<<"IP : " << IP_serveur.c_str() << endl;
-        //cin>>IP_serveur;
         cout<<"Connection en cours ..." << endl;
 
         peer->Startup(1,new SocketDescriptor(),1);
@@ -38,7 +36,10 @@ NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
         ID_Player = -1;
         do{
             packet = peer->Receive();
-            checkClientConnection(packet);
+            if (checkClientConnection(packet)){
+                mainPlay = false;
+                break;
+            }
         }while(ID_Player<0);
 
         tempsActuel = clock();
@@ -243,7 +244,7 @@ void NetworkMain::proccessDeplacementPacket(BitStream* dataStream) {
     game->getPlayer2()->setPosition(innertieTemp);
 }
 
-void NetworkMain::checkClientConnection(Packet *packet) {
+bool NetworkMain::checkClientConnection(Packet *packet) {
 
     if(packet != NULL)
     {
@@ -256,7 +257,7 @@ void NetworkMain::checkClientConnection(Packet *packet) {
                 break;
             case ID_CONNECTION_ATTEMPT_FAILED :
                 cout << "Failed connection :(" << endl;
-                break;
+                return true;
             case PACKET_ID_ID_JOUEUR:
                 dataStream.Read(ID_Player);
                 other_ID_Player = ID_Player + 1;
@@ -277,12 +278,12 @@ void NetworkMain::checkClientConnection(Packet *packet) {
         }
 
     }
+    return false;
 
 }
 
 void NetworkMain::play() {
     cout << "Starting network main play" << endl;
-    mainPlay = true;
     while (device->run()) {
         // check order
         updateNetwork();
