@@ -57,8 +57,8 @@ private:
 
     // PASSIVE
 
-    void WriteStringToBitStream(stringc myString, BitStream *output);
-    void WriteBitStreamToString(char *myString, BitStream *input);
+    stringc readString(BitStream *bitStream);
+    void writeString(BitStream *bitStream, const stringc &string);
 
     // ACTIVE
 
@@ -79,10 +79,6 @@ private:
 
     void setupBlackMarbleAt(vector3di cursor, vector3df innertie, vector3df position);
     void startGame(stringc pseudoP2);
-
-    void readString(BitStream *bitStream,std::string &string);
-
-    void writeString(BitStream *bitStream, const std::string &string);
 
 
 public:

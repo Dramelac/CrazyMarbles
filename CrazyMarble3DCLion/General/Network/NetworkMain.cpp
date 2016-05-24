@@ -55,20 +55,13 @@ void NetworkMain::sendConnectClientSetting(RakPeerInterface *server, int ID_play
 {
     BitStream* data = new BitStream();// creation de nos data a envoyer
     data->Write((MessageID)PACKET_PATHMAP);
-    /*const std::string writePath = pathMap.c_str();
-    writeString(data,writePath);*/
-    RakString tempStr = pathMap.c_str();
-    cout << "pathMap: " << tempStr.C_String() << endl;
-    data->Write(tempStr.C_String());// pseudo to send
+    writeString(data, pathMap);
     server->Send(data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
     delete data;
 
     data = new BitStream();
-    // ID player - end connection
     data->Write((MessageID)PACKET_PSEUDO);// on ecrit l'ID de notre packet
-    tempStr = pseudo.c_str();
-    cout << "pseudo: " << tempStr.C_String() << endl;
-    data->Write(tempStr.C_String());// pseudo to send
+    writeString(data, pseudo);
     server->Send(data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
     delete data;
 
@@ -78,9 +71,7 @@ void NetworkMain::sendConnectClientSetting(RakPeerInterface *server, int ID_play
     server->Send(data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
 }
 
-//**un fonction pour envoyer l'animation de notre ninja au client
-//on notera que ici on n'envoie pas le paquet au client nous nous
-//l'avait envoyer (packet->systemAddress)
+
 void NetworkMain::send_animation(RakPeerInterface *serveur, Packet *packet, int ID_joueur, bool il_marche)
 {
     BitStream data;
@@ -259,21 +250,12 @@ void NetworkMain::checkClientConnection(Packet *packet) {
                 startGame(pseudoP2);
                 break;
             case PACKET_PATHMAP:
-                RakString* tempPathStr;
-                dataStream.IgnoreBytes(sizeof(MessageID));
-                /*std::string testPath ="";
-                readString(&dataStream,testPath);
-                cout<<  "testPath : "<< testPath<<endl;*/
-                dataStream.Read(tempPathStr);
-                cout << "pathMap: " << tempPathStr->C_String() << endl;
-                pathMap = tempPathStr->C_String();
+                pathMap = readString(&dataStream);
+                cout<<  "Map : "<< pathMap.c_str() <<endl;
                 break;
             case PACKET_PSEUDO:
-                RakString* tempPseudoStr;
-                dataStream.IgnoreBytes(sizeof(MessageID));
-                dataStream.Read(tempPseudoStr);
-                cout << "pseudo: " << tempPseudoStr->C_String() << endl;
-                pseudoP2 = tempPseudoStr->C_String();
+                pseudoP2 = readString(&dataStream);
+                cout << "pseudo: " << pseudoP2.c_str() << endl;
                 break;
             default:
                 cout << "ping ..." << endl;
@@ -318,27 +300,18 @@ void NetworkMain::startGame(stringc pseudoP2) {
     game->setup2P(pseudoP2);
 }
 
-void NetworkMain::WriteStringToBitStream(stringc myString, BitStream *output) {
-    StringCompressor stringCompressor;
-    stringCompressor.EncodeString(myString.c_str(), 256, output);
-}
-
-void NetworkMain::WriteBitStreamToString(char *myString, BitStream *input) {
-    StringCompressor stringCompressor;
-    stringCompressor.DecodeString(myString, 256, input);
-}
-
-void NetworkMain::readString(BitStream *bitStream,std::string &string) {
+stringc NetworkMain::readString(BitStream *bitStream) {
 
     char str[255];
 
     StringCompressor::Instance()->DecodeString(str,255,bitStream);
 
-    string = str;
+    stringc temp = str;
+    return temp;
 
 }
 
-void NetworkMain::writeString(BitStream *bitStream, const std::string &string) {
+void NetworkMain::writeString(BitStream *bitStream, const stringc &string) {
     const char *str = string.c_str();
 
     StringCompressor::Instance()->EncodeString(str,255,bitStream);
