@@ -75,9 +75,6 @@ private:
     bool checkClientConnection(Packet *packet);
     void sendPseudo();
 
-    void send_animation(RakPeerInterface *serveur, Packet *packet,
-                        int ID_joueur, bool il_marche);
-
     void setupBlackMarbleAt(vector3di cursor, vector3df innertie, vector3df position);
     void startGame(stringc pseudoP2);
 

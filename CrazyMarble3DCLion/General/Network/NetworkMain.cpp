@@ -76,17 +76,6 @@ void NetworkMain::sendPseudo() {
     delete data;
 }
 
-
-
-void NetworkMain::send_animation(RakPeerInterface *serveur, Packet *packet, int ID_joueur, bool il_marche)
-{
-    BitStream data;
-    data.Write(PACKET_ID_ANIMATION);
-    data.Write(ID_joueur);
-    data.Write(il_marche);
-    serveur->Send(&data, MEDIUM_PRIORITY, RELIABLE_ORDERED, 0, packet->systemAddress, true);
-}
-
 void NetworkMain::updateNetwork() {
     Packet * packet = NULL;
     packet = peer->Receive();
