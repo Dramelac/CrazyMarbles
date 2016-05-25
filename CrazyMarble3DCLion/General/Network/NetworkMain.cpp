@@ -356,6 +356,7 @@ void NetworkMain::win() {
     data.Write((MessageID)PACKET_ID_WIN);
     peer->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
     mainPlay = false;
+    isGameStart = false;
     WinLooseChoose popup(device, keyEvent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU WIN !");
     popup.setupNetwork();
     popup.loop();
@@ -365,6 +366,7 @@ void NetworkMain::win() {
 
 void NetworkMain::loose(bool timeup) {
     mainPlay = false;
+    isGameStart = false;
     peer->Shutdown(0);
     WinLooseChoose* popup;
     if(timeup) {
