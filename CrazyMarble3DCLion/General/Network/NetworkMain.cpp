@@ -356,9 +356,9 @@ void NetworkMain::win() {
     data.Write((MessageID)PACKET_ID_WIN);
     peer->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
     mainPlay = false;
-    peer->Shutdown(0);
     WinLooseChoose popup(device, keyEvent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU WIN !");
     popup.loop();
+    peer->Shutdown(0);
     return;
 }
 
