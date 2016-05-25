@@ -10,7 +10,7 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     this->device->setWindowCaption(L"Crazy Marble  -  [MENU]");
     device->getCursorControl()->setVisible(true);
 
-    background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
+    background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM3.png"), position2d<int>(0, 0));
 
     IGUISkin* skin = gui->getSkin();
     skin->setFont(gui->getFont("data/GUI/fonts/font15px.png"), EGDF_DEFAULT);
