@@ -301,6 +301,9 @@ void NetworkMain::play() {
         // check order
         updateNetwork();
 
+        if (!mainPlay){
+            return;
+        }
         
         if (isGameStart){
             switch (game->networkGameLoop()){
@@ -319,9 +322,6 @@ void NetworkMain::play() {
             mainPlay = false;
         }
 
-        if (!mainPlay){
-            return;
-        }
     }
 }
 
@@ -366,17 +366,14 @@ void NetworkMain::win() {
     data.Write((MessageID)PACKET_ID_WIN);
     peer->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
     mainPlay = false;
-    isGameStart = false;
     WinLooseChoose popup(device, keyEvent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU WIN !");
     popup.setupNetwork();
     popup.loop();
     peer->Shutdown(0);
-    return;
 }
 
 void NetworkMain::loose(bool timeup) {
     mainPlay = false;
-    isGameStart = false;
     peer->Shutdown(0);
     WinLooseChoose* popup;
     if(timeup) {
@@ -387,7 +384,6 @@ void NetworkMain::loose(bool timeup) {
     popup->setupNetwork();
     popup->loop();
     delete popup;
-    return;
 }
 
 
