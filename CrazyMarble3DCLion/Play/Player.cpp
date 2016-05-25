@@ -238,7 +238,7 @@ vector3df Player::getPosition() {
 
 void Player::setGravity(s32 Y) {
     inertie = vector3df(0,0,0);
-    if (isPlayable) {
+    if (isPlayable || isNetworkPlayer) {
         animatorCollisionResponse->setGravity(vector3df(0, Y, 0));
     }
 }
