@@ -6,6 +6,7 @@ const unsigned char NetworkMain::PACKET_ID_WIN = 102;
 const unsigned char NetworkMain::PACKET_ID_ID_JOUEUR = 103;
 const unsigned char NetworkMain::PACKET_PATHMAP = 104;
 const unsigned char NetworkMain::PACKET_PSEUDO = 105;
+const unsigned char NetworkMain::PACKET_END = 106;
 
 
 NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
@@ -112,18 +113,27 @@ void NetworkMain::updatePacket() {
 
     if(tempsEcouler - tempsActuel > 30)
     {
-        BitStream data;
-        vector3df positionTemp = game->getPlayer()->getPosition();
-        vector3df innertieTemp = game->getPlayer()->getInertie();
-        data.Write(PACKET_ID_DEPLACEMENT);
-        data.Write(other_ID_Player);
-        data.Write(positionTemp);
-        data.Write(innertieTemp);
-        peer->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+        sendPlayer();
+        sendEntities();
 
         tempsActuel = clock();
     }
 
+
+}
+
+void NetworkMain::sendPlayer() {
+    BitStream data;
+    vector3df positionTemp = game->getPlayer()->getPosition();
+    vector3df innertieTemp = game->getPlayer()->getInertie();
+    data.Write(PACKET_ID_DEPLACEMENT);
+    data.Write(other_ID_Player);
+    data.Write(positionTemp);
+    data.Write(innertieTemp);
+    peer->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+}
+
+void NetworkMain::sendEntities() {
 
 }
 
