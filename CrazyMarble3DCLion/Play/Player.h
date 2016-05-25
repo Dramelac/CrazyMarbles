@@ -43,8 +43,8 @@ private:
 public:
 
 	Player(ISceneManager *sceneManager, const stringc& name, int health);
-	Player(ISceneManager *sceneManager,IVideoDriver *driver,IGUIEnvironment *gui, const stringc& name, int health, vector3df startpos, s32 score=0);
-	Player(ISceneManager *sceneManager,IVideoDriver *driver,const stringc& name, int health, vector3df startpos, s32 score=0);
+	Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment *gui, const stringc& name, int health, vector3df startpos, s32 score=0);
+	Player(ISceneManager *sceneManager, const stringc& name, int health, vector3df startpos, s32 score=0);
 
 
 

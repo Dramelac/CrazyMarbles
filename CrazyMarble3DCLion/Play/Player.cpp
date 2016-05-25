@@ -79,7 +79,7 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
 
 }
 // network player
-Player::Player(ISceneManager *sceneManager, IVideoDriver *driver, const stringc &name, int health, vector3df startpos, s32 score)
+Player::Player(ISceneManager *sceneManager, const stringc &name, int health, vector3df startpos, s32 score)
     : Entities(name, health), score(score), enemyKill(0), finishTime(0), isPlayable(false) {
 
     isNetworkPlayer = true;
@@ -91,6 +91,7 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver, const stringc 
     sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
 
     sceneNode = sceneManager->addMeshSceneNode(sceneMesh);           // add object to screen
+    sceneNode->setMaterialTexture(0, TextureLoader::sphereOrange);
     sceneNode->setPosition(startPos);
     sceneNode->setID(10);
 
