@@ -357,6 +357,7 @@ void NetworkMain::win() {
     peer->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
     mainPlay = false;
     WinLooseChoose popup(device, keyEvent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU WIN !");
+    popup.setupNetwork();
     popup.loop();
     peer->Shutdown(0);
     return;
@@ -371,6 +372,7 @@ void NetworkMain::loose(bool timeup) {
     }else {
         popup = new WinLooseChoose(device, keyEvent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU LOOSE !");
     }
+    popup->setupNetwork();
     popup->loop();
     delete popup;
     return;

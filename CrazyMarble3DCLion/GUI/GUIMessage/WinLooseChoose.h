@@ -29,6 +29,7 @@ public:
                    stringw message , bool win=false, bool resume=false);
     virtual ~WinLooseChoose();
     s16 loop();
+    void setupNetwork();
 };
 
 

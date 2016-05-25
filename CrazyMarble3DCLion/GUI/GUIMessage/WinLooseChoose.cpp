@@ -55,6 +55,12 @@ s16 WinLooseChoose::loop() {
     return 0;
 }
 
+void WinLooseChoose::setupNetwork() {
+    restart->setVisible(false);
+    if (win) {
+        next->setVisible(false);
+    }
+}
 
 
 
