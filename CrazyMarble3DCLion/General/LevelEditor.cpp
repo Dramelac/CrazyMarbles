@@ -390,6 +390,7 @@ void LevelEditor::setupGUI() {
     tempName += name;
     mapName = gui->addEditBox(tempName.c_str(), rect<s32>(vector2d<s32>(1650,950),
                                                     dimension2d<s32>(100,50)));
+    mapName->setOverrideColor(SColor(255,0,0,0));
 
 
 
