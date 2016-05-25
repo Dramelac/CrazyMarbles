@@ -9,7 +9,7 @@ const unsigned char NetworkMain::PACKET_PSEUDO = 105;
 
 
 NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
-                         path pathMap, stringc pseudo, bool isServer, stringc IP_serveur)
+                         path pathMap, stringc pseudo, bool isServer, stringc IP_server)
         : isServer(isServer), device(device), keyEvent(keyEvent),
           pathMap(pathMap), pseudo(pseudo), isGameStart(false), mainPlay(true) {
     peer = RakPeerInterface::GetInstance();
@@ -26,35 +26,35 @@ NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
 
     }else{
 
-        cout<<"IP : " << IP_serveur.c_str() << endl;
+        cout<<"IP : " << IP_server.c_str() << endl;
         cout<<"Connection en cours ..." << endl;
-
+        message = new NetworkMessage(device, keyEvent, "Attempting connection ...");
         peer->Startup(1,new SocketDescriptor(),1);
-        peer->Connect(IP_serveur.c_str(),portServeur,0,0);
+        peer->Connect(IP_server.c_str(),portServeur,0,0);
 
-
-        Packet * packet = NULL;
         ID_Player = -1;
-        do{
-            packet = peer->Receive();
-            if (checkClientConnection(packet)){
-                mainPlay = false;
-                break;
-            }
-        }while(ID_Player<0);
 
         tempsActuel = clock();
         tempsEcouler = clock();
-
 
     }
 
 }
 
+bool NetworkMain::clientConnectionAttemp(Packet* packet) {
+
+    if (checkClientConnection(packet)){
+        message->setMessage("Connection failed");
+        message->setButtonMessage("Ok");
+    }
+
+    return false;
+}
 
 //pour envoyer un ID a notre joueur qui vient de se connecter
 void NetworkMain::sendConnectClientSetting()
 {
+    message->setMessage("Player is connecting");
     BitStream* data = new BitStream();// creation de nos data a envoyer
     data->Write((MessageID)PACKET_PATHMAP);
     writeString(data, pathMap);
@@ -84,7 +84,11 @@ void NetworkMain::updateNetwork() {
     if (isServer){
         processPacketServer(packet);
     } else {
-        processPacketClient(packet);
+        if (isGameStart) {
+            processPacketClient(packet);
+        } else {
+            clientConnectionAttemp(packet);
+        }
     }
     peer->DeallocatePacket(packet);
 
@@ -277,7 +281,7 @@ bool NetworkMain::checkClientConnection(Packet *packet) {
 }
 
 void NetworkMain::play() {
-    cout << "Starting network main play" << endl;
+    //cout << "Starting network main play" << endl;
     while (device->run()) {
         // check order
         updateNetwork();
@@ -285,7 +289,7 @@ void NetworkMain::play() {
         
         if (isGameStart){
             game->networkGameLoop();
-        } else if (isServer && message->checkStatus()) {
+        } else if (message->checkStatus()) {
             mainPlay = false;
         }
 
@@ -329,6 +333,5 @@ void NetworkMain::writeString(BitStream *bitStream, const stringc &string) {
     StringCompressor::Instance()->EncodeString(str,255,bitStream);
 
 }
-
 
 

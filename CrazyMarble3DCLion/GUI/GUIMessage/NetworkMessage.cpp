@@ -37,4 +37,13 @@ void NetworkMessage::setMessage(stringw message) {
     text->setText(message.c_str());
 }
 
+void NetworkMessage::setButtonMessage(stringw message) {
+    if (message == "") {
+        exit->setVisible(false);
+    } else {
+        exit->setText(message.c_str());
+        exit->setVisible(true);
+    }
+}
+
 

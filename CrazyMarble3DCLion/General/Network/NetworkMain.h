@@ -74,6 +74,8 @@ private:
     void proccessDeplacementPacket(BitStream* dataStream);
 
     void sendConnectClientSetting();
+
+    bool clientConnectionAttemp(Packet* packet);
     bool checkClientConnection(Packet *packet);
     void sendPseudo();
 
@@ -84,7 +86,7 @@ private:
 public:
     NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
                 path pathMap, stringc pseudo, bool isServer=true,
-                stringc IP_serveur="127.0.0.1");
+                stringc IP_server="127.0.0.1");
     virtual ~NetworkMain();
 
     void play();

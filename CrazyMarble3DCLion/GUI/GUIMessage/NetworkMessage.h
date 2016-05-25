@@ -21,6 +21,7 @@ public:
     virtual ~NetworkMessage();
 
     void setMessage(stringw message);
+    void setButtonMessage(stringw message="");
 
     bool checkStatus();
 };
