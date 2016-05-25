@@ -51,7 +51,7 @@ public:
     ~Game();
 	void setup2P(stringc pseudo="NetworkPlayer");
 
-    void networkGameLoop();
+    u16 networkGameLoop();
 
 
 	Board * getBoard() const;

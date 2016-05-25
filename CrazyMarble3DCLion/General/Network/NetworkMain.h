@@ -27,7 +27,19 @@ using namespace RakNet;
 
 class NetworkMain {
 private:
+    ///////////////////////////////
+    //         STATIC PACKET
+    ///////////////////////////////
+    const static unsigned char PACKET_ID_DEPLACEMENT;
+    const static unsigned char PACKET_ID_WIN;
+    const static unsigned char PACKET_ID_ID_JOUEUR;
+    const static unsigned char PACKET_PATHMAP;
+    const static unsigned char PACKET_PSEUDO;
+
+    /////////////////////////////////
     // Game Irrlicht
+    ////////////////////////////////
+
     IrrlichtDevice* device;
     KeyboardEvent* keyEvent;
 
@@ -82,6 +94,8 @@ private:
     void setupBlackMarbleAt(vector3di cursor, vector3df innertie, vector3df position);
     void startGame(stringc pseudoP2);
 
+    void win();
+    void loose(bool timeup=false);
 
 public:
     NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
@@ -91,11 +105,7 @@ public:
 
     void play();
 
-    const static unsigned char PACKET_ID_DEPLACEMENT;
-    const static unsigned char PACKET_ID_ANIMATION;
-    const static unsigned char PACKET_ID_ID_JOUEUR;
-    const static unsigned char PACKET_PATHMAP;
-    const static unsigned char PACKET_PSEUDO;
+
 
 };
 

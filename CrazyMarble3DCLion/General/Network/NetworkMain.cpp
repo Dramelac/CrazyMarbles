@@ -2,7 +2,7 @@
 #include "NetworkMain.h"
 
 const unsigned char NetworkMain::PACKET_ID_DEPLACEMENT = 101;
-const unsigned char NetworkMain::PACKET_ID_ANIMATION = 102;
+const unsigned char NetworkMain::PACKET_ID_WIN = 102;
 const unsigned char NetworkMain::PACKET_ID_ID_JOUEUR = 103;
 const unsigned char NetworkMain::PACKET_PATHMAP = 104;
 const unsigned char NetworkMain::PACKET_PSEUDO = 105;
@@ -145,12 +145,11 @@ void NetworkMain::processPacketServer(Packet *packet) {
                 cout << "Update other_ID_Player to " << other_ID_Player << endl;
                 startGame("DefaultPseudo");
                 break;
-            case PACKET_ID_DEPLACEMENT:
-                proccessDeplacementPacket(&dataStream);
-                break;
+
             case ID_NO_FREE_INCOMING_CONNECTIONS:
                 cout << "Server full" << endl;
                 break;
+
             case ID_DISCONNECTION_NOTIFICATION:
             case ID_CONNECTION_LOST:
                 cout << "Client disconnected ..." << endl;
@@ -174,41 +173,6 @@ void NetworkMain::processPacketClient(Packet *packet) {
         dataStream.Read(packetID);
         switch(packetID)
         {
-            case PACKET_ID_DEPLACEMENT:
-                /*
-                //temp var
-                int ID_Node;
-                vector3df* positionNode;
-                vector3df* inertieNode;
-                dataStream.Read(ID_Node);
-                dataStream.Read(positionNode);
-                dataStream.Read(inertieNode);
-
-                if(ID_Node != ID_Player && ID_Node < 1000)
-                {
-
-                    player[ID_Node]->setPosition(*positionNode);
-                    player[ID_Node]->setInertie(*inertieNode);
-
-                }
-                else if (3500 <= ID_Node && ID_Node <= 6000 )
-                {
-                    ID_Node -= 3500;
-                    s32 X = ID_Node / 50;
-                    s32 Y = ID_Node % 50;
-                    vector3di cursor = vector3di(X,0,Y) ;
-                    setupBlackMarbleAt( cursor , *inertieNode, *positionNode);
-                }
-
-
-                // TO CHECK
-                delete positionNode;
-                delete inertieNode;
-                // MAY SEGFAULT -> IF CASE : TO REMOVE
-                */
-                proccessDeplacementPacket(&dataStream);
-                break;
-
             default:
                 processPacketCommun(&dataStream, packetID);
                 //cout << "This is not client Specific packet\n" << int(packetID) << endl;
@@ -224,6 +188,47 @@ void NetworkMain::processPacketCommun(BitStream *dataStream, unsigned char packe
             pseudoP2 = readString(dataStream);
             cout << "pseudo: " << pseudoP2.c_str() << endl;
             break;
+
+        case PACKET_ID_WIN:
+            cout << "win packet received " << endl;
+            loose();
+            break;
+
+        case PACKET_ID_DEPLACEMENT:
+            /*
+            //temp var
+            int ID_Node;
+            vector3df* positionNode;
+            vector3df* inertieNode;
+            dataStream.Read(ID_Node);
+            dataStream.Read(positionNode);
+            dataStream.Read(inertieNode);
+
+            if(ID_Node != ID_Player && ID_Node < 1000)
+            {
+
+                player[ID_Node]->setPosition(*positionNode);
+                player[ID_Node]->setInertie(*inertieNode);
+
+            }
+            else if (3500 <= ID_Node && ID_Node <= 6000 )
+            {
+                ID_Node -= 3500;
+                s32 X = ID_Node / 50;
+                s32 Y = ID_Node % 50;
+                vector3di cursor = vector3di(X,0,Y) ;
+                setupBlackMarbleAt( cursor , *inertieNode, *positionNode);
+            }
+
+
+            // TO CHECK
+            delete positionNode;
+            delete inertieNode;
+            // MAY SEGFAULT -> IF CASE : TO REMOVE
+            */
+            proccessDeplacementPacket(dataStream);
+            break;
+
         default:
             cout << "Error packet not handle !\n" << int(packetID) << endl;
             break;
@@ -270,7 +275,7 @@ bool NetworkMain::checkClientConnection(Packet *packet) {
                 cout<<  "Map : "<< pathMap.c_str() <<endl;
                 break;
             default:
-                cout << "ping ..." << endl;
+                cout << "Packet not handle on connection ..." << int(packetID) << endl;
                 break;
 
         }
@@ -288,7 +293,18 @@ void NetworkMain::play() {
 
         
         if (isGameStart){
-            game->networkGameLoop();
+            switch (game->networkGameLoop()){
+                case 0:
+                    break;
+                case 1:
+                    win();
+                    break;
+                case 2:
+                    loose(true);
+                    break;
+                default:
+                    break;
+            }
         } else if (message->checkStatus()) {
             mainPlay = false;
         }
@@ -332,6 +348,32 @@ void NetworkMain::writeString(BitStream *bitStream, const stringc &string) {
 
     StringCompressor::Instance()->EncodeString(str,255,bitStream);
 
+}
+
+void NetworkMain::win() {
+
+    BitStream data;// creation de nos data a envoyer
+    data.Write((MessageID)PACKET_ID_WIN);
+    peer->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+    mainPlay = false;
+    peer->Shutdown(0);
+    WinLooseChoose popup(device, keyEvent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU WIN !");
+    popup.loop();
+    return;
+}
+
+void NetworkMain::loose(bool timeup) {
+    mainPlay = false;
+    peer->Shutdown(0);
+    WinLooseChoose* popup;
+    if(timeup) {
+        popup = new WinLooseChoose(device, keyEvent, "\t\t\t\t\t\t\t\t\t\t\t\t\t TIMES UP");
+    }else {
+        popup = new WinLooseChoose(device, keyEvent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU LOOSE !");
+    }
+    popup->loop();
+    delete popup;
+    return;
 }
 
 
