@@ -6,6 +6,7 @@ const unsigned char NetworkMain::PACKET_ID_WIN = 102;
 const unsigned char NetworkMain::PACKET_ID_ID_JOUEUR = 103;
 const unsigned char NetworkMain::PACKET_PATHMAP = 104;
 const unsigned char NetworkMain::PACKET_PSEUDO = 105;
+const unsigned char NetworkMain::PACKET_END = 106;
 
 
 NetworkMain::NetworkMain(IrrlichtDevice* device, KeyboardEvent* keyEvent,
@@ -112,18 +113,27 @@ void NetworkMain::updatePacket() {
 
     if(tempsEcouler - tempsActuel > 30)
     {
-        BitStream data;
-        vector3df positionTemp = game->getPlayer()->getPosition();
-        vector3df innertieTemp = game->getPlayer()->getInertie();
-        data.Write(PACKET_ID_DEPLACEMENT);
-        data.Write(other_ID_Player);
-        data.Write(positionTemp);
-        data.Write(innertieTemp);
-        peer->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+        sendPlayer();
+        sendEntities();
 
         tempsActuel = clock();
     }
 
+
+}
+
+void NetworkMain::sendPlayer() {
+    BitStream data;
+    vector3df positionTemp = game->getPlayer()->getPosition();
+    vector3df innertieTemp = game->getPlayer()->getInertie();
+    data.Write(PACKET_ID_DEPLACEMENT);
+    data.Write(other_ID_Player);
+    data.Write(positionTemp);
+    data.Write(innertieTemp);
+    peer->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
+}
+
+void NetworkMain::sendEntities() {
 
 }
 
@@ -291,6 +301,9 @@ void NetworkMain::play() {
         // check order
         updateNetwork();
 
+        if (!mainPlay){
+            return;
+        }
         
         if (isGameStart){
             switch (game->networkGameLoop()){
@@ -309,9 +322,6 @@ void NetworkMain::play() {
             mainPlay = false;
         }
 
-        if (!mainPlay){
-            return;
-        }
     }
 }
 
@@ -356,17 +366,14 @@ void NetworkMain::win() {
     data.Write((MessageID)PACKET_ID_WIN);
     peer->Send(&data, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_SYSTEM_ADDRESS, true);
     mainPlay = false;
-    isGameStart = false;
     WinLooseChoose popup(device, keyEvent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU WIN !");
     popup.setupNetwork();
     popup.loop();
     peer->Shutdown(0);
-    return;
 }
 
 void NetworkMain::loose(bool timeup) {
     mainPlay = false;
-    isGameStart = false;
     peer->Shutdown(0);
     WinLooseChoose* popup;
     if(timeup) {
@@ -377,7 +384,6 @@ void NetworkMain::loose(bool timeup) {
     popup->setupNetwork();
     popup->loop();
     delete popup;
-    return;
 }
 
 

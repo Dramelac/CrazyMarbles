@@ -35,6 +35,7 @@ private:
     const static unsigned char PACKET_ID_ID_JOUEUR;
     const static unsigned char PACKET_PATHMAP;
     const static unsigned char PACKET_PSEUDO;
+    const static unsigned char PACKET_END;
 
     /////////////////////////////////
     // Game Irrlicht
@@ -78,6 +79,9 @@ private:
 
     void updateNetwork();
     void updatePacket();
+
+    void sendPlayer();
+    void sendEntities();
 
     void processPacketServer(Packet *packet);
     void processPacketClient(Packet *packet);
