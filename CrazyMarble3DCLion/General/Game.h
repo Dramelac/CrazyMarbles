@@ -1,6 +1,3 @@
-//
-// Created by mathieu on 23/02/16.
-//
 
 #ifndef TESTISO_GAME_HPP
 #define TESTISO_GAME_HPP
@@ -15,6 +12,7 @@
 #include "../Plateau/Board.h"
 #include "../Play/Player.h"
 #include "../Utils/KeyboardEvent.h"
+#include "../GUI/GUIMessage/WinLooseChoose.h"
 
 using namespace irr;
 using namespace scene;
@@ -33,8 +31,14 @@ private:
     bool play;
 
     Player *player;
+	Player *player2;
+	bool isNetwork;
+
 	Board* board;
 	Chrono *chrono;
+
+    int lastFPS;
+    u32 then;
 
     void setupSkyBox(bool day);
 	void keyboardChecker(f32 deltaTime);
@@ -45,8 +49,16 @@ public:
 		 const unsigned int x, const unsigned int y, bool day = true);
     Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stringc pseudo, s32 score=0);
     ~Game();
+	void setup2P(stringc pseudo="NetworkPlayer");
 
-	s16 gameLoop();
+    u16 networkGameLoop();
+
+
+	Board * getBoard() const;
+	Player * getPlayer() const;
+    Player * getPlayer2() const;
+
+    s16 gameLoop();
 	s32 getScore();
 };
 

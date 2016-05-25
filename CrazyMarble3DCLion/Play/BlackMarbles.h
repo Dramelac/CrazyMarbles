@@ -29,7 +29,7 @@ public:
     BlackMarbles(IMeshSceneNode * node);
     virtual ~BlackMarbles();
 
-    void setPlayer(ISceneManager *sceneManager, Player *myplayer);
+    void setPlayer(ISceneManager *sceneManager, Player *myplayer, bool playerActif=true);
 
     void moveBLackMarbles(IRandomizer* rand);
 

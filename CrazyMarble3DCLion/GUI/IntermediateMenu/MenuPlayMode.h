@@ -9,6 +9,10 @@
 #include "../GUIBase.h"
 #include "../MapMenu/MapSelector.h"
 
+#include "../../General/Campaign.h"
+#include "SoloMultiMenu.h"
+#include "MenuServer.h"
+
 using namespace core;
 
 class MenuPlayMode : public GUIBase {
@@ -16,6 +20,7 @@ private:
     IGUIImage* background;
     IGUIButton* campaignButton;
     IGUIButton* freeModeButton;
+    IGUIButton* joinServerButton;
     IGUIButton* exit;
     stringc pseudo;
 
