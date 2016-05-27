@@ -201,6 +201,8 @@ void NetworkMain::processPacketCommun(BitStream *dataStream, unsigned char packe
         case ID_DISCONNECTION_NOTIFICATION:
         case ID_CONNECTION_LOST:
             cout << "Client disconnected ..." << endl;
+            if (!isGameStart) break;
+            delete game;
             message = new NetworkMessage(device, keyEvent, "Player is disconnected", "OK");
             isGameStart = false;
             break;
