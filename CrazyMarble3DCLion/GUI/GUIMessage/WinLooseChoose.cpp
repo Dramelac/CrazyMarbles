@@ -62,5 +62,8 @@ void WinLooseChoose::setupNetwork() {
     }
 }
 
+void WinLooseChoose::setText(stringw text) {
+    message->setText(text.c_str());
+}
 
 

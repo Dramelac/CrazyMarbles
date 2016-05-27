@@ -91,7 +91,6 @@ void NetworkMain::updateNetwork() {
             clientConnectionAttemp(packet);
         }
     }
-    peer->DeallocatePacket(packet);
 
     if (isGameStart) {
         updatePacket();
@@ -165,6 +164,8 @@ void NetworkMain::processPacketServer(Packet *packet) {
                 //cout << "This is not specific packet server\n" << int(packetID) << endl;
                 break;
         }
+
+        peer->DeallocatePacket(packet);
     }
 
 }
@@ -182,6 +183,8 @@ void NetworkMain::processPacketClient(Packet *packet) {
                 //cout << "This is not client Specific packet\n" << int(packetID) << endl;
                 break;
         }
+
+        peer->DeallocatePacket(packet);
     }
 }
 
@@ -301,12 +304,13 @@ bool NetworkMain::checkClientConnection(Packet *packet) {
 void NetworkMain::play() {
     //cout << "Starting network main play" << endl;
     while (device->run()) {
-        // check order
-        updateNetwork();
 
         if (!mainPlay){
             return;
         }
+
+        // check order
+        updateNetwork();
         
         if (isGameStart){
             switch (game->networkGameLoop()){
@@ -377,16 +381,15 @@ void NetworkMain::win() {
 
 void NetworkMain::loose(bool timeup) {
     mainPlay = false;
-    peer->Shutdown(0);
-    WinLooseChoose* popup;
+    WinLooseChoose popup(device, keyEvent, "");
     if(timeup) {
-        popup = new WinLooseChoose(device, keyEvent, "\t\t\t\t\t\t\t\t\t\t\t\t\t TIMES UP");
+        popup.setText("\t\t\t\t\t\t\t\t\t\t\t\t\t TIMES UP");
     }else {
-        popup = new WinLooseChoose(device, keyEvent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU LOOSE !");
+        popup.setText("\t\t\t\t\t\t\t\t\t\t\t\t\t YOU LOOSE !");
     }
-    popup->setupNetwork();
-    popup->loop();
-    delete popup;
+    popup.setupNetwork();
+    popup.loop();
+    peer->Shutdown(0);
 }
 
 
