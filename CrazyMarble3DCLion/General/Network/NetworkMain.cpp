@@ -91,7 +91,6 @@ void NetworkMain::updateNetwork() {
             clientConnectionAttemp(packet);
         }
     }
-    peer->DeallocatePacket(packet);
 
     if (isGameStart) {
         updatePacket();
@@ -160,17 +159,13 @@ void NetworkMain::processPacketServer(Packet *packet) {
                 cout << "Server full" << endl;
                 break;
 
-            case ID_DISCONNECTION_NOTIFICATION:
-            case ID_CONNECTION_LOST:
-                cout << "Client disconnected ..." << endl;
-                mainPlay = false;
-                break;
-
             default:
                 processPacketCommun(&dataStream, packetID);
                 //cout << "This is not specific packet server\n" << int(packetID) << endl;
                 break;
         }
+
+        peer->DeallocatePacket(packet);
     }
 
 }
@@ -188,6 +183,8 @@ void NetworkMain::processPacketClient(Packet *packet) {
                 //cout << "This is not client Specific packet\n" << int(packetID) << endl;
                 break;
         }
+
+        peer->DeallocatePacket(packet);
     }
 }
 
@@ -202,6 +199,15 @@ void NetworkMain::processPacketCommun(BitStream *dataStream, unsigned char packe
         case PACKET_ID_WIN:
             cout << "win packet received " << endl;
             loose();
+            break;
+
+        case ID_DISCONNECTION_NOTIFICATION:
+        case ID_CONNECTION_LOST:
+            cout << "Client disconnected ..." << endl;
+            if (!isGameStart) break;
+            delete game;
+            message = new NetworkMessage(device, keyEvent, "Player is disconnected", "OK");
+            isGameStart = false;
             break;
 
         case PACKET_ID_DEPLACEMENT:
@@ -298,12 +304,13 @@ bool NetworkMain::checkClientConnection(Packet *packet) {
 void NetworkMain::play() {
     //cout << "Starting network main play" << endl;
     while (device->run()) {
-        // check order
-        updateNetwork();
 
         if (!mainPlay){
             return;
         }
+
+        // check order
+        updateNetwork();
         
         if (isGameStart){
             switch (game->networkGameLoop()){
@@ -374,16 +381,15 @@ void NetworkMain::win() {
 
 void NetworkMain::loose(bool timeup) {
     mainPlay = false;
-    peer->Shutdown(0);
-    WinLooseChoose* popup;
+    WinLooseChoose popup(device, keyEvent, "");
     if(timeup) {
-        popup = new WinLooseChoose(device, keyEvent, "\t\t\t\t\t\t\t\t\t\t\t\t\t TIMES UP");
+        popup.setText("\t\t\t\t\t\t\t\t\t\t\t\t\t TIMES UP");
     }else {
-        popup = new WinLooseChoose(device, keyEvent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU LOOSE !");
+        popup.setText("\t\t\t\t\t\t\t\t\t\t\t\t\t YOU LOOSE !");
     }
-    popup->setupNetwork();
-    popup->loop();
-    delete popup;
+    popup.setupNetwork();
+    popup.loop();
+    peer->Shutdown(0);
 }
 
 

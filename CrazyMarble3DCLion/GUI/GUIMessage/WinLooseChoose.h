@@ -30,6 +30,7 @@ public:
     virtual ~WinLooseChoose();
     s16 loop();
     void setupNetwork();
+    void setText(stringw text);
 };
 
 

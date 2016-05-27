@@ -7,6 +7,8 @@
 NetworkMessage::NetworkMessage(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringw message, stringw button)
         : GUIBase(device, keyEvent) {
 
+    device->getCursorControl()->setVisible(true);
+
     background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
     text = gui->addStaticText(message.c_str(), rect<s32>(vector2d<s32>(300,500), dimension2d<s32>(1320,150)));
     text->setTextAlignment(EGUIA_CENTER,EGUIA_CENTER);
