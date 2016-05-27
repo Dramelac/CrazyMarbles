@@ -160,12 +160,6 @@ void NetworkMain::processPacketServer(Packet *packet) {
                 cout << "Server full" << endl;
                 break;
 
-            case ID_DISCONNECTION_NOTIFICATION:
-            case ID_CONNECTION_LOST:
-                cout << "Client disconnected ..." << endl;
-                mainPlay = false;
-                break;
-
             default:
                 processPacketCommun(&dataStream, packetID);
                 //cout << "This is not specific packet server\n" << int(packetID) << endl;
@@ -202,6 +196,13 @@ void NetworkMain::processPacketCommun(BitStream *dataStream, unsigned char packe
         case PACKET_ID_WIN:
             cout << "win packet received " << endl;
             loose();
+            break;
+
+        case ID_DISCONNECTION_NOTIFICATION:
+        case ID_CONNECTION_LOST:
+            cout << "Client disconnected ..." << endl;
+            message = new NetworkMessage(device, keyEvent, "Player is disconnected", "OK");
+            isGameStart = false;
             break;
 
         case PACKET_ID_DEPLACEMENT:
