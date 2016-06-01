@@ -9,8 +9,17 @@ MenuLevelEditor::MenuLevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent
         GUIBase(device, keyEvent), background(background) {
 
     exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"Go back");
-    newMap = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"New Map");
-    loadMap = gui->addButton(rect<s32>(657, 700, 1263, 845), 0, 103, L"Load Existing Map");
+    exit->setImage(driver->getTexture("data/GUI/Menu/button/bouton_game_editor_new_map.png"));
+    exit->setDrawBorder(false);
+    exit->setUseAlphaChannel(true);
+    newMap = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"");
+    newMap->setImage(driver->getTexture("data/GUI/Menu/button/bouton_game_editor_new_map.png"));
+    newMap->setDrawBorder(false);
+    newMap->setUseAlphaChannel(true);
+    loadMap = gui->addButton(rect<s32>(657, 700, 1263, 845), 0, 103, L"");
+    loadMap->setImage(driver->getTexture("data/GUI/Menu/button/bouton_game_editor_load_map.png"));
+    loadMap->setDrawBorder(false);
+    loadMap->setUseAlphaChannel(true);
 
 }
 
