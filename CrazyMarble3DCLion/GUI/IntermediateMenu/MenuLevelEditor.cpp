@@ -8,10 +8,11 @@
 MenuLevelEditor::MenuLevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, IGUIImage* background) :
         GUIBase(device, keyEvent), background(background) {
 
-    exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"Go back");
-    exit->setImage(driver->getTexture("data/GUI/Menu/button/bouton_game_editor_new_map.png"));
+    exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"");
+    exit->setImage(driver->getTexture("data/GUI/Menu/bouton_menu_back.png"));
     exit->setDrawBorder(false);
     exit->setUseAlphaChannel(true);
+    exit->setScaleImage(true);
     newMap = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"");
     newMap->setImage(driver->getTexture("data/GUI/Menu/button/bouton_game_editor_new_map.png"));
     newMap->setDrawBorder(false);

@@ -10,7 +10,10 @@
 MenuPlayMode::MenuPlayMode(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc pseudo, IGUIImage* background) :
         GUIBase(device, keyEvent), background(background), pseudo(pseudo) {
 
-    exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"Go back");
+    exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"");
+    exit->setImage(driver->getTexture("data/GUI/Menu/bouton_menu_back.png"));
+    exit->setDrawBorder(false);
+    exit->setUseAlphaChannel(true);
     campaignButton = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"");
     campaignButton->setImage(driver->getTexture("data/GUI/Menu/button/bouton_game_editor_new_map.png"));
     campaignButton->setDrawBorder(false);
