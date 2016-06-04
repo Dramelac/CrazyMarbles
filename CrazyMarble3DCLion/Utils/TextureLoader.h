@@ -13,6 +13,7 @@ public:
     static ITexture* sphere;
     static ITexture* sphereRed;
     static ITexture* sphereBlack;
+    static ITexture* sphereOrange;
     static ITexture* finish_line;
 
     static IAnimatedMesh* cellMesh;

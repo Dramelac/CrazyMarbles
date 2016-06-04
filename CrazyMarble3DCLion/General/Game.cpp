@@ -3,7 +3,6 @@
 //
 
 #include "Game.h"
-#include "../GUI/PlayMessage/WinLooseChoose.h"
 
 // Debug construct (DEPRECATED)
 Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
@@ -89,7 +88,7 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stri
 
 
     //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
-
+    isNetwork =false;
     chrono = new Chrono(device, 60);
     player->updateScore();
 
@@ -99,9 +98,9 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stri
 // Game loop
 s16 Game::gameLoop() {
 
-    int lastFPS = -1;
+    lastFPS = -1;
 
-    u32 then = device->getTimer()->getTime();
+    then = device->getTimer()->getTime();
 
 	while (device->run()){
 
@@ -212,6 +211,9 @@ Game::~Game() {
 
     delete board;
     delete player;
+    if (isNetwork){
+        delete player2;
+    }
 
     sceneManager->clear();
 
@@ -252,4 +254,95 @@ s16 Game::pause() {
 }
 
 
+Board *Game::getBoard() const {
+    return board;
+}
 
+void Game::setup2P(stringc pseudo) {
+
+    isNetwork=true;
+    player2 = new Player(sceneManager, pseudo, 100, board->getStartPoint());
+
+    IMetaTriangleSelector* metaSelector = board->getMapMetaSelector(sceneManager);
+    player2->enableCollision(metaSelector, sceneManager);
+    metaSelector->drop();
+
+    IMetaTriangleSelector* metaFinishSelector = board->getMapMetaSelector(sceneManager, true);
+    player2->addFinishLineCollision(metaFinishSelector, sceneManager);
+    metaFinishSelector->drop();
+
+    board->setPlayerToEntities(sceneManager, player2, false);
+
+/*
+    ITriangleSelector* player1Selector = player->getSelector(sceneManager);
+    player2->enableCustomCollision(player1Selector,sceneManager);
+    player1Selector->drop();
+
+    ITriangleSelector* player2Selector = player2->getSelector(sceneManager);
+    player->enableCustomCollision(player2Selector,sceneManager);
+    player2Selector->drop();
+*/
+    lastFPS = -1;
+    then = device->getTimer()->getTime();
+
+}
+
+u16 Game::networkGameLoop() {
+
+    driver->beginScene(true,true, video::SColor(255,150,150,150));        // font default color
+    player->updateCamera();
+
+    sceneManager->drawAll();
+    // update display
+    gui->drawAll();
+    driver->endScene();
+
+    chrono->start();
+
+    // display frames per second in window title
+    int fps = driver->getFPS();
+    if (lastFPS != fps)
+    {
+        core::stringw title = L"Crazy Marble - 2DEV  [FPS:";
+        title += fps;
+        title += "]";
+
+        device->setWindowCaption(title.c_str());
+        lastFPS = fps;
+    }
+
+    //updateGameBoard();                    //to implement later
+    // Move time
+    u32 now = device->getTimer()->getTime();
+    f32 deltaTime = (f32)(now-then) / 1000.f;
+    then = now;
+    keyboardChecker(deltaTime);
+    IRandomizer *rand = device->getRandomizer();
+    board->applyMovingOnEntities(deltaTime,rand);
+
+    if (not player->isAlive()){
+        player->respawn();
+    }
+
+    if (chrono->getTime() == 0){
+        return 2;
+    }
+
+    if (player->checkFinish()){
+        return 1;
+    }
+    return 0;
+}
+
+
+Player *Game::getPlayer() const {
+    return player;
+}
+
+Player *Game::getPlayer2() const {
+    if (isNetwork) {
+        return player2;
+    } else {
+        return nullptr;
+    }
+}

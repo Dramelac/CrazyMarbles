@@ -4,6 +4,7 @@
 
 #include "SoloMultiMenu.h"
 #include "../../General/Campaign.h"
+#include "../../General/Network/NetworkMain.h"
 
 SoloMultiMenu::SoloMultiMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent,
                              IGUIImage* background, stringc pseudo, path map)
@@ -54,9 +55,10 @@ void SoloMultiMenu::loop() {
                 game.play();
                 return;
             } else if (multi->isPressed()){
-                //visibilityButtons(false);
-
-                //return;
+                visibilityButtons(false);
+                NetworkMain game(device, keyEvent, map, pseudo, true);
+                game.play();
+                return;
             }
         }
     }

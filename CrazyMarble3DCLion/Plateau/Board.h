@@ -32,7 +32,7 @@ public:
 	IMetaTriangleSelector* getMapMetaSelector(ISceneManager* sceneManager, bool filterFinish = false);
     // entity map collision
     void setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
-    void setPlayerToEntities(ISceneManager *sceneManager, Player* player);
+    void setPlayerToEntities(ISceneManager *sceneManager, Player* player, bool activePlayer=true);
 
     void applyMovingOnEntities(f32 deltaTime,IRandomizer *rand);
 };
