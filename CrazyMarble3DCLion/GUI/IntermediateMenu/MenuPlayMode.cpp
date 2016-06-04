@@ -15,11 +15,11 @@ MenuPlayMode::MenuPlayMode(IrrlichtDevice *device, KeyboardEvent *keyEvent, stri
     exit->setDrawBorder(false);
     exit->setUseAlphaChannel(true);
     campaignButton = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"");
-    campaignButton->setImage(driver->getTexture("data/GUI/Menu/button/bouton_game_editor_new_map.png"));
+    campaignButton->setImage(driver->getTexture("data/GUI/Menu/play/bouton_main_menu_campaign.png"));
     campaignButton->setDrawBorder(false);
     campaignButton->setUseAlphaChannel(true);
-    freeModeButton = gui->addButton(rect<s32>(657, 700, 1263, 845), 0, 103, L"Free Mode");
-    freeModeButton->setImage(driver->getTexture("data/GUI/Menu/button/bouton_game_editor_load_map.png"));
+    freeModeButton = gui->addButton(rect<s32>(657, 700, 1263, 845), 0, 103, L"");
+    freeModeButton->setImage(driver->getTexture("data/GUI/Menu/play/bouton_main_menu_free_mode.png"));
     freeModeButton->setDrawBorder(false);
     freeModeButton->setUseAlphaChannel(true);
 }

@@ -19,7 +19,10 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     NickMenu nickMenu(device, keyEvent);
     const wchar_t* temp = nickMenu.loop();
 
-    exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
+    exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"", L"Exits Program");
+    exit->setImage(driver->getTexture("data/GUI/Menu/bouton_menu_quit.png"));
+    exit->setDrawBorder(false);
+    exit->setUseAlphaChannel(true);
 
     play = gui->addButton(rect<s32>(657,400,1263,545), 0, 102, L"");
     play->setImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_play_selected.png"));

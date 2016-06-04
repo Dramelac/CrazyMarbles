@@ -368,7 +368,7 @@ void LevelEditor::setupGUI() {
     lvlDown = gui->addButton(rect<s32>(1635,680,1685,780), 0, 102, L"M");
 
     cellFinish = gui->addButton(rect<s32>(680,880,760,1080), 0, 102,L"Y");
-    cellEmpty = gui->addButton(rect<s32>(760,880,840,1080), 0, 102, L"EMPTY");
+    cellEmpty = gui->addButton(rect<s32>(760,880,840,1080), 0, 102, L"");
     cellFlat = gui->addButton(rect<s32>(840,880,920,1080), 0, 102, L"A");
     cellPente = gui->addButton(rect<s32>(920,880,1000,1080), 0, 102, L"Z");
     cellAngle = gui->addButton(rect<s32>(1000,880,1080,1080), 0, 102, L"E");
@@ -383,8 +383,8 @@ void LevelEditor::setupGUI() {
     skyBoxe->setScaleImage(true);
     skyBoxe->setDrawBorder(false);
 
-    validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Valider");
-    cancel = gui->addButton(rect<s32>(50,950,150,1000), 0, 101, L"Cancel");
+    validate = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"");
+    cancel = gui->addButton(rect<s32>(50,950,150,1000), 0, 101, L"");
 
     stringw tempName = L"";
     tempName += name;
@@ -441,20 +441,28 @@ void LevelEditor::setupGUI() {
     rightRotation->setDrawBorder(false);
 
     // MODELS
-    cellFlat->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell.png"));
+    cellFlat->setImage(driver->getTexture("data/GUI/LevelEditor/editeur_bouton_cell.png"));
     cellFlat->setScaleImage();
-    cellPente->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_pente.png"));
+    cellPente->setImage(driver->getTexture("data/GUI/LevelEditor/editeur_bouton_pente.png"));
     cellPente->setScaleImage();
-    cellAngle->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_angle.png"));
+    cellAngle->setImage(driver->getTexture("data/GUI/LevelEditor/editeur_bouton_angle.png"));
     cellAngle->setScaleImage();
-    cellAngleInt->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_angle_int.png"));
+    cellAngleInt->setImage(driver->getTexture("data/GUI/LevelEditor/editeur_bouton_angle_int.png"));
     cellAngleInt->setScaleImage();
-    //cellStartBox->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_angle_int.png"));
-    //cellStartBox->setScaleImage();
-    //cellFinish->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_finish.png"));
-    //cellFinish->setScaleImage();
-    //cellEnemy->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_enemy.png"));
+    cellStartBox->setImage(driver->getTexture("data/GUI/LevelEditor/editeur_bouton_start.png"));
+    cellStartBox->setScaleImage();
+    cellFinish->setImage(driver->getTexture("data/GUI/LevelEditor/editeur_bouton_finish.png"));
+    cellFinish->setScaleImage();
+    cellEmpty->setImage(driver->getTexture("data/GUI/LevelEditor/editeur_bouton_empty.png"));
+    cellEmpty->setScaleImage();
+    //cellEnemy->setImage(driver->getTexture("data/GUI/LevelEditor/editeur_bouton_.png"));
     //cellEnemy->setScaleImage();
+
+
+    validate->setImage(driver->getTexture("data/GUI/LevelEditor/editeur_bouton_valid.png"));
+    validate->setScaleImage();
+    cancel->setImage(driver->getTexture("data/GUI/LevelEditor/editeur_bouton_cancel.png"));
+    cancel->setScaleImage();
 
     //skyBoxe->setImage(driver->getTexture("data/GUI/LevelEditor/Models/Cell_sky_box.png"));
     //skyBoxe->setScaleImage();
