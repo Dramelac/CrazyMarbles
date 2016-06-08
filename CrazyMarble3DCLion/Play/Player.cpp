@@ -77,6 +77,8 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
     lifeCount = gui->addStaticText(L"100%",rect<s32>(vector2d<s32>(15,40),
                                                 dimension2d<s32>(70,25)), false, true, hearth);
 
+    fixeCamera->setFarValue(5000);
+
 }
 // network player
 Player::Player(ISceneManager *sceneManager, const stringc &name, int health, vector3df startpos, s32 score)
