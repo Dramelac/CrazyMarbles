@@ -2,8 +2,8 @@
 // Created by mathieu on 15/05/16.
 //
 
-#ifndef CRAZYMARBLE3DCLION_MAPBUTTON_H
-#define CRAZYMARBLE3DCLION_MAPBUTTON_H
+#ifndef CRAZYMARBLE3D_MAPBUTTON_H
+#define CRAZYMARBLE3D_MAPBUTTON_H
 
 #include <irrlicht.h>
 
@@ -28,4 +28,4 @@ public:
 };
 
 
-#endif //CRAZYMARBLE3DCLION_MAPBUTTON_H
+#endif //CRAZYMARBLE3D_MAPBUTTON_H

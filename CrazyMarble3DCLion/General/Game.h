@@ -1,14 +1,9 @@
 
-#ifndef TESTISO_GAME_HPP
-#define TESTISO_GAME_HPP
+#ifndef CRAZYMARBLE3D_GAME_HPP
+#define CRAZYMARBLE3D_GAME_HPP
 
-
-#include <iostream>
-
-#include <irrlicht.h>
 
 #include "../Utils/Chrono.h"
-
 #include "../Plateau/Board.h"
 #include "../Play/Player.h"
 #include "../Utils/KeyboardEvent.h"
@@ -40,13 +35,10 @@ private:
     int lastFPS;
     u32 then;
 
-    void setupSkyBox(bool day);
 	void keyboardChecker(f32 deltaTime);
 
 	s16 pause();
 public:
-	Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
-		 const unsigned int x, const unsigned int y, bool day = true);
     Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stringc pseudo, s32 score=0);
     ~Game();
 	void setup2P(stringc pseudo="NetworkPlayer");
@@ -63,4 +55,4 @@ public:
 };
 
 
-#endif //TESTISO_GAME_HPP
+#endif //CRAZYMARBLE3D_GAME_HPP

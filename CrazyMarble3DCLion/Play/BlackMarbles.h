@@ -2,10 +2,9 @@
 // Created by mathieu on 07/05/16.
 //
 
-#ifndef CRAZYMARBLE3DCLION_BLACKMARBLES_H
-#define CRAZYMARBLE3DCLION_BLACKMARBLES_H
+#ifndef CRAZYMARBLE3D_BLACKMARBLES_H
+#define CRAZYMARBLE3D_BLACKMARBLES_H
 
-#include <irrlicht.h>
 #include "Entities.h"
 #include "Player.h"
 #include <IRandomizer.h>
@@ -38,4 +37,4 @@ public:
 };
 
 
-#endif //CRAZYMARBLE3DCLION_BLACKMARBLES_H
+#endif //CRAZYMARBLE3D_BLACKMARBLES_H

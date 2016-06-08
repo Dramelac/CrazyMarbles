@@ -11,7 +11,6 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent)
     exit->setImage(driver->getTexture("data/GUI/Menu/bouton_menu_quit.png"));
     exit->setDrawBorder(false);
     exit->setUseAlphaChannel(true);
-    //exit->setScaleImage(true);
 
     valide = gui->addButton(rect<s32>(890,700,1010,750), 0, 103, L"");
     valide->setImage(driver->getTexture("data/GUI/Menu/menu_pause_valid.png"));
@@ -23,12 +22,10 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent)
     enterNick->setUseAlphaChannel(true);
     enterNick->setScaleImage(true);
 
-
     crazyMarble = gui->addImage(rect<s32>(630,380,1320,580),0,104);
     crazyMarble->setImage(driver->getTexture("data/GUI/Menu/crazyM.png"));
     crazyMarble->setUseAlphaChannel(true);
     crazyMarble->setScaleImage(true);
-
 
     editBox = gui->addEditBox(L"", rect<irr::s32>(1000,620,1200,670));
     font = gui->getFont("data/GUI/Menu/fontlucida.png");
@@ -50,7 +47,6 @@ const wchar_t* NickMenu::loop() {
             driver->endScene();
 
             if (valide->isPressed() || keyEvent->IsKeyDown(KEY_ESCAPE, true)){
-                //visibilityButtons(false);
                 const wchar_t *nickname  = editBox->getText();
                 return nickname;
             }
@@ -62,16 +58,6 @@ const wchar_t* NickMenu::loop() {
     }
     return L"";
 }
-
-void NickMenu::visibilityButtons(bool status) {
-    editBox->setVisible(status);
-    valide->setVisible(status);
-    exit->setVisible(status);
-    crazyMarble->setVisible(status);
-    enterNick->setVisible(status);
-    //nickname->(status);
-}
-
 
 NickMenu::~NickMenu() {
     editBox->remove();

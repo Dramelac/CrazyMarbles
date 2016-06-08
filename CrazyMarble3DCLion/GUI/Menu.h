@@ -2,12 +2,11 @@
 // Created by mathieu on 26/04/16.
 //
 
-#ifndef CRAZYMARBLE3DCLION_MENU_HPP
-#define CRAZYMARBLE3DCLION_MENU_HPP
+#ifndef CRAZYMARBLE3D_MENU_HPP
+#define CRAZYMARBLE3D_MENU_HPP
 
 #include "../Utils/KeyboardEvent.h"
 #include "NickMenu.h"
-#include "GUIBase.h"
 #include "IntermediateMenu/MenuLevelEditor.h"
 #include "IntermediateMenu/MenuPlayMode.h"
 
@@ -18,7 +17,6 @@ private:
 
     IGUIButton* exit;
     IGUIButton* play;
-    IGUIButton* scoreBoard;
     IGUIButton* levelEditor;
     IGUIButton* credit;
 
@@ -35,4 +33,4 @@ public:
 };
 
 
-#endif //CRAZYMARBLE3DCLION_MENU_HPP
+#endif //CRAZYMARBLE3D_MENU_HPP

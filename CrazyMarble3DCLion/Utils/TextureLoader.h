@@ -1,3 +1,6 @@
+#ifndef CRAZYMARBLE3D_TEXTURELOADER_H
+#define CRAZYMARBLE3D_TEXTURELOADER_H
+
 #include <irrlicht.h>
 
 using namespace irr;
@@ -23,3 +26,4 @@ public:
 	static IAnimatedMesh* sphereMesh;
 };
 
+#endif //CRAZYMARBLE3D_TEXTURELOADER_H

@@ -2,14 +2,13 @@
 // Created by mathieu on 03/05/16.
 //
 
-#ifndef CRAZYMARBLE3DCLION_LEVELEDITOR_H
-#define CRAZYMARBLE3DCLION_LEVELEDITOR_H
+#ifndef CRAZYMARBLE3D_LEVELEDITOR_H
+#define CRAZYMARBLE3D_LEVELEDITOR_H
 
 #include "../Utils/KeyboardEvent.h"
 #include "../Plateau/Board.h"
 #include "../Play/Player.h"
 #include "Campaign.h"
-#include "../GUI/GUIBase.h"
 #include "../GUI/LevelEditorMenu/SideMapList.h"
 
 using namespace scene;
@@ -82,4 +81,4 @@ public:
 };
 
 
-#endif //CRAZYMARBLE3DCLION_LEVELEDITOR_H
+#endif //CRAZYMARBLE3D_LEVELEDITOR_H

@@ -2,11 +2,8 @@
 // Created by mathieu on 05/03/16.
 //
 
-#ifndef CRAZYMARBLE_PLAYER_HPP
-#define CRAZYMARBLE_PLAYER_HPP
-
-#include <string>
-#include <irrlicht.h>
+#ifndef CRAZYMARBLE3D_PLAYER_HPP
+#define CRAZYMARBLE3D_PLAYER_HPP
 
 
 #include "Entities.h"
@@ -80,4 +77,4 @@ public:
 };
 
 
-#endif //CRAZYMARBLE_PLAYER_HPP
+#endif //CRAZYMARBLE3D_PLAYER_HPP

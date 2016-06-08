@@ -25,39 +25,6 @@ void Cell::setCell(IMeshSceneNode *node) {
     currentLevel = s32((cell_node->getPosition().Y + 500) / -Cell::size);
 }
 
-// Debug board building
-void Cell::setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager) {
-    int line = 0;
-    isSet = true;
-
-    // Uni test pente / gravity / TO REMOVE LATER
-    if ((row == 5 && column < 5) || (column == 5 && row < 5)){  // Artificial pente
-        cellMesh = TextureLoader::cell_pente_Mesh;
-    }
-    else if (row == 5 && column == 5 ){                         // Artificial angle
-        cellMesh = TextureLoader::cell_angle_Mesh;
-    }
-    else {
-        cellMesh = TextureLoader::cellMesh;                     // load Cell object
-    }
-
-    if (row > 5 || column > 5) {                                // line (temporaire)
-        line = 1;
-    }
-
-
-    cell_node = sceneManager->addMeshSceneNode(cellMesh);               // create object on screen
-    cell_node->setPosition(vector3df(row*size,-500.0f-(line*size),column*size));    // setup position
-    //cell_node->setMaterialTexture(0, TextureLoader::tile);    // force texturing model (we used texture default)
-
-    // uni text for pente / gravity / TO REMOVE LATER
-    if (column == 5 && row < 5) {
-        cell_node->setRotation(vector3df(0.0f,270.0f,0.0f));        // -90° rotation
-        //cell_node->setPosition(vector3df((row+1)*size,-500.0f-(line*size),column*size)); // recenter after rotation
-    }
-
-}
-
 // setup cell settings from level editor
 void Cell::setup(ISceneManager *sceneManager, vector3di cursor, s16 type, vector3di rotation) {
 
@@ -171,14 +138,6 @@ void Cell::setEntity(BlackMarbles *enemie) {
 
 void Cell::setEntity(IMeshSceneNode *node) {
     setEntity(new BlackMarbles(node));
-}
-
-// remove entity
-void Cell::clearEntity() {
-    if (isEntitySet){
-        delete entity;
-    }
-    isEntitySet = false;
 }
 
 // add / remove entity

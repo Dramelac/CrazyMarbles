@@ -2,10 +2,8 @@
 // Created by mathieu on 27/04/16.
 //
 
-#ifndef CRAZYMARBLE3DCLION_IRRLICHTMAIN_HPP
-#define CRAZYMARBLE3DCLION_IRRLICHTMAIN_HPP
-
-#include <irrlicht.h>
+#ifndef CRAZYMARBLE3D_IRRLICHTMAIN_HPP
+#define CRAZYMARBLE3D_IRRLICHTMAIN_HPP
 
 #include "../Utils/KeyboardEvent.h"
 #include "../Utils/TextureLoader.h"
@@ -30,4 +28,4 @@ public:
 };
 
 
-#endif //CRAZYMARBLE3DCLION_IRRLICHTMAIN_HPP
+#endif //CRAZYMARBLE3D_IRRLICHTMAIN_HPP
