@@ -5,7 +5,7 @@
 
 #include "Chrono.h"
 
-Chrono::Chrono(IrrlichtDevice* inDevice, u32 chrono=60, IVideoDriver* driver) {
+Chrono::Chrono(IrrlichtDevice* inDevice, u32 chrono, IVideoDriver* driver) {
     this->chrono=chrono * 1000;
     timer = inDevice->getTimer();
     timer->setTime(0);

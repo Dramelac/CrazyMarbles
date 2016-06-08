@@ -19,7 +19,6 @@ private:
     IGUIStaticText* displayChrono;
     IGUIImage* backTimer;
 public:
-
     Chrono(IrrlichtDevice* inDevice, u32 chrono, IVideoDriver *driver);
     virtual ~Chrono();
 
