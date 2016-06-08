@@ -245,11 +245,13 @@ s32 Game::getScore() {
 }
 
 s16 Game::pause() {
-    chrono->stop();
     player->setGravity(0);
+    chrono->stop();
     WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t PAUSE ", false, true);
     s16 tempReturn = popup.loop();
-    player->setGravity();
+    vector3df tempPos = player->getPosition();
+    tempPos.Z += 20;
+    player->setPosition(tempPos);
     return tempReturn;
 }
 
