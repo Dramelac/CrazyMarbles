@@ -18,7 +18,7 @@ WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, 
     restart->setDrawBorder(false);
     restart->setUseAlphaChannel(true);
 
-    quit = gui->addButton(rect<s32>(vector2d<s32>(225,260), dimension2d<s32>(175,50)), background, -1, );
+    quit = gui->addButton(rect<s32>(vector2d<s32>(225,260), dimension2d<s32>(175,50)), background, -1);
     quit->setImage(driver->getTexture("data/GUI/Menu/play/menu_pause_exit.png"));
     quit->setDrawBorder(false);
     quit->setUseAlphaChannel(true);
