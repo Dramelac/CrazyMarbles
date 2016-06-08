@@ -41,8 +41,12 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     credit->setDrawBorder(false);
     credit->setUseAlphaChannel(true);
 
-    nickName = gui->addButton(rect<s32>(1700, 70, 1850, 120),0 ,104,L"");
+    nickName = gui->addButton(rect<s32>(1700, 50, 1900, 140),0 ,104,L"");
+    nickName->setImage(driver->getTexture("data/GUI/Menu/userMenu2.png"));
     nickName->setText(temp);
+    nickName->setUseAlphaChannel(true);
+    nickName->setDrawBorder(false);
+    nickName->setScaleImage(true);
 
 }
 

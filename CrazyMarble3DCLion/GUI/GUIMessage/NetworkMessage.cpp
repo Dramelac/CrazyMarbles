@@ -13,7 +13,11 @@ NetworkMessage::NetworkMessage(IrrlichtDevice *device, KeyboardEvent *keyEvent, 
     text = gui->addStaticText(message.c_str(), rect<s32>(vector2d<s32>(300,500), dimension2d<s32>(1320,150)));
     text->setTextAlignment(EGUIA_CENTER,EGUIA_CENTER);
     text->setDrawBackground(true);
-    exit = gui->addButton(rect<s32>(vector2d<s32>(850,800), dimension2d<s32>(200,75)));
+    exit = gui->addButton(rect<s32>(657,700,1263,850), 0, 102, L"");
+    exit->setImage(driver->getTexture("data/GUI/Menu/userMenu2.png"));
+    exit->setUseAlphaChannel(true);
+    exit->setDrawBorder(false);
+
     if (button == ""){
         exit->setVisible(false);
     } else {
