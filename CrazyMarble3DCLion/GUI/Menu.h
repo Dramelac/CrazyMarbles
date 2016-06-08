@@ -20,7 +20,6 @@ private:
     IGUIButton* play;
     IGUIButton* levelEditor;
     IGUIButton* credit;
-    IGUIImage* crazyM;
 
     IGUIButton* nickName;
 

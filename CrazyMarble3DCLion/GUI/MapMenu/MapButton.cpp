@@ -4,7 +4,7 @@
 
 #include "MapButton.h"
 
-MapButton::MapButton(const path &map, u16 nPos, IGUIEnvironment* gui) : map(map) {
+MapButton::MapButton(const path &map, u16 nPos, IGUIEnvironment* gui, IVideoDriver* driver) : map(map) {
     // calcul button position
     vector2d<s32> pos((nPos%5)*300+200, (nPos/5)*150+250);
     dimension2d<s32> size(250,100);
@@ -15,17 +15,24 @@ MapButton::MapButton(const path &map, u16 nPos, IGUIEnvironment* gui) : map(map)
 
     // create button
     myButton = gui->addButton(rect<s32>(pos, size), 0, -1, fileName.c_str());
+    myButton->setImage(driver->getTexture("data/GUI/LevelEditor/editeur_bouton_map.png"));
+    myButton->setScaleImage(true);
+    myButton->setDrawBorder(false);
+    myButton->setUseAlphaChannel(true);
 }
 
 
-MapButton::MapButton(const path &map, IGUIEnvironment *gui, vector2d<s32> pos, dimension2d<s32> size) {
+MapButton::MapButton(const path &map, IGUIEnvironment *gui, vector2d<s32> pos, dimension2d<s32> size, IVideoDriver* driver) {
     // get filename
     stringw fileName = map.subString((u32)map.findLastChar("/") + 1, map.size());
     fileName = fileName.subString(0, fileName.size()-4);
 
     // create button
     myButton = gui->addButton(rect<s32>(pos, size), 0, -1, fileName.c_str());
-    //myButton->setImage(driver->getTexture("data/GUI/LevelEditor/Menu/close.png"));
+    myButton->setImage(driver->getTexture("data/GUI/LevelEditor/editeur_bouton_map.png"));
+    myButton->setScaleImage(true);
+    myButton->setDrawBorder(false);
+    myButton->setUseAlphaChannel(true);
 }
 
 
