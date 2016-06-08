@@ -1,5 +1,4 @@
-//
-// Created by antoine on 04/05/16.
+//sd by antoine on 04/05/16.
 //
 
 #include "NickMenu.h"
@@ -20,15 +19,18 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent)
     valide->setUseAlphaChannel(true);
 
     enterNick = gui->addImage(rect<s32>(700,600,980,690),0,105);
-    enterNick->setImage(driver->getTexture("data/GUI/Menu/button/play_jaune_01.png"));
-    enterNick->setUseAlphaChannel(false);
+    enterNick->setImage(driver->getTexture("data/GUI/Menu/enter_nickname.png"));
+    enterNick->setUseAlphaChannel(true);
+    enterNick->setScaleImage(true);
+
 
     crazyMarble = gui->addImage(rect<s32>(630,380,1320,580),0,104);
-    crazyMarble->setImage(driver->getTexture("data/GUI/Menu/BGCM2.png"));
-    crazyMarble->setUseAlphaChannel(false);
+    crazyMarble->setImage(driver->getTexture("data/GUI/Menu/crazyM.png"));
+    crazyMarble->setUseAlphaChannel(true);
+    crazyMarble->setScaleImage(true);
 
 
-    editBox = gui->addEditBox(L"", rect<irr::s32>(1000,610,1200,680));
+    editBox = gui->addEditBox(L"", rect<irr::s32>(1000,620,1200,670));
     font = gui->getFont("data/GUI/Menu/fontlucida.png");
     editBox->setOverrideFont(font);
     editBox->setOverrideColor(SColor(255,0,0,0));

@@ -13,11 +13,11 @@ MenuLevelEditor::MenuLevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent
     exit->setDrawBorder(false);
     exit->setUseAlphaChannel(true);
     exit->setScaleImage(true);
-    newMap = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"");
+    newMap = gui->addButton(rect<s32>(657,400,1263,545), 0, 103, L"");
     newMap->setImage(driver->getTexture("data/GUI/Menu/button/bouton_game_editor_new_map.png"));
     newMap->setDrawBorder(false);
     newMap->setUseAlphaChannel(true);
-    loadMap = gui->addButton(rect<s32>(657, 700, 1263, 845), 0, 103, L"");
+    loadMap = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"");
     loadMap->setImage(driver->getTexture("data/GUI/Menu/button/bouton_game_editor_load_map.png"));
     loadMap->setDrawBorder(false);
     loadMap->setUseAlphaChannel(true);

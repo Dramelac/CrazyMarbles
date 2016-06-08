@@ -5,12 +5,13 @@
 
 #include "Chrono.h"
 
-Chrono::Chrono(IrrlichtDevice* inDevice, u32 chrono=60) {
+Chrono::Chrono(IrrlichtDevice* inDevice, u32 chrono=60, IVideoDriver* driver) {
     this->chrono=chrono * 1000;
     timer = inDevice->getTimer();
     timer->setTime(0);
     timer->setSpeed(1);
     displayChrono = inDevice->getGUIEnvironment()->addStaticText(L"60",rect<s32>(885,20,935,80));
+    backTimer->setImage(driver->getTexture("data/GUI/Menu/play/timer.png"));
 }
 
 Chrono::~Chrono() {

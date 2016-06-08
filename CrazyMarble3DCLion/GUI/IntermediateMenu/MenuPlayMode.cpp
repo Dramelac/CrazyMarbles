@@ -20,7 +20,11 @@ MenuPlayMode::MenuPlayMode(IrrlichtDevice *device, KeyboardEvent *keyEvent, stri
     freeModeButton->setDrawBorder(false);
     freeModeButton->setUseAlphaChannel(true);
 
-    joinServerButton = gui->addButton(rect<s32>(657, 700, 1263, 845), 0, 103, L"Join Server");
+    joinServerButton = gui->addButton(rect<s32>(657, 700, 1263, 845), 0, 103, L"");
+    joinServerButton->setImage(driver->getTexture("data/GUI/Menu/menu_join_server.png"));
+    joinServerButton->setDrawBorder(false);
+    joinServerButton->setUseAlphaChannel(true);
+
 
 }
 

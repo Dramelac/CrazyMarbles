@@ -9,13 +9,22 @@ MenuServer::MenuServer(IrrlichtDevice *device, KeyboardEvent *keyEvent, stringc 
         GUIBase(device, keyEvent), background(background), pseudo(pseudo) {
 
     background->setVisible(true);
-    exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"Go back");
+    exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"");
+    exit->setImage(driver->getTexture("data/GUI/Menu/bouton_menu_back.png"));
+    exit->setDrawBorder(false);
+    exit->setUseAlphaChannel(true);
+    exit->setScaleImage(true);
 
     ipText = gui->addStaticText(L"Enter Ip : ",rect<s32>(800,630,1200,670));
     ipText->setOverrideColor(SColor(255,0,0,0));
     editBox = gui->addEditBox(L"", rect<s32>(1000,610,1260,680));
     editBox->setOverrideColor(SColor(255,0,0,0));
-    valide = gui->addButton(rect<s32>(890,700,1010,750), 0, 103, L"Valider");
+    valide = gui->addButton(rect<s32>(890,700,1010,750), 0, 103, L"");
+    valide->setImage(driver->getTexture("data/GUI/Menu/menu_pause_valid.png"));
+    valide->setDrawBorder(false);
+    valide->setUseAlphaChannel(true);
+
+
 }
 
 MenuServer::~MenuServer() {

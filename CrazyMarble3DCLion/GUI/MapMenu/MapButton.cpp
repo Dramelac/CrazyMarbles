@@ -25,6 +25,7 @@ MapButton::MapButton(const path &map, IGUIEnvironment *gui, vector2d<s32> pos, d
 
     // create button
     myButton = gui->addButton(rect<s32>(pos, size), 0, -1, fileName.c_str());
+    //myButton->setImage(driver->getTexture("data/GUI/LevelEditor/Menu/close.png"));
 }
 
 
