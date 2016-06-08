@@ -22,6 +22,9 @@ public:
     static void muteSoundBack();
     static void muteNoise();
     static void winSound();
+    static void looseSound();
+    static void fallSound();
+    static void timerSound();
 
 };
 

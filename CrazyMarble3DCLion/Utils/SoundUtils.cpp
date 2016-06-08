@@ -38,17 +38,34 @@ void SoundUtils::getDamage() {
     if(noise) {
         engine->play2D("data/Sound/pop.wav");
     }
-
+}
+void SoundUtils::muteNoise() {
+    noise = !noise;
 }
 
 void SoundUtils::winSound() {
     engine->play2D("data/Sound/pop.wav");
 }
 
-void SoundUtils::muteNoise() {
-    noise = !noise;
+
+void SoundUtils::looseSound() {
+    engine->play2D("data/Sound/pop.wav");
 
 }
+
+void SoundUtils::timerSound() {
+    engine->play2D("data/Sound/pop.wav");
+}
+
+void SoundUtils::fallSound() {
+    engine->play2D("data/Sound/pop.wav");
+}
+
+
+
+
+
+
 
 
 
