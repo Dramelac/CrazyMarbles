@@ -26,12 +26,11 @@ void Credit::loop() {
 
             driver->endScene();
 
-            if (back->isPressed()){
+            if (back->isPressed()|| keyEvent->IsKeyDown(KEY_ESCAPE, true)){
                 return;
             }
         }
     }
-
 }
 
 Credit::~Credit() {

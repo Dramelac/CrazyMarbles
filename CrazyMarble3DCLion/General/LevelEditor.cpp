@@ -402,8 +402,8 @@ void LevelEditor::setupGUI() {
     goToRight->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/arrow_to_right.png"));
     goToRight->setUseAlphaChannel(true);
     goToRight->setScaleImage(true);
-    //goToRight->setPressedImage(driver->getTexture("data/GUI/play_jaune_01.png"));
     goToRight->setDrawBorder(false);
+
     goToLeft->setImage(driver->getTexture("data/GUI/LevelEditor/Arrow/arrow_to_left.png"));
     goToLeft->setUseAlphaChannel(true);
     goToLeft->setScaleImage(true);

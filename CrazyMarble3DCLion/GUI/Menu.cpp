@@ -20,26 +20,23 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     NickMenu nickMenu(device, keyEvent);
     const wchar_t* temp = nickMenu.loop();
 
-    exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"", L"Exits Program");
+    exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"", L"");
     exit->setImage(driver->getTexture("data/GUI/Menu/bouton_menu_quit.png"));
     exit->setDrawBorder(false);
     exit->setUseAlphaChannel(true);
 
     play = gui->addButton(rect<s32>(657,400,1263,545), 0, 102, L"");
     play->setImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_play_selected.png"));
-    play->setPressedImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_play_pressed.png"));
     play->setDrawBorder(false);
     play->setUseAlphaChannel(true);
 
     levelEditor = gui->addButton(rect<s32>(657,550,1263,695),0,104, L"");//657, 700, 1263, 845
     levelEditor->setImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_level_editor_selected.png"));
-    levelEditor->setPressedImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_level_editor_pressed.png"));
     levelEditor->setDrawBorder(false);
     levelEditor->setUseAlphaChannel(true);
 
     credit = gui->addButton(rect<s32>(657, 700, 1263, 845),0,104, L"");
     credit->setImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_credits_selected.png"));
-    credit->setPressedImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_credits_pressed.png"));
     credit->setDrawBorder(false);
     credit->setUseAlphaChannel(true);
 
