@@ -2,8 +2,8 @@
 // Created by mathieu on 03/03/16.
 //
 
-#ifndef CRAZYMARBLE_ENTITIES_HPP
-#define CRAZYMARBLE_ENTITIES_HPP
+#ifndef CRAZYMARBLE3D_ENTITIES_HPP
+#define CRAZYMARBLE3D_ENTITIES_HPP
 
 
 #include <irrlicht.h>
@@ -41,11 +41,12 @@ public:
     void applyMove(f32 deltaTime, u16 level=100);
     virtual bool isFall(u16 level=100);
     void updatePosition(vector3df vec);
-	void setPosition(vector3df position);
+
+	virtual void setPosition(vector3df position);
 
     const vector3df & getInertie() const;
     void setInertie(const vector3df &inertie);
 };
 
 
-#endif //CRAZYMARBLE_ENTITIES_HPP
+#endif //CRAZYMARBLE3D_ENTITIES_HPP

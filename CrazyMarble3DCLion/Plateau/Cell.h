@@ -2,10 +2,9 @@
 // Created by mathieu on 23/02/16.
 //
 
-#ifndef TESTISO_CELL_HPP
-#define TESTISO_CELL_HPP
+#ifndef CRAZYMARBLE3D_CELL_HPP
+#define CRAZYMARBLE3D_CELL_HPP
 
-#include <irrlicht.h>
 #include "../Play/BlackMarbles.h"
 
 using namespace irr;
@@ -27,8 +26,6 @@ public:
     Cell();
     virtual ~Cell();
 
-    void setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager);
-
     void setCell(IMeshSceneNode* node);
     void setup(ISceneManager *sceneManager,
                vector3di cursor,
@@ -42,16 +39,17 @@ public:
 
     void setEntity(BlackMarbles *enemie);
     void setEntity(IMeshSceneNode *node);
-    void clearEntity();
     void switchEntity(BlackMarbles *enemie);
 
     void enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
     void updateEntityMoving(f32 deltaTime,IRandomizer *rand);
 
-    void setupPlayerToEntity(ISceneManager *sceneManager, Player* player);
+    void setupPlayerToEntity(ISceneManager *sceneManager, Player* player, bool activePlayer=true);
+
+    BlackMarbles * getEntity() const;
 
     static const float size;
 };
 
 
-#endif //TESTISO_CELL_HPP
+#endif //CRAZYMARBLE3D_CELL_HPP

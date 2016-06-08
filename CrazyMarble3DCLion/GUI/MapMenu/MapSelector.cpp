@@ -9,7 +9,11 @@ MapSelector::MapSelector(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
 
     background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
     title = gui->addImage(driver->getTexture("data/GUI/Menu/MapSelector/MapList.png"), position2d<int>(650, 50));
-    exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"Go back");
+    exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"");
+    exit->setImage(driver->getTexture("data/GUI/Menu/bouton_menu_back.png"));
+    exit->setDrawBorder(false);
+    exit->setUseAlphaChannel(true);
+    exit->setScaleImage(true);
 
     //generate all map
 

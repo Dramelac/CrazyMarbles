@@ -10,7 +10,7 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     this->device->setWindowCaption(L"Crazy Marble  -  [MENU]");
     device->getCursorControl()->setVisible(true);
 
-    background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
+    background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM3.png"), position2d<int>(0, 0));
 
     IGUISkin* skin = gui->getSkin();
     skin->setFont(gui->getFont("data/GUI/fonts/font15px.png"), EGDF_DEFAULT);
@@ -19,7 +19,10 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     NickMenu nickMenu(device, keyEvent);
     const wchar_t* temp = nickMenu.loop();
 
-    exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
+    exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"", L"Exits Program");
+    exit->setImage(driver->getTexture("data/GUI/Menu/bouton_menu_quit.png"));
+    exit->setDrawBorder(false);
+    exit->setUseAlphaChannel(true);
 
     play = gui->addButton(rect<s32>(657,400,1263,545), 0, 102, L"");
     play->setImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_play_selected.png"));
@@ -27,19 +30,13 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     play->setDrawBorder(false);
     play->setUseAlphaChannel(true);
 
-    scoreBoard = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"");
-    scoreBoard->setImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_scoreboard_selected.png"));
-    scoreBoard->setPressedImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_scoreboard_pressed.png"));
-    scoreBoard->setDrawBorder(false);
-    scoreBoard->setUseAlphaChannel(true);
-
-    levelEditor = gui->addButton(rect<s32>(657, 700, 1263, 845),0,104, L"");
+    levelEditor = gui->addButton(rect<s32>(657,550,1263,695),0,104, L"");//657, 700, 1263, 845
     levelEditor->setImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_level_editor_selected.png"));
     levelEditor->setPressedImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_level_editor_pressed.png"));
     levelEditor->setDrawBorder(false);
     levelEditor->setUseAlphaChannel(true);
 
-    credit = gui->addButton(rect<s32>(657, 850, 1263, 995),0,104, L"");
+    credit = gui->addButton(rect<s32>(657, 700, 1263, 845),0,104, L"");
     credit->setImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_credits_selected.png"));
     credit->setPressedImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_credits_pressed.png"));
     credit->setDrawBorder(false);
@@ -71,9 +68,6 @@ void Menu::loop() {
                 visibilityButons(true);
                 device->getCursorControl()->setVisible(true);
                 visibilityButons(true);
-            } else if (scoreBoard->isPressed()){
-                
-
             } else if (levelEditor->isPressed()){
                 visibilityButons(false);
                 background->setVisible(true);
@@ -96,7 +90,7 @@ void Menu::loop() {
 void Menu::visibilityButons(bool status) {
     exit->setVisible(status);
     play->setVisible(status);
-    scoreBoard->setVisible(status);
+    //scoreBoard->setVisible(status);
     levelEditor->setVisible(status);
     credit->setVisible(status);
     nickName->setVisible(status);

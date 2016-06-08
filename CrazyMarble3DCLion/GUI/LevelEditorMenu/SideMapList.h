@@ -2,13 +2,12 @@
 // Created by mathieu on 15/05/16.
 //
 
-#ifndef CRAZYMARBLE3DCLION_SIDEMAPLIST_H
-#define CRAZYMARBLE3DCLION_SIDEMAPLIST_H
+#ifndef CRAZYMARBLE3D_SIDEMAPLIST_H
+#define CRAZYMARBLE3D_SIDEMAPLIST_H
 
-#include <irrlicht.h>
+#include "../GUIBase.h"
 #include "../../General/Campaign.h"
 #include "LvlEditorMapButton.h"
-#include "../GUIBase.h"
 
 using namespace irr;
 using namespace gui;
@@ -36,4 +35,4 @@ public:
 };
 
 
-#endif //CRAZYMARBLE3DCLION_SIDEMAPLIST_H
+#endif //CRAZYMARBLE3D_SIDEMAPLIST_H

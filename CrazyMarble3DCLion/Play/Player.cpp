@@ -38,6 +38,9 @@ Player::Player(ISceneManager *sceneManager, const stringc& name, int health)
 // Start new game
 Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment *gui, const stringc& name, int health, vector3df startpos, s32 score)
         : Entities(name, health), score(score), enemyKill(0), finishTime(0), isPlayable(true) {
+
+    isNetworkPlayer = false;
+
     speed = 20;
     inertie = vector3df(0,0,0);
 
@@ -74,10 +77,32 @@ Player::Player(ISceneManager *sceneManager, IVideoDriver *driver,IGUIEnvironment
     lifeCount = gui->addStaticText(L"100%",rect<s32>(vector2d<s32>(15,40),
                                                 dimension2d<s32>(70,25)), false, true, hearth);
 
+    fixeCamera->setFarValue(5000);
+
+}
+// network player
+Player::Player(ISceneManager *sceneManager, const stringc &name, int health, vector3df startpos, s32 score)
+    : Entities(name, health), score(score), enemyKill(0), finishTime(0), isPlayable(false) {
+
+    isNetworkPlayer = true;
+    speed = 20;
+    inertie = vector3df(0,0,0);
+
+    // MODEL
+    startPos = startpos;
+    sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
+
+    sceneNode = sceneManager->addMeshSceneNode(sceneMesh);           // add object to screen
+    sceneNode->setMaterialTexture(0, TextureLoader::sphereOrange);
+    sceneNode->setPosition(startPos);
+    sceneNode->setID(10);
+
+
 }
 
 // player Level Editor
 Player::Player(ISceneManager *sceneManager) : Entities(), finishTime(0), isPlayable(false) {
+    isNetworkPlayer = false;
     speed = 20;
 
     sceneMesh = TextureLoader::sphereMesh;                             // load object sphere
@@ -97,7 +122,9 @@ Player::Player(ISceneManager *sceneManager) : Entities(), finishTime(0), isPlaya
 
 Player::~Player() {
     sceneNode->remove();
-    fixeCamera->remove();
+    if (!isNetworkPlayer){
+        fixeCamera->remove();
+    }
     if (isPlayable){
         displayScore->remove();
         healthBarBG->remove();
@@ -212,17 +239,10 @@ vector3df Player::getPosition() {
 }
 
 void Player::setGravity(s32 Y) {
-    //sceneNode->setPosition(startPos);
     inertie = vector3df(0,0,0);
-    //animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
-    animatorCollisionResponse->setGravity(vector3df(0, Y, 0));
-    //fallDistance = 0;
-    //finishTime = 0;
-    //health = 100;
-    // To change if need
-    //score -= 10;
-    //updateScore();
-    //updateGui();
+    if (isPlayable || isNetworkPlayer) {
+        animatorCollisionResponse->setGravity(vector3df(0, Y, 0));
+    }
 }
 
 void Player::addKill() {
@@ -292,4 +312,20 @@ void Player::takeDamage(u64 dmg) {
 
 s32 Player::getScore() const {
     return score;
+}
+
+void Player::respawn() {
+   setPosition(startPos);
+   //animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
+   fallDistance = 0;
+   finishTime = 0;
+   health = 100;
+
+}
+
+
+void Player::setPosition(vector3df position) {
+    setGravity(0);
+    Entities::setPosition(position);
+    setGravity(-20);
 }

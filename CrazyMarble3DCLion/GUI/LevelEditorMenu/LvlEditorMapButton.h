@@ -2,15 +2,11 @@
 // Created by mathieu on 15/05/16.
 //
 
-#ifndef CRAZYMARBLE3DCLION_LVLEDITORMAPBUTTON_H
-#define CRAZYMARBLE3DCLION_LVLEDITORMAPBUTTON_H
+#ifndef CRAZYMARBLE3D_LVLEDITORMAPBUTTON_H
+#define CRAZYMARBLE3D_LVLEDITORMAPBUTTON_H
 
-#include <irrlicht.h>
 #include "../MapMenu/MapButton.h"
 
-using namespace irr;
-using namespace gui;
-using namespace io;
 using namespace video;
 
 class LvlEditorMapButton {
@@ -29,4 +25,4 @@ public:
 };
 
 
-#endif //CRAZYMARBLE3DCLION_LVLEDITORMAPBUTTON_H
+#endif //CRAZYMARBLE3D_LVLEDITORMAPBUTTON_H

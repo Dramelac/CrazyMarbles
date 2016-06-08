@@ -2,8 +2,8 @@
 // Created by mathieu on 23/02/16.
 //
 
-#ifndef TESTISO_BOARD_HPP
-#define TESTISO_BOARD_HPP
+#ifndef CRAZYMARBLE3D_BOARD_HPP
+#define CRAZYMARBLE3D_BOARD_HPP
 
 
 #include "Cell.h"
@@ -16,10 +16,8 @@ private:
 
 	ISceneNode* startPoint;
 
-	void initAllCellPlace(ISceneManager *sceneManager);
 public:
-	Board(const unsigned int hauteur, const unsigned int largeur, ISceneManager* sceneManager);
-    Board(ISceneManager* sceneManager, u16 size);
+	Board(ISceneManager* sceneManager, u16 size);
     Board(ISceneManager* sceneManager);
     ~Board();
 
@@ -32,10 +30,10 @@ public:
 	IMetaTriangleSelector* getMapMetaSelector(ISceneManager* sceneManager, bool filterFinish = false);
     // entity map collision
     void setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
-    void setPlayerToEntities(ISceneManager *sceneManager, Player* player);
+    void setPlayerToEntities(ISceneManager *sceneManager, Player* player, bool activePlayer=true);
 
     void applyMovingOnEntities(f32 deltaTime,IRandomizer *rand);
 };
 
 
-#endif //TESTISO_BOARD_HPP
+#endif //CRAZYMARBLE3D_BOARD_HPP

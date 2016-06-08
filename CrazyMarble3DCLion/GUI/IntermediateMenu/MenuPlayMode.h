@@ -2,12 +2,16 @@
 // Created by mathieu on 15/05/16.
 //
 
-#ifndef CRAZYMARBLE3DCLION_MENUPLAYMODE_H
-#define CRAZYMARBLE3DCLION_MENUPLAYMODE_H
+#ifndef CRAZYMARBLE3D_MENUPLAYMODE_H
+#define CRAZYMARBLE3D_MENUPLAYMODE_H
 
 
 #include "../GUIBase.h"
 #include "../MapMenu/MapSelector.h"
+
+#include "../../General/Campaign.h"
+#include "SoloMultiMenu.h"
+#include "MenuServer.h"
 
 using namespace core;
 
@@ -16,6 +20,7 @@ private:
     IGUIImage* background;
     IGUIButton* campaignButton;
     IGUIButton* freeModeButton;
+    IGUIButton* joinServerButton;
     IGUIButton* exit;
     stringc pseudo;
 
@@ -29,4 +34,4 @@ public:
 };
 
 
-#endif //CRAZYMARBLE3DCLION_MENUPLAYMODE_H
+#endif //CRAZYMARBLE3D_MENUPLAYMODE_H

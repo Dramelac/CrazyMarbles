@@ -26,10 +26,7 @@ IrrlichtMain::IrrlichtMain() : width(1920), height(1080), keyEvent(KeyboardEvent
 
 void IrrlichtMain::main() {
     while (device->run()){
-        /*
-        Game game(device, &keyEvent, 50, 50);
-        game.gameLoop();
-        */
+
         Menu menu(device, &keyEvent);
         menu.loop();
 

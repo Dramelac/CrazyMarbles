@@ -3,50 +3,6 @@
 //
 
 #include "Game.h"
-#include "../GUI/PlayMessage/WinLooseChoose.h"
-
-// Debug construct (DEPRECATED)
-Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
-           unsigned int x, unsigned int y, bool day) :
-        play(true){
-
-	
-	this->device = inDevice;
-    this->keyevent = keyevent;
-
-    this->device->setWindowCaption(L"Crazy Marble");                    // first windows name
-    device->getCursorControl()->setVisible(false);                      // curseur invisible
-
-	this->driver = this->device->getVideoDriver();                      // creation driver
-	this->sceneManager = this->device->getSceneManager();               // creation scene manager
-
-
-    setupSkyBox(day);
-
-    this->player = new Player(sceneManager, "Test", 100);
-
-    this->board = new Board(x, y, sceneManager);
-
-    // LIGHT        ambient light for texture (to change for shadow on cell)
-
-    /*              light point for use later
-    sceneManager->addLightSceneNode(0, core::vector3df(0, 500, 20),
-                            video::SColorf(1.0f, 1.0f, 1.0f), 1000.0f, -1);
-    */
-
-    sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
-
-
-    // COLLISION : GRAVITY
-
-    // plateau de selector collision
-    IMetaTriangleSelector* metaMapSelector = board->getMapMetaSelector(sceneManager);      // create decor collision data
-
-    // Apply gravity to player :
-    player->enableCollision(metaMapSelector, sceneManager);                    // apply collision map to player
-
-    metaMapSelector->drop();
-}
 
 // Play select Map
 Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stringc pseudo, s32 score) :
@@ -66,9 +22,6 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stri
 
     this->player = new Player(sceneManager, driver, device->getGUIEnvironment(), pseudo, 100, board->getStartPoint(), score);
 
-    //sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
-
-
     // COLLISION : GRAVITY
 
     // plateau de selector collision
@@ -87,10 +40,8 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stri
     // collision player/entities
     board->setPlayerToEntities(sceneManager, player);
 
-
-    //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
-
-    chrono = new Chrono(device, 60);
+    isNetwork =false;
+    chrono = new Chrono(device, 60, driver);
     player->updateScore();
 
 
@@ -99,9 +50,9 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stri
 // Game loop
 s16 Game::gameLoop() {
 
-    int lastFPS = -1;
+    lastFPS = -1;
 
-    u32 then = device->getTimer()->getTime();
+    then = device->getTimer()->getTime();
 
 	while (device->run()){
 
@@ -212,30 +163,12 @@ Game::~Game() {
 
     delete board;
     delete player;
+    if (isNetwork){
+        delete player2;
+    }
 
     sceneManager->clear();
 
-}
-
-// debug skybox (DEPRECATED)
-void Game::setupSkyBox(bool day) {
-    if (day){
-        sceneManager->addSkyBoxSceneNode(
-                driver->getTexture("data/skybox/day/top.png"),
-                driver->getTexture("data/skybox/day/bottom.png"),
-                driver->getTexture("data/skybox/day/front.png"),
-                driver->getTexture("data/skybox/day/back.png"),
-                driver->getTexture("data/skybox/day/left.png"),
-                driver->getTexture("data/skybox/day/right.png"));
-    } else {
-        sceneManager->addSkyBoxSceneNode(
-                driver->getTexture("data/skybox/night/top.png"),
-                driver->getTexture("data/skybox/night/bottom.png"),
-                driver->getTexture("data/skybox/night/front.png"),
-                driver->getTexture("data/skybox/night/back.png"),
-                driver->getTexture("data/skybox/night/left.png"),
-                driver->getTexture("data/skybox/night/right.png"));
-    }
 }
 
 s32 Game::getScore() {
@@ -243,13 +176,97 @@ s32 Game::getScore() {
 }
 
 s16 Game::pause() {
-    chrono->stop();
     player->setGravity(0);
+    chrono->stop();
     WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t PAUSE ", false, true);
     s16 tempReturn = popup.loop();
-    player->setGravity();
+    vector3df tempPos = player->getPosition();
+    tempPos.Z += 20;
+    player->setPosition(tempPos);
     return tempReturn;
 }
 
 
+Board *Game::getBoard() const {
+    return board;
+}
 
+void Game::setup2P(stringc pseudo) {
+
+    isNetwork=true;
+    player2 = new Player(sceneManager, pseudo, 100, board->getStartPoint());
+
+    IMetaTriangleSelector* metaSelector = board->getMapMetaSelector(sceneManager);
+    player2->enableCollision(metaSelector, sceneManager);
+    metaSelector->drop();
+
+    IMetaTriangleSelector* metaFinishSelector = board->getMapMetaSelector(sceneManager, true);
+    player2->addFinishLineCollision(metaFinishSelector, sceneManager);
+    metaFinishSelector->drop();
+
+    board->setPlayerToEntities(sceneManager, player2, false);
+
+    lastFPS = -1;
+    then = device->getTimer()->getTime();
+
+}
+
+u16 Game::networkGameLoop() {
+
+    driver->beginScene(true,true, video::SColor(255,150,150,150));        // font default color
+    player->updateCamera();
+
+    sceneManager->drawAll();
+    // update display
+    gui->drawAll();
+    driver->endScene();
+
+    chrono->start();
+
+    // display frames per second in window title
+    int fps = driver->getFPS();
+    if (lastFPS != fps)
+    {
+        core::stringw title = L"Crazy Marble - 2DEV  [FPS:";
+        title += fps;
+        title += "]";
+
+        device->setWindowCaption(title.c_str());
+        lastFPS = fps;
+    }
+
+    //updateGameBoard();                    //to implement later
+    // Move time
+    u32 now = device->getTimer()->getTime();
+    f32 deltaTime = (f32)(now-then) / 1000.f;
+    then = now;
+    keyboardChecker(deltaTime);
+    IRandomizer *rand = device->getRandomizer();
+    board->applyMovingOnEntities(deltaTime,rand);
+
+    if (not player->isAlive()){
+        player->respawn();
+    }
+
+    if (chrono->getTime() == 0){
+        return 2;
+    }
+
+    if (player->checkFinish()){
+        return 1;
+    }
+    return 0;
+}
+
+
+Player *Game::getPlayer() const {
+    return player;
+}
+
+Player *Game::getPlayer2() const {
+    if (isNetwork) {
+        return player2;
+    } else {
+        return nullptr;
+    }
+}

@@ -1,3 +1,6 @@
+#ifndef CRAZYMARBLE3D_TEXTURELOADER_H
+#define CRAZYMARBLE3D_TEXTURELOADER_H
+
 #include <irrlicht.h>
 
 using namespace irr;
@@ -13,6 +16,7 @@ public:
     static ITexture* sphere;
     static ITexture* sphereRed;
     static ITexture* sphereBlack;
+    static ITexture* sphereOrange;
     static ITexture* finish_line;
 
     static IAnimatedMesh* cellMesh;
@@ -22,3 +26,4 @@ public:
 	static IAnimatedMesh* sphereMesh;
 };
 
+#endif //CRAZYMARBLE3D_TEXTURELOADER_H
