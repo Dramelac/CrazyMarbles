@@ -3,11 +3,13 @@
 //
 
 #include "Menu.h"
+#include "../Utils/SoundUtils.h"
 
 Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
         : GUIBase(inDevice, keyEvent) {
 
     this->device->setWindowCaption(L"Crazy Marble  -  [MENU]");
+    SoundUtils::play();
     device->getCursorControl()->setVisible(true);
 
     background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM2.png"), position2d<int>(0, 0));
