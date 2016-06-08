@@ -19,6 +19,8 @@ private:
     IGUIButton* play;
     IGUIButton* levelEditor;
     IGUIButton* credit;
+    IGUIButton* mutedBackSound;
+    IGUIButton* mutedNoise;
 
     IGUIButton* nickName;
 

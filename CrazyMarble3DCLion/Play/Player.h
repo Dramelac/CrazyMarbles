@@ -9,9 +9,11 @@
 #include "Entities.h"
 #include "../Utils/KeyboardEvent.h"
 #include "../Utils/Chrono.h"
+#include "../Utils/SoundUtils.h"
 
 
 using namespace gui;
+using namespace core;
 using namespace video;
 
 class Player : public Entities, public ICollisionCallback {
@@ -70,7 +72,6 @@ public:
 
     void respawn();
 	virtual void setPosition(vector3df position);
-
 
 	s32 getScore() const;
     void updateGui();

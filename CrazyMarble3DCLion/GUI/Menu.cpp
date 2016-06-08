@@ -3,11 +3,13 @@
 //
 
 #include "Menu.h"
+#include "../Utils/SoundUtils.h"
 
 Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
         : GUIBase(inDevice, keyEvent) {
 
     this->device->setWindowCaption(L"Crazy Marble  -  [MENU]");
+    SoundUtils::play();
     device->getCursorControl()->setVisible(true);
 
     background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM3.png"), position2d<int>(0, 0));
@@ -44,6 +46,18 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
 
     nickName = gui->addButton(rect<s32>(1700, 70, 1850, 120),0 ,104,L"");
     nickName->setText(temp);
+
+    mutedBackSound = gui->addButton(rect<s32>(1600, 70, 1650, 120),0 ,104,L"");
+    mutedBackSound->setImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_credits_selected.png"));
+    mutedBackSound->setDrawBorder(false);
+    mutedBackSound->setUseAlphaChannel(true);
+    mutedBackSound->setScaleImage(true);
+
+    mutedNoise = gui->addButton(rect<s32>(1500, 70, 1550, 120),0 ,104,L"");
+    mutedNoise->setImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_credits_selected.png"));
+    mutedNoise->setDrawBorder(false);
+    mutedNoise->setUseAlphaChannel(true);
+    mutedNoise->setScaleImage(true);
 
 }
 
@@ -82,7 +96,14 @@ void Menu::loop() {
                 NickMenu nickMenu(device, keyEvent);
                 nickName->setText(nickMenu.loop());
                 visibilityButons(true);
+            } else if (mutedBackSound->isPressed()){
+                SoundUtils::muteSoundBack();
+                mutedBackSound->setPressed(false);
+            }else if (mutedNoise->isPressed()){
+                SoundUtils::muteNoise();
+                mutedNoise->setPressed(false);
             }
+
         }
     }
 }
@@ -95,6 +116,8 @@ void Menu::visibilityButons(bool status) {
     credit->setVisible(status);
     nickName->setVisible(status);
     background->setVisible(status);
+    mutedNoise->setVisible(status);
+    mutedBackSound->setVisible(status);
 }
 
 

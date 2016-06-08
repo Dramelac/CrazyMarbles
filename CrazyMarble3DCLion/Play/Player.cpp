@@ -308,6 +308,7 @@ void Player::updateGui() {
 void Player::takeDamage(u64 dmg) {
     Entities::takeDamage(dmg);
     updateGui();
+    SoundUtils::getDamage();
 }
 
 s32 Player::getScore() const {
