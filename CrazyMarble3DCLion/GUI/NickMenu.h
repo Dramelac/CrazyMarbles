@@ -18,14 +18,10 @@ private:
     IGUIEditBox* editBox;
     IGUIFont* font;
 
-    stringc* nickname;
-
     IGUIImage* crazyMarble;
     IGUIImage* enterNick;
     IGUIButton* valide;
     IGUIButton* exit;
-
-    void visibilityButtons(bool status);
 
 public:
     NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent);
