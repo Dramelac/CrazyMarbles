@@ -13,22 +13,22 @@ WinLooseChoose::WinLooseChoose(IrrlichtDevice *device, KeyboardEvent *keyEvent, 
 
     this->message = gui->addStaticText(message.c_str(),rect<s32>(vector2d<s32>(25,25), dimension2d<s32>(480,250)), false, true, background);
 
-    restart = gui->addButton(rect<s32>(vector2d<s32>(25,260), dimension2d<s32>(175,50)), background, -1, L"");
+    restart = gui->addButton(rect<s32>(vector2d<s32>(25,260), dimension2d<s32>(175,50)), background, -1);
     restart->setImage(driver->getTexture("data/GUI/Menu/play/menu_pause_restart.png"));
     restart->setDrawBorder(false);
     restart->setUseAlphaChannel(true);
 
-    quit = gui->addButton(rect<s32>(vector2d<s32>(225,260), dimension2d<s32>(175,50)), background, -1, L"");
+    quit = gui->addButton(rect<s32>(vector2d<s32>(225,260), dimension2d<s32>(175,50)), background, -1, );
     quit->setImage(driver->getTexture("data/GUI/Menu/play/menu_pause_exit.png"));
     quit->setDrawBorder(false);
     quit->setUseAlphaChannel(true);
     if (win) {
-        next = gui->addButton(rect<s32>(vector2d<s32>(425,260), dimension2d<s32>(175,50)), background, -1, L"Next Level");
-        //next->setImage(driver->getTexture("data/GUI/Menu/play/menu_pause_exit.png"));
+        next = gui->addButton(rect<s32>(vector2d<s32>(425,260), dimension2d<s32>(175,50)), background, -1);
+        next->setImage(driver->getTexture("data/GUI/Menu/play/menu_pause_next.png"));
         next->setDrawBorder(false);
         next->setUseAlphaChannel(true);
     } else if (resume){
-        next = gui->addButton(rect<s32>(vector2d<s32>(425,260), dimension2d<s32>(175,50)), background, -1, L"");
+        next = gui->addButton(rect<s32>(vector2d<s32>(425,260), dimension2d<s32>(175,50)), background, -1);
         next->setImage(driver->getTexture("data/GUI/Menu/play/menu_pause_resume.png"));
         next->setDrawBorder(false);
         next->setUseAlphaChannel(true);
