@@ -1,14 +1,9 @@
 
-#ifndef TESTISO_GAME_HPP
-#define TESTISO_GAME_HPP
+#ifndef CRAZYMARBLE3D_GAME_HPP
+#define CRAZYMARBLE3D_GAME_HPP
 
-
-#include <iostream>
-
-#include <irrlicht.h>
 
 #include "../Utils/Chrono.h"
-
 #include "../Plateau/Board.h"
 #include "../Play/Player.h"
 #include "../Utils/KeyboardEvent.h"
@@ -60,4 +55,4 @@ public:
 };
 
 
-#endif //TESTISO_GAME_HPP
+#endif //CRAZYMARBLE3D_GAME_HPP

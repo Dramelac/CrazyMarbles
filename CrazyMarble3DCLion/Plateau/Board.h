@@ -2,8 +2,8 @@
 // Created by mathieu on 23/02/16.
 //
 
-#ifndef TESTISO_BOARD_HPP
-#define TESTISO_BOARD_HPP
+#ifndef CRAZYMARBLE3D_BOARD_HPP
+#define CRAZYMARBLE3D_BOARD_HPP
 
 
 #include "Cell.h"
@@ -36,4 +36,4 @@ public:
 };
 
 
-#endif //TESTISO_BOARD_HPP
+#endif //CRAZYMARBLE3D_BOARD_HPP

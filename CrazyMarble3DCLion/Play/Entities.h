@@ -2,8 +2,8 @@
 // Created by mathieu on 03/03/16.
 //
 
-#ifndef CRAZYMARBLE_ENTITIES_HPP
-#define CRAZYMARBLE_ENTITIES_HPP
+#ifndef CRAZYMARBLE3D_ENTITIES_HPP
+#define CRAZYMARBLE3D_ENTITIES_HPP
 
 
 #include <irrlicht.h>
@@ -49,4 +49,4 @@ public:
 };
 
 
-#endif //CRAZYMARBLE_ENTITIES_HPP
+#endif //CRAZYMARBLE3D_ENTITIES_HPP

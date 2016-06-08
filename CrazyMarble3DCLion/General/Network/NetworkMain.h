@@ -1,9 +1,8 @@
 
-#ifndef CRAZYMARBLE3DCLION_NETWORKMAIN_H
-#define CRAZYMARBLE3DCLION_NETWORKMAIN_H
+#ifndef CRAZYMARBLE3D_NETWORKMAIN_H
+#define CRAZYMARBLE3D_NETWORKMAIN_H
 
 #include <irrlicht.h>
-
 
 #include <RakPeerInterface.h>
 #include <MessageIdentifiers.h>
@@ -12,7 +11,7 @@
 #include <StringCompressor.h>
 
 #include <iostream>
-#include <ctime>//for clock()
+#include <ctime>
 
 #include "../../Play/Player.h"
 #include "../Game.h"
@@ -114,4 +113,4 @@ public:
 };
 
 
-#endif //CRAZYMARBLE3DCLION_NETWORKMAIN_H
+#endif //CRAZYMARBLE3D_NETWORKMAIN_H

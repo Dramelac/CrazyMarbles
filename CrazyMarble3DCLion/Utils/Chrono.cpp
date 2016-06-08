@@ -50,10 +50,3 @@ void Chrono::stop() {
     }
 }
 
-void Chrono::restart() {
-    timer->setTime(0);
-    timer->setSpeed(1);
-    start();
-}
-
-

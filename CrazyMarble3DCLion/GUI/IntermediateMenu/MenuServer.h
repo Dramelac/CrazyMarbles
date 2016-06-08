@@ -2,12 +2,13 @@
 // Created by romain on 21/05/16.
 //
 
-#ifndef CRAZYMARBLE3DCLION_MENUSERVER_H
-#define CRAZYMARBLE3DCLION_MENUSERVER_H
+#ifndef CRAZYMARBLE3D_MENUSERVER_H
+#define CRAZYMARBLE3D_MENUSERVER_H
 
 
 #include "../GUIBase.h"
 #include "../../General/Network/NetworkMain.h"
+
 using namespace core;
 
 class MenuServer : public GUIBase {
@@ -29,4 +30,4 @@ public:
 };
 
 
-#endif //CRAZYMARBLE3DCLION_MENUSERVER_H
+#endif //CRAZYMARBLE3D_MENUSERVER_H

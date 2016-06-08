@@ -2,8 +2,8 @@
 // Created by antoine on 04/05/16.
 //
 
-#ifndef CRAZYMARBLE3DCLION_NICKMENU_H
-#define CRAZYMARBLE3DCLION_NICKMENU_H
+#ifndef CRAZYMARBLE3D_NICKMENU_H
+#define CRAZYMARBLE3D_NICKMENU_H
 
 
 #include "../Utils/KeyboardEvent.h"
@@ -31,4 +31,4 @@ public:
 };
 
 
-#endif //CRAZYMARBLE3DCLION_NICKMENU_H
+#endif //CRAZYMARBLE3D_NICKMENU_H

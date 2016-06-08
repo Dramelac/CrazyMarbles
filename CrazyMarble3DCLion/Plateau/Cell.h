@@ -2,10 +2,9 @@
 // Created by mathieu on 23/02/16.
 //
 
-#ifndef TESTISO_CELL_HPP
-#define TESTISO_CELL_HPP
+#ifndef CRAZYMARBLE3D_CELL_HPP
+#define CRAZYMARBLE3D_CELL_HPP
 
-#include <irrlicht.h>
 #include "../Play/BlackMarbles.h"
 
 using namespace irr;
@@ -53,4 +52,4 @@ public:
 };
 
 
-#endif //TESTISO_CELL_HPP
+#endif //CRAZYMARBLE3D_CELL_HPP

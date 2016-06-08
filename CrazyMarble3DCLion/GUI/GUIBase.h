@@ -2,10 +2,9 @@
 // Created by mathieu on 14/05/16.
 //
 
-#ifndef CRAZYMARBLE3DCLION_GUIBASE_H
-#define CRAZYMARBLE3DCLION_GUIBASE_H
+#ifndef CRAZYMARBLE3D_GUIBASE_H
+#define CRAZYMARBLE3D_GUIBASE_H
 
-#include <irrlicht.h>
 #include "../Utils/KeyboardEvent.h"
 
 using namespace irr;
@@ -24,4 +23,4 @@ public:
 };
 
 
-#endif //CRAZYMARBLE3DCLION_GUIBASE_H
+#endif //CRAZYMARBLE3D_GUIBASE_H
