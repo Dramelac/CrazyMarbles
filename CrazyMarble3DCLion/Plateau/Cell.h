@@ -27,8 +27,6 @@ public:
     Cell();
     virtual ~Cell();
 
-    void setupBetaPlace(s32 row, s32 column, ISceneManager *sceneManager);
-
     void setCell(IMeshSceneNode* node);
     void setup(ISceneManager *sceneManager,
                vector3di cursor,
@@ -42,7 +40,6 @@ public:
 
     void setEntity(BlackMarbles *enemie);
     void setEntity(IMeshSceneNode *node);
-    void clearEntity();
     void switchEntity(BlackMarbles *enemie);
 
     void enableCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);

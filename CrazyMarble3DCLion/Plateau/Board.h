@@ -16,10 +16,8 @@ private:
 
 	ISceneNode* startPoint;
 
-	void initAllCellPlace(ISceneManager *sceneManager);
 public:
-	Board(const unsigned int hauteur, const unsigned int largeur, ISceneManager* sceneManager);
-    Board(ISceneManager* sceneManager, u16 size);
+	Board(ISceneManager* sceneManager, u16 size);
     Board(ISceneManager* sceneManager);
     ~Board();
 

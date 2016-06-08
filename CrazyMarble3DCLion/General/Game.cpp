@@ -4,49 +4,6 @@
 
 #include "Game.h"
 
-// Debug construct (DEPRECATED)
-Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent,
-           unsigned int x, unsigned int y, bool day) :
-        play(true){
-
-	
-	this->device = inDevice;
-    this->keyevent = keyevent;
-
-    this->device->setWindowCaption(L"Crazy Marble");                    // first windows name
-    device->getCursorControl()->setVisible(false);                      // curseur invisible
-
-	this->driver = this->device->getVideoDriver();                      // creation driver
-	this->sceneManager = this->device->getSceneManager();               // creation scene manager
-
-
-    setupSkyBox(day);
-
-    this->player = new Player(sceneManager, "Test", 100);
-
-    this->board = new Board(x, y, sceneManager);
-
-    // LIGHT        ambient light for texture (to change for shadow on cell)
-
-    /*              light point for use later
-    sceneManager->addLightSceneNode(0, core::vector3df(0, 500, 20),
-                            video::SColorf(1.0f, 1.0f, 1.0f), 1000.0f, -1);
-    */
-
-    sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
-
-
-    // COLLISION : GRAVITY
-
-    // plateau de selector collision
-    IMetaTriangleSelector* metaMapSelector = board->getMapMetaSelector(sceneManager);      // create decor collision data
-
-    // Apply gravity to player :
-    player->enableCollision(metaMapSelector, sceneManager);                    // apply collision map to player
-
-    metaMapSelector->drop();
-}
-
 // Play select Map
 Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stringc pseudo, s32 score) :
         device(inDevice), keyevent(keyevent), play(true) {
@@ -64,9 +21,6 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stri
     this->board  = new Board(sceneManager);
 
     this->player = new Player(sceneManager, driver, device->getGUIEnvironment(), pseudo, 100, board->getStartPoint(), score);
-
-    //sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
-
 
     // COLLISION : GRAVITY
 
@@ -86,8 +40,6 @@ Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stri
     // collision player/entities
     board->setPlayerToEntities(sceneManager, player);
 
-
-    //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
     isNetwork =false;
     chrono = new Chrono(device, 60, driver);
     player->updateScore();
@@ -219,27 +171,6 @@ Game::~Game() {
 
 }
 
-// debug skybox (DEPRECATED)
-void Game::setupSkyBox(bool day) {
-    if (day){
-        sceneManager->addSkyBoxSceneNode(
-                driver->getTexture("data/skybox/day/top.png"),
-                driver->getTexture("data/skybox/day/bottom.png"),
-                driver->getTexture("data/skybox/day/front.png"),
-                driver->getTexture("data/skybox/day/back.png"),
-                driver->getTexture("data/skybox/day/left.png"),
-                driver->getTexture("data/skybox/day/right.png"));
-    } else {
-        sceneManager->addSkyBoxSceneNode(
-                driver->getTexture("data/skybox/night/top.png"),
-                driver->getTexture("data/skybox/night/bottom.png"),
-                driver->getTexture("data/skybox/night/front.png"),
-                driver->getTexture("data/skybox/night/back.png"),
-                driver->getTexture("data/skybox/night/left.png"),
-                driver->getTexture("data/skybox/night/right.png"));
-    }
-}
-
 s32 Game::getScore() {
     return player->getScore();
 }
@@ -275,15 +206,6 @@ void Game::setup2P(stringc pseudo) {
 
     board->setPlayerToEntities(sceneManager, player2, false);
 
-/*
-    ITriangleSelector* player1Selector = player->getSelector(sceneManager);
-    player2->enableCustomCollision(player1Selector,sceneManager);
-    player1Selector->drop();
-
-    ITriangleSelector* player2Selector = player2->getSelector(sceneManager);
-    player->enableCustomCollision(player2Selector,sceneManager);
-    player2Selector->drop();
-*/
     lastFPS = -1;
     then = device->getTimer()->getTime();
 
