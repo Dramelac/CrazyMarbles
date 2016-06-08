@@ -21,6 +21,8 @@ private:
     IGUIButton* scoreBoard;
     IGUIButton* levelEditor;
     IGUIButton* credit;
+    IGUIButton* mutedBackSound;
+    IGUIButton* mutedNoise;
 
     IGUIButton* nickName;
 

@@ -1,8 +1,12 @@
-#include <iostream>
+
 #include "SoundUtils.h"
 
 
 ISoundEngine* SoundUtils::engine = createIrrKlangDevice();
+
+bool SoundUtils::statusSound = false;
+ik_f32 SoundUtils::vol = 50;
+bool SoundUtils::noise = true;
 
 
 void SoundUtils::play() {
@@ -16,13 +20,39 @@ void SoundUtils::play() {
     return;
 }
 
-void SoundUtils::mute() {
-    engine->setAllSoundsPaused();
+void SoundUtils::muteSoundBack() {
+    if(statusSound){
+        engine->setAllSoundsPaused(false);
+        statusSound = false;
+        //engine->setSoundVolume(vol);
+    }else{
+        //vol = engine->getSoundVolume();
+        //engine->setSoundVolume(0);
+        engine->setAllSoundsPaused(true);
+        statusSound = true;
+    }
 }
+
 
 void SoundUtils::getDamage() {
+    if(noise) {
+        engine->play2D("data/Sound/pop.wav");
+    }
 
 }
+
+void SoundUtils::winSound() {
+    engine->play2D("data/Sound/pop.wav");
+}
+
+void SoundUtils::muteNoise() {
+    noise = !noise;
+
+}
+
+
+
+
 
 
 

@@ -12,6 +12,7 @@
 #include "Entities.h"
 #include "../Utils/KeyboardEvent.h"
 #include "../Utils/Chrono.h"
+#include "../Utils/SoundUtils.h"
 
 
 using namespace gui;
@@ -66,6 +67,7 @@ public:
 
     virtual bool onCollision(const ISceneNodeAnimatorCollisionResponse& animator);
     bool checkFinish();
+
 
 
     s32 getScore() const;
