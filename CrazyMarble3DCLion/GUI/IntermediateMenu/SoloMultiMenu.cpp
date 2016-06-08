@@ -11,9 +11,21 @@ SoloMultiMenu::SoloMultiMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent,
         : GUIBase(device, keyEvent), background(background), pseudo(pseudo), map(map) {
 
     this->background->setVisible(true);
-    exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"Go back");
-    solo = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"Solo");
-    multi = gui->addButton(rect<s32>(657, 700, 1263, 845), 0, 103, L"MultiPlayer");
+    exit = gui->addButton(rect<s32>(1750,950,1900,1000), 0, 101, L"");
+    exit->setImage(driver->getTexture("data/GUI/Menu/bouton_menu_back.png"));
+    exit->setDrawBorder(false);
+    exit->setUseAlphaChannel(true);
+    exit->setScaleImage(true);
+    solo = gui->addButton(rect<s32>(657,400,1263,545), 0, 103, L"");
+    solo->setImage(driver->getTexture("data/GUI/Menu/button/bouton_play_solo.png"));
+    solo->setDrawBorder(false);
+    solo->setUseAlphaChannel(true);
+    solo->setScaleImage(true);
+    multi = gui->addButton(rect<s32>(657,550,1263,695), 0, 103, L"");
+    multi->setImage(driver->getTexture("data/GUI/Menu/button/bouton_play_multi.png"));
+    multi->setDrawBorder(false);
+    multi->setUseAlphaChannel(true);
+    multi->setScaleImage(true);
 
 }
 

@@ -10,15 +10,16 @@
 using namespace irr;
 using namespace gui;
 using namespace core;
+using namespace video;
 
 class Chrono {
 private:
     u32 chrono;
     ITimer* timer;
     IGUIStaticText* displayChrono;
+    IGUIImage* backTimer;
 public:
-
-    Chrono(IrrlichtDevice* inDevice, u32 chrono);
+    Chrono(IrrlichtDevice* inDevice, u32 chrono, IVideoDriver *driver);
     virtual ~Chrono();
 
 //void setTime (int chrono);
