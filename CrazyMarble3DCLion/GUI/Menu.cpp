@@ -3,6 +3,7 @@
 //
 
 #include "Menu.h"
+#include "Credit.h"
 
 Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
         : GUIBase(inDevice, keyEvent) {
@@ -75,6 +76,11 @@ void Menu::loop() {
                 menuIntermediate.loop();
                 visibilityButons(true);
             } else if (credit->isPressed()){
+                visibilityButons(false);
+                background->setVisible(true);
+                Credit credit(device, keyEvent);
+                credit.loop();
+                visibilityButons(true);
 
             } else if (nickName->isPressed()){
                 visibilityButons(false);
