@@ -18,9 +18,9 @@ private:
 
     IGUIButton* exit;
     IGUIButton* play;
-    IGUIButton* scoreBoard;
     IGUIButton* levelEditor;
     IGUIButton* credit;
+    IGUIImage* crazyM;
 
     IGUIButton* nickName;
 

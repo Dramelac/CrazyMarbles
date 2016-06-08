@@ -20,6 +20,12 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     NickMenu nickMenu(device, keyEvent);
     const wchar_t* temp = nickMenu.loop();
 
+    crazyM = gui->addImage(rect<s32>(630,200,1320,400),0,104);
+    crazyM->setImage(driver->getTexture("data/GUI/Menu/crazyM.png"));
+    crazyM->setUseAlphaChannel(true);
+    crazyM->setScaleImage(true);
+
+
     exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"", L"");
     exit->setImage(driver->getTexture("data/GUI/Menu/bouton_menu_quit.png"));
     exit->setDrawBorder(false);
