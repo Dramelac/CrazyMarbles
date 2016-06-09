@@ -2,28 +2,32 @@
 // Created by mathieu on 03/05/16.
 //
 
-#ifndef CRAZYMARBLE3DCLION_LEVELEDITOR_H
-#define CRAZYMARBLE3DCLION_LEVELEDITOR_H
+#ifndef CRAZYMARBLE3D_LEVELEDITOR_H
+#define CRAZYMARBLE3D_LEVELEDITOR_H
 
-#include <irrlicht.h>
+#include <stdio.h>
+
 #include "../Utils/KeyboardEvent.h"
 #include "../Plateau/Board.h"
+#include "../Play/Player.h"
+#include "Campaign.h"
+#include "../GUI/LevelEditorMenu/SideMapList.h"
 
-using namespace irr;
-using namespace irr::scene;
-using namespace irr::core;
-using namespace irr::video;
+using namespace scene;
+using namespace core;
+using namespace io;
 
-class LevelEditor {
+class LevelEditor : public GUIBase{
 private:
-    Board board;
-    IrrlichtDevice* device;
-    IVideoDriver* driver;
     ISceneManager *sceneManager;
 
-    ICameraSceneNode* fixeCamera;
+    Board* board;
+    Player* player;
 
-    IGUIEnvironment* gui;
+    SideMapList* campaignMapList;
+
+    ISceneNode* skyBox;
+    s32 skyId;
 
     IGUIButton* goToRight;
     IGUIButton* goToLeft;
@@ -39,21 +43,29 @@ private:
     IGUIButton* cellAngleInt;
     IGUIButton* cellFlat;
     IGUIButton* cellPente;
+    IGUIButton* cellEmpty;
+    IGUIButton* cellFinish;
+    IGUIButton* cellEnemy;
+    IGUIButton* cellStartBox;
+    IGUIButton* skyBoxe;
 
     IGUIButton* validate;
-
-    KeyboardEvent *keyevent;
+    IGUIButton* cancel;
+    IGUIEditBox* mapName;
+    path name;
 
     bool play;
-    s32 size;
 
     vector3di cursor;
     s16 currentType;
     vector3di currentRotation;
 
+    void setupGUI();
+
 public:
 
-    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyevent, s32 size=50, bool day = true);
+    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent);
+    LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path pathMap);
 
     void gameLoop();
     void keyboardChecker();
@@ -61,11 +73,14 @@ public:
     void move(vector3di change);
     void updateCamera();
     void applySetup();
+    void setupSkyBox(s32 templateId);
 
-    void save();
+    bool save();
 
     ~LevelEditor();
+
+    static const u16 size;
 };
 
 
-#endif //CRAZYMARBLE3DCLION_LEVELEDITOR_H
+#endif //CRAZYMARBLE3D_LEVELEDITOR_H

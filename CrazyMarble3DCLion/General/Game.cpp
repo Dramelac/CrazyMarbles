@@ -4,76 +4,23 @@
 
 #include "Game.h"
 
-Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent, unsigned int x, unsigned int y, bool day) : play(true){
-
-	
-	this->device = inDevice;
-    this->keyevent = keyevent;
+// Play select Map
+Game::Game(IrrlichtDevice *inDevice, KeyboardEvent *keyevent, path pathMap, stringc pseudo, s32 score) :
+        device(inDevice), keyevent(keyevent), play(true) {
 
     this->device->setWindowCaption(L"Crazy Marble");                    // first windows name
     device->getCursorControl()->setVisible(false);                      // curseur invisible
 
-	this->driver = this->device->getVideoDriver();                      // creation driver
-	this->sceneManager = this->device->getSceneManager();               // creation scene manager
+    this->driver = this->device->getVideoDriver();                      // creation driver
+    this->sceneManager = this->device->getSceneManager();               // creation scene manager
 
+    gui = device->getGUIEnvironment();
+    IReadFile* map = createReadFile(pathMap);
+    sceneManager->loadScene(map);
 
-    // OPTIONAL
-    if (day){
-        sceneManager->addSkyBoxSceneNode(
-                driver->getTexture("data/skybox/day/top.png"),
-                driver->getTexture("data/skybox/day/bottom.png"),
-                driver->getTexture("data/skybox/day/front.png"),
-                driver->getTexture("data/skybox/day/back.png"),
-                driver->getTexture("data/skybox/day/left.png"),
-                driver->getTexture("data/skybox/day/right.png"));
-    } else {
-        sceneManager->addSkyBoxSceneNode(
-                driver->getTexture("data/skybox/night/top.png"),
-                driver->getTexture("data/skybox/night/bottom.png"),
-                driver->getTexture("data/skybox/night/front.png"),
-                driver->getTexture("data/skybox/night/back.png"),
-                driver->getTexture("data/skybox/night/left.png"),
-                driver->getTexture("data/skybox/night/right.png"));
-    }
+    this->board  = new Board(sceneManager);
 
-    // SkyDome
-    //sceneManager->addSkyDomeSceneNode(driver->getTexture("data/../../irrlicht-1.8.3/media/skydome.jpg"),16,8,0.95f,2.0f);
-
-
-    this->player = new Player("Test", 20, sceneManager);
-
-    this->board = new Board(x, y, sceneManager);
-
-    // LIGHT        ambient light for texture (to change for shadow on cell)
-
-    /*              light point for use later
-    sceneManager->addLightSceneNode(0, core::vector3df(0, 500, 20),
-                            video::SColorf(1.0f, 1.0f, 1.0f), 1000.0f, -1);
-    */
-
-    sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));       // light everywhere
-
-
-
-	// CAMERA
-
-	SKeyMap keyMap[4];
-	keyMap[0].Action = EKA_MOVE_FORWARD;   // avancer
-	keyMap[0].KeyCode = KEY_KEY_Z;
-	keyMap[1].Action = EKA_MOVE_BACKWARD;  // reculer
-	keyMap[1].KeyCode = KEY_KEY_S;
-	keyMap[2].Action = EKA_STRAFE_LEFT;    // a gauche
-	keyMap[2].KeyCode = KEY_KEY_Q;
-	keyMap[3].Action = EKA_STRAFE_RIGHT;   // a droite
-	keyMap[3].KeyCode = KEY_KEY_D;
-
-    // To change
-
-    //sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);    // create camera (to change /
-                                                                                        // fix to player)
-    //fpsCamera->setPosition(vector3df(x*Cell::size,600.0f,y*Cell::size));                // init camera pos
-    //fpsCamera->setPosition(vector3df(850,300,850));
-
+    this->player = new Player(sceneManager, driver, device->getGUIEnvironment(), pseudo, 100, board->getStartPoint(), score);
 
     // COLLISION : GRAVITY
 
@@ -82,24 +29,44 @@ Game::Game(IrrlichtDevice* inDevice, KeyboardEvent* keyevent, unsigned int x, un
 
     // Apply gravity to player :
     player->enableCollision(metaSelector, sceneManager);                    // apply collision map to player
-    speed = 250;
+    board->setupCollisionEntity(metaSelector, sceneManager);
+    metaSelector->drop();
+
+    // collision finish line
+    IMetaTriangleSelector* metaFinishSelector = board->getMapMetaSelector(sceneManager, true);
+    player->addFinishLineCollision(metaFinishSelector, sceneManager);
+    metaFinishSelector->drop();
+
+    // collision player/entities
+    board->setPlayerToEntities(sceneManager, player);
+
+    isNetwork =false;
+    chrono = new Chrono(device, 60, driver);
+    player->updateScore();
+
+
 }
 
-void Game::gameLoop() {
+// Game loop
+s16 Game::gameLoop() {
 
-    int lastFPS = -1;
-    u32 then = device->getTimer()->getTime();
+    lastFPS = -1;
+
+    then = device->getTimer()->getTime();
+
 	while (device->run()){
 
         if (device->isWindowActive()){                                      // check if windows is active
 
             driver->beginScene(true,true, video::SColor(255,0,0,0));        // font default color
-
             player->updateCamera();
 
-            sceneManager->drawAll();                                        // update display
+            sceneManager->drawAll();
+            // update display
+            gui->drawAll();
             driver->endScene();
 
+            chrono->start();
 
             // display frames per second in window title
             int fps = driver->getFPS();
@@ -119,82 +86,187 @@ void Game::gameLoop() {
             f32 deltaTime = (f32)(now-then) / 1000.f;
             then = now;
             keyboardChecker(deltaTime);
+            IRandomizer *rand = device->getRandomizer();
+            board->applyMovingOnEntities(deltaTime,rand);
+
+            if (not player->isAlive()){
+                // player is dead
+                chrono->stop();
+                player->setGravity();
+                WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU DIED !");
+                return popup.loop();
+            }
+
+            if (chrono->getTime() == 0){
+                chrono->stop();
+                player->setGravity();
+                WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t TIMES UP !");
+                return popup.loop();
+            }
+
+            if (player->checkFinish()){
+                // player win
+                WinLooseChoose popup(device, keyevent, player->calculFinal(chrono->getTime()), true);
+                chrono->stop();
+                return popup.loop();
+            }
 
             if (!play){
-                break;
+                s16 temp = pause();
+                if (temp == 0) {
+                    chrono->start();
+                    play = true;
+                } else {
+                    return temp;
+                }
             }
 
         }
+        else{
+            s16 temp = pause();
+            if (temp == 0) {
+                chrono->start();
+            } else {
+                return temp;
+            }
+        }
 	}
 
-}
-
-void Game::updateGameBoard() {
-    /*
-    board.drawBoard(&windows);
-    player.renderPlayer(&windows);
-
-    windows.display();
-    windows.clear();
-    */
-
-    driver->beginScene(true, true,
-                       video::SColor(                  // contient la couleur blanc
-                               255,                                   // composante A alpha (transparence)
-                               255,                                   // composante R rouge
-                               255,                                   // composante G verte
-                               255));
-    sceneManager->drawAll();                    // calcule le rendu
-    driver->endScene();
+    return -1;
 
 }
 
+// keyboard event
 void Game::keyboardChecker(f32 deltaTime) {
-    // Init moving vector
-    core::vector3df vector(0.0f,0.0f,0.0f);
-
-    // Check all key
-    if(keyevent->IsKeyDown(KEY_KEY_Z)){
-        vector.X += -speed * deltaTime;
-        vector.Z += -speed * deltaTime;
-    }
-    else if(keyevent->IsKeyDown(KEY_KEY_S)){
-        vector.X += speed * deltaTime;
-        vector.Z += speed * deltaTime;
-    }
-    if(keyevent->IsKeyDown(KEY_KEY_Q)){
-        vector.X += speed * deltaTime;
-        vector.Z += -speed/2 * deltaTime;
-    }
-    else if(keyevent->IsKeyDown(KEY_KEY_D)){
-        vector.X += -speed * deltaTime;
-        vector.Z += speed/2 * deltaTime;
-    }
 
     // apply moving to player
-    player->updatePosition(vector);
+    player->processMoving(keyevent, deltaTime);
 
 
     if(keyevent->IsKeyDown(KEY_KEY_P)){
         player->updateFOV(0.005);
     } else if(keyevent->IsKeyDown(KEY_KEY_O)){
-        player->updateFOV(-0.005);
+        player->updateFOV(f32(-0.005));
     }
 
     // quit event
 
-    if (keyevent->IsKeyDown(KEY_ESCAPE)){
+    if (keyevent->IsKeyDown(KEY_ESCAPE, true)){
         play = false;
     }
 
 }
 
+// destructor
 Game::~Game() {
+    delete chrono;
+
+    delete board;
+    delete player;
+    if (isNetwork){
+        delete player2;
+    }
 
     sceneManager->clear();
-    driver->drop();
 
-	delete player;
-    delete board;
-    
+}
+
+s32 Game::getScore() {
+    return player->getScore();
+}
+
+s16 Game::pause() {
+    player->setGravity(0);
+    chrono->stop();
+    WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t PAUSE ", false, true);
+    s16 tempReturn = popup.loop();
+    vector3df tempPos = player->getPosition();
+    tempPos.Z += 20;
+    player->setPosition(tempPos);
+    return tempReturn;
+}
+
+
+Board *Game::getBoard() const {
+    return board;
+}
+
+void Game::setup2P(stringc pseudo) {
+
+    isNetwork=true;
+    player2 = new Player(sceneManager, pseudo, 100, board->getStartPoint());
+
+    IMetaTriangleSelector* metaSelector = board->getMapMetaSelector(sceneManager);
+    player2->enableCollision(metaSelector, sceneManager);
+    metaSelector->drop();
+
+    IMetaTriangleSelector* metaFinishSelector = board->getMapMetaSelector(sceneManager, true);
+    player2->addFinishLineCollision(metaFinishSelector, sceneManager);
+    metaFinishSelector->drop();
+
+    board->setPlayerToEntities(sceneManager, player2, false);
+
+    lastFPS = -1;
+    then = device->getTimer()->getTime();
+
+}
+
+u16 Game::networkGameLoop() {
+
+    driver->beginScene(true,true, video::SColor(255,150,150,150));        // font default color
+    player->updateCamera();
+
+    sceneManager->drawAll();
+    // update display
+    gui->drawAll();
+    driver->endScene();
+
+    chrono->start();
+
+    // display frames per second in window title
+    int fps = driver->getFPS();
+    if (lastFPS != fps)
+    {
+        core::stringw title = L"Crazy Marble - 2DEV  [FPS:";
+        title += fps;
+        title += "]";
+
+        device->setWindowCaption(title.c_str());
+        lastFPS = fps;
+    }
+
+    //updateGameBoard();                    //to implement later
+    // Move time
+    u32 now = device->getTimer()->getTime();
+    f32 deltaTime = (f32)(now-then) / 1000.f;
+    then = now;
+    keyboardChecker(deltaTime);
+    IRandomizer *rand = device->getRandomizer();
+    board->applyMovingOnEntities(deltaTime,rand);
+
+    if (not player->isAlive()){
+        player->respawn();
+    }
+
+    if (chrono->getTime() == 0){
+        return 2;
+    }
+
+    if (player->checkFinish()){
+        return 1;
+    }
+    return 0;
+}
+
+
+Player *Game::getPlayer() const {
+    return player;
+}
+
+Player *Game::getPlayer2() const {
+    if (isNetwork) {
+        return player2;
+    } else {
+        return nullptr;
+    }
 }

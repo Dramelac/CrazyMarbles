@@ -2,38 +2,29 @@
 // Created by mathieu on 26/04/16.
 //
 
-#ifndef CRAZYMARBLE3DCLION_MENU_HPP
-#define CRAZYMARBLE3DCLION_MENU_HPP
+#ifndef CRAZYMARBLE3D_MENU_HPP
+#define CRAZYMARBLE3D_MENU_HPP
 
-#include <irrlicht.h>
 #include "../Utils/KeyboardEvent.h"
-#include "../General/Game.h"
-#include "../General/LevelEditor.h"
+#include "NickMenu.h"
+#include "IntermediateMenu/MenuLevelEditor.h"
+#include "IntermediateMenu/MenuPlayMode.h"
 
-using namespace irr;
-using namespace video;
 using namespace core;
-using namespace gui;
 
-class Menu {
+class Menu : public GUIBase{
 private:
-    IrrlichtDevice* device;
-    IVideoDriver* driver;
-    IGUIEnvironment* gui;
-
-
-    KeyboardEvent* keyEvent;
 
     IGUIButton* exit;
     IGUIButton* play;
-    IGUIButton* scoreBoard;
     IGUIButton* levelEditor;
     IGUIButton* credit;
+
+    IGUIButton* nickName;
 
     IGUIImage* background;
 
     void visibilityButons(bool status);
-
 
 public:
 
@@ -42,4 +33,4 @@ public:
 };
 
 
-#endif //CRAZYMARBLE3DCLION_MENU_HPP
+#endif //CRAZYMARBLE3D_MENU_HPP

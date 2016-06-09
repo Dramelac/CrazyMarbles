@@ -2,36 +2,33 @@
 // Created by antoine on 04/05/16.
 //
 
-#ifndef CRAZYMARBLE3DCLION_NICKMENU_H
-#define CRAZYMARBLE3DCLION_NICKMENU_H
+#ifndef CRAZYMARBLE3D_NICKMENU_H
+#define CRAZYMARBLE3D_NICKMENU_H
 
-#include <irrlicht.h>
+
 #include "../Utils/KeyboardEvent.h"
+#include "GUIBase.h"
 
-using namespace irr;
-using namespace video;
 using namespace core;
-using namespace gui;
 
 
-class NickMenu {
+class NickMenu : public GUIBase{
 private:
-    IrrlichtDevice* device;
-    IVideoDriver* driver;
-    IGUIEnvironment* gui;
 
+    IGUIEditBox* editBox;
+    IGUIFont* font;
 
-    KeyboardEvent* keyEvent;
-
-    IGUIImage* welcome;
+    IGUIImage* crazyMarble;
     IGUIImage* enterNick;
     IGUIButton* valide;
     IGUIButton* exit;
 
 public:
     NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent);
-    void loop();
+    virtual ~NickMenu();
+
+    const wchar_t* loop();
 };
 
 
-#endif //CRAZYMARBLE3DCLION_NICKMENU_H
+#endif //CRAZYMARBLE3D_NICKMENU_H

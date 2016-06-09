@@ -1,9 +1,11 @@
+#ifndef CRAZYMARBLE3D_TEXTURELOADER_H
+#define CRAZYMARBLE3D_TEXTURELOADER_H
+
 #include <irrlicht.h>
-#include <iostream>
 
 using namespace irr;
-using namespace irr::video;
-using namespace irr::scene;
+using namespace video;
+using namespace scene;
 
 class TextureLoader
 {
@@ -12,6 +14,10 @@ public:
 
     static ITexture* tile;
     static ITexture* sphere;
+    static ITexture* sphereRed;
+    static ITexture* sphereBlack;
+    static ITexture* sphereOrange;
+    static ITexture* finish_line;
 
     static IAnimatedMesh* cellMesh;
     static IAnimatedMesh* cell_pente_Mesh;
@@ -20,3 +26,4 @@ public:
 	static IAnimatedMesh* sphereMesh;
 };
 
+#endif //CRAZYMARBLE3D_TEXTURELOADER_H

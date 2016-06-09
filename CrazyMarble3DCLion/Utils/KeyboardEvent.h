@@ -2,13 +2,12 @@
 // Created by romain on 26/04/16.
 //
 
-#ifndef CRAZYMARBLE3DCLION_KEYBOARDEVENT_H
-#define CRAZYMARBLE3DCLION_KEYBOARDEVENT_H
+#ifndef CRAZYMARBLE3D_KEYBOARDEVENT_H
+#define CRAZYMARBLE3D_KEYBOARDEVENT_H
 
 #include <irrlicht.h>
 
 using namespace irr;
-using namespace gui;
 
 class KeyboardEvent : public IEventReceiver{
 
@@ -19,7 +18,7 @@ private:
 public :
 
     virtual bool OnEvent(const SEvent& event);
-    virtual bool IsKeyDown(EKEY_CODE keyCode) const;
+    virtual bool IsKeyDown(EKEY_CODE keyCode, bool loop=false);
     KeyboardEvent();
 
 
@@ -27,4 +26,4 @@ public :
 };
 
 
-#endif //CRAZYMARBLE3DCLION_KEYBOARDEVENT_H
+#endif //CRAZYMARBLE3D_KEYBOARDEVENT_H

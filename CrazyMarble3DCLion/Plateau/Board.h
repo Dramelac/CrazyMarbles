@@ -2,8 +2,8 @@
 // Created by mathieu on 23/02/16.
 //
 
-#ifndef TESTISO_BOARD_HPP
-#define TESTISO_BOARD_HPP
+#ifndef CRAZYMARBLE3D_BOARD_HPP
+#define CRAZYMARBLE3D_BOARD_HPP
 
 
 #include "Cell.h"
@@ -14,22 +14,26 @@ private:
 	int widthNumber;
 	int heightNumber;
 
-	void initAllCellPlace(ISceneManager *sceneManager);
-public:
-	Board(const unsigned int hauteur, const unsigned int largeur, ISceneManager* sceneManager);
-    Board(u16 size);
+	ISceneNode* startPoint;
 
+public:
+	Board(ISceneManager* sceneManager, u16 size);
+    Board(ISceneManager* sceneManager);
     ~Board();
 
-	int getLargeur() const;
-	int getHauteur() const;
+	Cell* getCell(vector3di cursor);
 
-    void setupCell(ISceneManager *sceneManager,
-                   vector3di cursor,
-                   s16 type=0, vector3di rotation=vector3di(0, 0, 0));
+    void setupStartPoint(vector3di cursor);
+    vector3df getStartPoint();
 
-	IMetaTriangleSelector* getMapMetaSelector(ISceneManager* sceneManager);
+    // Map meta selector / finish line collision
+	IMetaTriangleSelector* getMapMetaSelector(ISceneManager* sceneManager, bool filterFinish = false);
+    // entity map collision
+    void setupCollisionEntity(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager);
+    void setPlayerToEntities(ISceneManager *sceneManager, Player* player, bool activePlayer=true);
+
+    void applyMovingOnEntities(f32 deltaTime,IRandomizer *rand);
 };
 
 
-#endif //TESTISO_BOARD_HPP
+#endif //CRAZYMARBLE3D_BOARD_HPP

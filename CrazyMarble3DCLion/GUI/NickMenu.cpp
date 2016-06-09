@@ -1,32 +1,38 @@
-//
-// Created by antoine on 04/05/16.
+//sd by antoine on 04/05/16.
 //
 
 #include "NickMenu.h"
 
 
-NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
-        device(device), keyEvent(keyEvent) {
+NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent)
+        : GUIBase(device, keyEvent) {
 
-    gui = device->getGUIEnvironment();
-    driver = device->getVideoDriver();
+    exit = gui->addButton(rect<s32>(1700,900,1900,1000), 0, 101, L"", L"Exits Program");
+    exit->setImage(driver->getTexture("data/GUI/Menu/bouton_menu_quit.png"));
+    exit->setDrawBorder(false);
+    exit->setUseAlphaChannel(true);
 
-    this->device->setWindowCaption(L"Crazy Marble  -  [MENU]");
-    device->getCursorControl()->setVisible(true);
+    valide = gui->addButton(rect<s32>(890,700,1010,750), 0, 103, L"");
+    valide->setImage(driver->getTexture("data/GUI/Menu/menu_pause_valid.png"));
+    valide->setDrawBorder(false);
+    valide->setUseAlphaChannel(true);
+
+    enterNick = gui->addImage(rect<s32>(700,600,980,690),0,105);
+    enterNick->setImage(driver->getTexture("data/GUI/Menu/enter_nickname.png"));
+    enterNick->setUseAlphaChannel(true);
+    enterNick->setScaleImage(true);
 
 
-    gui->addImage(driver->getTexture("data/GUI/BGCM.png"), position2d<int>(0, 0));
-
-    welcome = gui->addImage(driver->getTexture(""), position2d<int>(0, 0));
-    exit = gui->addButton(rect<s32>(1800,950,1900,1000), 0, 101, L"Quit", L"Exits Program");
-    valide = gui->addButton(rect<s32>(600,550,1320,650), 0, 103, L"Valider");
-
+    editBox = gui->addEditBox(L"", rect<irr::s32>(1000,620,1200,670));
+    font = gui->getFont("data/GUI/Menu/fontlucida.png");
+    editBox->setOverrideFont(font);
+    editBox->setOverrideColor(SColor(255,0,0,0));
 
 
 }
 
 
-void NickMenu::loop() {
+const wchar_t* NickMenu::loop() {
     while (device->run()){
         if (device->isWindowActive())
         {
@@ -36,13 +42,23 @@ void NickMenu::loop() {
 
             driver->endScene();
 
+            if (valide->isPressed() || keyEvent->IsKeyDown(KEY_ESCAPE, true)){
+                const wchar_t *nickname  = editBox->getText();
+                return nickname;
+            }
             if (exit->isPressed()){
                 device->closeDevice();
-
-            } else if (valide->isPressed()){
-
-                return;
+                return L"";
             }
         }
     }
+    return L"";
+}
+
+NickMenu::~NickMenu() {
+    editBox->remove();
+    valide->remove();
+    exit->remove();
+    enterNick->remove();
+    
 }

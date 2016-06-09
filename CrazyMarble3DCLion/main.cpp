@@ -1,8 +1,4 @@
-#include <irrlicht.h>
 #include "General/IrrlichtMain.h"
-
-using namespace irr;
-
 
 int main(void) {
 

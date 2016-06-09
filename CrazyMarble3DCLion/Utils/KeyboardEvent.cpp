@@ -19,7 +19,7 @@ bool KeyboardEvent::OnEvent(const SEvent &event)
         keyPressedDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
     }
     else if (event.EventType == EET_GUI_EVENT){
-        if (event.GUIEvent.EventType == EGET_BUTTON_CLICKED){
+        if (event.GUIEvent.EventType == gui::EGET_BUTTON_CLICKED){
             switch (event.GUIEvent.Caller->getID()){
                 case 101:
                     //std::cout << "closing " << std::endl;
@@ -36,8 +36,17 @@ bool KeyboardEvent::OnEvent(const SEvent &event)
 }
 
 // Keyboard checker
-bool KeyboardEvent::IsKeyDown(EKEY_CODE keyCode) const  {
-    return keyPressedDown[keyCode];
+bool KeyboardEvent::IsKeyDown(EKEY_CODE keyCode, bool loop) {
+    if (loop){
+        if (keyPressedDown[keyCode]){
+            keyPressedDown[keyCode] = false;
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return keyPressedDown[keyCode];
+    }
 }
 
 void KeyboardEvent::setDevice(IrrlichtDevice *device) {
