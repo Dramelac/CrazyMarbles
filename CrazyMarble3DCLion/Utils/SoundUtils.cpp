@@ -61,16 +61,10 @@ void SoundUtils::fallSound() {
 }
 
 
+bool SoundUtils::isStatusSound() {
+    return statusSound;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+bool SoundUtils::isNoise() {
+    return noise;
+}

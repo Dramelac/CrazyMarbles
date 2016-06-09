@@ -10,15 +10,13 @@ class SoundUtils
 {
 
 private:
-    //static bool statusSound;
+    static bool statusSound;
     static ISoundEngine* engine;
     static ik_f32 vol;
-    //static bool noise;
+    static bool noise;
 
 
 public:
-    static bool noise;
-    static bool statusSound;
     static void play();
     static void getDamage();
     static void muteSoundBack();
@@ -28,6 +26,8 @@ public:
     static void fallSound();
     static void timerSound();
 
+    static bool isStatusSound();
+    static bool isNoise();
 };
 
 #endif //CRAZYMARBLE3D_SOUNDUTILS_H
