@@ -27,6 +27,7 @@ private:
     IGUIImage* background;
 
     void visibilityButons(bool status);
+    void soundBack(bool);
 
 public:
 

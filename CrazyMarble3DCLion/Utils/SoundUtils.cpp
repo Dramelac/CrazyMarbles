@@ -24,10 +24,9 @@ void SoundUtils::muteSoundBack() {
     if(statusSound){
         engine->setAllSoundsPaused(false);
         statusSound = false;
-        //engine->setSoundVolume(vol);
+
     }else{
-        //vol = engine->getSoundVolume();
-        //engine->setSoundVolume(0);
+
         engine->setAllSoundsPaused(true);
         statusSound = true;
     }

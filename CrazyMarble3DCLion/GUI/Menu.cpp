@@ -48,13 +48,13 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     nickName->setText(temp);
 
     mutedBackSound = gui->addButton(rect<s32>(1600, 70, 1650, 120),0 ,104,L"");
-    mutedBackSound->setImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_credits_selected.png"));
+    mutedBackSound->setImage(driver->getTexture("data/GUI/Menu/muteSound.png"));
     mutedBackSound->setDrawBorder(false);
     mutedBackSound->setUseAlphaChannel(true);
     mutedBackSound->setScaleImage(true);
 
     mutedNoise = gui->addButton(rect<s32>(1500, 70, 1550, 120),0 ,104,L"");
-    mutedNoise->setImage(driver->getTexture("data/GUI/Menu/button/bouton_main_menu_credits_selected.png"));
+    mutedNoise->setImage(driver->getTexture("data/GUI/Menu/muteNoise.png"));
     mutedNoise->setDrawBorder(false);
     mutedNoise->setUseAlphaChannel(true);
     mutedNoise->setScaleImage(true);
@@ -71,6 +71,8 @@ void Menu::loop() {
             gui->drawAll();
 
             driver->endScene();
+
+            soundBack(SoundUtils::statusSound);
 
             if (exit->isPressed() || keyEvent->IsKeyDown(KEY_ESCAPE, true)){
                 device->closeDevice();
@@ -119,5 +121,16 @@ void Menu::visibilityButons(bool status) {
     mutedNoise->setVisible(status);
     mutedBackSound->setVisible(status);
 }
+
+void Menu::soundBack(bool) {
+    if(SoundUtils::statusSound){
+        mutedBackSound->setImage(driver->getTexture("data/GUI/Menu/muteSound.png"));
+    }else{
+        mutedBackSound->setImage(driver->getTexture("data/GUI/Menu/sound.png"));
+    }
+
+}
+
+
 
 

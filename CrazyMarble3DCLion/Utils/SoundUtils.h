@@ -10,13 +10,14 @@ class SoundUtils
 {
 
 private:
-    static bool statusSound;
+    //static bool statusSound;
     static ISoundEngine* engine;
     static ik_f32 vol;
     static bool noise;
 
 
 public:
+    static bool statusSound;
     static void play();
     static void getDamage();
     static void muteSoundBack();
