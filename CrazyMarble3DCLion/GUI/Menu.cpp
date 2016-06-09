@@ -73,6 +73,7 @@ void Menu::loop() {
             driver->endScene();
 
             soundBack(SoundUtils::statusSound);
+            noiseSound(SoundUtils::noise);
 
             if (exit->isPressed() || keyEvent->IsKeyDown(KEY_ESCAPE, true)){
                 device->closeDevice();
@@ -130,6 +131,16 @@ void Menu::soundBack(bool) {
     }
 
 }
+
+void Menu::noiseSound(bool) {
+    if(SoundUtils::noise){
+        mutedNoise->setImage(driver->getTexture("data/GUI/Menu/noise.png"));
+    }else{
+        mutedNoise->setImage(driver->getTexture("data/GUI/Menu/muteNoise.png"));
+    }
+}
+
+
 
 
 

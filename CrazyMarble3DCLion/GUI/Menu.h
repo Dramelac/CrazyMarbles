@@ -28,6 +28,7 @@ private:
 
     void visibilityButons(bool status);
     void soundBack(bool);
+    void noiseSound(bool);
 
 public:
 
