@@ -2,8 +2,6 @@
 // Created by mathieu on 03/05/16.
 //
 
-#include <stdio.h>
-#include <iostream>
 #include "LevelEditor.h"
 
 const u16 LevelEditor::size = 50;
@@ -34,9 +32,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
     // light everywhere
     sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));
 
-    //fixeCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
     updateCamera();
-
 
     // TEMP
     board->getCell(cursor)->setup(sceneManager, cursor);
@@ -47,7 +43,7 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
 
 
 LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path pathMap)
-        : GUIBase(device, keyEvent), play(true), cursor(vector3di(0, 0, 0)),
+        : GUIBase(device, keyEvent), play(true),
           currentType(0), currentRotation(vector3di(0, 0, 0)) {
 
     this->driver = this->device->getVideoDriver();                      // creation driver
@@ -71,8 +67,12 @@ LevelEditor::LevelEditor(IrrlichtDevice *device, KeyboardEvent *keyEvent, path p
     // light everywhere
     sceneManager->setAmbientLight(video::SColorf(255.0,255.0,255.0));
 
-    //fixeCamera = sceneManager->addCameraSceneNodeFPS(0, 200.0f, 0.1f, -1);
-    updateCamera();
+    //spawn point level editor
+    vector3df startPos = board->getStartPoint();
+    cursor.X = (s32)(startPos.X / Cell::size);
+    cursor.Y = (s32)(startPos.Z / Cell::size);
+
+    move(vector3di(0,0,0));
 
     campaignMapList = new SideMapList(device, keyEvent);
 
@@ -248,9 +248,8 @@ void LevelEditor::updateCamera() {
     cameraPos.X = cursor.X * Cell::size;
     cameraPos.Z = cursor.Y * Cell::size;
     cameraPos.Y = (cursor.Z * -Cell::size) - 250;
-    vector3df lookAt = vector3df(cameraPos);
 
-    player->setPosition(lookAt);
+    player->setPosition(cameraPos);
     player->updateCamera();
 }
 
