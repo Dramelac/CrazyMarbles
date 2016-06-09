@@ -8,7 +8,7 @@
 SideMapList::SideMapList(IrrlichtDevice* device, KeyboardEvent* keyEvent)
         : GUIBase(device, keyEvent) {
 
-    title = gui->addImage(driver->getTexture("data/GUI/LevelEditor/Menu/Campaign.png"), position2d<int>(250, 0));
+    title = gui->addImage(driver->getTexture("data/GUI/LevelEditor/editeur_Campaign.png"), position2d<int>(250, 20));
     array<path> pathList = campaign.getMapCycle();
 
     u16 i =0;
@@ -25,8 +25,10 @@ SideMapList::SideMapList(IrrlichtDevice* device, KeyboardEvent* keyEvent)
         addMapButton->setVisible(false);
     }
 
-    saving = gui->addButton(rect<s32>(vector2d<s32>(1500,15), dimension2d<s32>(300,50)),0,-1,L"Saving campaign");
-
+    saving = gui->addButton(rect<s32>(vector2d<s32>(1500,15), dimension2d<s32>(300,50)),0,-1,L"");
+    saving->setImage(driver->getTexture("data/GUI/LevelEditor/editeur_bouton_save_Campaign.png"));
+    saving->setDrawBorder(false);
+    saving->setUseAlphaChannel(true);
 }
 
 SideMapList::~SideMapList() {

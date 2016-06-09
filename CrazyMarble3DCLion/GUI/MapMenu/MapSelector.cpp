@@ -23,7 +23,7 @@ MapSelector::MapSelector(IrrlichtDevice *device, KeyboardEvent *keyEvent) :
         path tempFile = fileListTemp[i];
         // check .irr extension
         if (tempFile.subString((u32)tempFile.findLastChar(".") + 1, tempFile.size()) == "irr") {
-            myMapList.push_back(new MapButton(fileListTemp[i], count, gui));
+            myMapList.push_back(new MapButton(fileListTemp[i], count, gui, driver));
             count++;
         }
     }
