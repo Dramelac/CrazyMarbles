@@ -9,6 +9,8 @@
 #include "NickMenu.h"
 #include "IntermediateMenu/MenuLevelEditor.h"
 #include "IntermediateMenu/MenuPlayMode.h"
+#include "Credit.h"
+#include "../Utils/SoundUtils.h"
 
 using namespace core;
 
@@ -19,12 +21,16 @@ private:
     IGUIButton* play;
     IGUIButton* levelEditor;
     IGUIButton* credit;
+    IGUIButton* mutedBackSound;
+    IGUIButton* mutedNoise;
 
     IGUIButton* nickName;
 
     IGUIImage* background;
 
     void visibilityButons(bool status);
+    void soundBack(bool);
+    void noiseSound(bool);
 
 public:
 

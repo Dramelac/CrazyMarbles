@@ -186,25 +186,6 @@ void Player::updateFOV(f32 x) {
     fixeCamera->setFOV(temp + x);
 }
 
-// check player falling status (DEPRECATED)
-/*bool Player::isFall() {
-    if (animatorCollisionResponse->isFalling()){
-        fallDistance++;
-        if (fallDistance > 50) {
-            sceneNode->setPosition(startPos);
-            inertie = vector3df(0,0,0);
-            animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
-            fallDistance = 0;
-            return true;
-        }
-    } else {
-        //startPos = animatorCollisionResponse->getCollisionResultPosition();
-        //startPos = sceneNode->getPosition();
-        fallDistance = 0;
-    }
-    return false;
-}*/
-
 // setup finish line collision (detection end game)
 void Player::addFinishLineCollision(IMetaTriangleSelector *metaSelector, ISceneManager *sceneManager) {
 
@@ -308,6 +289,7 @@ void Player::updateGui() {
 void Player::takeDamage(u64 dmg) {
     Entities::takeDamage(dmg);
     updateGui();
+    SoundUtils::getDamage();
 }
 
 s32 Player::getScore() const {
@@ -315,6 +297,7 @@ s32 Player::getScore() const {
 }
 
 void Player::respawn() {
+    SoundUtils::fallSound();
    setPosition(startPos);
    //animatorCollisionResponse->setGravity(vector3df(0, -20, 0));
    fallDistance = 0;

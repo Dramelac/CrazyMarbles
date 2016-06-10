@@ -93,6 +93,7 @@ s16 Game::gameLoop() {
                 // player is dead
                 chrono->stop();
                 player->setGravity();
+                SoundUtils::looseSound();
                 WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t YOU DIED !");
                 return popup.loop();
             }
@@ -100,12 +101,14 @@ s16 Game::gameLoop() {
             if (chrono->getTime() == 0){
                 chrono->stop();
                 player->setGravity();
+                SoundUtils::timerSound();
                 WinLooseChoose popup(device, keyevent, "\t\t\t\t\t\t\t\t\t\t\t\t\t TIMES UP !");
                 return popup.loop();
             }
 
             if (player->checkFinish()){
                 // player win
+                SoundUtils::winSound();
                 WinLooseChoose popup(device, keyevent, player->calculFinal(chrono->getTime()), true);
                 chrono->stop();
                 return popup.loop();
