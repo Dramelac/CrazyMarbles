@@ -13,7 +13,7 @@ void SoundUtils::play() {
         std::cout << "fail engine loading" << std::endl;
         return;
     }
-    engine->play2D("data/Sound/makeourstory.wav");
+    engine->play3D("data/Sound/makeourstory.wav",vec3df(5.0f,10.0f,50.0f));
 
 }
 
@@ -47,7 +47,7 @@ void SoundUtils::winSound() {
 
 void SoundUtils::looseSound() {
     if(noise) {
-        engine->play2D("data/Sound/loose.wav");
+        engine->play2D("data/Sound/loose2.wav");
     }
 }
 
@@ -59,7 +59,7 @@ void SoundUtils::timerSound() {
 
 void SoundUtils::fallSound() {
     if(noise) {
-        engine->play2D("data/Sound/fall.wav");
+        engine->play2D("data/Sound/loose2.wav");
     }
 }
 
