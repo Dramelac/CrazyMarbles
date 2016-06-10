@@ -11,14 +11,15 @@ using namespace irr;
 using namespace io;
 using namespace gui;
 using namespace core;
+using namespace video;
 
 class MapButton {
 private:
     path map;
     IGUIButton* myButton;
 public:
-    MapButton(const path &map, u16 nPos, IGUIEnvironment* gui);
-    MapButton(const path &map, IGUIEnvironment* gui, vector2d<s32> pos, dimension2d<s32> size);
+    MapButton(const path &map, u16 nPos, IGUIEnvironment* gui, IVideoDriver* driver);
+    MapButton(const path &map, IGUIEnvironment* gui, vector2d<s32> pos, dimension2d<s32> size, IVideoDriver* driver);
     virtual ~MapButton();
 
     bool checkPressed();

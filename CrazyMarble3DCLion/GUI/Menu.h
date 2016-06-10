@@ -9,6 +9,8 @@
 #include "NickMenu.h"
 #include "IntermediateMenu/MenuLevelEditor.h"
 #include "IntermediateMenu/MenuPlayMode.h"
+#include "Credit.h"
+#include "../Utils/SoundUtils.h"
 
 using namespace core;
 

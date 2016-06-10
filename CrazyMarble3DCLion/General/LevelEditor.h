@@ -5,6 +5,8 @@
 #ifndef CRAZYMARBLE3D_LEVELEDITOR_H
 #define CRAZYMARBLE3D_LEVELEDITOR_H
 
+#include <stdio.h>
+
 #include "../Utils/KeyboardEvent.h"
 #include "../Plateau/Board.h"
 #include "../Play/Player.h"

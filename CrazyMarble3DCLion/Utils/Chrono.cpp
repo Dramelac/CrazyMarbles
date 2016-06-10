@@ -10,9 +10,9 @@ Chrono::Chrono(IrrlichtDevice* inDevice, u32 chrono, IVideoDriver* driver) {
     timer = inDevice->getTimer();
     timer->setTime(0);
     timer->setSpeed(1);
-    displayChrono = inDevice->getGUIEnvironment()->addStaticText(L"60",rect<s32>(885,20,935,80));
     backTimer = inDevice->getGUIEnvironment()->addImage(driver->getTexture("data/GUI/Menu/play/timer.png"), vector2d<s32>(845,-5));
     backTimer->setScaleImage(true);
+    displayChrono = inDevice->getGUIEnvironment()->addStaticText(L"60",rect<s32>(885,20,935,80));
 }
 
 Chrono::~Chrono() {

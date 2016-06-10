@@ -22,10 +22,6 @@ NickMenu::NickMenu(IrrlichtDevice *device, KeyboardEvent *keyEvent)
     enterNick->setUseAlphaChannel(true);
     enterNick->setScaleImage(true);
 
-    crazyMarble = gui->addImage(rect<s32>(630,380,1320,580),0,104);
-    crazyMarble->setImage(driver->getTexture("data/GUI/Menu/crazyM.png"));
-    crazyMarble->setUseAlphaChannel(true);
-    crazyMarble->setScaleImage(true);
 
     editBox = gui->addEditBox(L"", rect<irr::s32>(1000,620,1200,670));
     font = gui->getFont("data/GUI/Menu/fontlucida.png");
@@ -63,7 +59,6 @@ NickMenu::~NickMenu() {
     editBox->remove();
     valide->remove();
     exit->remove();
-    crazyMarble->remove();
     enterNick->remove();
     
 }
