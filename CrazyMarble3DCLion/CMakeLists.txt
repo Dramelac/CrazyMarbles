@@ -45,7 +45,7 @@ file(
 
 
 #declaration de l'executable
-add_executable(CrazyMarble3DCLion ${SOURCE_FILES} GUI/Credit.cpp GUI/Credit.h)
+add_executable(CrazyMarble3DCLion ${SOURCE_FILES})
 
 
 #liaison du programme avec la bibliothèque
