@@ -10,19 +10,20 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 #set(EXECUTABLE_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE})
 
 set(IRRLICHT_PATH_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/../irrlicht-1.8.3/include)
+set(IRRKLANG_PATH_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.5.0/include)
 set(RAKNET_PATH_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/../RakNet/Source)
 
 set(IRRLICHT_PATH_LIB ${CMAKE_CURRENT_SOURCE_DIR}/../irrlicht-1.8.3/lib/Linux)
 set(RAKNET_PATH_LIB ${CMAKE_CURRENT_SOURCE_DIR}/../RakNet/Lib/DLL)
+set(IRRKLANG_PATH_LIB ${CMAKE_CURRENT_SOURCE_DIR}/../irrKlang-64bit-1.5.0/bin/linux-gcc-64)
 
 #==================================
 #======INCLUSION D'IRRLICHT========
 #==================================
 #inclure le repertoire contenant les entetes de irrlicht
-include_directories(${IRRLICHT_PATH_INCLUDE} ${RAKNET_PATH_INCLUDE})
+include_directories(${IRRLICHT_PATH_INCLUDE} ${RAKNET_PATH_INCLUDE} ${IRRKLANG_PATH_INCLUDE})
 #inlude les bibliothèque compiles
-link_directories(${IRRLICHT_PATH_LIB} ${RAKNET_PATH_LIB})
-
+link_directories(${IRRLICHT_PATH_LIB} ${RAKNET_PATH_LIB}  ${IRRKLANG_PATH_LIB})
 
 #ficihier du projet
 file(
@@ -55,4 +56,5 @@ target_link_libraries(
         X11
         Xxf86vm
         GL
+        IrrKlang
 )

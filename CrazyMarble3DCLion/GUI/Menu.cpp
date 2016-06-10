@@ -3,12 +3,12 @@
 //
 
 #include "Menu.h"
-#include "Credit.h"
 
 Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
         : GUIBase(inDevice, keyEvent) {
 
     this->device->setWindowCaption(L"Crazy Marble  -  [MENU]");
+    SoundUtils::play();
     device->getCursorControl()->setVisible(true);
 
     background = gui->addImage(driver->getTexture("data/GUI/Menu/BGCM1.png"), position2d<int>(0, 0));
@@ -48,6 +48,18 @@ Menu::Menu(IrrlichtDevice *inDevice, KeyboardEvent *keyEvent)
     nickName->setDrawBorder(false);
     nickName->setScaleImage(true);
 
+    mutedBackSound = gui->addButton(rect<s32>(1600, 70, 1650, 120),0 ,104,L"");
+    mutedBackSound->setImage(driver->getTexture("data/GUI/Menu/muteSound.png"));
+    mutedBackSound->setDrawBorder(false);
+    mutedBackSound->setUseAlphaChannel(true);
+    mutedBackSound->setScaleImage(true);
+
+    mutedNoise = gui->addButton(rect<s32>(1500, 70, 1550, 120),0 ,104,L"");
+    mutedNoise->setImage(driver->getTexture("data/GUI/Menu/muteNoise.png"));
+    mutedNoise->setDrawBorder(false);
+    mutedNoise->setUseAlphaChannel(true);
+    mutedNoise->setScaleImage(true);
+
 }
 
 
@@ -60,6 +72,9 @@ void Menu::loop() {
             gui->drawAll();
 
             driver->endScene();
+
+            soundBack(SoundUtils::isStatusSound());
+            noiseSound(SoundUtils::isNoise());
 
             if (exit->isPressed() || keyEvent->IsKeyDown(KEY_ESCAPE, true)){
                 device->closeDevice();
@@ -90,7 +105,14 @@ void Menu::loop() {
                 NickMenu nickMenu(device, keyEvent);
                 nickName->setText(nickMenu.loop());
                 visibilityButons(true);
+            } else if (mutedBackSound->isPressed()){
+                SoundUtils::muteSoundBack();
+                mutedBackSound->setPressed(false);
+            }else if (mutedNoise->isPressed()){
+                SoundUtils::muteNoise();
+                mutedNoise->setPressed(false);
             }
+
         }
     }
 }
@@ -103,6 +125,29 @@ void Menu::visibilityButons(bool status) {
     credit->setVisible(status);
     nickName->setVisible(status);
     background->setVisible(status);
+    mutedNoise->setVisible(status);
+    mutedBackSound->setVisible(status);
 }
+
+void Menu::soundBack(bool) {
+    if(SoundUtils::isStatusSound()){
+        mutedBackSound->setImage(driver->getTexture("data/GUI/Menu/muteSound.png"));
+    }else{
+        mutedBackSound->setImage(driver->getTexture("data/GUI/Menu/sound.png"));
+    }
+
+}
+
+void Menu::noiseSound(bool) {
+    if(SoundUtils::isNoise()){
+        mutedNoise->setImage(driver->getTexture("data/GUI/Menu/noise.png"));
+    }else{
+        mutedNoise->setImage(driver->getTexture("data/GUI/Menu/muteNoise.png"));
+    }
+}
+
+
+
+
 
 
