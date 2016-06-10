@@ -12,7 +12,6 @@ class SoundUtils
 private:
     static bool statusSound;
     static ISoundEngine* engine;
-    static ik_f32 vol;
     static bool noise;
 
 

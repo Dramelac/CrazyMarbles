@@ -5,7 +5,6 @@
 ISoundEngine* SoundUtils::engine = createIrrKlangDevice();
 
 bool SoundUtils::statusSound = false;
-ik_f32 SoundUtils::vol = 50;
 bool SoundUtils::noise = true;
 
 
@@ -15,7 +14,8 @@ void SoundUtils::play() {
         return;
     }
     std::cout << "sound" << std::endl;
-    engine->play2D("data/Sound/makeourstory2.wav");
+    engine->play2D("data/Sound/makeourstory.wav");
+    engine->
 
     return;
 }
