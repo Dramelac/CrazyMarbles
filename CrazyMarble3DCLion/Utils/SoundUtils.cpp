@@ -15,7 +15,7 @@ void SoundUtils::play() {
         return;
     }
     std::cout << "sound" << std::endl;
-    engine->play2D("data/Sound/makeourstory.wav");
+    engine->play2D("data/Sound/makeourstory2.wav");
 
     return;
 }
@@ -43,21 +43,21 @@ void SoundUtils::muteNoise() {
 }
 
 void SoundUtils::winSound() {
-    engine->play2D("data/Sound/pop.wav");
+    engine->play2D("data/Sound/win.wav");
 }
 
 
 void SoundUtils::looseSound() {
-    engine->play2D("data/Sound/pop.wav");
+    engine->play2D("data/Sound/loose.wav");
 
 }
 
 void SoundUtils::timerSound() {
-    engine->play2D("data/Sound/pop.wav");
+    engine->play2D("data/Sound/timer.wav");
 }
 
 void SoundUtils::fallSound() {
-    engine->play2D("data/Sound/pop.wav");
+    engine->play2D("data/Sound/fall.wav");
 }
 
 
